@@ -1,9 +1,9 @@
 # Site settings
 title: Zpyang-Bert Blog
 SEOTitle: 杨泽鹏的博客 | Zpyang-Bert Blog
-header-img: img/home-bg.jpg
+header-img: img/bg-walle.jpg
 email: zpyang@163.com
-description: "这里是 @Bert杨泽鹏 的个人博客，问渠那得清如许？为有源头活水来 | 要做一个有 swag 的程序员"
+description: "这里是 @Bert杨泽鹏 的个人博客，问渠哪得清如许？为有源头活水来 | 要做一个有 swag 的程序员"
 keyword: "杨泽鹏, Zpyang, Bert, 杨泽鹏的博客, Zpyang-Bert, 博客, 个人网站, 嵌入式, Linux, 安全, 音频, 低功耗, SerDes, RTOS, ARM, RISCV, MIPS"
 url: "https://zpyang-bert.github.io/" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
@@ -69,8 +69,8 @@ netease_comment: false
 # ba_track_id: [your track id]
 
 # Google Analytics
-# ga_track_id: "UA-49627206-1" # Format: UA-xxxxxx-xx
-# ga_domain: huangxuan.me
+ga_track_id: "UA-49627206-1" # Format: UA-xxxxxx-xx
+ga_domain: auto
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
