@@ -1752,8 +1752,6 @@ pip install cffi
 
 假设我们有一个简单的 `Python` 函数，我们希望从 `C` 代码中调用它。首先，我们定义这个函数和一个接口以供 `C` 使用。
 
-创建一个名为 `example.py` 的文件，内容如下：
-
 ```python
 from cffi import FFI
 
@@ -1769,9 +1767,7 @@ def add(x, y):
 lib.register_callback_add(add) 
 ```
 
-运行这个 `Python` 脚本将会生成一个名为 `_example.*.so` 的共享库，其中 `*` 是特定于平台的一些标识符。
-
-步骤 2: 编写 `C` 代码
+**步骤 2**: 编写 `C` 代码
 
 现在，你可以在 C 程序中使用这个共享库来调用 `my_python_function` 函数。
 
