@@ -29,9 +29,9 @@ tags:
   + `VPU`  (客制化sine指令)
 + `ASP` (Andes Streaming Port)
 
-![image-20240624090217200](../img/2024-06-21-andes_introduction/image-20240624090217200.png)
+![image-20240624090217200](/img/2024-06-21-andes_introduction/image-20240624090217200.png)
 
-![image-20240624090733325](../img/2024-06-21-andes_introduction/image-20240624090733325.png)
+![image-20240624090733325](/img/2024-06-21-andes_introduction/image-20240624090733325.png)
 
 **在pipeline中当decode ACE指令时, 则会运行ACE逻辑, 不会pipeline水线执行.**
 
@@ -110,7 +110,7 @@ Vector Memory ---> `databus` > 85%.
 
 `user.ace`/`user.v` --> copilot --> 自动整合上述 --> 产生cross check(UVM)环境(test cases: Extended ISS/RTL)
 
-![image-20240624090616420](../img/2024-06-21-andes_introduction/image-20240624090616420.png)
+![image-20240624090616420](/img/2024-06-21-andes_introduction/image-20240624090616420.png)
 
 ### Cases
 
