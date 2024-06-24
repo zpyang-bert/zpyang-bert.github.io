@@ -33,7 +33,7 @@ tags:
 
 ![image-20240624090733325](/img/2024-06-21-andes_introduction/image-20240624090733325.png)
 
-**在pipeline中当decode ACE指令时, 则会运行ACE逻辑, 不会pipeline水线执行.**
+**在pipeline中当decode ACE指令时, 则会运行ACE逻辑, 不会阻塞pipeline水线执行.**
 
 ### Why ACE-COPILOT
 
