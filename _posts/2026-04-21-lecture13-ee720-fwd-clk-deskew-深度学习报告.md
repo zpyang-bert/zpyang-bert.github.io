@@ -23,7 +23,7 @@ Lecture 13: Forwarded Clock Deskew Circuits
          Analog & Mixed-Signal Center
              Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第十三讲，主题是前向时钟传输与去偏移技术，主要解决多通道并行传输或者前向时钟串行传输中的时钟偏移问题，保证多通道之间的同步。
 > 【核心结论】内容覆盖时钟偏移的来源、前向时钟传输架构、去偏移电路设计、相位校准技术、多通道同步技术，适用于并行高速接口和前向时钟串行接口设计。
@@ -48,7 +48,7 @@ Announcements
 
                                                             2
 
-![时钟偏移来源](_images/img-001.jpg)
+![时钟偏移来源](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】前向时钟传输中的时钟偏移来源示意图，时钟和数据经过不同的路径，会产生相位偏差，导致采样错误。
 > 【核心结论】时钟偏移的主要来源包括：1) PCB走线长度的差异，导致传输延迟不同；2) 发送端输出延迟的工艺偏差；3) 接收端输入延迟的工艺偏差；4) 温度和电压变化导致的延迟差异；总偏移可以达到几个UI，必须校准才能正常工作。
@@ -71,7 +71,7 @@ Agenda
 
                                                   3
 
-![前向时钟架构](_images/img-002.jpg)
+![前向时钟架构](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】前向时钟传输架构示意图，时钟和数据一起传输，接收端用传输过来的时钟采样数据，不需要CDR模块，结构简单，功耗低。
 > 【核心结论】前向时钟架构的优点是结构简单，不需要复杂的CDR模块，功耗低，成本低；缺点是需要额外的时钟通道，并且需要校准时钟和数据之间的相位偏差，传输距离有限，适合短距板级或者芯片间互连。
@@ -100,7 +100,7 @@ Forwarded Clock I/O Architecture
                     is attenuated by the channel
                                                       4
 
-![去偏移电路](_images/img-003.jpg)
+![去偏移电路](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】典型的去偏移电路架构示意图，通过可调节的延迟线，调整数据或者时钟的延迟，使得时钟采样时刻位于数据眼图的中心位置。
 > 【核心结论】去偏移电路主要由可调延迟线、相位检测器、控制逻辑组成，相位检测器比较时钟和数据的相位，控制逻辑调整延迟线的延迟，直到相位对齐，实现自动校准。
@@ -130,7 +130,7 @@ Forwarded Clock I/O Limitations
 
                                                      5
 
-![多通道同步](_images/img-004.jpg)
+![多通道同步](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】多通道同步技术示意图，在多通道并行传输中，需要保证所有通道的数据在接收端是对齐的，才能正确恢复出并行数据。
 > 【核心结论】多通道同步的方法包括：1) 发送端发送训练序列，接收端检测训练序列的位置，调整每个通道的延迟，使得所有通道的训练序列对齐；2) 采用FIFO缓存，读出侧用统一的时钟读出，实现通道对齐；3) 相位校准，调整每个通道的采样相位，保证每个通道的采样时刻都在眼图中心。

@@ -20,7 +20,7 @@ tags:
 
 ### 1.1 高速链路噪声分类
 
-![](lecture9_ee720_noise_sources_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】噪声是高速链路设计中最核心的挑战之一。随着数据率提升到10+Gb/s，噪声不仅影响信号完整性，更直接决定了系统BER性能。传统噪声分析假设高斯分布，但对于确定性噪声（有界），这种假设会导致过度悲观的设计。
@@ -523,7 +523,7 @@ BER=10⁻¹²需要:
 
 ### 8.1 噪声分类体系图
 
-![](lecture9_ee720_noise_sources_images/img-023.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-023.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】本图展示了高速链路噪声的完整分类体系。传统教学往往单独讲解各类噪声，但实际系统设计中，理解噪声间的关联和叠加更为重要。这个分类框架是后续噪声预算分析的理论基础。

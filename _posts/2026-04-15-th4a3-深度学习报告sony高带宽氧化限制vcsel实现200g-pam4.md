@@ -720,40 +720,40 @@ P = 8mA × 2.5V = 20mW
 *Original paper figures (8 images):*
 
 ****
-![](_images/6b4e9b2f097928f43b1db3642e30a363abf75a4daecc12e1cb69665d5106df9e.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/6b4e9b2f097928f43b1db3642e30a363abf75a4daecc12e1cb69665d5106df9e.jpg)
 > 🔍 深度说明：本图展示Sony氧化限制VCSEL的L-I和V-I特性。L-I：阈值电流Ith≈5mA（@25°C），斜率效率约0.8W/A，工作电流8mA时输出功率约6mW。V-I：工作电压约2.5V（@8mA），串联电阻约50Ω。氧化限制VCSEL通过局部氧化AlAs层形成电流狭窄区（直径约8-10μm），实现电流和光学双重限制。VCSEL是数据中心光互连核心光源——阈值电流低、垂直发射易于光纤耦合、成本低。对200G PAM4（56GBd QPSK per wavelength），VCSEL波长通常选择850nm（MMF带宽@850nm>2000MHz·km）。
 
 ****
 *Fig. 1. LIV characteristics, (a) L-I, (b) V-I*
-![](_images/34b8c3aaced2ca58169540feff047f43182e4301dd366266b03f57a915468d00.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/34b8c3aaced2ca58169540feff047f43182e4301dd366266b03f57a915468d00.jpg)
 > 🔍 深度说明：本图为Fig.1的(b)子图——Sony氧化限制VCSEL在25°C和70°C下的V-I（电压-电流）特性曲线，横轴注入电流0~12mA，纵轴正向压降V。关键数据：25°C下开启电压约1.4~1.5V，70°C约1.35~1.45V（PN结负温度系数）；10mA时25°C压降约2.8V、70°C约2.65V；70°C微分电阻约90~100Ω，略低于25°C的100~110Ω。电压温度系数约-3~-4mV/°C。工程参考：VCSEL的V-I特性是驱动电路设计的基础——高温下相同电流的压降更低了，但结电阻也在变化，驱动芯片需要补偿这种温漂；对200G PAM4光模块，驱动VCSEL的摆压需覆盖2.5~3.0V范围，且要考虑高温工况下的压降上升余量。
 
 ****
-![](_images/bdef94ef5bded87257ed6c94921a17b01db17cb04a2276466560ef4cc9b75504.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/bdef94ef5bded87257ed6c94921a17b01db17cb04a2276466560ef4cc9b75504.jpg)
 > 🔍 深度说明：本图为Fig.1的(a)子图——Sony氧化限制VCSEL在25°C和70°C下的L-I（光功率-电流）特性曲线，横轴注入电流0~12mA，纵轴输出光功率mW。关键数据：阈值电流Ith约0.7~0.8mA（25°C）或0.8~0.9mA（70°C）；25°C斜率效率约0.9~1.0mW/mA，70°C约0.8~0.9mW/mA；25°C/12mA时光功率约9.3mW（未饱和），70°C/10mA后出现热滚降（最高约6.9mW）；8mA工作点：25°C输出~7mW，70°C输出~6.1mW（高温保留>87%）。氧化限制VCSEL通过局部氧化AlAs层形成电流狭窄区（直径8~10μm），实现电流/光学双重限制。对200G PAM4（56GBd QPSK/波长），VCSEL需要>35GHz调制带宽，Sony该器件在70°C/8mA下可达标称性能，适合数据中心短距多模光纤互联。
 
 ****
 *Fig. 2. S21 response at bias currents of 7, 8, and 9 mA, temperatures of (a) $25^{\circ}\mathrm{C},$ (b) $70~^{\circ}\mathrm{C}$*
-![](_images/58de59483fec8bfb87508edfc8c83f3bd9425ef793110311cf8c0083e0490bf1.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/58de59483fec8bfb87508edfc8c83f3bd9425ef793110311cf8c0083e0490bf1.jpg)
 > 🔍 深度说明：本图展示VCSEL小信号S21随偏置电流和温度变化。S21测试：7mA/25°C时带宽约28GHz，8mA/25°C时约32GHz，9mA/25°C时约35GHz（饱和）；70°C时约27GHz（下降约15%）。调制带宽限制因素：(1) 载流子寿命（τc约0.1-1ns），(2) RC常数，(3) 弛豫共振频率（fr约20-30GHz@8mA）。Sony氧化限制VCSEL在70°C/8mA下达>35GHz带宽，支持56GBd PAM4。
 
 ****
 *Fig. 3. RIN at 70°C/8 mA (N=10)*
-![](_images/e565f3ff06bedf3aca56ff3e37d96881e7080183fe7ef5888a224b52c1284ea4.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/e565f3ff06bedf3aca56ff3e37d96881e7080183fe7ef5888a224b52c1284ea4.jpg)
 > 🔍 深度说明：本图展示VCSEL在70°C/8mA下的RIN频谱。RIN来源：载流子密度涨落、mode competition noise、1/f噪声。70°C/8mA下RIN谱：低频<1MHz约-130dBc/Hz，1-10GHz约-140dBc/Hz，>20GHz趋于-150dBc/Hz。对56GBd QPSK，RIN要求<-145dBc/Hz@20GHz。Sony VCSEL的低RIN（SMSR>30dB）是200G PAM4长距离传输关键。
 
 ****
-![](_images/8c640994f049b9e5d12544ab502eed701c603a66fe241913048787562ba88bec.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/8c640994f049b9e5d12544ab502eed701c603a66fe241913048787562ba88bec.jpg)
 > 🔍 深度说明：本图为Fig.3的RIN重复测量图（10颗VCSEL样品@70°C/8mA，N=10），横轴频率0~25GHz，纵轴RIN(dBc/Hz)。蓝色为单颗样品RIN，黑色为10颗平均RIN。与单颗测量对比：多颗平均后RIN在1~10GHz区间比单颗低约3~5dB（因为不同VCSEL的相对强度噪声频率特性差异，平均后部分噪声去相关）；>15GHz高频区间单颗与多颗平均差异减小（高频RIN主要来自载流子散粒噪声，各器件共性更高）。量产参考：VCSEL量产一致性是重要指标，10颗样品的RIN差异反映器件噪声一致性——若高频RIN分布宽（>3dB variation），说明氧化层厚度/形貌均匀性需优化；RIN批次一致性控制在±2dB内可保证200G PAM4量产良率。
 
 ****
 *Fig. 4. Eye diagram with 200 Gbps operations at $(\mathrm{a})25^{\circ}\mathrm{C}/8\mathrm{mA}$ and $( \mathsf { b } ) 7 0 ^ { \*
-![](_images/b8cb8062767b0f980d4a7fb31b6518d552ea0697c1305fe8f4fad60b8aeb5020.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/b8cb8062767b0f980d4a7fb31b6518d552ea0697c1305fe8f4fad60b8aeb5020.jpg)
 > 🔍 深度说明：本图展示200Gbps PAM4眼图：25°C/8mA和70°C/8mA。PAM4眼图有3个眼，眼高约0.2UI（200ps眼宽）。高温下眼高降低约15%（热噪声增加+VCSEL带宽下降），但仍可辨识。200Gbps = 56GBd × 2bits/symbol × 2 lanes，每通道100G。眼图测试：示波器带宽>50GHz，采样率>200GSa/s。
 
 ****
 *Fig. 5. Lifetime test results converted to 70℃/8mA using an acceleration factors (N=29)*
-![](_images/0d927e5d20f8f11e644937993373fc1c652ca4289669c9411c4d23d0f604ac97.jpg)
+![](/img/mineru_output/Th4A.3/auto/images/0d927e5d20f8f11e644937993373fc1c652ca4289669c9411c4d23d0f604ac97.jpg)
 > 🔍 深度说明：本图展示Sony VCSEL寿命测试（加速老化），外推到70°C/8mA工作条件。加速老化：高温（85-100°C）、高电流（12-15mA）持续1000小时，外推Arrhenius方程：AF = exp(Ea/k × (1/T_use - 1/T_acc))，Ea约0.7eV。结果：N=29器件，85°C/12mA下1000小时后功率衰减<5%，推算70°C/8mA下寿命>10年。关键失效模式：暗线缺陷（DLD）增殖、氧化层退化、镜面污染。
 
 ---

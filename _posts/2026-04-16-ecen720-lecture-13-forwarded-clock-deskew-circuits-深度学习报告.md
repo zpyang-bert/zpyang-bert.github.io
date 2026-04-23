@@ -32,7 +32,7 @@ tags:
 • 需要良好的时钟接收放大器(时钟被信道衰减)
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】前向时钟架构是高速链路中常用的时钟分发方案，特别是在处理器-存储器接口（如Intel QPI、HyperTransport）中。相比嵌入式时钟，前向时钟将时钟信号单独从TX转发到RX，允许RX进行独立的时钟恢复。
@@ -51,7 +51,7 @@ tags:
 • 前向时钟占空比变化
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-006.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-006.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】在CMOS工艺中，驱动器强度的工艺波动可达±20%，负载不匹配来源于各位线的电容和电阻差异。互连长度不匹配在多芯片系统中尤为突出，可能导致数ps到数十ps的skew。
@@ -73,7 +73,7 @@ tags:
 • 抖动频率越高，异相越严重
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-007.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-007.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】在相干时钟系统中，时钟和数据经历相同的信道干扰，但它们之间存在固定的skew。当输入抖动频率增加时，时钟和数据的相位差随时间累积，导致在RX端出现时变相位错位。
@@ -123,7 +123,7 @@ JTF (Jitter Transfer Function):
 • 可通过将抖动序列与JIR卷积评估
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-177.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-177.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】JIR和JTF是分析时钟分配网络抖动特性的重要工具。JIR描述系统对单位抖动脉冲的时域响应，JTF是其频域表示。早期时钟分配网络分析主要关注相位噪声传递，但JTF方法更适合数字系统。
@@ -146,7 +146,7 @@ JTF (Jitter Transfer Function):
 • 中心频率对准基波时钟频率
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-180.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-180.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】时钟分配网络中的滤波器特性会改变抖动传递行为。低通响应常见于缓冲器链和分布互连，其高频增益大于1，导致高频抖动放大。这是由于CMOS缓冲器的上升/下降时间有限，对窄脉冲产生微分效应。
@@ -163,7 +163,7 @@ JTF (Jitter Transfer Function):
 在28Gb/s时钟分配链中存在显著抖动放大
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-186.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-186.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】抖动放大是高速时钟分配系统中的关键问题。当时钟信号通过具有低通频率响应的电路时，高频抖动成分被放大，导致时钟边沿的时间方差增加。这在28Gb/s时钟分配链中尤为明显。
@@ -188,7 +188,7 @@ JTF (Jitter Transfer Function):
 • 灵活
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-189.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-189.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】PLL/PI架构是前向时钟去偏斜的经典方案。PLL提供低抖动的基准时钟，PI生成多相位于插值，实现精细的相位调整。这种架构在Intel的QuickPath Interconnect中得到应用。
@@ -208,7 +208,7 @@ JTF (Jitter Transfer Function):
 • 更快锁定
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-190.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-190.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】DLL/PI架构相比PLL/PI具有更快的锁定时间和更好的稳定性。DLL通过调整延迟线单元来补偿skew，没有PLL的积分环节，因此不存在稳定性问题。
@@ -225,7 +225,7 @@ Injection-Locked Oscillator:
 • 提供抖动过滤
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-191.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-191.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】ILO是一种利用注入锁定效应的高频振荡器，其输出频率被输入参考时钟锁定。注入锁定提供了极窄的锁定带宽，能够有效过滤输入时钟的高频抖动。
@@ -249,7 +249,7 @@ Injection-Locked Oscillator:
    • 周期性上电
 ```
 
-![](lecture13_ee720_fwd_clk_deskew_images/img-248.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-248.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】相位采集是去偏斜系统的关键环节，决定了如何获取相位误差信息并反馈到调整电路。基于BER的方法利用眼图质量作为指标，基于PD的方法利用专用相位检测器直接测量skew。

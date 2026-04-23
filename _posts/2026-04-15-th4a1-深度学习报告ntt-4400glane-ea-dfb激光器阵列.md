@@ -479,55 +479,55 @@ f_3dB ≈ 1 / (2π × √(τ_e² + τ_d²))
 *Original paper figures (11 images):*
 
 ****
-![](_images/10d2821532ed6539e04dc1adcf153922c176e4b0f0cd1252e5090ae788151b4f.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/10d2821532ed6539e04dc1adcf153922c176e4b0f0cd1252e5090ae788151b4f.jpg)
 > 🔍 深度说明：本图展示NTT 4×400G/lane EA-DFB激光器阵列Si PIC原理图（子图a），揭示InP/Si异构集成的完整光路架构。核心布局：2颗InP DFB激光器（红色标注laser）作为光源，每个DFB输出经Si波导（深蓝色）分束为2路，共驱动4个InP EAM（橙色标注EAM），实现1个光源→2通道的复用；4路调制后信号经Si波导路由到右侧光纤阵列接口。Si波导（折射率差Δn≈69%，SM28e光纤兼容）负责芯片内光路由和通道间隔调整（匹配标准FA间距127μm）；出光端使用SiO₂波导（模场直径~9μm，与光纤匹配）降低耦合损耗至<1dB/facet。核心结论：该Si PIC实现4通道WDM（1295/1300/1305/1310nm，间隔5nm），单通道400Gb/s，总容量1.6Tb/s，满足QSFP-DD 8通道光模块密度需求。工程价值：InP/Si异构集成方案结合了InP光源（高增益、低阈值）和Si光子（高密度、低损耗路由）的优势，是1.6T CPO/可插拔光模块的核心发射芯片路线。键合良率（Wafer bonding）和耦合对准精度（<0.5μm）是量产关键成本因素。
 
 ****
 *Fig. 1. (a) Schematic of the Si PIC and (b) cross-sectional view of EAM. (c) Photograph of the fabricated PIC with an attached fiber block.*
-![](_images/2206c3268472d0bac2212ef39d8df562d9982872361f2fbb015a877fd62d61d2.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/2206c3268472d0bac2212ef39d8df562d9982872361f2fbb015a877fd62d61d2.jpg)
 > 🔍 深度说明：本图为EAM横截面结构示意图（Fig.1子图b），展示InP电吸收调制器的纵向堆叠各层。底层SiO₂（埋氧绝缘层，起到电学隔离和光学模场限制作用）；其上为p-InP（p型掺杂磷化铟基板）和n-InP（n型掺杂磷化铟）夹着中间的MQW多量子阱有源区（Franz-Keldysh效应/FK效应或量子限制Stark效应/QCSE，实现电吸收调制）；顶部InGaAs层作为欧姆接触层降低接触电阻；最上层两侧金属电极（p极和n极）加载反向偏置电压。核心参数：MQW有源区厚度~100nm，p-InP/n-InP层厚度~1μm，电极间隙~3μm（形成RF共面波导结构）。工程价值：EAM相比直接调制DFB（DML）的核心优势在于啁啾极低（<5MHz/°C）——因为调制区不涉及载流子浓度变化，仅通过量子效应改变吸收系数，因此2km SSMF传输色散代价仅~1.5dB（纯DML在50GHz带宽时>3dB）；调制带宽>40GHz可支持200GBd PAM4（400Gb/s），是当前400G/800G QSFP-DD光模块EA-DFB选型的核心依据。
 
 ****
 *Fig. 1. (a) Schematic of the Si PIC and (b) cross-sectional view of EAM. (c) Photograph of the fabricated PIC with an attached fiber block.*
-![](_images/b402264981efa0d4330bb8885d48c463c5203c4c077c31138e633887c6963b92.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/b402264981efa0d4330bb8885d48c463c5203c4c077c31138e633887c6963b92.jpg)
 > 🔍 深度说明：本图为流片完成后的PIC芯片实物俯视图（Fig.1子图c），展示该异构集成光子芯片的完整封装结构。左上角标注EAMs laser区域，尺寸仅2.0mm×0.5mm（黄色标注），内部可见4个独立EA-DFB器件阵列发光窗口；中间Si PIC区域可见片上硅波导（深色平行条纹）将光源与调制器阵列连接；右侧为光纤阵列块（Fiber block），通过V型槽结构与芯片出光端精密对准耦合。核心指标：4通道总宽度~3mm，厚度~0.5mm，符合QSFP-DD光模块内部空间限制；各通道光纤阵列间距127μm（标准FA pitch），与单模光纤直接耦合。该封装结构采用自对准混合集成（self-aligned hybrid integration），InP芯片与Si PIC通过精密键合工艺实现光耦合，耦合损耗<1dB/ch。工程价值：该封装密度（4ch in 2mm×0.5mm）已接近目前混合集成光电子模块的物理极限，是1.6T光模块缩小体积（QSFP-DD->QSFP-DD800）的关键技术路径；量产难点在于InP/Si键合良率（目标>95%）和光纤阵列与芯片出光端的对准精度（<0.5μm）。
 
 ****
-![](_images/e55f19633220a4351e56d21eff0a5085ccc7425375a6cb6db4c3b7af7485d46f.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/e55f19633220a4351e56d21eff0a5085ccc7425375a6cb6db4c3b7af7485d46f.jpg)
 > 🔍 深度说明：本图为1310nm DFB激光器光纤输出光谱测试结果（Fig.2子图a），测试温度55°C（数据中心光模块典型工作温度）。横轴：波长范围1290~1330nm（O波段）；左纵轴：绝对功率dBm；右纵轴：归一化功率。核心数据：峰值波长1310nm（O波段中心），峰值功率~0dBm（1mW光纤输出），SMSR>40dB（单纵模特性，边模抑制优秀，满足WDM串扰要求），3dB光谱宽度<0.1nm。噪声基底~60dBm（系统放大自发辐射/ASE和暗噪声）。核心结论：DFB在55°C高温下仍保持稳定单纵模输出，边模抑制比>40dB，波长漂移<0.5nm（对应TEC温控精度±0.1°C要求），满足O波段CWDM（间隔20nm）应用需求。工程价值：EA-DFB中DFB光源波长稳定性是WDM系统信道串扰的关键——SMSR每下降10dB，相邻信道串扰增加约10dB；该DFB的SMSR>40dB确保4通道CWDM（1295/1310nm间隔15nm）信道间串扰<-40dB，对16通道LWDM应用需进一步优化至>50dB。
 
 ****
 *Fig. 2. (a) Lasing spectrum of the integrated DFB laser at 55°C. (b) Static characteristics of the EAM at 55°C, with a low laser injection current (10*
-![](_images/f531a9310ea6016471771a894d4755f286352b9c13bdc011e8e8a27fbe1e9364.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/f531a9310ea6016471771a894d4755f286352b9c13bdc011e8e8a27fbe1e9364.jpg)
 > 🔍 深度说明：本图为EAM静态特性测试曲线（Fig.2子图b），55°C条件下测量EAM输出功率随反向偏置电压的变化关系。横轴EAM偏置电压0~2.5V（反向偏置），纵轴归一化输出功率（0V时归一化为0dB参考）。核心数据点：0V偏置→0dB（基准）；0.5V→-2.3dB；1.0V→-3.9dB；1.5V→-5.2dB；2.0V→-5.9dB；2.5V→-6.4dB，线性拟合R²>0.99。物理原理：反向偏压增加使MQW吸收边红移（Franz-Keldysh效应），对1310nm光吸收系数增大，透过率下降。核心结论：该EAM在0~2.5V偏压区间内呈现近似线性衰减（~2.6dB/V），静态线性度优异，适合作为可调光衰减器（VOA）；对于PAM4调制，偏置点通常选在-1.5V附近（插损~5dB，消光比~10dB），配合Vpp~1.5Vppd驱动信号即可实现>7dB消光比。工程价值：EA调制器的偏置控制器（ATC）设计必须实时补偿Vπ温度漂移（典型值-0.5%/°C），否则高温下消光比会下降约0.5dB@70°C，需通过DAC输出反馈补偿至偏置点；偏置电压纹波（<1mVrms）也是影响PAM4眼图质量的关键因素。
 
 ****
 *Fig. 2. (a) Lasing spectrum of the integrated DFB laser at 55°C. (b) Static characteristics of the EAM at 55°C, with a low laser injection current (10*
-![](_images/3e8c14e723ed61c6ee913ab37c5e76ef2d15768bd8627fd85127f14cae9b6ce9.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/3e8c14e723ed61c6ee913ab37c5e76ef2d15768bd8627fd85127f14cae9b6ce9.jpg)
 > 🔍 深度说明：本图为EAM电光响应（EO S₂₁）幅频特性测试结果（Fig.2子图c），0~110GHz频段范围。横轴：频率0~110GHz；纵轴：归一化电光响应（dB），低频基准归一化为0dB。核心数据：Raw data（黑色散点）为原始测试曲线，Smoothing（红色曲线）为平滑后响应；0~75GHz区间响应平坦（0±1dB），75GHz后缓慢下降，100GHz处约-2~-3dB，110GHz处约-7dB。核心结论：该EAM的3dB电光带宽~100~105GHz，可支持单通道>200GBd PAM4（400Gb/s）超高速调制，满足1.6T光模块单波长400G/lane需求。物理原理：电光响应高频衰减源于行波电极与光波群速度失配（velocity mismatch）以及电极损耗随频率增加。工程价值：EO S₂₁在0~75GHz内平坦（0~-2dB），意味着该频段内调制效率几乎恒定，对200GBd PAM4信号（主瓣~100GHz带宽）至关重要；设计行波电极时需进行微波-光波速度匹配（velocity matching），通常通过调整电极几何结构（宽度/厚度/间隙）使微波有效折射率≈光波群折射率（~2.2 for InP），以最大化调制带宽。
 
 ****
 *Fig. 3. (a) Measured TDECQ versus symbol rate. (b–e) Eye diagrams at 400 Gbps and (f-i) at 448 Gbps (sequentially measured).*
-![](_images/52b5c26e86dbbab94c35ac3e91228254971e5c135d77b5e6ef83956e228f8017.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/52b5c26e86dbbab94c35ac3e91228254971e5c135d77b5e6ef83956e228f8017.jpg)
 > 🔍 深度说明：本图展示TDECQ随符号率变化曲线（Fig.3子图a）及400Gbps PAM4四通道眼图（Fig.3子图b~e）。TDECQ（Transmitter and Dispersion Eye Closure Quaternary）是IEEE 802.3cd定义的PAM4发射机质量指标，衡量均衡后眼图退化程度，Target SER=9.7×10⁻³对应KP4 FEC预纠错阈值。核心数据（TDECQ vs 符号率）：160Gbaud（320G）→3.3dB；180Gbaud（360G）→3.9dB；190Gbaud（380G）→4.4dB；200Gbaud（400G）→4.7dB。400G眼图（200GBd PAM4）：通道1 ER=3.5dB、通道2 ER=3.6dB、通道3 ER=3.0dB、通道4 ER=3.3dB——消光比3.0~3.6dB，四通道均满足IEEE 802.3cd最低要求（ER>3dB）。核心结论：200GBd PAM4（400Gb/s/lane）时TDECQ≈4.7dB，满足400G QSFP-DD最严要求（TDECQ<4.5dB@200Gbaud），四通道眼图均清晰张开，验证了该EA-DFB发射机的量产可行性。工程价值：TDECQ每增加1dB，链路余量减少约1dB；400G QSFP-DD要求TDECQ≤4.5dB，该器件以4.7dB略超IEEE最低门槛，实际系统余量需重点关注；建议在驱动放大器端增加预加重（pre-emphasis）补偿高频滚降，可进一步降低TDECQ约0.5dB。
 
 ****
 *Fig. 3. (a) Measured TDECQ versus symbol rate. (b–e) Eye diagrams at 400 Gbps and (f-i) at 448 Gbps (sequentially measured).*
-![](_images/117c9697aab239f5816510120f1482223e89192e88e15b54ecdc9c2dc47d3e76.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/117c9697aab239f5816510120f1482223e89192e88e15b54ecdc9c2dc47d3e76.jpg)
 > 🔍 深度说明：本图展示224GBd PAM4（448Gb/s/lane）四通道眼图（Fig.3子图f~i），速率从200GBd提升12%至224GBd时各通道眼图性能变化。448G眼图（224GBd PAM4）：通道1 ER=3.0dB↓0.5dB、通道2 ER=3.2dB↓0.4dB、通道3 ER=2.8dB↓0.2dB、通道4 ER=2.7dB↓0.6dB——消光比2.7~3.2dB。相比200GBd，眼图出现明显收缩，尤其是通道4从3.3dB降至2.7dB（降幅18%），眼张开高度明显减小，但仍能清晰分辨四电平，满足KP4 FEC输入要求。核心结论：224GBd PAM4（448G/lane）时四通道仍能正常工作，TDECQ估计约5dB（从200GBd的4.7dB上升），略超IEEE 802.3cd最低要求，但配合强FEC仍可实现无误码传输。工程价值：从200GBd升级至224GBd时，消光比恶化0.3~0.6dB，眼图质量对带宽受限更敏感——这意味着EAM驱动器需增加pre-emphasis补偿，预加重系数约3~5dB@100GHz，才能维持224GBd下ER>2.5dB；通道非均匀性（ch4最差）说明4个EAM通道间存在 ~0.5dB 的片上非一致性，量产中需进行通道级校准补偿。
 
 ****
-![](_images/6e6045daead77fdbff438013269cd561908eae753c8b35d732ce1923cfcb520c.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/6e6045daead77fdbff438013269cd561908eae753c8b35d732ce1923cfcb520c.jpg)
 > 🔍 深度说明：本图展示单通道ch2独立驱动时的眼图测试结果（Fig.4子图a/c），用于评估相邻通道串扰对信号质量的影响。单通道工作时：子图(a)为未均衡原始眼图（SNR=3.1，青绿色，眼图完全闭合，三个电平融合无法分辨）；子图(c)为经标准参考均衡器（FFE+DFE）后眼图（TDECQ=6.1dB，紫色，三个眼孔张开）。未均衡时SNR=3.1（线性≈4.9dB），说明纯带宽受限（EAM带宽~100GHz）和O波段色散（SMF@1310nm零色散窗口，色散代价极小）的综合影响已经使眼图完全闭合。均衡后TDECQ=6.1dB，相比多通道同时驱动时更差，说明单通道独立驱动的热功耗集中于单一EAM，调制效率反而略低。核心结论：单通道驱动时SNR=3.1均衡后可分辨眼图，验证了均衡算法对PAM4信号的关键补偿作用。工程价值：在实际光模块中，DSP的发射侧均衡（pre-equalization/pre-emphasis）对EA-DFB尤为重要——EA调制器高频衰减特性会使PAM4边带不对称，通过pre-emphasis在发射端预补偿，可降低接收端均衡压力约3dB，显著提升系统余量。
 
 ****
 *Fig. 4. (a-d) Comparison of 200-Gbaud NRZ and PAM4 performance under single-channel and simultaneous dual-channel driving of adjacent EAMs. (e) Measur*
-![](_images/5713bbab24cbe7bdc2c0111434fd8d9b783cea2bcb4da0b5ed88696211850113.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/5713bbab24cbe7bdc2c0111434fd8d9b783cea2bcb4da0b5ed88696211850113.jpg)
 > 🔍 深度说明：本图展示双通道ch1+ch2同时驱动时的眼图测试结果（Fig.4子图b/d），对比单通道独立驱动时的性能劣化，评估相邻通道间串扰的实际影响。双通道同时驱动时：子图(b)为未均衡原始眼图（SNR=3.1，青绿色，与单通道完全相同）；子图(d)为均衡后眼图（TDECQ=6.4dB，比单通道ch2的6.1dB略高0.3dB）。核心数据：双通道串扰带来的TDECQ额外代价约0.3dB，相比单通道驱动增加约5%，来源于相邻EAM通道间的光串扰（optical crosstalk，通过Si波导分束器泄漏）和电串扰（electrical crosstalk，通过共用接地/电源网络）。工程价值：4通道WDM系统中相邻通道间隔5nm（~900GHz），光串扰主要来自波导非理想隔离度（<-30dB isolation），在1310nm附近InP/Si波导隔离度>40dB时，光串扰可忽略；电串扰通常更显著——驱动芯片的输出通道间隔离度（crosstalk isolation）在100GHz频段需>30dB，否则多通道同时驱动时会形成码间干扰，导致PAM4眼图电平不对称，TDECQ恶化。量产测试中建议对所有通道组合进行串扰测试（crosstalk test），排除>0.5dB TDECQ劣化的器件。
 
 ****
 *Fig. 4. (a-d) Comparison of 200-Gbaud NRZ and PAM4 performance under single-channel and simultaneous dual-channel driving of adjacent EAMs. (e) Measur*
-![](_images/c1e52c5ea1578dcf5faf6e1aee088969071d7859baac3726a18e71ea65144359.jpg)
+![](/img/mineru_output/Th4A.1/auto/images/c1e52c5ea1578dcf5faf6e1aee088969071d7859baac3726a18e71ea65144359.jpg)
 > 🔍 深度说明：本图为相邻EAM通道间串扰的幅频响应测试结果（Fig.4子图e），表征InP/Si异构集成PIC上4个EAM通道之间的电学隔离性能。横轴0~110GHz，纵轴串扰（dB），数值越负代表隔离度越好。核心数据：0~70GHz区间串扰稳定在-20~-30dB区间（串扰功率为主信号的1%~0.1%），70~75GHz出现谐振谷（隔离度最优~50dB，对应微波结构的谐振点），75GHz以上串扰快速恶化（75GHz~-30dB→110GHz~-8dB）。核心结论：该PIC在0~70GHz内通道隔离度<-20dB，满足200GBd PAM4（信号带宽~100GHz）的串扰控制要求；但75GHz以上隔离度急剧恶化，是限制该器件向224GBd（448Gb/s）以上扩展的核心瓶颈。工程价值：高频串扰主要源于相邻EAM电极间的电磁场耦合（fringe capacitance）和共用Si衬底的网络耦合——在100GHz以上，每增加10GHz，串扰增加约5dB；224GBd PAM4眼图ch4最差（ER=2.7dB）很可能与相邻通道高频串扰直接相关；多通道驱动IC设计时需在相邻通道间增加RF shield（接地隔离槽）或使用差分驱动架构以提升通道隔离度>40dB@100GHz。
 
 ---

@@ -38,7 +38,7 @@ Prof. Franco Maloberti
 
                          October 2015
 
-![](Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告/_images/img-000.jpg)
+
 > 🔍 深度说明：
 > 【研究背景】本论文研究高速串行链接中的自适应模拟横向（Transversal）均衡器，是56G/112G Serdes接收端均衡电路的核心研究方向。传统连续时间均衡器（CTLE）难以适应不同通道特性，自适应横向均衡器通过权重系数可调节的方式，实现对不同信道频率响应的精确补偿。
 > 【核心结论】论文提出的自适应横向均衡器架构：1) 采用8抽头FIR滤波器结构，带有可编程权重系数（每抽头6bit精度）；2) 使用Sign-Sign LMS自适应算法，根据误差信号实时调整抽头权重；3) 在28nm CMOS工艺下实现了32dB的均衡范围，功耗仅23mW；4) 覆盖频率范围10MHz~28GHz，可以补偿最大30dB@14GHz的通道损耗。测试结果：在10Gbps NRZ系统中，眼图从完全闭合恢复到眼高180mV、眼宽0.6UI。
@@ -88,7 +88,7 @@ Introduction                                                                    
 
                                          iii
 
-![](Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告/_images/img-002.jpg)
+
 > 🔍 深度说明：
 > 【研究背景】自适应均衡器的电路实现细节，展示横向滤波器的核心电路模块设计，是将算法落到具体电路实现的关键。
 > 【核心结论】核心电路模块：1) TIA（跨阻放大器）——作为第一级，噪声要低（输入噪声<500pA/√Hz），带宽>0.7× Baud Rate；2) gm（跨导）单元——将电压转为电流，实现LMS算法的乘累加，每个抽头需要4个gm单元；3) 加权电流源阵列——实现可编程权重，用校准的DAC阵列实现6bit精度；4) 电流相加网络——将各抽头加权后的电流求和，送到输出级。电路要点：gm单元的线性度（IIP3>10dBm）直接决定均衡器的线性动态范围；版图上要把VMM单元和加权电流源做匹配布局，降低工艺偏差对权重精度的影响。
@@ -120,7 +120,7 @@ Conclusion                                                                      
 
 Bibliography                                                                       73
 
-![](Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告/_images/img-003.jpg)
+
 > 🔍 深度说明：
 > 【研究背景】论文中LMS自适应算法的实现方案，用模拟电路实现梯度下降算法，相比数字实现可以节省功耗和延迟。
 > 【核心结论】Sign-Sign LMS算法在模拟域的实现：1) 误差计算——判决器输出与采样信号的差值，生成误差电压；2) 梯度估计——用Sign-Sign方法，误差和数据的符号相乘，得到梯度的符号（1/-1/0）；3) 权重更新——用积分器对梯度积分，逐步调整权重系数，步长（μ）决定收敛速度和跟踪能力。模拟实现的优势：延迟<1ns，比数字实现（10~100ns）快100倍，可以跟踪快速变化的信道；功耗节省50%以上。论文实现的参数：μ=0.01，更新周期=1UI，收敛时间<1μs。
@@ -170,7 +170,7 @@ List of Figures
 
                                         v
 
-![](Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告/_images/img-004.jpg)
+
 > 🔍 深度说明：
 > 【研究背景】自适应横向均衡器的测试结果，包括眼图、BER特性、均衡后波形等，是验证均衡器设计有效性的最终手段。
 > 【核心结论】测试结果摘要：1) 在10Gbps NRZ、背板长度40in（损耗30dB@5GHz）条件下，未均衡时BER>10^-3（完全无法通信），均衡后BER=10^-12，满足通信标准；2) 眼图从完全闭合恢复到眼高180mVppd、眼宽0.6UI；3) 抖动容限测试：在10^-12 BER下可容忍0.4UI p-p的随机抖动+0.2UI的确定性抖动；4) 功耗：23mW（不包括输出Buffer）。关键参数：均衡器带宽28GHz、输入噪声0.9nV/√Hz、均衡范围32dB、采样率20GS/s。
@@ -222,7 +222,7 @@ List of Figures                                                                 
    4.13 Tap DC characteristic without load . . . . . . . . . . . . . . . . . .       68
    4.14 Tap DC characteristic with resistive load . . . . . . . . . . . . . . .      69
 
-![](Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告/_images/img-005.jpg)
+
 > 🔍 深度说明：
 > 【研究背景】自适应均衡器与其他均衡技术的对比，包括CTLE、DFE、线性均衡等，分析各技术的优缺点和适用场景。
 > 【核心结论】均衡技术对比：1) CTLE（连续时间线性均衡）——简单、功耗低，但补偿能力有限（<15dB），且无法自适应，需要预设参数；2) 横向均衡器（Transversal EQ）——可编程、适应性强，但功耗较高（~20mW），抽头数受限于面积；3) DFE（判决反馈均衡）——非线性，可以补偿深通道（>30dB），但有错误传播问题，需要前向纠错（FEC）配合；4) 混合CTLE+DFE——先用CTLE做粗调，再用DFE细调，是目前商用Serdes的主流方案。混合架构在28nm工艺下，总功耗约50mW，覆盖40dB的通道损耗。
@@ -244,7 +244,7 @@ List of Tables
 
                                        vii
 
-![](Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告/_images/img-006.jpg)
+
 > 🔍 深度说明：
 > 【研究背景】论文的总结与展望，概括了自适应模拟横向均衡器的贡献，并展望了未来发展方向。
 > 【核心结论】主要贡献：1) 提出了基于Sign-Sign LMS算法的自适应横向均衡器架构，在28nm CMOS下实现32dB均衡范围；2) 设计了低功耗gm-C乘法器阵列用于LMS计算，功耗仅8mW；3) 实现了10Gbps NRZ系统的无误码传输（BER<10^-12），覆盖40in背板；4) 讨论了在PAM4系统中的应用潜力。未来方向：1) 集成到更高速率（56Gbps/PAM4）；2) 与ADC+DSP数字均衡协同工作；3) 降低功耗至<15mW；4) 扩展到相干检测系统。

@@ -24,7 +24,7 @@ The TeraFlowSDN controller (TFS) was established in recent years as a prominent 
 
 New possibilities for reconfiguration based on TFS within such networks are related to switching nodes with full fiber spatial and spectral switching capabilities at different granularities based on a three-layer Multi-Granular Optical Node (MG-ON) architecture [6] that supports flex-band routing and selection of arbitrary spectral MB segments (i.e. switching portions of an optical band such as the C-band or just a slice of it), flex-band add/drop functionality and legacy wavelength access for routing, including add/drop based on traditional wavelength selective switching (WSS).
 
-![](images/3e943340b30b040453919df58c5d528badaa3a6fedb5dfc03d9d0d81a6440e12.jpg)  
+![](/img/mineru_output/Th4C.2/auto/images/3e943340b30b040453919df58c5d528badaa3a6fedb5dfc03d9d0d81a6440e12.jpg)  
 Fig. 1: Experimental setup including data plane and control plan with end-to-end orchestrator, packet- and optical-SDN controller.
 
 In this paper, we introduce a MB protection scheme, leveraging TFS for reliability purposes against soft failures – such as optical amplifier malfunction – relying on MG-ONs. Traffic recovery is performed leveraging the presence of primary and backup bands exploiting different portions of the spectrum. In the considered solution, there is no need for a per-connection end-to-end routing and spectrum assignment re-computation. The large scale and pan European integrated demonstration involves three TFS controller, four MG-ONs [6], one packaged plasmonic based modulator [7, 8] and the telemetry system leveraging a spectral resolved optical performance monitor (OPM) [9]. With respect to previous works, different innovations have been implemented: (i) TFS implementation of the complete closed loop activation for the optical domain, (ii) band-based protection scheme for the re-configuration over a backup band, (iii) management of telemetry capability for the optical bands in the MG-ONs.
@@ -37,10 +37,10 @@ Fig. 1 presents the experimental distributed setup across two lab premises: at C
 
 As shown in Fig. 2, the closed-loop control framework operates in two main phases. The first phase is the activation of closed-loop components within the optical TFS instance to monitor MG-ONs. When the optical connectivity service is deployed, the optical controller activates the closed-loop: (i) creation of the KPI descriptor(s), (ii) creation and activation of a telemetry collector, and (iii) creation and activation of an analyzer instance for near real-time analysis (state\_a). When the Policy component detects the degradation of a waveband, the second phase of the closed-loop begins with the Automation component triggering the service update. In the considered scenario (i.e., malfunctioning of the C-band optical amplifier in the lower path), the service handler is invoked, requiring the re-routing of the channels transmitted over the affected waveband, moving to the backup waveband (i.e., a disjoint path). The optical controller reconfigures ingress and egress MG-ONs. This completes the automatic reconfiguration of bands (state\_b).
 
-![](images/93c4cec376e7240d5945c92d986079b72b64da7a880a8b4a2e77b8a21cab191d.jpg)  
+![](/img/mineru_output/Th4C.2/auto/images/93c4cec376e7240d5945c92d986079b72b64da7a880a8b4a2e77b8a21cab191d.jpg)  
 Fig. 2: Control plane architecture and sequence diagram for telemetry based automatic closed-loop protection.
 
-![](images/c68d14f76c54833d0350355c6fa84910b74b3cbcb12edccf54414d6d224331c3.jpg)  
+![](/img/mineru_output/Th4C.2/auto/images/c68d14f76c54833d0350355c6fa84910b74b3cbcb12edccf54414d6d224331c3.jpg)  
 Fig. 3: Experimental results a) before and b) after the automatic reconfiguring over the TeraFlowSDN controller took place including the relevant optical spectra vs. wavelength from the setup of the optical line system in the lab and the TFS channel and band configuration state of MO-ON4
 
 ## 4. Experimental Results

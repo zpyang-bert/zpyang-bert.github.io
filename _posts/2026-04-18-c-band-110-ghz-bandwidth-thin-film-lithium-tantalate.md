@@ -22,35 +22,35 @@ Driven by the AI era, rapidly growing data-center traffic is pushing optical tra
 
 In this paper, we report the first >500 Gbit/s net data rate on a TFLT platform. The demonstrated C-band TFLT Mach–Zehnder modulator (MZM) achieves a half-wave voltage $( V _ { \pi } )$ of 1.35 V and a 3-dB EO bandwidth exceeding 110 GHz, corresponding to $\mathbf { \tau } _ { 1 } > 6 0 \mathbf { G H z } / \mathbf { V } ^ { 2 }$ . Leveraging this device, we realize a 768 Gbit/s line rate and a 536 Gbit/s net rate using 226 Gbaud probabilistically shaped (PS)-16PAM. To the best of our knowledge, these results establish state-of-the-art voltage–bandwidth performance as well as the highest demonstrated symbol rate and net data rate on the TFLT platform.
 
-![](images/c4c6982433e7c0c73943d5295c3fc24c66e4ad87cc59c7354c6c813b5d02ed48.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/c4c6982433e7c0c73943d5295c3fc24c66e4ad87cc59c7354c6c813b5d02ed48.jpg)
 
-![](images/a2f2e13880cb78fdd547f9f742a0803153183e32ae1f9dbdd892af3c6da76c10.jpg)  
+![](/img/mineru_output/Th4A.2/auto/images/a2f2e13880cb78fdd547f9f742a0803153183e32ae1f9dbdd892af3c6da76c10.jpg)  
 Fig. 1. Recent performance records on the TFLT platform: (a) $V _ { \pi }$ versus 3-dB EO bandwidth [1–7], and (b) net data rate as a function of symbol rate [1–8].
 
 ## 2. C-band 110-GHz-bandwidth TFLT modulator
 
 A fundamental trade-off exists between EO bandwidth and $V _ { \pi } ;$ longer modulators reduce the drive voltage but suffer higher RF loss and velocity mismatch, limiting bandwidth. To mitigate this trade-off, the RF loss per unit length in the traveling-wave electrodes must be minimized, where the dominant contributions typically come from conductor loss and substrate-related dielectric loss. Here, we employ a capacitance-loaded traveling-wave electrode (CL-TWE) and use 1 µm-thick gold to reduce conductor loss. In addition, we partially removed the silicon beneath the electrodes to suppress substrate-related dielectric loss. Figs. 2(a–b) show a schematic and micrograph of the fabricated MZM. Si removal is performed by patterning a series of ”pocket holes” in waveguide trenches and etching through the TFLT membrane and BOX layer, followed by isotropic $\mathrm { X e F } _ { 2 }$ etching of the silicon substrate (Fig. 2(c)). Here, the silicon undercut depth of 25 µm is precisely controlled using multiple short etch cycles. As shown in Fig. 2(d), the fabricated optical waveguide has sharp sidewalls (76◦). The measured optical propagation loss is $\sim 0 . 1 \ : \mathrm { d B / c m } .$
 
-![](images/0c387767ebb25bb9748ae0536255690dcb5c1718feb29df437b7115f19c50501.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/0c387767ebb25bb9748ae0536255690dcb5c1718feb29df437b7115f19c50501.jpg)
 
-![](images/7232d61b95e02a8de3c5637ae2426845fbafdc5d0d7b743195018fd1bb0bc300.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/7232d61b95e02a8de3c5637ae2426845fbafdc5d0d7b743195018fd1bb0bc300.jpg)
 
-![](images/45f4045d9b6cc93ec13e7045ca0f760b08925733f23280a7cb6f3e2094d82c55.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/45f4045d9b6cc93ec13e7045ca0f760b08925733f23280a7cb6f3e2094d82c55.jpg)
 
-![](images/e7c48db8e96af8be3e8f329a9145cb7d3f9957e435229f7aa3cd54e9267261cf.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/e7c48db8e96af8be3e8f329a9145cb7d3f9957e435229f7aa3cd54e9267261cf.jpg)
 
-![](images/7690086ac01a9f0e5e4c07c0bc38ca3ae328ca2f3c5662c32f3fe020a2be01b3.jpg)  
+![](/img/mineru_output/Th4A.2/auto/images/7690086ac01a9f0e5e4c07c0bc38ca3ae328ca2f3c5662c32f3fe020a2be01b3.jpg)  
 Fig. 2. (a) Schematic of the locally silicon-removed TFLT MZM. (b) Microscope image of the fabricated device. (c,d) SEM images of the RF electrodes and the optical waveguide cross section.
 
 We characterized the low-frequency $V _ { \pi }$ of an 18-mm-long TFLT modulator down to 1 Hz at $\lambda = 1 5 5 0$ nm to assess dynamic stability (Fig. 3(a-b)). The measured $V _ { \pi }$ remains stable across 1 Hz to 10 kHz, varying by only ±4% around an average value of 1.35 V. Our device exhibits a large extinction ratio (ER) of ∼ 42 dB and a fiber-to-fiber insertion loss of ∼ 12 dB, including 2.4 dB on-chip loss. The insertion loss is dominated by fiber-to-chip coupling and can be further reduced using optimized edge couplers.
 
 We then measured the high-frequency EO frequency response of the same device. As shown in Fig. 3 (c), the EO 3-dB bandwidth exceeds 110 GHz. This translates to a voltage–bandwidth performance above 60 GHz/V2, enabling high-baud-rate IM-DD transmission with reduced drive voltage.
 
-![](images/661049fda9d53171e68b6521dbab981996e1b9615be35b2dd5a9bb6410d305dc.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/661049fda9d53171e68b6521dbab981996e1b9615be35b2dd5a9bb6410d305dc.jpg)
 
-![](images/754833b8c58ed42574982226d3379a9718a6bdfe8156b7f56ed6a27223b4101b.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/754833b8c58ed42574982226d3379a9718a6bdfe8156b7f56ed6a27223b4101b.jpg)
 
-![](images/55ec0b5ff2e71f6b3910ce3987058345ba0af511f8734f43bca689cd36f5fbc3.jpg)  
+![](/img/mineru_output/Th4A.2/auto/images/55ec0b5ff2e71f6b3910ce3987058345ba0af511f8734f43bca689cd36f5fbc3.jpg)  
 Fig. 3. 18-mm-long TFLT MZM: (a-b) Measured optical transmission and corresponding $V _ { \pi }$ , and (c) measured EO $S _ { 2 1 }$ response.
 
 ## 3. 226-Gbaud Modulation
@@ -59,13 +59,13 @@ We performed high-baud-rate experiments with our TFLT modulator using 226 Gbaud 
 
 Next, we employ PAM8 signaling and sweep the entropy of PS 16-PAM to maximize the achievable net bit rate while keeping the normalized generalized mutual information (NGMI) above the decoding threshold. We assume a concatenated FEC scheme with code rate $c = 0 . 7 4 3 6$ and an NGMI threshold of 0.8105 [11]. The net bit rate is calculated as $R _ { \mathrm { n e t } } = B \left( H - \left( 1 - c \right) \log _ { 2 } M \right)$ , where B is the symbol rate, H is the entropy, c is the FEC code rate, and M is the modulation order. For PAM8, we achieve an NGMI of 0.8299, corresponding to a net bit rate exceeding 500 Gbit/s. As shown in Fig. 4(d), the maximum entropy meeting the NGMI threshold is H = 3.4 bits/symbol, yielding the highest net data rate of $R _ { \mathrm { n e t } } = 2 2 6 \left( 3 . 4 - ( 1 - 0 . 7 4 3 6 ) \log _ { 2 } 1 6 \right) = 5 3 6 . 6 \ \mathrm { G b i t / s }$
 
-![](images/59b05eb8309ea53ca57f7c7a798b2075aac9db67d019b3eb3a672d631418df1d.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/59b05eb8309ea53ca57f7c7a798b2075aac9db67d019b3eb3a672d631418df1d.jpg)
 
-![](images/28cce50a76a01621a999e5ca379e4e406efca1d59faea33e402fbff0eae3d4c6.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/28cce50a76a01621a999e5ca379e4e406efca1d59faea33e402fbff0eae3d4c6.jpg)
 
-![](images/e759805ba201c9dd109d3e7002b6852481bdf43f7b9de210fcf806ae7a8a3bb7.jpg)
+![](/img/mineru_output/Th4A.2/auto/images/e759805ba201c9dd109d3e7002b6852481bdf43f7b9de210fcf806ae7a8a3bb7.jpg)
 
-![](images/e5c368aa1a85dc3bcac110ef462efa61c45f7a78ade20474aefd9a6088fbc49e.jpg)  
+![](/img/mineru_output/Th4A.2/auto/images/e5c368aa1a85dc3bcac110ef462efa61c45f7a78ade20474aefd9a6088fbc49e.jpg)  
 Fig. 4. (a) Experimental setup for the optical modulation. (b) Received optical spectrum. (c) Recovered eye-diagram of 226 Gbaud PAM4, PAM6 and PAM8 signal. (d) NGMI and net bit rate as a function of 226 Gbuad PS- PAM16 entropies.
 
 ## 4. Conclusion

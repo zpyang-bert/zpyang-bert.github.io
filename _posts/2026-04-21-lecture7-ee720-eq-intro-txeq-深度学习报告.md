@@ -24,7 +24,7 @@ Lecture 7: Equalization Introduction & TX FIR Eq
            Analog & Mixed-Signal Center
                Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第七讲，主题是均衡器基础与发送端前馈均衡器（FFE）设计，均衡技术是Serdes的核心，没有均衡就无法实现高速传输。
 > 【核心结论】内容覆盖均衡技术分类、线性/非线性均衡、FFE原理、FFE电路实现、预加重与去加重、FFE系数优化，是所有均衡技术的基础。
@@ -49,7 +49,7 @@ Announcements
 
                                                             2
 
-![均衡技术分类](_images/img-001.jpg)
+![均衡技术分类](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】均衡技术分类示意图，不同的均衡技术有不同的适用场景，功耗和性能也不同，需要根据应用选择。
 > 【核心结论】均衡分为：1) 线性均衡：CTLE、FFE，结构简单功耗低，对噪声和串扰没有抑制作用；2) 非线性均衡：DFE、MLSE，结构复杂功耗高，可以抑制噪声和串扰，性能更好；3) 数字均衡：ADC+DSP，性能最好功耗最高，适合长距高损耗场景。
@@ -74,7 +74,7 @@ Agenda
 • Equalization overview paper posted on website
                                                   3
 
-![FFE原理](_images/img-002.jpg)
+![FFE原理](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】前馈均衡器（FFE）原理示意图，FFE是线性均衡的一种，可以在发送端或者接收端实现，发送端实现的FFE也叫预加重/去加重。
 > 【核心结论】FFE由延迟线和加权加法器组成，通过对当前符号和相邻符号进行加权相加，抵消信道引入的码间干扰；发送端FFE的原理是对高频跳变沿进行放大，补偿信道的高频衰减。
@@ -91,7 +91,7 @@ High-Speed Electrical Link System
 
                                     4
 
-![预加重与去加重](_images/img-003.jpg)
+![预加重与去加重](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】发送端FFE的两种实现方式：预加重和去加重，两者效果相同，实现方式不同，各有优缺点。
 > 【核心结论】预加重是放大高频跳变沿的幅度，保持低频电平不变，输出摆幅大；去加重是衰减低频电平的幅度，保持高频跳变沿不变，输出摆幅小，功耗更低，是当前主流的实现方式。
@@ -114,7 +114,7 @@ Link with Equalization
 
                                         5
 
-![FFE电路实现](_images/img-004.jpg)
+![FFE电路实现](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】发送端FFE的电路实现示意图，采用电流模式驱动器实现，通过控制不同tap的电流权重实现FFE系数调整。
 > 【核心结论】每个tap对应一个电流驱动阵列，通过开关控制导通的电流单元数量，调整该tap的权重，实现不同的FFE系数；一般支持正/负系数，系数精度6~8bit。

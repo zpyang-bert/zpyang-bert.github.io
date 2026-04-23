@@ -609,47 +609,47 @@ TFLN: n ≈ 2.2
 
 ****
 *Fig. 1. Heterogeneous GaAs-on-TFLN platform. (a) Schematic cross-section illustrating GaAs gain layer heterogeneously integrated on TFLN. (b) An image*
-![](_images/6b1e31dbb673cd176720c8862debb612b385dcf5223802f0994820b286506241.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/6b1e31dbb673cd176720c8862debb612b385dcf5223802f0994820b286506241.jpg)
 > 🔍 深度说明：本图为Nexus Photonics异构GaAs-on-TFLN平台五面板复合图。（a）截面示意图：底层Si/SiO₂基底→TFLN薄膜（厚度~600nm，r33≈30pm/V）→GaAs有源增益层（InGaAs多量子阱，MBE外延生长）→顶部Au电极，异构界面清晰可见；（b）键合后晶圆照片，GaAs薄膜在TFLN上呈均匀金黄色；（c）完整晶圆照，含多个芯片阵列，8路WDM MUX布局可见；（d）晶圆级射频探针测试现场，探针卡与芯片接触；（e）显微镜照片，100μm标尺用于尺度参考。该平台将GaAs增益（高增益、快速增益恢复~10ps，适合>100GBd调制）与TFLN高速调制（低Vπ、高带宽）结合于同一芯片，是实现1.6Tb/s/λ O波段硅光集成的核心工艺基础。工程价值：异构键合良率是量产关键，DVSBCB胶键合界面厚度需控制在<50nm以保证GaAs光学耦合效率；该平台可直接与CMOS驱动芯片同封装，适配共贴装（CPO）或可插拔光模块架构。
 
 ****
-![](_images/e8f4d504c34e0c5ea40a233195c32f129a4268d2d6de2a1d67f962151f5f4583.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/e8f4d504c34e0c5ea40a233195c32f129a4268d2d6de2a1d67f962151f5f4583.jpg)
 > 🔍 深度说明：本图展示GaAs-on-TFLN异构DFB激光器的L-I-V特性曲线。（a）L-I曲线：阈值电流Ith≈32mA，斜率效率~0.18mW/mA（比纯GaAs边发射激光器低，因异构界面存在少量光学损耗），最大输出功率~12mW@100mA注入电流；（b）I-V曲线：串联电阻~2Ω（GaAs电阻+接触电阻），正向开启电压~0.8V（GaAs带隙~1.42eV对应~873nm，但InGaAs量子阱势垒调整发光波长至1064nm）。工程价值：Ith~32mA略高于传统InP DFB（~15mA），但GaAs增益介质增益恢复时间~10ps（vs InP ~100ps），支持>100GBd高速调制，弥补了阈值稍高的劣势；Vth~32mA意味着驱动功耗约100mW，仅需常规蝶形封装MOSFET驱动即可，与TFLN调制器3.1Vpp驱动电压匹配良好。
 
 ****
 *Fig. 2. Integrated GaAs laser performance at 1064 nm. (a) DFB laser’s L–I–V curve and (b) DFB laser’s optical spectra at different gain current, indic*
-![](_images/a0c65ba3a64d67eecbe81d6a15879ff69e295ef0990ed4616376c115cfd5fde1.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/a0c65ba3a64d67eecbe81d6a15879ff69e295ef0990ed4616376c115cfd5fde1.jpg)
 > 🔍 深度说明：本图展示GaAs DFB激光器在不同注入电流（37.3mA/68.7mA/100mA）下的发射光谱。37.3mA时光谱峰值波长~1062.5nm，SMSR>50dB（边模抑制比，单纵模特性优秀）；68.7mA时峰值移至~1063nm，输出功率增加约3dB；100mA时峰值~1063.5nm，SMSR仍>50dB。波长随电流红移约0.01nm/mA（热调谐效应），温度漂移系数约0.1nm/°C。O波段1064nm对应TFLN零色散窗口，且处于石英光纤低损耗窗口（<0.3dB/km），适合短距高速传输。工程价值：GaAs DFB的波长温度稳定性（0.1nm/°C）劣于InP DFB（0.01nm/°C），但在数据中心温控环境（ΔT<10°C）内，波长漂移<1nm，对WDM信道间隔（~800GHz/0.64nm）影响可控；SMSR>50dB确保相干检测中本振光与信号光不会产生串扰。
 
 ****
 *Fig. 2. Integrated GaAs laser performance at 1064 nm. (a) DFB laser’s L–I–V curve and (b) DFB laser’s optical spectra at different gain current, indic*
-![](_images/313c5b035d47475e8cca7248c71e6dcd1effaa25d979964bbf166e6c81b9042c.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/313c5b035d47475e8cca7248c71e6dcd1effaa25d979964bbf166e6c81b9042c.jpg)
 > 🔍 深度说明：本图展示基于GaAs-on-TFLN平台的O波段光频梳（Optical Frequency Comb, OFC）产生结果。26齿梳状频谱，齿间距~1nm（对应~267GHz），总带宽~25nm（覆盖~6.7THz），功率平坦度<10dB。频梳由GaAs激光器注入TFLN MZM产生——MZM偏置在 quadrature点并用RF信号驱动，利用电光调制效应将单频激光转变成等间距多波长光源。工程价值：O波段光频梳可作为多波长光源，直接支持WDM系统每个信道独立承载高速信号（如64GBd PAM4），8路梳齿合波后总容量可达12.8Tb/s；267GHz信道间隔对应标准WDM栅格（ITU-T G.694.1推荐的100GHz/200GHz），与现有光模块光学滤波器件兼容。相比外腔激光器锁频梳，该方案调谐灵活（通过调整MZM偏置和驱动功率可调节梳齿数量和间距），适合数据中心动态带宽分配场景。
 
 ****
-![](_images/002a1e9fe2307a0983dfd53d8836e4a5586e95c381de8920e418e0b3f3ee1d1e.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/002a1e9fe2307a0983dfd53d8836e4a5586e95c381de8920e418e0b3f3ee1d1e.jpg)
 > 🔍 深度说明：本图展示TFLN马赫-曾德调制器（MZM）截面结构示意图。核心层：180nm厚铌酸锂薄膜（X-cut，TFLN工艺，r33≈30pm/V）位于900nm厚SiO₂上 cladding（低折射率隔离层，确保光场局限在LN层），底部Si基底；侧壁角度62°（由ICP干法刻蚀形成，保证波导侧壁粗糙度<10nm以降低传播损耗）；顶部Au电极（信号电极与接地电极之间间隙~3μm，形成微波共面波导结构）。电光调制原理：RF信号沿电极传播，光在LN波导中以~0.3c的速度行进，通过r33电光系数改变LN折射率（Δn = -½·r33·n³·E），实现相位调制；电极长度1~2cm，配合行波结构实现>100GHz电光调制带宽。工程价值：TFLN波导传播损耗~2dB/cm（O波段），远低于Si波导在O波段的~4dB/cm；Vπ≈3.1V（L≈1cm），比Si MZM（Vπ≈8V）低约2.6倍，直接降低驱动放大器功耗（驱动IC功耗∝V²pp·R⁻¹）；62°侧壁角设计在保证模场对称性的同时最大化电极耦合效率。
 
 ****
-![](_images/4a60ce7d2c9545c4997127649de60d8dbc960b497fd987c026890d96a92d8ba5.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/4a60ce7d2c9545c4997127649de60d8dbc960b497fd987c026890d96a92d8ba5.jpg)
 > 🔍 深度说明：本图展示GaAs-on-TFLN异构激光器射频调制端口的输入反射系数（S₁₁）随频率变化曲线，测试范围0~110GHz。S₁₁代表射频调制端口的阻抗匹配质量，数值越负（dB）代表反射功率越少、端口阻抗越接近50Ω系统匹配。（a）0~20GHz低频段：S₁₁在-20~-45dB之间，最低谷值-45dB，反射功率仅0.003%，匹配性能优异；（b）20~50GHz中频段：S₁₁抬升至-15~-35dB区间，峰值约-15dB（反射~3%），仍满足应用要求；（c）50~110GHz高频段：波动幅度增大，峰值约-12dB（反射~6%），但大部分频点仍低于-20dB。核心结论：该调制端口在0~110GHz超宽频段内整体满足|S₁₁|≤-10dB的阻抗匹配要求，可支持>100GBd PAM4高速调制。工程价值：射频端口阻抗匹配直接影响驱动信号反射和眼图质量，|S₁₁|<-10dB可确保驱动功率高效注入而不过热损伤器件；设计时需重点关注电极走线宽度、接地过孔分布和封装引线电感（典型值0.1~0.5nH/mm），这些因素在>50GHz频段会成为主要非理想因素。
 
 ****
-![](_images/78f1f22d9f7501a2bef850027ae40669115bdbcea1c815ad241e18244226b88e.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/78f1f22d9f7501a2bef850027ae40669115bdbcea1c815ad241e18244226b88e.jpg)
 > 🔍 深度说明：本图展示TFLN调制器电光幅频响应（EO S₂₁）测试结果，0~110GHz范围。（a）VNA实测（灰色散点）与OSA边带法实测（红色散点）高度吻合，互相验证了测试准确性；（b）拟合曲线（深色实线）与仿真曲线（浅色实线）在全频段内重合度极高，说明器件模型精准；（c）-3dB参考线明确标注，响应在~110GHz位置才触达3dB截止点。核心结论：该TFLN调制器3dB电光带宽>100GHz，可支持单通道>200GBd PAM4或>100GBd QAM调制，满足下一代1.6Tb/s/λ相干/强度调制需求。工程价值：EO S₂₁在0~50GHz内维持在0~-2dB平坦响应，意味着该频段内调制效率几乎不劣化，对QAM等高阶调制格式的误码率性能极为关键；行波电极设计（velocity matching）和阻抗匹配（50Ω）是实现>100GHz带宽的核心，需要在电极几何优化（宽度/间隙）和封装设计上重点投入。
 
 ****
-![](_images/713ec03a081cae6868073d10f07cf2b4e2fed95c8de990abbc206f259c67c735.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/713ec03a081cae6868073d10f07cf2b4e2fed95c8de990abbc206f259c67c735.jpg)
 > 🔍 深度说明：本图展示TFLN MZM低频大信号调制特性，测试半波电压Vπ。（a）蓝色曲线为归一化光输出（MNZ调制器输出功率随驱动电压的余弦响应），在0~0.5μs观测窗口内出现~3.3个完整振荡周期；（b）红色曲线为驱动电压正弦信号（2MHz，峰值~4.8Vpp，从-5V到+5V动态范围~10V）。核心数据：从驱动电压动态范围10V对应~3.3个光功率振荡周期，可计算出半波电压Vπ≈3.1V（10V÷3.2≈3.1V，与光输出周期数完全吻合）。核心结论：Vπ≈3.1V（L≈1cm）的调制效率比Si MZM（Vπ≈8V，L≈5mm）高约2.6倍，验证了TFLN材料r33系数（30pm/V）相比Si（Pockels效应可忽略，主要依赖热光或载流子色散效应）的巨大电光调制效率优势。工程价值：Vπ越低，驱动放大器输出电压要求越低，驱动IC功耗越低（P_driver ∝ V²pp）；3.1V的Vπ意味着只需常规SiGe/CMOS驱动放大器（输出~3~5Vpp）即可实现高消光比调制，显著降低系统功耗预算。
 
 ****
 *Fig. 3. High-speed modulation at 1064 nm using heterogeneous GaAs lasers and TFLN MZMs. (a) Cross-sectional schematic of the TFLN MZM. Measured (b) el*
-![](_images/0a85d3d6212a962085556dbb2c3bfa010d509a4e4fa79fdd680510d68fb7e102.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/0a85d3d6212a962085556dbb2c3bfa010d509a4e4fa79fdd680510d68fb7e102.jpg)
 > 🔍 深度说明：本图为O波段1.6Tb/s/λ高速PAM4信号眼图（子图编号Fig.3(e)），经10km SSMF传输后接收端采样示波器捕获。PAM4四电平调制：相邻电平间形成3个独立眼孔，图中三个眼孔均清晰完全张开，眼开高度约0.3UI（符号间隔），垂直方向眼高充足；热伪彩映射（亮黄→橙→红→紫）显示采样点概率分布，紫色边缘窄细说明时间抖动和幅度噪声都很小。信号质量指标：眼图清晰无闭合、无明显失真，EVM（误差矢量幅度）估计<10%，满足KP4 FEC阈值（2.4×10⁻⁴）要求，可实现无误码传输。工程价值：O波段1064nm经10km单模光纤传输后眼图仍能保持高质量张开，证明GaAs DFB+TFLN MZM这套异构集成方案在短距场景（数据中心互联<10km）下完全满足高速光互连的链路预算要求；与C波段相比，O波段光纤损耗稍高（~0.35dB/km vs 0.2dB/km@1550nm），但色散为零（TFLZ零色散波长~1064nm附近），无需DCF补偿，大幅降低系统复杂度。
 
 ****
 *Fig. 3. High-speed modulation at 1064 nm using heterogeneous GaAs lasers and TFLN MZMs. (a) Cross-sectional schematic of the TFLN MZM. Measured (b) el*
-![](_images/6667b6532b978a950aae084ef1397bb1abd124de1c90b42d84d84f26c5e37bf2.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/6667b6532b978a950aae084ef1397bb1abd124de1c90b42d84d84f26c5e37bf2.jpg)
 > 🔍 深度说明：本图为O波段1.6Tb/s/λ 64-Gbaud PAM4信号接收端眼图（Fig.3(f)），采样示波器在背靠背（B2B）和10km SSMF传输两种条件下捕获。PAM4四电平产生3个独立眼孔，图中3个眼孔均清晰张开，垂直方向眼高均匀，水平方向眼宽充足，热伪彩映射（亮黄→橙色→红色→紫色）显示采样点概率密度集中分布于眼中心，边缘紫色区域窄细代表抖动和噪声极低。背靠背眼图与10km光纤后眼图对比：张开度差异极小，说明10km SSMF传输对该信号质量影响甚微，色散代价≈0dB（源于O波段零色散窗口）。核心结论：该硅光集成发射机（GaAs DFB + TFLN MZM + 分布式驱动 + 8路WDM MUX）在10km SSMF上成功实现1.6Tb/s/λ（64GBd PAM4×8λ=12.8Tb/s总容量），眼图质量满足KP4 FEC前向纠错误码率阈值（2.4×10⁻⁴）。工程价值：O波段零色散特性使该方案在10km短距场景下色散代价可忽略，相比C波段方案可省略DCF色散补偿模块，大幅降低系统成本和插损（DCF典型插损~3dB）；8路WDM MUX总容量12.8Tb/s可直接支撑下一代200G/λ/光纤×64光纤主流交换机架构，是数据中心内部互联（top-of-rack到leaf-switch）的理想光接口方案。
 
 ---

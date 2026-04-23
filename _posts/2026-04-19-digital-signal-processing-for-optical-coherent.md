@@ -198,7 +198,7 @@ Today’s telecommunication services intensely rely on optical-fiber systems. Su
 
 Since 2007, coherent detection has been considered as the key technology of optical communication systems [2]. Major challenge for future optical transmission systems is the strict frequency band usage limitation, which is measured by spectral efficiency (SE). In order to improve spectral efficiency, coherent detection with advanced modulation formats has become promising solution. The development trend of advanced modulation formats implementation is shown in Figure 1.1 [3].
 
-![](images/2edd4fcd6dd8ee2cbea3d2d34cf930ce65afba316fd5781ca2d29cdcc70e5f3b.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/2edd4fcd6dd8ee2cbea3d2d34cf930ce65afba316fd5781ca2d29cdcc70e5f3b.jpg)  
 Figure 1.1: Advanced modulation formats development trend.
 
 Table 1.1 shows recent high spectral efficiency transmission experiment achievements over single mode fiber (SMF) transmission. As it can be noticed, such innovative optical transmission experiment results are all achieved by using coherent detection with digital signal processing implementation [4–8].
@@ -245,7 +245,7 @@ Eventually chapter 6 draws the conclusions from the research results of this the
 
 Nowadays optical communication networks are severely challenged by enormous growth in the amount of data traffic transported over telecommunication networks [9]. As it is shown in Figure 2.1, fiber transmission systems are the backbone of core and metro access networks. Increasing number of optical line terminals (OLTs) urgently requires rapid growth of transmission system capacity. For instance, data rate demand of core network has developed from 10 Gb/s, 40 Gb/s towards 100 Gb/s.
 
-![](images/8c6336bce118636d9ea06064694643d8d0003d3b5719011d49622801e4146ef8.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8c6336bce118636d9ea06064694643d8d0003d3b5719011d49622801e4146ef8.jpg)  
 Figure 2.1: Structure of optical communication links.
 
 Before the first appearance of the prototype erbium doped fiber amplifier (EDFA) [10], there were intensive researches concerning coherent detection techniques [11–15]. Due to the characteristic of receiver sensitivity enhancement, coherent detection was under consideration as a feasible solution for long distance transmission applications [16]. However, since the early of 1990s, employments of EDFA, dispersion compensating fiber (DCF), and on-off keying modulation have emerged as a simple and practical solution for optical communication systems.
@@ -276,7 +276,7 @@ where $\omega _ { L O } , A _ { L O } ( t )$ and $\phi _ { L O }$ are respective
 
 Figure 2.2 shows the schematic of single coherent detection with single PD.
 
-![](images/11b89c9c798d6d8735675e8f279d578711945d104c9487d09a6b0bd0e36d111e.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/11b89c9c798d6d8735675e8f279d578711945d104c9487d09a6b0bd0e36d111e.jpg)  
 Figure 2.2: Single coherent detection with single PD.
 
 As it can be seen, before optical field combination with optical 3 dB coupler, branches of received signal $E _ { S } ( t )$ , and LO $E _ { L O } ( t )$ respectively propagates through polarization controllers (PC), which are employed to control the polarization states. Afterward single PD is implemented to detect the received signal combined with LO. In this theoretical analysis, shot noise and thermal noise is assumed to be ignorable. Let the complex response for 3 dB coupler be given as
@@ -309,7 +309,7 @@ As it can be noticed from Equation 2.6, received signal is amplified by LO. This
 
 In order to improve OSNR tolerance of coherent detection system, schematic of single coherent detection with balanced PD is presented as in Figure 2.3.
 
-![](images/e427d5592b00065881f79d18bc4b9d402deeea0dfa3e8596957b06992aecf752.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/e427d5592b00065881f79d18bc4b9d402deeea0dfa3e8596957b06992aecf752.jpg)  
 Figure 2.3: Single coherent detection with balanced PD.
 
 Balanced PD employs two photodiodes cascaded configuration [27–29]. Using Equation 2.4 and Equation 2.5, outputs of two cascaded PD are presented respectively as
@@ -334,7 +334,7 @@ Compared to single coherent detection with single PD, balanced detection is able
 
 The schematic of quadrature coherent detection with 90◦-hybrid is shown as Figure 2.4. Compared to two types of coherent detection discussed before, quadrature coherent detection can detect both of amplitude and phase
 
-![](images/4a603b00963fb975528e9849fa6a319338721719c6caf12ff51e7ba44f1c4842.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/4a603b00963fb975528e9849fa6a319338721719c6caf12ff51e7ba44f1c4842.jpg)  
 Figure 2.4: Quadrature coherent detection with balanced PD.
 
 information simultaneously. $9 0 ^ { \circ }$ -hybrid is simply assembled by optical couplers and fibers [32–34].
@@ -371,7 +371,7 @@ As a result, quadrature coherent detection with 90◦-hybrid is suitable for det
 
 According to international telecommunication union (ITU) definition, channel spacing of 100 Gb/s optical communication systems is assigned to be 50 GHz. In order to fulfill such bandwidth requirements, dual polarization coherent detection with balanced PD will be under investigation in section 2.2.4. As it is explored by several researches [36–39], polarization diversity is under consideration as the third degree of modulation freedom. As it is discussed before, two of in-phase and quadrature modulation formats are capable for any level complex modulation. And dual polarization will further double the capacity of transmission systems [40]. For instance, 28 Gbaud electrical pseudo random binary sequence (PRBS) can drive 56 Gb/s optical QPSK signals using 30 GHz bandwidth Mach-Zehnder modulator (MZM). Using dual polarization modulation, entire system bit rate will be increased to 112 Gb/s. In stead of using scale number of 100 Gb/s for practical optical communication systems, 112 Gb/s systems is suitable for taking forward error correction (FEC) sequences into account [41].
 
-![](images/1a5a40acc0b1355007adfdd7cf1a4e090e09d9b8dd37d03ee2079172453c4ec3.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/1a5a40acc0b1355007adfdd7cf1a4e090e09d9b8dd37d03ee2079172453c4ec3.jpg)  
 Figure 2.5: Dual polarization coherent detection with balanced PD.
 
 As it is shown in Figure 2.5, two 90◦-hybrids with four balanced PD are implemented to respectively detect two branches of orthogonally polarized received signals, which are denoted as $\vec { \bf x }$ and ${ \vec { \mathbf { y } } } .$
@@ -438,7 +438,7 @@ Similar to homodyne coherent detection, heterodyne coherent detection could be a
 
 The common optical fiber transmission systems are mostly based on standard single mode fiber (SSMF). Structure of SSMF is shown as Figure 2.6. The outside layer is known as cladding. The transmitted light propagates meanly through the core layer. In order to achieve the reflection condition, the reflection index of the core layer is higher than cladding.
 
-![](images/ad555414a6a1794f502f56f705629c409ffb56f8b1c3c46ef27cfa714bc80764.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/ad555414a6a1794f502f56f705629c409ffb56f8b1c3c46ef27cfa714bc80764.jpg)  
 Figure 2.6: Structure of the standard single mode fiber (SSMF).
 
 Moreover the theoretical mode of optical propagation could be obtained by nonlinear Schr¨odinger equation [48], which is given as
@@ -469,7 +469,7 @@ $$
 
 where z is the length of fiber transmission distance, $P _ { o u t }$ and $P _ { i n }$ are output and input powers of fiber transmission span respectively. Fiber loss is meanly caused by material absorption and Rayleigh scattering. As it can be noticed from Figure 2.7, α(z) is a function of signal carrier wavelength.
 
-![](images/6940363bfeb646a354779b9ef46ee4ed5e3497406a247a3af489c9639d2473bf.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/6940363bfeb646a354779b9ef46ee4ed5e3497406a247a3af489c9639d2473bf.jpg)  
 Figure 2.7: Attenuation value for SSMF over optical channels.
 
 For single mode fiber transmission, wavelength range of optical communication channels are divided into six bands, which are shown in Table 2.1. As it can be noticed, C band and L band have the minimum fiber loss (α = 0.2 dB/km) [49]. Such two bands are suitable for long-haul transmission [50].
@@ -482,7 +482,7 @@ Table 2.1: Wavelength range for different bands in optical communication.
 
 Chromatic dispersion in single mode fiber is induced by carrier wavelength dependent refractive index. As it is shown in Figure 2.8, chromatic dispersion will result for time domain pulse broadening. Moreover pulse broadening will refer to inter symbol interference (ISI) in time domain. As it is described in Equation 2.25, the second order term $\beta _ { 2 }$ corresponds to dispersion coefficient D, which is also known as group velocity dispersion (GVD). In general, due to GVD effect, different pulses carried certain frequency components will propagate through SMF with different velocity or such GVD effect is known as chromatic dispersion.
 
-![](images/5dfad72c684e6b17ed90ac5eb4d5189f073b15d9e9d7ee9954c5c39df75043c2.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/5dfad72c684e6b17ed90ac5eb4d5189f073b15d9e9d7ee9954c5c39df75043c2.jpg)  
 Figure 2.8: Pulse broadening effect due to chromatic dispersion.
 
 Material dispersion and waveguide dispersion are two mean factors for chromatic dispersion. Material dispersion refers to wavelength dependency of reflection index which can be controlled by changing fiber materials or dopant. Waveguide dispersion can be understood with Maxwell equation for cylindrical waveguide. Chromatic dispersion composed by material dispersion and waveguide dispersion are shown in Figure 2.9. In fiber transmission system, it is common to define the dispersion parameter D and the dispersion slope S which are the change of GVD and GVD slope with respect to the carrier wavelength. As it is shown in Equation 2.28 and Equation 2.29, D and S are given as
@@ -495,7 +495,7 @@ $$
 S = { \frac { \partial D } { \partial \lambda } } = { \frac { 4 \pi c } { \lambda ^ { 3 } } } ( \beta _ { 2 } + { \frac { \pi c } { \lambda } } \beta _ { 3 } )\tag{2.29}
 $$
 
-![](images/39629d67b17ae754007863f1adb8f395524780731866601a66b71fa2e2085523.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/39629d67b17ae754007863f1adb8f395524780731866601a66b71fa2e2085523.jpg)  
 Figure 2.9: Chromatic dispersion parameter of SSMF [51].
 
 Table 2.2 shows some commercial available single mode fibers.
@@ -507,9 +507,9 @@ Table 2.2: Coefficients of commercial available SMF.
 
 Polarization of light is a property of electromagnetic waves that describes the orientation of the transverse electric field. In SMF, there exists two orthogonal polarization states, which are denoted as $\vec { \bf x }$ and $\vec { \bf y }$ [52]. Polarization of light can be described by representation of Stokes parameters, which can be straightforwardly expressed by using Poincar´e sphere. The software interface of Agilent 8509 polarization analyzer is shown in Figure 2.10. The Poincar´e sphere consists of four parameters in terms of optical power. As it is shown in Figure 2.11, Stokes parameters are denoted as $[ S _ { 0 } , S _ { 1 } , S _ { 2 } , S _ { 3 } ]$
 
-![](images/e41f83ffd6030647f0218b10bb4f6d0ff26eeb9d78eb85ad08c6751a57ff6bdc.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/e41f83ffd6030647f0218b10bb4f6d0ff26eeb9d78eb85ad08c6751a57ff6bdc.jpg)
 
-![](images/f9dd146c97c8fea7a09b97465c28a195ba1e3e5cdca7045aa9bd7c7d8aa814fb.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/f9dd146c97c8fea7a09b97465c28a195ba1e3e5cdca7045aa9bd7c7d8aa814fb.jpg)  
 Figure 2.10: Agilent 8509 polarization analyzer interface.  
 Figure 2.11: Poincar´e sphere.
 
@@ -525,7 +525,7 @@ $$
 
 In the ideal case, two polarizations propagating through SMF will have the same group velocity. However, in the practical transmission systems, due to the fiber material can not be isotropic, two orthogonal polarized optical fields propagating through SMF will have different group velocity. Such effect is known as differential group delay (DGD), which is shown in Figure 2.12.
 
-![](images/8c20af5498473866c4f2085acca232242c2322b1cc49e4f9e1df087b57a11d3e.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8c20af5498473866c4f2085acca232242c2322b1cc49e4f9e1df087b57a11d3e.jpg)  
 Figure 2.12: DGD effect of SSMF.
 
 Moreover the difference in the group velocities can be defined as $\triangle \beta _ { 1 }$ which is given as
@@ -610,19 +610,19 @@ Chapter 3
 
 In chapter 3, various digital signal processing (DSP) algorithms will be presented. The mean advantages of utilizing coherent detection with DSP algorithms can be summarized as follows. Firstly, coherent detection with DSP algorithms is able to detect advanced modulation formats with improved spectral efficiency, such as n phase-shift keying (PSK). Secondly, coherent detection with DSP algorithms provides potential for superior receiver sensitivity. Furthermore, coherent detection with DSP algorithms enables electrical off-line compensation for impairments arising due to fiber transmission [54]. Coherent detection with DSP algorithms can take advantage from continuously increasing electrical processing speed. Moreover optical coherent detection can benefit from intensive researches concerning digital signal processing algorithms. Consequently, it is efficient and simple to implement optical signal processing in digital domain. The common configuration of optical coherent receiver associated with DSP algorithms is shown in Figure 3.1. In this block diagram, several DSP algorithms are under consideration. CD compensation block is used to compensate for chromatic dispersion. Clock recovery block is implemented to correct digital sampling error which is made by analog to digital converters (ADC). Polarization demultiplexing is realized by using polarization demultiplex algorithm. Phase and frequency offset recovery block is employed to correct phase and frequency difference between received signal and LO. These different DSP algorithms will be discussed in details in subsequent sections.
 
-![](images/96101770b2f66f9c7033c411ea5b2f15f49e7c64267e3649ed5c5d5f62bf8ad0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/96101770b2f66f9c7033c411ea5b2f15f49e7c64267e3649ed5c5d5f62bf8ad0.jpg)  
 Figure 3.1: Configuration of coherent detection with DSP.
 
 ## 3.2 Chromatic Dispersion Compensation DSP Algorithm
 
 In this subsection, the combination of coherent detection with DSP algorithm is proposed to compensate for chromatic dispersion (CD) in dual polarization (DP) QPSK systems. The configuration diagram of optical DP-QPSK system with coherent digital receiver is shown in Figure 3.2.
 
-![](images/be00a7f600cfd47b14f63944b56fbbc1269f6af2e35dbbf482746c6cf99f54b5.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/be00a7f600cfd47b14f63944b56fbbc1269f6af2e35dbbf482746c6cf99f54b5.jpg)  
 Figure 3.2: Coherent DP-QPSK system configuration. (a) DP-QPSK transmitter. (b) coherent receiver optical front end. (c) off-line DSP algorithms blocks. (d) polarization demultiplexing butterfly structure.
 
 The digital receivers for coherent DP-QPSK system comprise stages of digital signal processing algorithms to compensate for chromatic dispersion among other optical signal fibre transmission impairments. Those algorithms commonly require performing operations such as fast fourier transform (FFT) over a given block length of data samples. The chosen length of such block determines both the complexity of implementing those operations and the accuracy they can achieve in compensating for signal impairments. A conventional DSP algorithm for serial, frequency domain, CD compensation requires that the FFT optation is applied to entire data sample set [55]. As the length of the samples increases, FFT operation requires more computation capacity. The complexity of implementing real time system depends on the number of complex multiplication [56]. In the case of radix-2 FFT, the number of complex multiplication required may be expressed by ${ \scriptstyle { \frac { 1 } { 2 } } l o g _ { 2 } ( L ) }$ , where L is the length of FFT. In this thesis, an alternative DSP algorithm for CD compensation will be presented. It is known as block-overlap CD compensation algorithm [57].
 
-![](images/d4cd6dbd511a0c6ccd0dcbb99fd7501d747578f96574e5169ac4bcb3249af0cc.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/d4cd6dbd511a0c6ccd0dcbb99fd7501d747578f96574e5169ac4bcb3249af0cc.jpg)  
 Figure 3.3: Block-overlap CD compensation algorithm half-overlap.
 
 The block-overlap CD compensation algorithm applies frequency domain equalization (FED) to blocks of samples instead of the entire data sample set. This block-overlap approach for CD compensation was first proposed by Riichi Kudo et al., [58]. The output signal of the ADC stage are data samples, that are divided into blocks (Figure 3.3.a) with fixed length N $( N < L )$ . For illustration purposes (Figure 3.3), case of the overlapped part length equal to half of the block length is under consideration. In this half-overlap case, half of the block is composed of the current samples (Figure 3.3.b), and the rest is composed of equally length, N, data samples from the left and right neighboring blocks. Although the FFT processing complexity is reduced to that of a single block, instead of the entire data sample set, inter-block-interference (IBI) may affect the system performance. To combat IBI, the result of the FFT due to the overlapped samples (Figure 3.3.b and Figure 3.3.c) are discarded. $N _ { 1 }$ denotes the length of the discarded FFT output samples.
@@ -637,10 +637,10 @@ where D is the dispersion coefficient, $S$ is the dispersion slop, $\omega$ is t
 
 In order to validate the engineering rules for block-overlap CD compensation algorithm, case of half-overlap is under investigation. As it can be noticed, the number of blocks is equal to $2 \times [ L / N ] - 1$ , where square bracket is the ceil integer function. A single block FFT only needs ${ \scriptstyle { \frac { 1 } { 2 } } } l o g _ { 2 } ( N )$ complex multiplications compared to ${ \scriptstyle { \frac { 1 } { 2 } } l o g _ { 2 } ( L ) }$ required for serial compensation $( N < < L )$
 
-![](images/1f4fbdfb56507841d91fe315148bd248cbb06bbf1ee59b39b9387feb7cd68c92.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/1f4fbdfb56507841d91fe315148bd248cbb06bbf1ee59b39b9387feb7cd68c92.jpg)  
 (a)
 
-![](images/d1714b39fdbd91f59003c9fc8495223c259ea41a222241423e0e57cd76b07ad0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/d1714b39fdbd91f59003c9fc8495223c259ea41a222241423e0e57cd76b07ad0.jpg)  
 (b)  
 Figure 3.4: Block-overlap CD BER performance: (a) BER vs OSNR with 16000 ps/nm CD; (b) block length requirements in block-overlap CD at 14 dB OSNR.
 
@@ -656,9 +656,9 @@ $$
 \left\{ \begin{array} { l l } { { \frac { 1 } { 2 } } l o g _ { 2 } ( { \frac { 2 \beta } { \alpha } } N _ { 1 } ) } & { { \mathrm { o n e ~ b l o c k } } } \\ { { \frac { 1 } { 2 } } l o g _ { 2 } \{ \beta ( L - 2 N _ { 1 } ) \} } & { { \mathrm { e n t i r e ~ d a t a ~ s a m p l e ~ s e t } } } \end{array} \right.\tag{3.3}
 $$
 
-![](images/2c5f4fc7f5dcb7b5ff686ed34ed1595b566f9df946e34050b63b72c565b93bf0.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/2c5f4fc7f5dcb7b5ff686ed34ed1595b566f9df946e34050b63b72c565b93bf0.jpg)
 
-![](images/309488de2ea7d8d9d4afbf73cfa284a67ef329c8b25c69db0fc14e4f16877599.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/309488de2ea7d8d9d4afbf73cfa284a67ef329c8b25c69db0fc14e4f16877599.jpg)  
 Figure 3.5: Constellation comparison between received signal and CD compensation.
 
 As it is shown in Figure 3.5, engineering rules for block-overlap CD compensation algorithm has been experimentally validated with 20 Gbit/s QPSK links with 40 km SMF transmission operating at 1550 nm. Figure 3.5 shows the results for the constellation of received signal and with block-overlap CD compensation being implemented. The block-overlap CD compensation algorithm reduces the computational complexity of a serial frequency all-pass filter approach substantially, to that of a single block. Engineering rule indicates that for a given target value of CD compensation, the block length of block-overlap CD algorithm can be adjusted to achieve less computational complexity than the serial compensation approach.
@@ -681,7 +681,7 @@ $$
 
 where n-th element of time error represents difference between two adjacent samples from ADC. Sample period is equal to $\scriptstyle { \frac { T _ { s } } { 2 } }$ , where $T _ { s }$ is symbol period of transmitted signal. Furthermore, as it is can be noticed from Figure 3.6, the implementation of interpolator is used to interpolate adjacent symbols with new sampling clock. The mean purpose of Gardner clock recovery algorithm is to sample the adjacent sequences with the same time difference that $e _ { x } ( n )$ and $e _ { y } ( n )$ are equal to zero.
 
-![](images/087948b0c3385df0641f6cf8328dd93a9fab38d20f537418a2410b7471ee7666.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/087948b0c3385df0641f6cf8328dd93a9fab38d20f537418a2410b7471ee7666.jpg)  
 Figure 3.6: Structure of Gardner clock recovery DSP algorithm.
 
 ## 3.4 Polarization Demultiplexing DSP Algorithm
@@ -700,7 +700,7 @@ $$
 
 As it shown in Equation 3.7, applying the inverse matrix of Equation 3.6 can make the incoming signal at the coherent receiver side become original transmitted signal. On the other hand the problem is the same as determining the value of α and δ. The inverse Jones matrix is given as
 
-![](images/c53801c5a8a02355851ba223a4ce2b05e595c1d7a5121a8eee3b94b646316776.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/c53801c5a8a02355851ba223a4ce2b05e595c1d7a5121a8eee3b94b646316776.jpg)  
 Figure 3.7: Polarization demultiplexing DSP algorithm.
 
 $$
@@ -739,7 +739,7 @@ $$
 h _ { x x } ( n ) = \sum _ { m = - { \frac { M } { 2 } } } ^ { \frac { M } { 2 } } h _ { x x } ( n - m ) \quad a n d \quad h _ { x y } ( n ) = \sum _ { m = - { \frac { M } { 2 } } } ^ { \frac { M } { 2 } } h _ { x y } ( n - m ) .\tag{3.13}
 $$
 
-![](images/5144f52f0edaf6660faf5de670069e27fe3dcf406dc47b958ce43f2659d37e25.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/5144f52f0edaf6660faf5de670069e27fe3dcf406dc47b958ce43f2659d37e25.jpg)  
 Figure 3.8: polarization demultiplexing parameters convergence.
 
 As it is shown in Figure 3.8, step-size $\mu$ is selected to control the convergence speed of polarization demultiplexing parameters. According to
@@ -758,7 +758,7 @@ $$
 E _ { S } ( k ) = A _ { S } ( k ) \exp [ i ( \frac { 2 \pi m } { 4 } + \theta _ { x } ( k ) ) ] + n _ { k } , \quad ( m = 0 , 1 , 2 , 3 )\tag{3.14}
 $$
 
-![](images/2b14bee4c716e11f53aa403a6272b59ae9f8eecdac38198fdd26dc0a1a723bdf.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/2b14bee4c716e11f53aa403a6272b59ae9f8eecdac38198fdd26dc0a1a723bdf.jpg)  
 Figure 3.9: Viterbi-Viterbi phase recovery algorithm.
 
 In Equation 3.14, $A _ { S } ( k )$ is the QPSK signal amplitude. $\theta _ { x } ( k )$ represents the phase offset between received signal and LO. And $n _ { k }$ is the additive white Gaussian noise (AWGN). $N _ { 1 }$ and $N _ { 2 }$ are chosen according to processing method. In case of serial processing, Viterbi-Viterbi carrier recovery algorithm is applied to the received signal symbol by symbol. Moreover phase offset $\theta _ { x } ( k )$ can be modeled as a Wiener variable with zero mean and variance $\sigma ^ { 2 } = 2 \pi \Delta \nu T$ , where $\Delta \nu$ is the combination of transmission and LO laser linewidth [62]. As it is shown in Figure 3.9, phase modulation of received QPSK signal is removed by using n-power rules. According to QPSK modulation, n-power rule is reformulated to power-4 process which can be represented as
@@ -793,7 +793,7 @@ R 28 GHz 3 dB bandwidth coherent receiver is used for coherent detection.
 
 The deployment of pilot-tone-aided PN cancellation algorithm guarantees a bit error rate (BER) performance below the forward error correction (FEC) threshold. Moreover, in order to detect the pilot tone in the signal spectrum, a novel digital signal processing (DSP) algorithm for adaptive pilot tone detection is evaluated.
 
-![](images/231f43ae08871e3ab73cf1fb2a1a06328e5a8f4529d9973630313329705bfd2d.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/231f43ae08871e3ab73cf1fb2a1a06328e5a8f4529d9973630313329705bfd2d.jpg)  
 Figure 3.10: DP-QPSK coherent systems experiment setup.
 
 ## Theoretical overview of the pilot-tone-aided technique
@@ -830,7 +830,7 @@ $$
 \begin{array} { r } { E _ { o } ( t ) = E _ { R } \exp [ i ( \Delta \omega t + \omega _ { p } t + \Delta \phi ^ { ' } ) ] } \\ { + E _ { R } \exp [ i ( \Delta \omega t - \omega _ { p } t + \Delta \phi ^ { ' } ) ] } \\ { - E _ { A } \exp [ i ( \Delta \omega t + \Delta \phi ) ] } \end{array}\tag{3.23}
 $$
 
-![](images/37769807edd1f6dce7d5a7502034848ea9b310283d7a28f0ae8aae27d31880e0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/37769807edd1f6dce7d5a7502034848ea9b310283d7a28f0ae8aae27d31880e0.jpg)  
 Figure 3.11: Schematic diagram of double sideband first-null-point pilot-tone aided spectrum.
 
 with
@@ -871,7 +871,7 @@ $$
 
 The general configuration of the adaptive pilot-tone detection algorithm is shown in Figure. 3.12. This algorithm is widely used to suppress the narrowband interference in a wideband signal in spread-spectrum wireless communication. In the case of pilot-tone-aided PN cancellation, the transmitted signal sequence $E _ { o } ( k )$ is assumed to be wideband, and the pilot tone $E _ { p } ( k )$ is assumed to be a narrowband sequence instead. As, in the time domain, the two sequences are uncorrelated, a adaptive feed forward finite impulse response (FIR) filter design is able to detect the narrowband pilot tone from the transmitted signal.
 
-![](images/eb36167cf61305b6a29d68b1dddcc165af60f928c33cbbf1922e55d73fd37971.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/eb36167cf61305b6a29d68b1dddcc165af60f928c33cbbf1922e55d73fd37971.jpg)  
 Figure 3.12: Pilot-tone-aided PN cancellation using adaptive pilot tone detection schematic.
 
 Because of the narrowband characteristics of the pilot tone, the delayed sample $E _ { o } ( k - D )$ is used to estimate the pilot tone in the spectral domain. As the spectrum of the pilot tone is much narrower compared to the signal, then $D = 1$ is selected in order to meet the uncorrelation requirement. The resulting output of the FIR filter is given as
@@ -890,12 +890,12 @@ moreover pilot-to-signal ratio (PSR) at first-null-point of the signal spectrum 
 
 ## Experiment setup
 
-![](images/de8db980147fd931bb23b8f5c7be39c715d07247d1e0541be57a976e03a9a198.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/de8db980147fd931bb23b8f5c7be39c715d07247d1e0541be57a976e03a9a198.jpg)  
 Figure 3.13: Pilot-tone-aided PN cancellation experiment setup
 
 Figure. 3.13 shows the experiment setup for a 40 Gb/s DP-QPSK transmission system based on pilot-tone-aided PN cancellation algorithm. At the transmitter side, the optical source consists of a single VCSEL operating at 1540.49 nm (194.6085 THz), which is used to generate both signal and pilot tone. The electrical signal source is a pulse pattern generator (PPG) working at 10 Gbaud and generating a pattern of $2 ^ { 1 5 } – 1$ bits used to drive the optical $\mathrm { I } / \mathrm { Q }$ modulator. An external Mach-Zehnder modulator (MZM) driven by an electrical synthesizer is used to generate the pilot tone, which is placed at the double sideband first-null-point (10 GHz) of the signal spectrum. Hence, after they are optically combined, both pilot tone and QPSK signal experience the same type of phase noise. In order to generate a dual polarization state, the optical signal is separated into two orthogonal polarizations by a polarization beam splitter (PBS). Before recombination in a polarization beam combiner (PBC), one of the polarization states propagates through an optical delay line, which decorrelates it from the other orthogonal state. The resulting optical signal is a pilot-tone aided 40 Gb/s DP-QPSK signal.
 
-![](images/7b3a3faf8720fab82232b2e83542aa5f495681ad18fe5112891865a39ca0f42e.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/7b3a3faf8720fab82232b2e83542aa5f495681ad18fe5112891865a39ca0f42e.jpg)  
 Figure 3.14: Pilot-tone-aided received signal spectrum.
 
 The pre-amplified receiver consists of a second VCSEL operating at 1540.48 nm (194.6098 THz) used as LO, two 90◦-hybrids (dual polarization operation), balanced detectors, a 40 GSa/s digital sampling oscilloscope which is used to sample the in-phase and quadrature components from the received signal, and a computer for signal processing. The pilot-tone aided received signal spectrum is shown in Figure 3.14. The first block consists of clock recovery, followed by pilot-tone aided PN cancellation. The frequency domain chromatic dispersion (CD) compensation algorithm is used to compensate for 80 km SMF transmission, and is followed by the constant modulus algorithm (CMA), utilized to enable polarization demultiplexing. Phase and frequency recovery based on Viterbi-Viterbi algorithm is employed to compensate the residual phase and frequency offset after pilot-tone-aided PN cancellation. A decision feed-forward and a decision feedback FIR equalizer are implemented to compensate inter symbol interference (ISI), and hence improve system performance. Bit error detection is also applied to evaluate the system’s BER performance.
@@ -905,27 +905,27 @@ The pre-amplified receiver consists of a second VCSEL operating at 1540.48 nm (1
 Figure. 3.15 shows the constellations diagrams for the 40 Gb/s DP-QPSK signal generated by using the Viterbi-Viterbi or the pilot-tone-aided algorithm. Constellation rotation caused by phase noise is successfully compensated by using the pilot-tone-aided algorithm.
 
 Received Signal  
-![](images/a620b89613043efa1d69bbbccb6116a4110dfd66d0157d4a2a4af3f7bbac58fd.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/a620b89613043efa1d69bbbccb6116a4110dfd66d0157d4a2a4af3f7bbac58fd.jpg)
 
 w/ Viterbi-Viterbi  
-![](images/b1d48c605a52df6cabd0d684b024adb38182925cb6c17bcebd7168de3cae95c5.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/b1d48c605a52df6cabd0d684b024adb38182925cb6c17bcebd7168de3cae95c5.jpg)
 
 w/ Pilot-tone-aided  
-![](images/81f7223b679664961031e6db2036bcca23f2bcf7dcd0f2ddbc6e77b3d4ffb458.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/81f7223b679664961031e6db2036bcca23f2bcf7dcd0f2ddbc6e77b3d4ffb458.jpg)
 
-![](images/8670f1e2039c5eb8c4874aa4f7a666b71f1a5147eeb09ba62e8b6cd0d01cb954.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8670f1e2039c5eb8c4874aa4f7a666b71f1a5147eeb09ba62e8b6cd0d01cb954.jpg)
 
-![](images/77e9843ebd38cc8efdc65e0e47bedd5e2376e90e54e9264a8b56624d9015410c.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/77e9843ebd38cc8efdc65e0e47bedd5e2376e90e54e9264a8b56624d9015410c.jpg)
 
-![](images/821f68a339c041810eeaf15ab1cf64cdfa0b194d7a732e317a63e05f24640522.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/821f68a339c041810eeaf15ab1cf64cdfa0b194d7a732e317a63e05f24640522.jpg)  
 Figure 3.15: Pilot-tone-aided PN cancellation experiment results of two orthogonally polarized signals constellation (a). received signal; (b). output of using Vibterbi-Viterbi carrier recovery algorithm; (c). output of using pilot-tone-aided PN cancellation.
 
 Figure. 3.16 shows the phase tracking comparison results between pilottone aided PN cancellation algorithm and Viterbi-Viterbi phase recovery algorithm. As it can be noticed, the pilot-tone aided algorithm is able to track the original phase information from the received signal. Figure. 3.17 shows the measured BER performance for single- and dual-polarization QPSK systems in back-to-back and after 80 km transmission in SMF. CD compensation is performed via off-line processing at the receiver side. As a result, the BER performance difference between back-to-back and 80 km SMF transmission is less than 0.5 dB. Furthermore, the utilization of the pilot-aided tone PN cancellation guarantees the BER performance below the threshold of 7% overhead FEC.
 
-![](images/0b382aa69ea2003598c1fd5b105e5a31cd73a99b627315d58eb6038ff8a57dbe.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/0b382aa69ea2003598c1fd5b105e5a31cd73a99b627315d58eb6038ff8a57dbe.jpg)  
 Figure 3.16: Pilot-tone-aided samples phase tracking results.
 
-![](images/dbcc47d1f857a9251c8872e5a6929627092934ae7b711396042eda6d585cc621.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/dbcc47d1f857a9251c8872e5a6929627092934ae7b711396042eda6d585cc621.jpg)  
 Figure 3.17: BER performance of pilot-tone-aided PN cancellation experiment.
 
 ## Conclusion of pilot-tone-aided phase noise cancellation algorithm
@@ -938,7 +938,7 @@ A novel pilot-tone detection DSP algorithm based on adaptive FIR filtering is al
 
 As it is discussed in previous sections, with the rapid growth of capacity requirements of optical transmission networks, there is a strong need to realize high capacity and high spectral efficient (SE) optical communication systems. The ultra dense wavelength division multiplexing (U-DWDM) technology based on advanced modulation format is a promising solution and is being intensively studied [66, 67]. U-DWDM technology requires optical or electrical pre-filtering to fulfil Nyquist sampling criterion [68]. Details of theoretical analysis will be presented in the subsequent chapter. Meanwhile, to facilitate ease of optical networking, tolerance of spectrum narrowing is critical, as signal channel spacing is degraded after transmission through optical channel, especially when reconfigurable optical add/drop multiplexers (ROADMs) nodes are used in the network [69]. Schematic of metro access networks with ROADMs application is shown in Figure 3.18. ROADMs spectrum narrowing effect is depicted in Figure 3.19. As it can be noticed in Figure 3.19, fifteen Gaussian order 3 band pass filters cascaded introduce approximate 70% channel bandwidth narrowing.
 
-![](images/c3896f0082b274a5598de7bc0a40edbb333d64098620430a98b12ce853edc593.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/c3896f0082b274a5598de7bc0a40edbb333d64098620430a98b12ce853edc593.jpg)  
 Figure 3.18: Schematic of metro access networks with ROADMs application.
 
 Spectrum narrowing severely induce inter symbol interference (ISI) between continual transmitted sequences. Therefore, ISI compensation is essential to improve U-DWDM system performance in terms of optical signal to noise ratio (OSNR). Conventional digital signal processing (DSP) algorithm using adaptive decision feed forward equalizer is an inefficient solution, since this finite impulse response (FIR) filter enhance noise during compensation of spectrum narrowing [70].
@@ -947,7 +947,7 @@ Although maximum-likelihood sequence estimation (MLSE) method has been successfu
 
 Therefore, in order to achieve high spectrum narrowing tolerant optical communication systems, an adaptive channel estimation DSP algorithms combined with decision feedback equalizer is proposed in section 3.6. As a result, a high spectrum narrowing tolerance of proposed algorithms for 112 Gb/s dual polarization (DP) quadrature phase shift keying (QPSK) transmission system is demonstrated by both simulation and experiment.
 
-![](images/5ad10da2643a777dd92c545a2029daea23a6f8108b68bed35f5624ef49a02f07.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/5ad10da2643a777dd92c545a2029daea23a6f8108b68bed35f5624ef49a02f07.jpg)  
 Figure 3.19: ROADMs bandwidth narrowing analysis.
 
 ## Theoretical overview of adaptive channel estimation technique
@@ -956,7 +956,7 @@ The proposed adaptive channel estimation algorithm schematic is shown in Figure 
 
 The adaptive channel estimation requires estimation of noise level $\eta _ { k } ;$ feed forward FIR tap coefficients $c _ { k }$ and feed back equalizer tap coefficients $p _ { k }$ . For instance, in one orthogonal polarization, denoted as x-polarization, input of channel estimation is $x ( k )$ Since a finite length feed forward equalizer is unable to cancel noncausal ISI completely, the feed back filter coefficients should be optimized according to the MMSE criterion whereby the additive noise power resulting from residual ISI is minimized. The correct channel estimation of $c _ { k }$ and $p _ { k }$ is able to minimize minimum mean square error (MMSE) between original transmitted signals and decision signals [72], which can be presented as
 
-![](images/8c5df047ca7a253663d2adc4fbd0396b8f426f98ca87f4f0dfa8b948016435b0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8c5df047ca7a253663d2adc4fbd0396b8f426f98ca87f4f0dfa8b948016435b0.jpg)  
 Figure 3.20: Schematic of adaptive channel estimation DSP algorithm.
 
 $$
@@ -1003,24 +1003,24 @@ where n is the length of feed back equalizer. Operation of noise subtracted $x ^
 
 ## Experiment setup and results
 
-![](images/b637328976dba2d68af706c43d566581b5091b0edc47520876642ade31d36c26.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/b637328976dba2d68af706c43d566581b5091b0edc47520876642ade31d36c26.jpg)  
 Figure 3.21: 112 Gb/s DP-QPSK transmission experiment setup with adaptive channel estimation algorithm implementation.
 
 Figure 3.21 shows the experiment setup of 112 Gb/s DP-QPSK optical communication system. A distributed feedback (DFB) laser operating at 1549.53 nm (193.47 THz) with 10 MHz line-width is used as optical signal source to generate the QPSK signal. The pulse pattern generator (PPG) working at 28 Gbaud $\cdot / \mathrm { s }$ is operated as electrical signal source with $2 ^ { 1 5 } - \mathrm { \dot { 1 } }$ bit length to drive the optical QPSK modulator. After the QPSK modulator, optical channel is separated into two orthogonal polarizations by a polarization beam splitter (PBS). Afterward, two branches of orthogonally polarized optical channels are combined by a polarization beam combiner (PBC) to generate the 112 Gb/s DP-QPSK signal. The Finisar wave-shaper is then used as spectrum pre-filtering optical bandpass filter (OBPF). The OBPF is able to tune full width at half maximum (FWHM) of transmitted signal. FWHM is defined as 3 dB bandwidth of transmitted signal. At the receiver side, the pre-amplified coherent receiver structure is implemented. A tunable optical band-pass filter (with 0.5 nm/62.5 GHz FWHM) is used after the pre-amplifier in order to remove ASE noise from the EDFA. The local oscillator (LO) is a wavelength tunable external cavity laser (ECL) with 100 kHz line-width. In the coherent receiver structure, tuning LO wavelength enables channel selection due to optical heterodyning at the photodiode. The coherent receiver consists of two 90◦-hybrids and balanced detectors. The 80 $\mathrm { G b } / \mathrm { s }$ digital sampling oscilloscope at the coherent receiver is used to sample the inphase and quadrature components.
 
-![](images/a6f907e9ecd8986e9491b1d5cc3f31c67eb860a268e8ed4d4bcf91a4bd52f6cf.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/a6f907e9ecd8986e9491b1d5cc3f31c67eb860a268e8ed4d4bcf91a4bd52f6cf.jpg)  
 Figure 3.22: BER performance of 112 Gb/s DP-QPSK coherent systems.
 
 Figure 3.22 shows the back to back transmission bit error rate (BER) performance in terms of OSNR. In both results of simulation and experiment for back to back transmission, at 20 dB OSNR measurement point, BER performances are approaching zero, and at 16 dB OSNR measurement point, BER performances are around $1 0 ^ { - 3 }$ In the experiment, these two OSNR measurement points $( \mathrm { O S N R { = } 1 6 d B }$ and $\mathrm { O S N R = 2 0 d B } )$ are under consideration and adaptive channel estimation DSP algorithm is implemented to compensate ISI induced by spectrum narrowing effect. Moreover constant modulus algorithm (CMA) is also employed to enable polarization rotation compensation, various DSP algorithms discussed before, such as frequency and phase off set recovery, QPSK demodulation and bit error detection are also implemented in section .
 
-![](images/dbde79a5aee3993c9e5f188fc0e351d006f11e80b9640ea00f3ca9b873fdf4d4.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/dbde79a5aee3993c9e5f188fc0e351d006f11e80b9640ea00f3ca9b873fdf4d4.jpg)  
 Figure 3.23: BER penalty vs. bandwidth narrowing with and without adaptive channel estimation algorithm @ 20 dB OSNR.
 
 Figure 3.23 and Figure 3.24 show the experiment BER results. In the experiment, 20 dB OSNR and 16 dB OSNR measurement points are under consideration. At 20 dB OSNR measurement point, in case of without spectrum narrowing effect, BER performance is error free. As the signal spectrum space degrading, BER penalty grow dramatically. Meanwhile, using adaptive channel estimation algorithm, strongly reduce the BER penalty.
 
 Especially at 20 GHz bandwidth (71% of original signal bandwidth), BER penalty is approximately reduced 2 dB by using adaptive channel estimation algorithms. At 16 dB OSNR measurement point, in case of with out spectrum narrowing effect, BER performance is around $1 0 ^ { - 3 }$ . At 20 GHz bandwidth (71% of original signal bandwidth), BER penalty is also approximately reduced 2 dB by using adaptive channel estimation algorithms.
 
-![](images/6d1edc63ba3743e6c2c505e1f156abce7b749601c89a9534007a46c0ccbbd762.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/6d1edc63ba3743e6c2c505e1f156abce7b749601c89a9534007a46c0ccbbd762.jpg)  
 Figure 3.24: BER penalty vs. bandwidth narrowing with and without adaptive channel estimation algorithm @ 16 dB OSNR.
 
 Therefore the proposed adaptive channel estimation DSP algorithm is successfully demonstrated in high spectrum narrowing tolerant 112 Gb/s QPSK polarization multiplex optical communication systems. The experiment results show that in case of 71% spectrum narrowing, proposed algorithm mitigate 2 dB BER penalties with both 16 dB OSNR and 20 dB OSNR cases. Compared to high computational complexity requirement of MLSE algorithm, proposed adaptive channel estimation DSP algorithm is feasible and practical.
@@ -1047,7 +1047,7 @@ Chapter 4
 
 In the previous chapters, digital signal processing algorithms for optical coherent detection has been discussed. Optical coherent systems associated with DSP are considered as the promising solution for high capacity and high spectrum efficiency demand in next generation of optical transmission systems. Additional challenge of future optical networks is to support multiple users with access to multiple services such as voice, data, images and video while sharing the same physical infrastructure. Figure 4.1 shows the scenario of next generation optical networks supplying various services. In order to fulfill such requirements, carrierless amplitude-phase (CAP) modulation is considered as feasible solution. CAP modulation has been intensively studied for copper wires communication [75–77]. CAP is a multi dimensional and multi level signal modulation format employing orthogonal waveforms. These waveforms are generated by using FIR filters with orthogonal impulse responses in time domain, i.e. statistical expectation of correlation between different waveforms is zero. In principle, CAP modulation is similar to orthogonal frequency division multiplexing (OFDM) modulation, in the sense that both of CAP and OFDM support multiple levels modulation with more than one dimension or sub-carrier. Contrary to OFDM, generation of orthogonal sub-carriers in frequency domain is not required for CAP. Additionally, CAP supports modulation in more than two dimensions, provided that orthogonal pulse shapes can be identified [77]. This possibility of multi dimensional modulation makes CAP an attractive modulation format for next generation multiple services access networks. In chapter 4, DSP algorithms for multi dimensional multi level CAP modulation are under investigation. Similar as chapter 3, DSP algorithms used for CAP optical communication systems are implemented to compensate for transmission impairments. Chapter 4 is divided into three sections. After introductory section, general theoretical analysis for CAP modulation will be firstly introduced. Afterward, DSP algorithms for CAP optical transmission channel estimation are under investigation. Finally a bi-directional CAP transmission experiment using DSP channel estimation algorithm for passive optical networks will be demonstrated.
 
-![](images/487225511ff8640e8767b2b1de7a67b5c3413cc7b07ce88179d57bb20e3d75a0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/487225511ff8640e8767b2b1de7a67b5c3413cc7b07ce88179d57bb20e3d75a0.jpg)  
 Figure 4.1: Scenario of next generation optical networks supplying various services.
 
 ## 4.2 Theoretical Overview of CAP Technique
@@ -1060,7 +1060,7 @@ $$
 
 where T is a symbol period and α is the roll-off factor. The α factor influences the signal excess bandwidth in frequency domain.
 
-![](images/360585a5921dd4ae0c85e54777a0bf5e4283dd2c5dc2e5c8e745ca895a449282.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/360585a5921dd4ae0c85e54777a0bf5e4283dd2c5dc2e5c8e745ca895a449282.jpg)  
 Figure 4.2: Schematic of n-dimensional CAP transponder.
 
 The two orthogonal pulse shapes used as signature waveforms multiplied with the square-root raised cosine waveform are respectively given as
@@ -1091,20 +1091,20 @@ $$
 
 where $F _ { i }$ is the discrete Fourier transform (DFT) of vector $f _ { i } .$ The $F _ { i } ^ { ' }$ is the out-of-band portion of the transmitter response above the boundary frequency $f _ { B } .$ which is used to ensure the receivers frequency response will be exactly the same as the transmitters. This means that the out-of-band spectral content of the filters is designed to be zero. For the multi dimension CAP system, there is minimum bandwidth requirement denoted as $f _ { B , m i n }$ that will allow a PR condition. Any value smaller than $f _ { B , m i n }$ will not result in a PR solution. For instance, the $f _ { B }$ for 3D CAP system is at least equal to or greater than $\scriptstyle { \frac { 3 } { 2 T } }$ to preserve the PR condition [78]. Time domain cross correlation responses of match filters are shown in Figure 4.3. Moreover Figure 4.4 shows the optimized match filter impulse and frequency responses for 3D CAP.
 
-![](images/99c3d4b4d8c3740beed98d209f471e1503dea25bc690d2c9ee41755dee83e79a.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/99c3d4b4d8c3740beed98d209f471e1503dea25bc690d2c9ee41755dee83e79a.jpg)  
 Figure 4.3: 3D CAP cross correlation responses of transmitter-receiver match filters.
 
-![](images/8f603fd98e9bcfaa37a64b0cf2d7654d9036a3c5022394267e604a1476b66549.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8f603fd98e9bcfaa37a64b0cf2d7654d9036a3c5022394267e604a1476b66549.jpg)  
 Figure 4.4: 3D CAP optimal match filter impulse and frequency responses.
 
 ## 4.3 DSP Algorithms for CAP Transmission Channel Estimation
 
 In optical multi dimensional CAP transmission systems, inter symbol interference (ISI) induced by transmission impairments and multi dimensions cross talk is the main factor of system performance degrading. In section 4.3, a blind equalization using constant modulus algorithm (CMA) for CAP transmission channel estimation will be proposed. As it is stated in previous section, CMA equalizer is capable of tracking channel characteristic adaptively and compensating for transmission impairments effectively [79]. Moreover, blind CMA equalizer is simple to implement and suitable to equalize constant envelope signal, such as n-PSK signal. However, such CMA equalizer is not able to be used directly to multi dimensional CAP with advanced modulation format such as 16 QAM. Therefore, a coordinate transformed CMA equalizer is presented in this thesis for optical multi dimensional CAP transmission systems.
 
-![](images/c83fe966984c76ea7e739357054d1936afb7c185a4936a48ddf224bba1593e25.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/c83fe966984c76ea7e739357054d1936afb7c185a4936a48ddf224bba1593e25.jpg)  
 (a)
 
-![](images/2b9fa6c708196fe7dcd74eed1ef2c242c508d451b5640172128addd4ab848384.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/2b9fa6c708196fe7dcd74eed1ef2c242c508d451b5640172128addd4ab848384.jpg)  
 (b)  
 Figure 4.5: Blind CMA Equalizer for 16 QAM Constellation: (a) conventional circle classed CMA for 16 QAM; (b) coordinate transformed CMA 16 QAM with highlighted unified circle.
 
@@ -1112,7 +1112,7 @@ Figure 4.5: Blind CMA Equalizer for 16 QAM Constellation: (a) conventional circl
 
 To fulfil the theoretical analysis of blind CMA Equalizer, multi dimensional CAP with 16 QAM modulation format is under investigation. In general, two types of CMA equalizer are capable of n-QAM modulation format channel estimation. Figure 4.5(a) and Figure 4.5(b) show the principle of conventional circle classed CMA and coordinate transformed CMA for 16 QAM based on constellation diagram. In case of conventional circle classed CMA, signals of 16 QAM are divided into three categories with different radius. That means three different structures of CMA equalizer are required to implement conventional circle classed CMA. Since the sixteen clusters of 16 QAM constellation are transformed into unified circle to generate four clusters as QPSK, coordinate transformed CMA is simple and feasible to employ.
 
-![](images/3efefc01aedffa722456a05ec8aef33b0db270b271986a549f4dca53340a770f.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/3efefc01aedffa722456a05ec8aef33b0db270b271986a549f4dca53340a770f.jpg)  
 Figure 4.6: Structure of n dimensional CAP transmission channel estimation using coordinate transformed (CT) blind CMA equalizer.
 
 The transformed signals by using coordinate transformed CMA can be presented as
@@ -1139,15 +1139,15 @@ where R is the radius of unified circle. Moreover sufficient length of adaptive 
 
 As it is discussed in the section 4.3.1, implementation of channel estimation DSP algorithms is under consideration as a promising solution to enable the multi Gb/s passive optical networks (PON) transmission. In section 4.3.2, an experimental demonstration concerning bi-directional multi dimension CAP transmission will be presented. To the best of author’s knowledge, this is the first demonstration of a bi-directional optical link using multi dimensional CAP and employing directly modulated (DM) vertical cavity surface emitting lasers (VCSELs) operating around 1550 nm wavelength (193.4145 THz) as transmitters.
 
-![](images/64413d608f17173e4353f55f19a209c836676d86b49d3ab0bd0b9640ecc4b863.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/64413d608f17173e4353f55f19a209c836676d86b49d3ab0bd0b9640ecc4b863.jpg)  
 Figure 4.7: Experiment setup of multi dimensional CAP bi-directional transmission.
 
 Figure. 4.7 shows the setup implemented in the experiment. The arbitrary waveform generator (AWG) with 12 GSa/s is used to generate the 3D and 4D CAP with 2 Level/Dimension $\left( \mathrm { L } / \mathrm { D } \right)$ and 4 Level/Dimension (L/D) signals. For example, 3D CAP constellations with $\scriptstyle 2 \mathrm { - L } / \mathrm { D }$ and 4-L/D are shown in Figure 4.8 and Figure 4.9. As it can be noticed, denotation of $\scriptstyle 2 \mathrm { - L } / \mathrm { D }$ can be considered as QPSK in two dimensional modulation format, as well the denotation of $\scriptstyle 4 - \mathrm { L } / \mathrm { D }$ can be considered as 16 QAM in two dimensional modulation format.
 
-![](images/46db1ffe3fe7cc0e91c1e6bba70fd8705fc1e40f4a2d30558baf375951ff6113.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/46db1ffe3fe7cc0e91c1e6bba70fd8705fc1e40f4a2d30558baf375951ff6113.jpg)  
 Figure 4.8: 3D CAP with 2-L/D.
 
-![](images/4389313e3a6199460d072eac31ae119fc35a1dfab6aec38e4137bf12f671bf96.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/4389313e3a6199460d072eac31ae119fc35a1dfab6aec38e4137bf12f671bf96.jpg)  
 Figure 4.9: 3D CAP with 4-L/D.
 
 As it is shown in the experiment setup configuration, for down link, data in the transmitter side is firstly mapped according to the given modulation level, such as 2-L/D and $\scriptstyle 4 - \mathrm { L } / \mathrm { D }$ . Those symbols are up sampled and later shaped (or filtered), according to the optimization algorithm. The transmitter signature filters are implemented as fixed FIR filters. The 3D CAP signals at bit rate of $4 . 5 \ : \mathrm { G b / s } \ : ( \mathrm { 2 - L / D ) }$ with an up sampling factor of 8 and 7.2 Gb/s (4-L/D) with an up sampling factor of 10 are generated by the arbitrary waveform generator (AWG). Meanwhile, for 4D-CAP, signals at bit rate of 4 Gb/s (2-L/D) with an up sampling factor of 12 and 5.3 Gb/s (4-L/D) with an up sampling factor of 18 are generated. Afterward, optical CAP signals are directly modulated with 1548.24 nm (193.63 THz) VCSEL with 4.5 GHz bandwidth operating at 4 mA bias level.
@@ -1164,29 +1164,29 @@ Figure 4.14 presents BER performance of 3D CAP with 2-L/D modulation for back to
 
 In Figure 4.16 and Figure 4.17, BER performances of 3D and 4D CAP with $\scriptstyle 4 - \mathrm { L } / \mathrm { D }$ modulation for back to back and 20 km SSMF transmission are presented.
 
-![](images/6b5079076414f24af0df21ce28434938c203032825fdd3191ab584a0298de504.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/6b5079076414f24af0df21ce28434938c203032825fdd3191ab584a0298de504.jpg)  
 Figure 4.10: Comparison between with and without channel estimation for 3D $\scriptstyle 2 \mathrm { - L } / \mathrm { D }$ CAP bi-directional transmission down link.
 
-![](images/9e154d289fe3cb283f82db316cd0dec84c96fdfadab8b49caf8f39ee287988fe.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/9e154d289fe3cb283f82db316cd0dec84c96fdfadab8b49caf8f39ee287988fe.jpg)  
 Figure 4.11: Comparison between with and without channel estimation for 3D $\scriptstyle 2 \mathrm { - L } / \mathrm { D }$ CAP bi-directional transmission up link.
 
-![](images/a365ff0c4949984b4bc0fc5cfbd66bfa3bd13150815ca732827fce688a8fb0b1.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/a365ff0c4949984b4bc0fc5cfbd66bfa3bd13150815ca732827fce688a8fb0b1.jpg)  
 Figure 4.12: Comparison between with and without channel estimation for 4D 2-L/D CAP bi-directional transmission down link.
 
-![](images/31470fd5c7e327544ca275e6351f1084195ca8c4dbc533a8a2ad9925b608d4ec.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/31470fd5c7e327544ca275e6351f1084195ca8c4dbc533a8a2ad9925b608d4ec.jpg)  
 Figure 4.13: Comparison between with and without channel estimation for 4D 2-L/D CAP bi-directional transmission up link.
 
-![](images/6c54e53c3e3a4f4fe99c6a990466bde024db27c030e3db366fa4af64f979449c.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/6c54e53c3e3a4f4fe99c6a990466bde024db27c030e3db366fa4af64f979449c.jpg)  
 Figure 4.14: BER vs received optical power of 3D 2-L/D CAP bi-directional transmission.
 
-![](images/84e459aa34f815c694278d7327835d90d6c53787bffeb56cc43fea2591636176.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/84e459aa34f815c694278d7327835d90d6c53787bffeb56cc43fea2591636176.jpg)  
 Received Optical Power (dBm)  
 Figure 4.15: BER vs received optical power of 4D 2-L/D CAP bi-directional transmission.
 
-![](images/8dfd94cfc4c649c3057b696f2485c25f5758f645561d7efc53402e24ce329077.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8dfd94cfc4c649c3057b696f2485c25f5758f645561d7efc53402e24ce329077.jpg)  
 Figure 4.16: BER vs received optical power of 3D 4-L/D CAP bi-directional transmission.
 
-![](images/aa83a2df7da90c1e5733be8032f8b15bf57b06e64333bec88bc4e8347e57d775.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/aa83a2df7da90c1e5733be8032f8b15bf57b06e64333bec88bc4e8347e57d775.jpg)  
 Figure 4.17: BER vs received optical power of 4D 4-L/D CAP bi-directional transmission.
 
 ## 4.4 Summary
@@ -1207,10 +1207,10 @@ In chapter 5, an alternative schematic known as ultra dense WDM with a flexible 
 
 Chapter 5 is divided into three sections. After introductory section, theoretical concept and analysis of ultra dense WDM systems will be presented. Furthermore, a ultra dense WDM optical communication coherent system using DSP decision feedback equalizer algorithm is experimentally demonstrated.
 
-![](images/bae2875b37c2004a206ad787d33a7ca19031c1faa182b9663c13b99ffb1453ca.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/bae2875b37c2004a206ad787d33a7ca19031c1faa182b9663c13b99ffb1453ca.jpg)  
 Figure 5.1: Scenario of optical WDM system with fixed channel spacing
 
-![](images/35f0d439cf98811a69518d91b06295695da24b9baf7c88610e88eef777fe04f5.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/35f0d439cf98811a69518d91b06295695da24b9baf7c88610e88eef777fe04f5.jpg)  
 Figure 5.2: Scenario of optical WDM system with flexible channel spacing
 
 ## 5.2 Generation of Ultra Dense WDM Channels
@@ -1219,7 +1219,7 @@ The conventional dense WDM systems use individual lasers to generate sub-channel
 
 The schematic of optical ultra dense WDM system generation using comb generator is depicted in Figure 5.3. The basic idea of frequency domain comb generation is to serially combine the duplicated signal carriers in frequency domain. Moreover channel spacing $\Delta \lambda$ can be controlled by using external electrical synthesizer. The common comb generation approach is known as single side band modulation using single Mach-Zehnder modulator (MZM). After comb generation, signal carriers with different carrier frequencies $[ \lambda _ { 0 } , \lambda _ { 1 } , \cdots , \lambda _ { n } ]$ are split into individual optical modulators. This ultra dense WDM structure is suitable for point-to-multipoint PONs to increase amount of users serviceable from a single central office. As it has been discussed previously, cognitive coherent detection is recommended. Experimental demonstration will be presented in section 5.3.
 
-![](images/d9ce1f085da7701d1940808f16bd4786933be52bb970caf3dab755b0c9b00f4f.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/d9ce1f085da7701d1940808f16bd4786933be52bb970caf3dab755b0c9b00f4f.jpg)  
 Figure 5.3: Schematic of optical ultra WDM system generation
 
 ## 5.3 1.2 Tb/s Ultra Dense WDM System
@@ -1236,7 +1236,7 @@ A pre-amplified coherent receiver structure is then implemented. A tunable optic
 
 In this experiment, off-line DSP algorithms are employed to compensate for chromatic dispersion (CD), instead of using dispersion compensation fiber (DCF) after 80 km single mode fiber (SMF) transmission. A constant modulus algorithm (CMA) enables polarization rotation compensation; DSP algorithms implement frequency and phase off set removal, QPSK demodulation and bit error detection. Since the sub-channels are spaced at a frequency corresponding to the baud rate, crosstalk and overlap from sub-channels severely affects the BER performance. Therefore, DSP algorithm is required to reduce the detrimental effect of inter channel interference (ICI). Such nonlinear decision feedback equalizer (DFE) consisting of a feed forward filter (FFE) and a feedback filter (FBE) is then used to improve the system performances. The taps of the two equalizers are adjusted using a least mean square (LMS) stochastic algorithm.
 
-![](images/11b6c239ca04254a57090b3703bb6f7f041da9e5d149e166f9575bad5ba42fa8.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/11b6c239ca04254a57090b3703bb6f7f041da9e5d149e166f9575bad5ba42fa8.jpg)  
 Figure 5.4: Figure 1. Experiment setup: OBPF, optical band-pass filter; PC, polarization controller; ECL, external cavity laser; PBS, polarization beam splitter; PBC, polarization beam combiner; OSNR, optical SNR monitor.
 
 ## 5.3.2 Experiment Results and Analysis
@@ -1245,18 +1245,18 @@ The sub-channels signal spectra are presented below. Figure 5.5 shows the signal
 
 To avoid performance degradation, selected sub-channels with tone to noise ratio (TNR) are more than 15 dB. The TNR differences between different sub-channels are induced by the loop accumulated ASE noise from EDFA. From Figure 5.6, the generation of more than 30 sub-channels can be verified in 5 nm (625 GHz) bandwidth from 1545.10 nm to 1550.10 nm; even more sub-channels can be generated with a low noise EDFA to further improve system transmission bit rate. For 15 dB TNR and above, the subchannels are successfully detected with bit error rate (BER) below the 7% overhead FEC threshold as shown in the Figure 5.7.
 
-![](images/5bedaf310c2822dbaca6e1eb1cfd2488a2f76fc01036c3d8e03ef95a41fc45c0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/5bedaf310c2822dbaca6e1eb1cfd2488a2f76fc01036c3d8e03ef95a41fc45c0.jpg)  
 Figure 5.5: Ultra dense WDM signal spectrum for 30 sub-channels after comb generator.
 
-![](images/ba1c67cd7c65e20c0183b05c4be52a9d3bc8f46a9833bcf186e15ebc91d2442f.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/ba1c67cd7c65e20c0183b05c4be52a9d3bc8f46a9833bcf186e15ebc91d2442f.jpg)  
 Figure 5.6: Ultra dense WDM signal spectrum for 30 sub-channels after transmission.
 
 The BER performances of the ultra dense WDM system with back to back and 80 km SMF transmission using DSP dispersion compensation algorithms are shown as following. Figure 5.7 shows the BER performance for back to back of 30 sub-channels. As a result, the BER performances for all of 30 sub-channels are below the 7% overhead FEC threshold. Variations observed in BER performance across sub-channels are due to differences in the TNR of the different sub-channels.
 
-![](images/e44e1432273e5d66fc2d3063ded51eb5badf7be98127e6985f0a28bf643e81b9.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/e44e1432273e5d66fc2d3063ded51eb5badf7be98127e6985f0a28bf643e81b9.jpg)  
 Figure 5.7: Ultra dense WDM signal back to back BER performance for 30 subchannels.
 
-![](images/5e165a26c7ceaff31df5b6a32cbe166266c46fa95bfaf0eabcd654825bcac1af.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/5e165a26c7ceaff31df5b6a32cbe166266c46fa95bfaf0eabcd654825bcac1af.jpg)  
 Figure 5.8: Ultra dense WDM $1 0 ^ { t h }$ sub-channels BER performance with back to back and 80 km SMF transmission compared with the BER performance of single channel 40 $\mathrm { G b } / \mathrm { s }$ DP-QPSK system, and ultradense WDM $1 0 ^ { t h }$ sub-channels transmission BER performance with DFE.
 
 Figure 5.8 shows the BER performance for $1 0 ^ { t h }$ sub-channel back to back and 80 km SMF transmission with DSP compensation algorithms. One sub-channel $( 1 0 ^ { t h }$ sub-channel) is selected from the ultra dense WDM signals and measure the ICI penalty. For reference, the single channel 40 Gb/s DP-QPSK back to back and 80 km SMF transmission BER performance is presented. Figure 5.8 indicates that after 80 km SMF transmission, DSP compensation algorithms are able to compensate for CD. The BER performance of back to back and 80 km transmission measurement penalty is lower than 0.5 dB. Figure 5.8 also shows the $1 0 ^ { t h }$ sub-channel BER performance comparison between scenarios with and without DFE after 80km SMF transmission.
@@ -1271,10 +1271,10 @@ The basic idea is that if the values of the symbols previously detected are know
 
 A nonlinear DFE, shown in Figure 5.9, consisting of a feed-forward filter (FFE) and a feed-back filter (FBE) is used in coherent receiver, after the carrier phase recovery block, to improve the system performances [87]. The taps of the two equalizers are adjusted using a least mean square (LMS) stochastic algorithm.
 
-![](images/8101061957ef5e249e2129b272285ad9ff3d43ded055c8342be0a83c03f1e66a.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8101061957ef5e249e2129b272285ad9ff3d43ded055c8342be0a83c03f1e66a.jpg)  
 Figure 5.9: Schematic of DFE DSP algorithm.
 
-![](images/03a1849d30dfed98307327fcd7a5161959468a519c15b1a47385b94d08451107.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/03a1849d30dfed98307327fcd7a5161959468a519c15b1a47385b94d08451107.jpg)  
 Figure 5.10: BER performance comparison between with and without DFE DSP algorithm.
 
 Figure 5.10 shows the BER performance comparison between with and without DFE DSP algorithm for ultra dense WDM system after 80 km
@@ -1327,7 +1327,7 @@ Digital receivers for Polarization Multiplex (PoLMux) Quadrature Phase Shift Key
 
 ## II. COHERENT POLMUX QPSK LINK
 
-![](images/889a455973d9ea08fb352fa22e8f7e1463122ef33118a02bceeccfb14375d30b.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/889a455973d9ea08fb352fa22e8f7e1463122ef33118a02bceeccfb14375d30b.jpg)  
 Fig. 1. Coherent PolMux QPSK system link. (a) PolMux QPSK transmitter. (b) coherent receiver optical front end. (c) off-line DSP algorithms blocks. (d) PMD compensation butterfly structure.
 
 Richard Younce
@@ -1350,7 +1350,7 @@ $$
 
 Where D is the dispersion coefficient, S is the dispersion slop, $\omega$ is the angular frequency, λ is the light wavelength, c is the light velocity, and z is the fibre length. After frequency domain CD compensation, IFFT inverts the sequence back to the time domain (Fig.2e).
 
-![](images/891f838e350a60bd9cc87d560f1c33c3cd40e667ff1827a3944142ecd2812e73.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/891f838e350a60bd9cc87d560f1c33c3cd40e667ff1827a3944142ecd2812e73.jpg)  
 Fig. 2. BO CD compensation algorithm half-overlap.
 
 ## IV. ENGINEERING RULES FOR BO CD COMPENSATION
@@ -1369,10 +1369,10 @@ $$
 
 From (3), when $\scriptstyle { \frac { a } { B } }$ is equal to ${ \scriptstyle { \frac { 1 } { 2 } } } .$ the complexity required for one block achieves the minimum value, as a result it is also for the entire data sample. Therefore, half-overlap BO CD compensation is the least complex scheme to implement.
 
-![](images/e6057598e230ad693808624dd7269ce1cd089d8473c37b9c9ca51579bdb6c6c4.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/e6057598e230ad693808624dd7269ce1cd089d8473c37b9c9ca51579bdb6c6c4.jpg)  
 (a)
 
-![](images/8095dabef43054b4f14cd3e6fedd569b158a2353c4a0fac334aeaa9fe43ed82a.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/8095dabef43054b4f14cd3e6fedd569b158a2353c4a0fac334aeaa9fe43ed82a.jpg)  
 (b)  
 Fig. 3. BO CD BER performance: (a) BER vs. OSNR with 16000 ps/nm CD; and, (b) block length requirements in BO CD at 14dB OSNR.
 
@@ -1380,7 +1380,7 @@ Fig. 3. BO CD BER performance: (a) BER vs. OSNR with 16000 ps/nm CD; and, (b) bl
 
 We experimentally validate the engineering rules for a 20 Gbs/s QPSK link, with 40 km single mode fibre transmission operating at 1550 nm. The value of the laser linewidth is 2 MHz. At the receiver side, noise loading is used to emulate different values for optical signal to noise ratio (OSNR). The 200 kHz linewidth ECL laser is used as local oscillator. Fig.4 shows the results for the Bit Error Rate (BER), with and without BO CD compensation being implemented. We can observe that BO CD compensation algorithm reduces the CD induced BER penalty by 3dB. There is still a nearly 1.2 dB penalty remaining from other impairments not compensated for in our set-up. Moreover, our BO CD algorithm achieves the same BER performance as the serial all-pass frequency domain CD compensation algorithm.
 
-![](images/daef3093e204fcdad4f7e69bc141d1ea9ba31bc71dd37a8a211fe29cb3590ee9.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/daef3093e204fcdad4f7e69bc141d1ea9ba31bc71dd37a8a211fe29cb3590ee9.jpg)  
 Fig. 4. 20 Gb/s coherent QPSK link 40 km transmission BER vs. OSNR.
 
 ## VI. CONCLUSION
@@ -1421,25 +1421,25 @@ A decision feed back equalizer (DFE) algorithm has also been implemented in the 
 
 The ultradense WDM structure is realized using recirculated single side band modulation (SSB) [3]. Figure 1 shows the schematic of our experimental setup. A single DFB laser operating at 1549.53 nm (193.47 THz) with 10 MHz linewidth is used source to generate the sub-channels. A nested Mach-Zehneder modulator operates as single side band modulator. An external synthesizer drives the single side band modulator to control the sub-channel generation loop, which is also called the comb generator [3]. Comb generator shifts the first input channel by a frequency spacing determined by the external synthesizer clock output. In the experiment, frequency spacing is set equal to 10 GHz. As a result, each round generates one more sub-channel. A tunable optical band-pass filter with full width at half maximum (FWHM) of 5 nm (625 GHz) is used to control the bandwidth of the comb generator. After the comb generator, the sub-channels are separated into two orthogonal polarizations by a polarization beam splitter (PBS). The polarized sub-channels are then fed into two identical QPSK modulators. A non-return-zero (NRZ) pseudo random binary sequence (PRBS) with $2 ^ { 1 5 } – 1$ bit length provides the electrical data source. After the QPSK modulator, two uncorrelated branches of orthogonally polarized QPSK signals are combined by a polarization beam combiner (PBC) to generate the DP QPSK signals. Differently from [2] and [3], we first generate sub-channels and then QPSK modulate each polarization branch individually. This schematic provides the possibility of using a different modulation format for each polarization branch. Meanwhile, a polarization controller (PC) inside the comb generator is used to control polarization rotation during one round. If polarization maintaining fiber is used throughout the comb generator, the PC can be omitted. A pre-amplified receiver structure is then implemented. A tunable optical band-pass filter (0.5 nm/62.5 GHz FWHM) is used after the pre-amplifier in order to remove ASE noise from the EDFA. The local oscillator (LO) is a wavelength tunable external cavity laser (ECL) with 100 kHz line-width. In the coherent receiver structure, tuning LO wavelength enables channel selection due to optical heterodyning at the photodiode. The coherent receiver consists of two 90° hybrids and balanced detectors. 40 Gb/s digital sampling oscilloscope at the coherent receiver is used to sample the inphase and quadrature components. In our experiment, we employed DSP algorithms to compensate for chromatic dispersion (CD), instead of using dispersion compensation fiber (DCF) after 80 km single mode fiber (SMF) transmission. A constant modulus algorithm (CMA) enables polarization rotation compensation; DSP algorithms implement frequency and phase off set removal, QPSK demodulation and bit error detection. Since the sub-channels are spaced at a frequency corresponding to the baud rate, crosstalk and overlap from sub-channels severely affects the BER performance. Therefore we develop a DFE algorithm in DSP to reduce the detrimental effect of ICI.
 
-![](images/821542b2c7272989f29d01df06fbabb098ddb0d1f2b3c9a85e36797d0085580f.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/821542b2c7272989f29d01df06fbabb098ddb0d1f2b3c9a85e36797d0085580f.jpg)  
 Figure 1. Experiment setup: OBPF, optical band-pass filter; PC, polarization controller; ECL, external cavity laser; PBS, polarization beam splitter; PBC, polarization beam combiner; OSNR, optical SNR monitor.
 
 ## III. RESULTS AND DISCUSSION
 
 Figure 2 shows the sub-channels signal spectra, Figure 2 (a) shows the signal spectrum after sub-channel generation and Figure 2 (b) shows the signal spectrum after modulation and transmission. To avoid performance degradation, we select sub-channels with tone to noise ratio (TNR) more than 25 dB. The TNR differences between different sub-channels are induced by the loop accumulated ASE noise from EDFA [2]. From Figure 2, we can verify the generation of more than 30 sub-channels in 5 nm (625 GHz) bandwidth from 1545.10 nm to 1550.10 nm; we can generate even more sub-channels with a low noise EDFA to further improve system transmission bit rate. For 25 dB TNR and above, we successfully detect the subchannels with bit error rate (BER) below the 7% overhead FEC threshold as shown in the Figure 3.
 
-![](images/4076582147f2effdf9fd3deb41bf6a117998904e561a2cd68734997f44b0ba77.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/4076582147f2effdf9fd3deb41bf6a117998904e561a2cd68734997f44b0ba77.jpg)
 
-![](images/eeb6272b38f8e74a5276fd3395cd756e54ffb07a497bfc433b565f5b01ffee54.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/eeb6272b38f8e74a5276fd3395cd756e54ffb07a497bfc433b565f5b01ffee54.jpg)  
 Figure 2. Ultradense WDM signal spectrum for 30 sub-channels. (a) after Comb generator (b) after transmission.
 
 Figure 3 shows the BER performance of the ultradense WDM system with back to back and 80 km SMF transmission using DSP dispersion compensation algorithms. Figure 3 (a) shows the BER performance for back to back of 30 sub-channels.
 
 Figure 3 (a) shows the BER performance for all of 30 subchannels is below the 7% overhead FEC threshold. Variations observed in BER performance across sub-channels are due to differences in the TNR of the different sub-channels. Figure 3 (b) shows the BER performance for $1 0 ^ { \mathrm { t h } }$ sub-channel back to back and 80 km SMF transmission with DSP compensation algorithms. We select one sub-channel $( 1 0 ^ { 6 }$ sub-channel) from the ultradense WDM signal and measure the ICI penalty. For reference, we show the single channel 40 Gb/s DP QPSK back to back and 80 km SMF transmission BER performance. Figure 3 (b) indicates that after 80 km SMF transmission, DSP compensation algorithms are able to compensate for CD. The BER performance of back to back and 80 km transmission measurement penalty is lower than 0.5 dB. Figure 3 (b) shows the $1 0 ^ { \circ }$ sub-channel BER performance comparison between scenarios with and without DFE after 80km SMF transmission. Since the ultradense WDM sub-channels are spaced exactly at the baud rate, we implement the DFE algorithm to reduce ICI. As a result, from Figure 3 (b), DFE algorithm improves the BER performance by about 2.7 dB.
 
-![](images/0a7b613b3c2650d9cd72e27283049ae6fb0786bad8da6d40513c8316d96ae645.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/0a7b613b3c2650d9cd72e27283049ae6fb0786bad8da6d40513c8316d96ae645.jpg)
 
-![](images/ef5dda4cd3a0083b655e8fed54fa50ca052902258c8c84fe82c3a20f4949e3d3.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/ef5dda4cd3a0083b655e8fed54fa50ca052902258c8c84fe82c3a20f4949e3d3.jpg)  
 Figure 3. Ultradense WDM signal BER performance for 30 sub-channels. (a) back to back BER performances for 30 sub-channels. (b) ultradense WDM 10th sub-channels BER performance with back to back and 80 km SMF transmission compared with the BER performance of single channel 40 Gb/s DP QPSK system, and ultradense WDM 10th sub-channels transmission BER performance with DFE.
 
 ## IV. CONCLUSION
@@ -1472,7 +1472,7 @@ With the rapid growth of capacity requirements of optical transmission networks,
 
 Figure 1(a) shows the experiment setup of 112 Gb/s DP QPSK optical communication system. A DFB laser operating at 1549.53 nm (193.47 THz) with 10 MHz line-width is used as optical signal source to generate the QPSK signal. The pulse pattern generator (PPG) working at 28 Gbaud/s is operated as electrical signal source with $2 ^ { 1 5 } – 1$ bit length to drive the optical QPSK modulator. After the QPSK modulator, optical channel is separated into two orthogonal polarizations by a polarization beam splitter (PBS). Afterward, two branches of orthogonally polarized optical channels are combined by a polarization beam combiner (PBC) to generate the 112 Gb/s DP QPSK signal. The Finisar® wave-shaper is then used as spectrum pre-filtering optical bandpass filter (OBPF). The OBPF is able to tune full width at half maximum (FWHM) of transmitted signal. FWHM is defined as 3dB bandwidth of transmitted signal. At the receiver side, a pre-amplified coherent receiver structure is implemented. A tunable optical band-pass filter (with 0.5 nm/ 62.5 GHz FWHM) is used after the pre-amplifier in order to remove ASE noise from the EDFA. The local oscillator (LO) is a wavelength tunable external cavity laser (ECL) with 100 kHz line-width. In the coherent receiver structure, tuning LO wavelength enables channel selection due to optical heterodyning at the photodiode. The coherent receiver consists of two 90° hybrids and balanced detectors. The 80 Gb/s digital sampling oscilloscope at the coherent receiver is used to sample the inphase and quadrature components. Figure 1(b) shows the back to back transmission bit error rate (BER) performance in terms of OSNR. In both results of simulation and experiment for back to back transmission, at 20 dB OSNR measurement point, BER performances are approaching zero, and at 16 dB OSNR measurement point, BER performances are around 10-3. In the experiment, we focused on these two OSNR measurement points (OSNR=16dB and OSNR=20dB) and use DSP algorithm to compensate ISI induced by spectrum narrowing effect. We also employed constant modulus algorithm (CMA) to enable polarization rotation compensation, frequency and phase off set removal, QPSK demodulation and bit error detection.
 
-![](images/7b0d7bcdd6bf8833da73afda41d77a9273021ea60eaaf0b7d7f3294fa4939984.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/7b0d7bcdd6bf8833da73afda41d77a9273021ea60eaaf0b7d7f3294fa4939984.jpg)  
 Figure. 1. (a) Experiment setup. (b) back to back BER vs. OSNR performance.
 
 ## 3. DSP Algorithms and Experiment Results
@@ -1481,12 +1481,12 @@ The proposed DSP algorithm schematic is shown in Figure 2. The polarization mult
 
 We denote error factor as $e _ { k } = x ^ { * } ( k ) - \eta _ { k } - x ^ { * } ( k )$ . Then we have following update equations: $c _ { k + l } = c _ { k } + \mu e _ { k }$ x(k); $p _ { k + I } = p _ { k } - \gamma e _ { k } x ^ { - } ( k )$ and $\eta _ { k + I } = \left( 1 - \rho \right) \eta _ { k } + \rho e _ { k }$ Here, $\mu$ is the step size of feed forward FIR equalizer; J is the step size of feed back equalizer and $\rho$ is an integration factor (a small value used to average $e _ { k }$ over time k) [8]. As a result, symbol estimation $x _ { m } \widetilde { \alpha } \widetilde { \alpha } )$ is a estimation vector: {x(k-n), x(k-n-1), x(k-n-2)… x(k-1)}, where n is the length of feed back equalizer. Operation of subtracting $x _ { m } ^ { - } ( k )$ combined with proper channel estimation coefficients from received signals is used to cancel most of precursor ISI [9]. According to accuracy estimation requirement of noise level, length of feed back equalizer can not be insufficient. Compared to the complexity requirement of MLSE algorithm, our proposed adaptive channel estimation algorithms are practical.
 
-![](images/cbc9fb12896c687b4d3cf5ea4bc70782cfd8aaa8c071618be7dc63ffb64f78b7.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/cbc9fb12896c687b4d3cf5ea4bc70782cfd8aaa8c071618be7dc63ffb64f78b7.jpg)  
 Figure. 2 The proposed DSP Algorithm Schematic
 
-![](images/ed5b6f0ec9e2bb0f6d618abe7f901405436107b8c48deecf9cc5c6e97572d642.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/ed5b6f0ec9e2bb0f6d618abe7f901405436107b8c48deecf9cc5c6e97572d642.jpg)
 
-![](images/ad9c4171f0ae0f951c11d02ff3b1ccf1351e04a06a90d634cfd1711949c8883d.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/ad9c4171f0ae0f951c11d02ff3b1ccf1351e04a06a90d634cfd1711949c8883d.jpg)  
 Figure. 3 BER penalty vs. bandwidth narrowing with and without adaptive channel estimation algorithm. (a) @ 16dB OSNR. (b) @ 20dB OSNR
 
 Figure 3 shows experiment results. In our experiment, we focus on 20 dB OSNR and 16 dB OSNR measurement points. At 20 dB OSNR, in case of without spectrum narrowing effect, BER performance is error free. As the signal spectrum space degrading, BER penalty grow dramatically. Meanwhile, using adaptive channel estimation algorithm, strongly reduce the BER penalty. Especially at 20 GHz bandwidth (71% of original signal bandwidth), BER penalty is reduced 2 dB by using adaptive channel estimation algorithms. At 16 dB OSNR, in case of with out spectrum narrowing effect, BER performance is around 10-3. At 20 GHz bandwidth (71% of original signal bandwidth), BER penalty is also reduced 2 dB by using adaptive channel estimation algorithms.
@@ -1537,7 +1537,7 @@ In this paper we experimentally demonstrate that by employing a digital nonlinea
 
 The general outline of the experimental setup for the UDWDM polarization multiplexing (PM) QPSK coherent optical (CO) system is shown in Fig. 1. At the transmitter side three carriers are generated employing three independent tunable distributed feedback lasers (DFB) with 10 MHz linewidth; one of them is fixed at a central wavelength $( \lambda _ { \mathrm { e } } )$ of 1550.511 nm. Different channel spacing values (20, 18, 16, 14, 13, 12, 11 and 10 GHz) between the 3 carriers have been realized by changing the wavelength of the right $( \lambda _ { * } )$ and left ( l) DFB lasers as to have the desired spectral separation. A 40 GHz bandwidth photodiode and an Electrical Spectrum Analyzer are used to verify correct spacing between the three channels. A polarization beam splitter divides the signal into two orthogonal polarization which are then fed into two optical I/Q modulator (nested Mach-Zender modulator). A 10 Gb/s pattern generator (PPG) generates the pseudo random binary sequence (PRBS), with $2 ^ { 1 5 } – 1$ bit length, that drives the two QPSK modulators. Two uncorrelated branches of polarization orthogonal QPSK signals are then combined with a polarization beam combiner (PBC) to generate the PM QPSK signals, at 10 Gbaud/s. An 80 km span of standard single mode fiber (SMF) is used as optical transmission link. At the receiver side an optical tunable band-pass filter (0.33 nm or 37.5 GHz full width at half maximum, FWHM, at1550 nm) is employed before the optical pre-amplifier; a second band-pass filter (0.5 nm or 62.5 GHz FWHM at 1550 nm) rejects the out of band ASE noise. An external cavity laser (ECL) with 100 kHz linewidth is used as local oscillator (LO). The PM coherent receiver consists of two $9 0 ^ { \circ }$ hybrids and balanced photodetectors. The photodetected inphase and quadrature outputs are sampled at 40 GS/s for offline demodulation. Digital signal processing (DSP) algorithms implement digital filtering, PM QPSK constant modulus algorithm (CMA) equalization, QPSK carrier phase recovery and bit error decision.
 
-![](images/53210e653fc7231849c9033e96a97e26fa95c64bfdb3f253ddce4c134b71aa2b.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/53210e653fc7231849c9033e96a97e26fa95c64bfdb3f253ddce4c134b71aa2b.jpg)  
 Fig.1. Experiment setup of UDWDM PM QPSK system; DFB: Distributed feedback laser; PD: 40G photodiode; ESA: Electrical Spectrum Analyzer; PC: polarization controller; PBS: polarization beam splitter; PBC: polarization beam combiner; EDFA: erbium-doped fiber amplifier; VOA: variable optical attenuator; OBPF: optical band-pass filter; ECL: external cavity laser.
 
 As the channel distortion or the ISI of a transmission system is too severe for a linear equalizer to mitigate the channel impairments, non-linear equalizer has been used. A DFE is a non-linear structure that uses previous detector decision to eliminate the ISI on pulses currently demodulated. The DFE equalizer will not amplify the noise, cause according to its structure, the equalization process is done through the feedback, noiseless, data. A nonlinear DFE consisting of a feedforward filter (FFE) and a feedback filter (FBE) is used in our DSP receiver, after the carrier phase recovery block, to improve the system performances [4]. The taps of the two equalizers are adjusted using a least mean square (LMS) stochastic algorithm.
@@ -1546,15 +1546,15 @@ As the channel distortion or the ISI of a transmission system is too severe for 
 
 After optimize the PM CMA algorithm structure, we've investigated the impact of a nonlinear decision feedback equalizer consisting of a 1 tap feedforward filter (FFE) and a 7 or 9 taps feedback filter (FBE) on the system performances (this structure is indicated as DFE in the graphs); the digital filter is then re-optimized to improve further the BER curves. The measured BER performances of the UDWDM PM QPSK for back-to-back (B2B) system are shown in Fig. 2. Fig. 2(a) shows the BER experimental performances as a function of the measured OSNR for a spacing of 14 GHz without nonlinear equalization, with the nonlinear equalization structure DFE and with further optimization of the digital filter. It can be observed that the non-linear equalization and the optimization of the digital filter afterward, can improve the system performances up to 4.5 dB in terms of OSNR and 0.6 dB in terms of BER. The BER versus carrier spacing for two fixed value of OSNR is shown if Fig. 2(b); the results show that the DSP implementation can improve the experimental BER results for all the different spacing. For a fix spacing the algorithm can improve the BER result, while for a fix BER value the use of DSP, it allows closer channel. Of particular importance is 12.5 GHz of spacing which, thanks to the nonlinear equalization, shows performances better then the UFEC limit for both the chosen OSNR.
 
-![](images/67561c47953426610d64c5cf397419d7e8a1e6b3e74af2f258c8bcd3280c9379.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/67561c47953426610d64c5cf397419d7e8a1e6b3e74af2f258c8bcd3280c9379.jpg)
 
-![](images/ac85b8eccb11c1c193521af5a8c6f1af6f30922fdc6c65f28fa90d237674fe12.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/ac85b8eccb11c1c193521af5a8c6f1af6f30922fdc6c65f28fa90d237674fe12.jpg)  
 Fig.2.(a) BER as a function of OSNR for a spacing of 14GHz without nonlinear equalization, with DFE and with optimization of the digital filter. (b) BER as a function of the spacing for two fixed values of OSNR with and without nonlinear equalization.
 
 (a)  
-![](images/7f978e456dbce7a6716e723182d9bd81bff78e67c69c0cb07b1893077c0e0da1.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/7f978e456dbce7a6716e723182d9bd81bff78e67c69c0cb07b1893077c0e0da1.jpg)
 
-![](images/fb7f7500402c3ea1bbcc5843562639304fee7d251b1eb8140316069fd5b8784d.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/fb7f7500402c3ea1bbcc5843562639304fee7d251b1eb8140316069fd5b8784d.jpg)  
 Fig.3.(a) OSNR as a function of the spacing for two fixed values of BER with and without nonlinear equalization for Back-to-Back. (b) OSNR as a function of the spacing for two fixed values of BER with and without nonlinear equalization for 80Km of SMF.
 
 Fig. 3 shows OSNR performance as a function of the spacing with and without nonlinear equalization for Backto-Back and 80 km of SMF optical transmission are presented. The BER is fixed $\textcircled { a } 1 0 ^ { - 4 }$ and $@ 1 0 ^ { - 3 }$ , both below the UFEC level. The improvement enabled by the DSP implementation on both BER and spacing values is remarkable. As shown in Fig. 3(a) we can improve \~2-3 dB for OSNR with the same spacing value between the carriers; on the other hand for a fix OSNR the carriers can be generated 6 GHz closer, moving from 20 GHz of spacing, case where we have no aliasing, to 14 GHz of spacing. The same behavior is obtained for 80 km of optical transmission. It can be observed in Fig. 3(b) that with the same spacing value between the carriers, the improvement in terms of OSNR is \~3 dB for $\operatorname { B E R } ( \widehat { a } , \dot { 1 } 0 ^ { - 3 }$ and \~5dB for BER@ $1 0 ^ { - 4 }$ ; for the same OSNR then the carriers can be \~6 GHz closer, moving to \~19 GHz to 13 GHz. It should be noticed that the length of the FBE is 7 or 9 taps compared to 1 tap for the FFE, indicating that the signal is affected by non-linearities.
@@ -1629,17 +1629,17 @@ Increasing the number of wavelengths within a fixed optical bandwidth (e.g., C b
 
 In this paper we experimentally demonstrate that an upgraded digital signal processing (DSP) allows for closer channel spacing, up to 12.5 GHz, using conventional independent DFB light sources for a 40 Gb/s ultradense 3 channel WDM PM-QPSK system with coherent detection. The employment of a digital nonlinear equalizer, such as a Decision Feedback Equalizer (DFE), can mitigate inter-channel interference and improve overall system performance in terms of OSNR. Our proof of principle experiment demonstrates that in a 50GHz bandwidth (in accordance to the ITU-T grid) up to 4 channels can be transmitted, improving the total bit rate from 40 Gb/s to 160 Gb/s per slot, with a minor upgrade in the electronic equipment.
 
-![](images/74b240b3d6aa5e3ef79c99ea3fe5758157f10df1994a0205e71feb0842f01dc0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/74b240b3d6aa5e3ef79c99ea3fe5758157f10df1994a0205e71feb0842f01dc0.jpg)  
 Fig. 1. Moving from fix to flex grid scenario. Large guard bands are still employed in both schemes.
 
 ## 2. System setup
 
 The general outline of the experimental setup for the UDWDM polarization multiplexing (PM) QPSK coherent optical (CO) system is shown in Fig. 2. At the transmitter side three carriers are generated employing three independent tunable distributed feedback lasers (DFB) with 10 MHz linewidth; RQH RI WKHP LV IL[HG DW D FHQWUDO ZDYHOHQJWK $( \lambda _ { < } )$ of 1550.511 nm. 'LIIHUHQWFKDQQHOVSDFLQJYDOXHVǻȜ DQG\*+]EHWZHHQWKH FDUULHUV KDYH EHHQ UHDOL]HG E\ FKDQJLQJ WKH ZDYHOHQJWK RI WKH ULJKW $( \lambda _ { e } )$ DQG OHIW Ȝl) DFB lasers as to have the desired spectral separation. A 40 GHz bandwidth photodiode and an Electrical Spectrum Analyzer are used to verify correct spacing between the three channels. A polarization beam splitter divides the signal into two orthogonal polarization which are then fed into two optical I/Q modulator (nested Mach-Zehnder modulator). A 10 Gb/s pattern generator (PPG) generates the pseudo random binary sequence (PRBS), with $2 ^ { 1 5 } – 1$ bit length, that drives the two QPSK modulators. Two uncorrelated branches of polarization orthogonal QPSK signals are then combined with a polarization beam combiner (PBC) to generate the PM QPSK signals, at 10 Gbaud. An 80 km span of standard single mode fiber (SMF) is used as optical transmission link. At the receiver side an optical tunable band-pass filter (0.33 nm or 37.5 GHz full width at half maximum, FWHM, at 1550 nm) is employed before the optical pre-amplifier; a second band-pass filter (0.5 nm or 62.5 GHz FWHM at 1550 nm) rejects the out of band ASE noise. An external cavity laser (ECL) with 100 kHz linewidth is used as local oscillator (LO). The PM coherent receiver consists of two $9 0 ^ { \circ }$ hybrids and balanced photodetectors. The photodetected inphase and quadrature outputs are sampled at 40 GS/s for offline demodulation. Digital signal processing (DSP) algorithms implement digital filtering, PM QPSK constant modulus algorithm (CMA) equalization, QPSK carrier phase recovery and bit error decision. As the channel distortion or the ISI of a transmission system is too severe for a linear equalizer to mitigate the channel impairments, non-linear equalizer has been used. A DFE is a non-linear structure that uses previous detector decision to eliminate the ISI on pulses currently demodulated. The basic idea is that if the values of the symbols previously detected are known, then ISI contributed by these symbols can be canceled out exactly at the output of the forward filter by subtracting past symbol values with appropriate weighting. The DFE equalizer will not amplify the noise, cause according to its structure, the equalization process is done through the feedback, noiseless, data applying symbol-by-symbol detection
 
-![](images/bfa180c4d5a8be7a0dfd21d70f4458c30a98eacd352b0b5c9fa476b8f053d249.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/bfa180c4d5a8be7a0dfd21d70f4458c30a98eacd352b0b5c9fa476b8f053d249.jpg)  
 Fig. 2. Experiment setup of UDWDM PM QPSK system; DFB: Distributed feedback laser; PD: 40G photodiode; ESA: Electrical Spectrum Analyzer; PC: polarization controller; PBS: polarization beam splitter; PBC: polarization beam combiner; EDFA: erbium-doped fiber amplifier; VOA: variable optical attenuator; OBPF: optical band-pass filter; ECL: external cavity laser.
 
-![](images/70c48121f98f15b1d9abaabc1a020b0be2e0a4d48f4867f8bb541392977291ac.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/70c48121f98f15b1d9abaabc1a020b0be2e0a4d48f4867f8bb541392977291ac.jpg)  
 Fig. 3. Non-linear Decision Feedback Equalizer (DFE) structure.
 
 with successive cancellation of the interference caused by the detected symbols [10]. A nonlinear DFE, shown in Fig. 3, consisting of a feed-forward filter (FFE) and a feed-back filter (FBE) is used in our DSP receiver, after the carrier phase recovery block, to improve the system performances [11]. The taps of the two equalizers are adjusted using a least mean square (LMS) stochastic algorithm.
@@ -1648,14 +1648,14 @@ with successive cancellation of the interference caused by the detected symbols 
 
 After optimize the PM CMA algorithm structure, we have investigated the impact of a nonlinear decision feedback equalizer on the system performances (this structure is indicated as DFE in the graphs); the best configuration is composed of a 1 tap feedforward filter (FFE) and a 7 or 9 taps feedback filter (FBE). The digital filter is then re-optimized to improve further the BER curves. The measured BER performances of the UDWDM PM QPSK for back-to-back (B2B) system are shown in Fig. 4. Figure 4(a) shows the BER experimental performances as a function of the measured OSNR for a spacing of 14 GHz without nonlinear equalization, with the nonlinear equalization structure DFE and with further optimization of the digital filter. It can be observed that the non-linear equalization and the optimization of the digital filter afterward, can improve the system performances up to 4.5 dB in terms of OSNR. The BER versus carrier spacing for two fixed value of OSNR is shown in Fig. 4(b); the results show that the DSP implementation can improve the experimental BER results for all the different spacing. For a fix spacing the algorithm can improve the BER result, while for a fix BER value the use of DSP, it allows closer channel. Of particular importance is 12.5 GHz of spacing which, thanks to the nonlinear equalization, shows performances better then the UFEC limit for both the chosen OSNR.
 
-![](images/b2277c3c7cf82dd4ea8e1d89e809270391b232ca919dcec7eaffb7bb370d7b83.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/b2277c3c7cf82dd4ea8e1d89e809270391b232ca919dcec7eaffb7bb370d7b83.jpg)
 
-![](images/5a8373d578ea5e3ebeacd0060d6608ed869c9db19547e7730e5b202333ba725a.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/5a8373d578ea5e3ebeacd0060d6608ed869c9db19547e7730e5b202333ba725a.jpg)  
 Fig. 4. (a) BER as a function of OSNR for a spacing of 14GHz without nonlinear equalization, with DFE and with optimization of the digital filter. (b) BER as a function of the spacing for two fixed values of OSNR with and without nonlinear equalization.
 
-![](images/4e6604c56aa0f7b78d441d29986e0736b1f0c31d53f5e81fc25bafaaf6ebaaf8.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/4e6604c56aa0f7b78d441d29986e0736b1f0c31d53f5e81fc25bafaaf6ebaaf8.jpg)
 
-![](images/a407409356c74470e779f79e29e48308fab0ca207529603b2adea6986093f16d.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/a407409356c74470e779f79e29e48308fab0ca207529603b2adea6986093f16d.jpg)  
 Fig. 5. (a) OSNR as a function of the spacing for two fixed values of BER with and without nonlinear equalization for Back-to-Back. (b) OSNR as a function of the spacing for two fixed values of BER with and without nonlinear equalization for 80Km of SMF.
 
 Figure 5 shows OSNR performance as a function of the spacing with and without nonlinear equalization for Back-to-Back and 80 km of SMF optical transmission are presented. The BER is fixed $1 0 ^ { - 4 }$ and $1 0 ^ { - 3 } ,$ both below the UFEC level. The improvement enabled by the DSP implementation on both BER and spacing values is substantial. As shown in Fig. 5(a) the proposed algorithm can improve up to 3 dB of OSNR with the same spacing value between the carriers; on the other hand for a fix OSNR the carriers can be generated 6 GHz closer, moving from 20 GHz of spacing, case where we have no aliasing, to 14 GHz of spacing. The same behavior is observed for 80 km of optical transmission. It can be observed in Fig. 5(b) that with the same spacing value between the carriers, the improvement in terms of OSNR is 3 dB for BER $1 0 ^ { - 3 }$ and 5dB for BER $1 0 ^ { - 4 } ;$ for the same OSNR then the carriers can be 6 GHz closer, moving to 19 GHz to 13 GHz. It should be noticed that the length of the FBE is 7 or 9 taps compared to 1 tap for the FFE, indicating that the signal is affected by nonlinearities.
@@ -1664,12 +1664,12 @@ To prove the efficiency of the algorithm used, we have evaluated its performance
 
 After optimize the PM CMA algorithm structure, we have investigated the impact of the same nonlinear decision feedback equalizer of the UDWDM DFB case on the system performances; also in this case the digital filter is then re-optimized to improve further the BER curves. The BER versus carrier spacing for a fixed OSNR value is shown if Fig. 7(a); the
 
-![](images/f63b2088c45cd4e5d025bfc30988289487c050adf34d50782835af665bfad4c0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/f63b2088c45cd4e5d025bfc30988289487c050adf34d50782835af665bfad4c0.jpg)  
 Fig. 6. Experiment setup of transmitter side for UDWDM with DFB scheme and MZM scheme.
 
-![](images/ce2d67516e355839892e9ed910111678ea1c3146144634e1996b3a7c89539a23.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/ce2d67516e355839892e9ed910111678ea1c3146144634e1996b3a7c89539a23.jpg)
 
-![](images/45dd2aad0c6948fc38d99dab8d0916b5791df9839b91ddaaf20ec84ccfa765ff.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/45dd2aad0c6948fc38d99dab8d0916b5791df9839b91ddaaf20ec84ccfa765ff.jpg)  
 Fig. 7. (a) BER as a function of the spacing for a fixed value of OSNR with and without nonlinear equalization for UDWDM MZM case. (b) BER as a function of the spacing for a fixed value of OSNR for UDWDM DFB and MZM case.
 
 results show that the DSP implementation can improve the experimental BER results for all the different spacing. In this case, the results show higher improvement for smaller frequency spacing between the 3 carriers. The employment of our suggested non-linear equalization 12.5 GHz of spacing shows performances better then the UFEC limit also for the UDWDM MZM case. No results are displayed for a frequency separation equals to 10 GHz, because in this case with this configuration, we will not have an UDWDM scheme, but an OFDM. Figure 7(b) shows the BER versus carrier spacing for the same fixed OSNR value for both cases under study. In both cases is appreciable the benefit introduced by non-linear equalization. For frequency separation between the 3 carriers higher than 14 GHz, the BER performances are better in the MZM case, but in the DFB case the DFE algorithm provides higher improvement. For frequency separation smaller than 14 GHz, in particular for the 12.5 GHz case, the BER performances of the schemes are comparable.
@@ -1710,7 +1710,7 @@ In this paper, for the first time, as to our knowledge, we show that experimenta
 
 We are considering a dual polarization quadrature phase-shift keying (DP-QPSK) receiver consisting of the optical front end and a DSP part, as shown in Figure 1, which follows structure presented in [2, 4]. Two samples per each transmitted symbol are processed by analog-to-digital converters (ADCs). First DSP block, which is of interest to this paper, is used for CD estimation and adaptive equalization performed with an adjustable transversal CD equalizer. Following that, timing recovery takes place. A short, 7-tap finite impulse response (FIR) filter is then used for polarization demultiplexing as well as to remove residual impairments. Finally, carrier recovery is performed which results in a stable received constellation.
 
-![](images/618242b91f3a198fe01690ef2dbf22dd13e88d5fcb4a6606be9a446a5398cb54.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/618242b91f3a198fe01690ef2dbf22dd13e88d5fcb4a6606be9a446a5398cb54.jpg)  
 Fig. 1: Typical structure of a digital coherent receiver with CD monitoring and equalization block. Receiver in the figure monitors CD from time domain samples.
 
 A generic scanning algorithm is employed for dispersion estimation. CD metric is used to assess if in samples after passing through the equalizer, CD influence has been removed or not. Range of interest of CD parameter is the lowest and highest value of CD that may affect the incoming signal. The algorithm works as follows. 1) Sweep range of interest of CD parameter, each time setting the transversal equalizer to a candidate transfer function $H _ { C D } =$ exp $\left( j f ^ { 2 } \pi \frac { \lambda ^ { 2 } } { c } C D \right)$ ( f being clock frequency, λ, signal wavelength and c the speed of light). As an engineering rule, scanning resolution for a simple maximum or minimum search shall not exceed 300 ps/nm with a recommended value of 200ps/nm for 28GBd signal, which scales proportionally to symbol rate squared. 2) Equalize the impaired signal with the candidate transfer function. 3) Find the metric of the equalized signal. 4) Repeat steps 2-3 for for each CD value in the swept range. 5) Once metric has been computed for all values of CD parameter in the range of interest, search for the value for which successful CD compensation is indicated by the metric feature.
@@ -1721,17 +1721,17 @@ Four different metrics were used to perform monitoring. First one is based on a 
 
 In order to experimentally prove that this monitoring approach is feasible, we focus on a single branch of a polarization multiplexing (PolMux) QPSK transmitter. A pattern generator provides in-phase and quadrature signal at a bit rate of 20 Gbit/s. Resulting optical signal is thus a 40 Gbit/s single polarization (SP) QPSK. To test monitoring algorithms for different magnitudes of CD affecting the signal, two cases are investiagated. Firstly, back-to-back transmission (CD-free channel) and 80 km of standard single-mode fiber (SSMF) with a dispersion coefficient of approximately 16ps/(nm km), yielding 1280ps/nm CD in total. The reason for back-to-back trial is to check if the monitoring works correctly even if there is no CD present in the channel. In the next step, optical noise is added to the signal, starting with optical signal-to-noise ratio (OSNR) of 24 dB, down to 12 dB. A preamplifier just before the receiver is used in order to keep power entering a 100 G digital coherent receiver at a constant level of 10dBm. Local oscillator (LO) is tuned to 1548.88nm and signal wavelength is separated by less than 100MHz, both using DFB narrow linewidth lasers (NLLs). Digital storage oscilloscope (DSO) is used to capture the voltage signal after conversion from optical to electrical domain has been performed. Traces recorded by the DSO are then processed offline.
 
-![](images/b9df04515c0a77b17f0b7ef8ca8e10933b8b1e502a1586cf541231c1102a38fd.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/b9df04515c0a77b17f0b7ef8ca8e10933b8b1e502a1586cf541231c1102a38fd.jpg)  
 Fig. 2: Experimental setup of the transmission system. CW: continuous wave laser, PRBS: pseudorandom binary sequence generator, PBC: polarization beam combiner, EDFA: erbium-doped fiber amplifier, Preamp: preamplification block, VOA: variable optical attenuator.
 
 ## 4. Experimental results
 
 Figure 3 shows bit error rate (BER) curves after demodulation of automatically equalized data, where Preset is a reference line showing performance of the receiver when CD filter is manually set with an apriori known CD value of either 0 ps/nm (Figure 3a) or 16 ps/(nm km)· 80km = 1280ps/nm (Figure 3b). Remaining lines show performance of the receiver for different CD metrics as OSNR is varied for both transmission distances. It may be observed that, regardless of the CD distortion present in the channel, lines depart only to a very small extent from the reference Preset line. This proves that CD DSP monitor produces accurate CD estimates allowing for adaptive equalization driven by feedback signal from monitor. It is necessary to point that this proof-of-concept works with SP-QPSK signal. It is, however, scalable to DP-QPSK as CD affects both polarizations equally.
 
-![](images/066a5184c47567cc889d5b729cfd34707d1c8631db3c0c9cda6ddbb6fa7fa5a0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/066a5184c47567cc889d5b729cfd34707d1c8631db3c0c9cda6ddbb6fa7fa5a0.jpg)  
 (a) Back-to-back
 
-![](images/77b77f10a8a97670e8fdd12d0b5347c09033dc652ce6c972c67fd446edde3b12.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/77b77f10a8a97670e8fdd12d0b5347c09033dc652ce6c972c67fd446edde3b12.jpg)  
 (b) 80 km SMF  
 Fig. 3: BER curves for all methods as OSNR varies. Preset: reference line based on apriori known CD filter, CMA: constant modulus algorithm, Pav: mean signal power, Eig. spread: eigenvalue spread, Freq. AC: frequency spectrum autocorrelation
 
@@ -1785,7 +1785,7 @@ On the other hand, as to the authors’ knowledge, no experimental trial of a mo
 
 We consider a polarization-division-multiplexing (PDM) quadrature phase-shift keying (QPSK) receiver consisting of the optical front-end and a DSP part, as shown in Fig. 1. The incoming optical signal is photodetected and sampled by analog-to-digital converters (ADCs) operating at twice the symbol rate. The CD monitor and equalizer block, which is of interest to this paper, is used for estimating and performing adaptive equalization of chromatic dispersion. Next, timing recovery takes place. A short, 7-tap finite impulse response (FIR) filter is then used for polarization demultiplexing and mitigation of residual impairments. Finally, carrier recovery is performed.
 
-![](images/76a8ffdcf36d325d8907f6c8e2279b1b049f710bcab825d397a5bd39105d6487.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/76a8ffdcf36d325d8907f6c8e2279b1b049f710bcab825d397a5bd39105d6487.jpg)  
 Fig. 1. Typical structure of a digital coherent receiver with CD monitoring and equalization block. The receiver in the figure monitors CD from time domain samples.
 
 ## 2.1. Generic scanning algorithm
@@ -1806,10 +1806,10 @@ The algorithm can be further extended to take average of the metric over multipl
 
 This section provides a brief overview of algorithms for metrics computation. Four different metrics were implemented and experimentally verified in a transmission experiment. Figure 2 shows a comparison of those metrics generated from an experimental transmission of 20 Gbaud QPSK signal in a channel with 1280 ps/nm CD.
 
-![](images/aeb9b36f04b2ef5d71a70b1aebd3f7a8e3047382a4bf58cb8771291cc953336a.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/aeb9b36f04b2ef5d71a70b1aebd3f7a8e3047382a4bf58cb8771291cc953336a.jpg)  
 (a) Coarse scan (200 ps/nm)
 
-![](images/f9c75aa661dce43bf6c2a1b0e9094acb7fb7c5310221dc511018e3e6e4eb3c96.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/f9c75aa661dce43bf6c2a1b0e9094acb7fb7c5310221dc511018e3e6e4eb3c96.jpg)  
 (b) Fine scan (20 ps/nm)  
 Fig. 2. Comparison of all metrics after normalization to [0, 1] range. Pav metric was subtracted from 1 for clearness of comparison. Bold dashed vertical line shows the actual value of CD present in the channel (1280 ps/nm).
 
@@ -1921,13 +1921,13 @@ The metric curve shown in Fig. 2 was obtained after averaging 20 realizations, e
 
 In order to experimentally prove that CD monitoring with the investigated approach is feasible, we use a single branch of a PDM-QPSK transmitter, as outlined in Fig. 3. A pattern generator provides the in-phase and quadrature inputs to the optical modulator at a bit rate of 20 Gbit/s resulting in a 40 Gbit/s QPSK optical signal. In order to test the monitoring algorithms for different magnitudes of CD affecting the signal, two cases are investigated: the back-to-back case (CD negligibly small) and transmission over 80 km of standard single-mode fiber (SSMF) with a dispersion coefficient of approximately 16 ps/nm/km, yielding 1280 ps/nm accumulated CD in total. Back-to-back trial was performed to test if the monitoring algorithm works correctly in a CD-free channel. As the next step, optical noise is added to the signal, varying the optical signal-to-noise ratio (OSNR) from 24 dB, down to 12 dB. An EDFA preamplifier and an attenuator just before the receiver is used to keep the power entering a 100G coherent receiver at a constant level equal to 10 dBm. The local oscillator (LO) is tuned to 1548.88 nm and the signal wavelength is less than 100 MHz apart. The signal and LO lasers are distributed feedback (DFB) narrow linewidth lasers (NLLs). Digital storage oscilloscope (DSO) is used to capture the voltage signal after conversion from optical to electrical domain. Traces are stored and processed offline.
 
-![](images/5d3116e9500b4f8b691397e1a2a676402a3ecf3ff7df7b310792f5faa8d0220f.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/5d3116e9500b4f8b691397e1a2a676402a3ecf3ff7df7b310792f5faa8d0220f.jpg)  
 Fig. 3. Experimental setup of the transmission system. CW: continuous wave laser, PRBS: pseudorandom binary sequence generator, PC: polarization controller, PBC: polarization beam combiner, EDFA: erbium-doped fiber amplifier, ASE loading: amplified spontaneous emission noise loading, VOA: variable optical attenuator.
 
-![](images/17d546d3a55619eb6c89e28baf89e75218f5befb1c124b5cf46b2e73e26c08cb.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/17d546d3a55619eb6c89e28baf89e75218f5befb1c124b5cf46b2e73e26c08cb.jpg)  
 (a) Back-to-back
 
-![](images/d9ec77be6a64801f08e9fe99a8d5ddd8429ab89df58d4db1d08ebb361f7481f1.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/images/d9ec77be6a64801f08e9fe99a8d5ddd8429ab89df58d4db1d08ebb361f7481f1.jpg)  
 (b) 80 km SMF  
 Fig. 4. BER vs. OSNR curves for each metric under investigation. Preset: reference line based on a priori known CD filter, CMA: constant modulus algorithm, Pav: mean signal power, Eig. spread: eigenvalue spread, Freq. AC: frequency spectrum autocorrelation.
 

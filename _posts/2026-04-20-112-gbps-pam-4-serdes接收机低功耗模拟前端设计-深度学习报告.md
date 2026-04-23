@@ -17,12 +17,12 @@ tags:
 
 **Figure 1.1**
 *Figure 1.1: Global data traffic over years [2].*
-![](_images/c6836655680b400fc178a7f9778ec12a27bc3caf822fc081a6b99c57fe577630.jpg)
+![](/img/mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/images/c6836655680b400fc178a7f9778ec12a27bc3caf822fc081a6b99c57fe577630.jpg)
 > 🔍 深度说明：本图展示全球数据流量随年份增长的趋势。数据流量从2010年代的约1 EB/月增长到2025年的约300 EB/月，10年增长300倍。流量增长主要驱动力：视频流媒体（Netflix/YouTube占带宽60%+）、云计算（AWS/Azure数据中心流量）、5G移动回传、AI大模型训练流量。光网络面临容量压力——Cisco VNI报告称全球IP流量年增长率约25%，而光纤可用带宽资源有限（接近非线性Shannon极限）。对SerDes行业的直接启示：光互连速率从10G -> 28G -> 56G -> 112G -> 224G演进（每代翻倍），SerDes电芯片功耗同步增长（112G SerDes功耗约3-8W/通道），低功耗设计成为核心竞争点。数据中心运营商（Google/Amazon/Microsoft）已明确要求下一代1.6T光模块功耗<3W/Cage（比现有产品降低>30%），这对模拟前端（AFE）和DSP的功耗优化提出极高要求。
 
 **Figure 1.3**
 *Figure 1.3: Typical SERDES transceiver system.*
-![](_images/543d1fe8ac45a3985bdabd2ae00c1c49256be502a915a7a473c2390f92896227.jpg)
+![](/img/mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/images/543d1fe8ac45a3985bdabd2ae00c1c49256be502a915a7a473c2390f92896227.jpg)
 > 🔍 深度说明：本图展示典型SerDes收发系统的架构——从发送端到接收端的完整链路。Tx侧：数据源 -> FEC编码 -> Scrambler -> 调制映射（NRZ/PAM4/QAM）-> 脉冲整形（RC/RRC滤波器）-> 数模转换（DAC）-> 模拟前端（AFE Driver）-> 光调制器（EA/VCSEL/SiPho MZM）-> 光纤。Rx侧：光信号 -> 光电检测（PIN/APD）-> TIA（跨阻放大器）-> AFE（CTLE/ VGA / ADC）-> DSP CDR（时钟恢复/均衡/FEC解码）-> 数据输出。系统参数：112G PAM4时符号率56GBd，4电平眼图（眼高~50mVppd），总链路预算>30dB。对SerDes AFE设计，关键挑战包括：TIA噪声优化（输入参考噪声<10uA rms）、CTLE高频补偿（>25dB@28GHz）、ADC ENOB（>6.5bit for PAM4）、功耗控制（AFE总功耗<500mW/通道）。
 
 ---

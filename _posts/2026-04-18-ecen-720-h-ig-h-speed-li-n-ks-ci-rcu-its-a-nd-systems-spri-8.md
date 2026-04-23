@@ -11,7 +11,7 @@ tags:
 ---
 ## Lectu re 1 1 : Clocki ng Arch itectu res & PLLs
 
-![](images/d3b35ef917f0b27814d357e4971775d6e17baa3adcf3c73923869b8339d688d8.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/d3b35ef917f0b27814d357e4971775d6e17baa3adcf3c73923869b8339d688d8.jpg)
 
 Sa m Pa lermo Ana log & M ixed -Sig na l Center Texas A&M U n iversity
 
@@ -43,19 +43,19 @@ M ajority of today’s PLL materia l comes fro m Fi sch ette tuto ria l a n d M 
 
 ## H ig h -Speed Electrica l Li n k System
 
-![](images/9605065472e6483adecd0ae28c238a2d39f926fabc773113dd57fc67aabfdc01.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/9605065472e6483adecd0ae28c238a2d39f926fabc773113dd57fc67aabfdc01.jpg)
 
 ## Clocki ng Term i nology
 
-![](images/e2bcd386d2ebad740c245d10e032072767fe6c275f005c02b8c1b33d58545157.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e2bcd386d2ebad740c245d10e032072767fe6c275f005c02b8c1b33d58545157.jpg)  
 phase recovery
 
-![](images/b09427d8014be26270bf4812f738888ef053c29bf39e3252b76fc4f156dcf986.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/b09427d8014be26270bf4812f738888ef053c29bf39e3252b76fc4f156dcf986.jpg)
 
 magic box & buffer  
-![](images/b30d0d31df95d87a883e8b01e63b94d8603c00289b52477432bf3c1e2cc56b61.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/b30d0d31df95d87a883e8b01e63b94d8603c00289b52477432bf3c1e2cc56b61.jpg)
 
-![](images/c7a12c1590202fd337a658ed07965819cbc135619de023c04856e5742fca2662.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/c7a12c1590202fd337a658ed07965819cbc135619de023c04856e5742fca2662.jpg)
 
 ## Synch ronous
 
@@ -109,7 +109,7 @@ Em bedded Clock (Clock Recovery)
 
 ## [ Kra uter ]
 
-![](images/1405d8e72f2f6f8e07f770060c0a39b348a6d1602220d216bbbf3a5569c1379b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1405d8e72f2f6f8e07f770060c0a39b348a6d1602220d216bbbf3a5569c1379b.jpg)
 
 • Com mon i n orig i na l com puter systems
 
@@ -125,7 +125,7 @@ Em bedded Clock (Clock Recovery)
 
 Cycle time to meet setup time
 
-![](images/e46aa5b744fcd149da1618cd64d460140e1772c024b890df27841f6d3e6e2b91.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e46aa5b744fcd149da1618cd64d460140e1772c024b890df27841f6d3e6e2b91.jpg)
 
 ## Com mon Clock I/O Li m itations
 
@@ -145,7 +145,7 @@ Multi-Channel Serial Link System
 
 ## RX Data Channels
 
-![](images/2f3ef31dfa1d5a9200b1144479668d37820279b5bc63eea5371e9f9bd43f2f77.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/2f3ef31dfa1d5a9200b1144479668d37820279b5bc63eea5371e9f9bd43f2f77.jpg)
 
 • Com mon h ig h-speed reference clock is forwa rded from TX ch i p to RX ch i p
 
@@ -166,7 +166,7 @@ Multi-Channel Serial Link System
 ## Forwa rd Clock I/O Li m itations
 
 Multi-Channel Serial Link System  
-![](images/079d9eed83639e47a69f28f5ae25ab137a9a63d15768a8fa27a6a501635d6ad7.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/079d9eed83639e47a69f28f5ae25ab137a9a63d15768a8fa27a6a501635d6ad7.jpg)
 
 • Clock skew ca n l i m ited forwa rd clock I/O performa nce
 
@@ -181,7 +181,7 @@ Multi-Channel Serial Link System
 ## Forwa rd Clock I/O De-Skew
 
 Multi-Channel Serial Link System  
-![](images/16b30c33734d1602b9dd5aac435a3c6add23bd7a05d9182519a290501c230fbd.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/16b30c33734d1602b9dd5aac435a3c6add23bd7a05d9182519a290501c230fbd.jpg)
 
 • Per-cha n nel de-skew a l lows for sig n ifica nt data rate i ncreases
 
@@ -203,7 +203,7 @@ Multi-Channel Serial Link System
 
 ## Multi-Channel Serial Link System
 
-![](images/86362dae372b920f97930390d0dd8c9de404da3f3fe3a17145e4b113165c5ee2.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/86362dae372b920f97930390d0dd8c9de404da3f3fe3a17145e4b113165c5ee2.jpg)
 
 • TX PLL
 
@@ -226,7 +226,7 @@ Multi-Channel Serial Link System
 ## Em bedded Clock I/O Arch itectu re
 
 Multi-Channel Serial Link System  
-![](images/eca46b0ba40133a5d378e6bf77d674e7b1de39abaff17b44ef145fe20da037e6.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/eca46b0ba40133a5d378e6bf77d674e7b1de39abaff17b44ef145fe20da037e6.jpg)
 
 • Ca n be used i n mesoch ronous or plesioch ronou s systems
 
@@ -246,7 +246,7 @@ Multi-Channel Serial Link System
 
 ## Em bedded Clock I/O Li m itations
 
-![](images/05fddc3dcdab784d39f0bea7571094dd12a1102788d97485875041367924d9f7.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/05fddc3dcdab784d39f0bea7571094dd12a1102788d97485875041367924d9f7.jpg)
 
 ## • J itte r tra c ki n g l i m ited by CDR ba ndwidth
 
@@ -260,7 +260,7 @@ Multi-Channel Serial Link System
 
 ## Multi-Channel Serial Link System
 
-![](images/9aa1884ca7c07d2c5c051a5e900dd15a6f0cf6ff7d1546d31cb8124abe13302e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/9aa1884ca7c07d2c5c051a5e900dd15a6f0cf6ff7d1546d31cb8124abe13302e.jpg)
 
 ## • TX PLL
 
@@ -280,7 +280,7 @@ Multi-Channel Serial Link System
 
 ## Xi l i nx 0 . 5-3 2G b/s Tra nsceiver Clocki ng
 
-![](images/2f788f5350220632d8d8b7c3ef91a89f299c285746671bc6dfd517e6d577e65b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/2f788f5350220632d8d8b7c3ef91a89f299c285746671bc6dfd517e6d577e65b.jpg)
 
 <table><tr><td rowspan=1 colspan=1>Technology</td><td rowspan=1 colspan=1>CMOS 16nm FinFET</td></tr><tr><td rowspan=1 colspan=1>Power Supply (Vave, Vavt, Vaux)</td><td rowspan=1 colspan=1>0.9 V, 1. 2V, 1.8 V</td></tr><tr><td rowspan=1 colspan=1>Frequency range</td><td rowspan=1 colspan=1>500 Mb/s – 32.75 Gb/s</td></tr><tr><td rowspan=1 colspan=1>Transceiver Quad area</td><td rowspan=1 colspan=1>2.625 mm × 2.218 mm</td></tr><tr><td rowspan=1 colspan=1>LC PLL range</td><td rowspan=1 colspan=1>8-16.375 GHz</td></tr><tr><td rowspan=1 colspan=1>Ring PLL range</td><td rowspan=1 colspan=1>2-6.25 GHz</td></tr><tr><td rowspan=1 colspan=1>TX PRBS7 jitter at 32.75Gb/s</td><td rowspan=1 colspan=1>TJ: 5.39 ps, RJ: 190 fs</td></tr><tr><td rowspan=1 colspan=1>32.75Gb/s RX JTOL @ 30MHz@ 100MHz</td><td rowspan=1 colspan=1>0.45 UI0.6 UI</td></tr><tr><td rowspan=1 colspan=1>Channel loss at 32.75Gb/s</td><td rowspan=1 colspan=1>30 dB</td></tr><tr><td rowspan=1 colspan=1>Measured BER at 32.75Gb/s</td><td rowspan=1 colspan=1>&lt; 10-15</td></tr><tr><td rowspan=1 colspan=1>Power at 32.75Gb/s with DFE</td><td rowspan=1 colspan=1>577mW/ch (17.6pJ/b)</td></tr></table>
 
@@ -300,7 +300,7 @@ Multi-Channel Serial Link System
 
 ## PLL Block Diag ra m
 
-![](images/6699e9da808118ca2b3e022a1ddcf94fdcb46b3c24d81b2e1d753535695fc59e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/6699e9da808118ca2b3e022a1ddcf94fdcb46b3c24d81b2e1d753535695fc59e.jpg)
 
 • A phase- locked loop ( PLL) is a negative feed back system where a n osci l lator-generated sig na l is phase AN D freq uency locked to a reference sig na l
 
@@ -330,7 +330,7 @@ Wi reless systems
 
 ## Multi-Channel Serial Link System
 
-![](images/dfe37dc448faf733d88ff1e4e72d019f47915268db02ca90c71e2907852b00fe.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/dfe37dc448faf733d88ff1e4e72d019f47915268db02ca90c71e2907852b00fe.jpg)
 
 • TX PLL
 
@@ -354,7 +354,7 @@ Wi reless systems
 
 ## Multi-Channel Serial Link System
 
-![](images/18e312fb8f952a7df8d1fd8459704bd37dec2557deae6207d10acd5f4aec2a37.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/18e312fb8f952a7df8d1fd8459704bd37dec2557deae6207d10acd5f4aec2a37.jpg)
 
 ## • TX PLL
 
@@ -391,7 +391,7 @@ Wi reless systems
 
 ## Cha rge Pu m p PLL
 
-![](images/a11e060c64ba1170f58adff9e3418d4e015ccf5120036d3cae36f27ed6f84371.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/a11e060c64ba1170f58adff9e3418d4e015ccf5120036d3cae36f27ed6f84371.jpg)
 
 • Cha rge pu m p PLL is a com mon i m plementation
 
@@ -405,7 +405,7 @@ Wi reless systems
 
 ## Li nea r PLL Model
 
-![](images/ccef6ddd1eca1561fef307552a7aae852ec91689b52a11819b4501426010d1e4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/ccef6ddd1eca1561fef307552a7aae852ec91689b52a11819b4501426010d1e4.jpg)
 
 • Phase is the key va ria ble of i nterest
 
@@ -423,10 +423,10 @@ PLL is locked (or nea r lock)
 
 Input phase response
 
-![](images/621a40f4e3731718270ea1f0bb114f8c0326aa49d178b8dab6985f385c906726.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/621a40f4e3731718270ea1f0bb114f8c0326aa49d178b8dab6985f385c906726.jpg)  
 VCO output phase response
 
-![](images/41a1889a50cb027ece22f6b2c3a808648aff90dad18bd9c7a082ca637767a4e0.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/41a1889a50cb027ece22f6b2c3a808648aff90dad18bd9c7a082ca637767a4e0.jpg)
 
 • Freq uency doma i n a na lysis ca n tel l us how wel l the PLL tracks the i n put phase as it cha nges at a certa i n freq uency
 
@@ -434,7 +434,7 @@ VCO output phase response
 
 ## Li nea r PLL Model
 
-![](images/80031b71c161205c0bd7111c7d5555c2a2123a390b809f094c9d22079f55bc6c.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/80031b71c161205c0bd7111c7d5555c2a2123a390b809f094c9d22079f55bc6c.jpg)
 
 For Cha rge Pu m p PLL :
 
@@ -454,7 +454,7 @@ $$
 
 <table><tr><td rowspan=1 colspan=1>Parameter</td><td rowspan=1 colspan=1></td></tr><tr><td rowspan=1 colspan=1>Fref</td><td rowspan=1 colspan=1>156.25MHz</td></tr><tr><td rowspan=1 colspan=1>N</td><td rowspan=1 colspan=1>90</td></tr><tr><td rowspan=1 colspan=1>Fvco</td><td rowspan=1 colspan=1>14GHz</td></tr><tr><td rowspan=1 colspan=1> $\mathsf { f } _ { \mathsf { u } }$ </td><td rowspan=1 colspan=1>2MHz</td></tr><tr><td rowspan=1 colspan=1> $\Phi _ { \mathrm { m } }$ </td><td rowspan=1 colspan=1> $6 0 ^ { \circ }$ </td></tr><tr><td rowspan=1 colspan=1> $\mathsf { f } _ { 3 \mathsf { d B } }$ </td><td rowspan=1 colspan=1>3.1MHz</td></tr><tr><td rowspan=1 colspan=1>Kvco</td><td rowspan=1 colspan=1>2π*1GHz/V</td></tr><tr><td rowspan=1 colspan=1>R</td><td rowspan=1 colspan=1>4kΩ</td></tr><tr><td rowspan=1 colspan=1> ${ \mathsf { C } } _ { \uparrow }$ </td><td rowspan=1 colspan=1>74pF</td></tr><tr><td rowspan=1 colspan=1> ${ \sf C } _ { 2 }$ </td><td rowspan=1 colspan=1>5.8pF</td></tr><tr><td rowspan=1 colspan=1> $\boldsymbol { \mathrm { I } } _ { \mathtt { C P } }$ </td><td rowspan=1 colspan=1>310uA</td></tr></table>
 
-![](images/828eb9c569174821be1c2b691c916839edceb93339b5c9ba2d8f3d2936d6d307.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/828eb9c569174821be1c2b691c916839edceb93339b5c9ba2d8f3d2936d6d307.jpg)
 
 $$
 H ( s ) = \frac { \phi _ { o u t } ( s ) } { \phi _ { i n } ( s ) } = \frac { \frac { K _ { P D } K _ { V C O } } { C _ { 2 } } \left( s + \frac { 1 } { R C _ { 1 } } \right) } { s ^ { 3 } + \left( \frac { C _ { 1 } + C _ { 2 } } { R C _ { 1 } C _ { 2 } } \right) s ^ { 2 } + \left( \frac { K _ { P D } K _ { V C O } } { N C _ { 2 } } \right) s + \frac { K _ { P D } K _ { V C O } } { N R C _ { 1 } C _ { 2 } } }
@@ -462,7 +462,7 @@ $$
 
 ## Com mon PLL Noise Sou rces
 
-![](images/55f238ad9c91ad842a9631a79fc3ed4e38ef03c11166d3432d960492590c2fec.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/55f238ad9c91ad842a9631a79fc3ed4e38ef03c11166d3432d960492590c2fec.jpg)
 
 $$
 \begin{array} { r l } & { S _ { \phi _ { o u t } } ^ { \phi _ { i n } } = S _ { \phi _ { i n } } | N T F _ { I N } ( s ) | ^ { 2 } } \\ & { S _ { \phi _ { o u t } } ^ { i c p } = S _ { i _ { C } } | N T F _ { C P } ( s ) | ^ { 2 } } \\ & { \quad S _ { \phi _ { o u t } } ^ { v _ { R } } = S _ { v _ { R } } | N T F _ { R } ( s ) | ^ { 2 } } \\ & { \quad S _ { \phi _ { o u t } } ^ { \phi _ { V C O } } = S _ { \phi _ { V C o } } | N T F _ { V C O } ( s ) | ^ { 2 } } \\ & { S _ { \phi _ { o u t } } ^ { T o t a l } = S _ { \phi _ { o u t } } ^ { i c _ { D } } + S _ { \phi _ { o u t } } ^ { i c _ { D } } + S _ { \phi _ { o u t } } ^ { \phi _ { V C O } } } \end{array}
@@ -486,7 +486,7 @@ $$
 N T F _ { V C O } ( s ) = \frac { \phi _ { o u t } ( s ) } { \phi _ { V C O } ( s ) } = \frac { 1 } { 1 + L G ( s ) }
 $$
 
-![](images/b3d4f14a26466d38e6812594c3193b61512fc3922e9f0dfa5a2318c8ee0ae055.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/b3d4f14a26466d38e6812594c3193b61512fc3922e9f0dfa5a2318c8ee0ae055.jpg)
 
 • I n put reference a nd cha rge pu m p noise is low- pass fi ltered
 
@@ -496,7 +496,7 @@ $$
 
 ## PLL Phase N oise & J itter
 
-![](images/97f99567f63ee51e6501c208530bbb63ba904329d0e82796eb23f00ac4656d31.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/97f99567f63ee51e6501c208530bbb63ba904329d0e82796eb23f00ac4656d31.jpg)
 
 ## [Tu rker ISSCC 20 18]
 
@@ -522,9 +522,9 @@ $$
 
 ## Wi re l i ne Tra n sceiver J itter M od e l i ng
 
-![](images/c1bdc13e95d7b32d69d3bb7d6cac1b8e6cff7f9269832814fe72749c18f1e8db.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/c1bdc13e95d7b32d69d3bb7d6cac1b8e6cff7f9269832814fe72749c18f1e8db.jpg)
 
-![](images/153b6a369ca4ef2f35c52a2fa963a0367eb5b6838adddb20042e5f2d19b8311f.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/153b6a369ca4ef2f35c52a2fa963a0367eb5b6838adddb20042e5f2d19b8311f.jpg)
 
 • Relative j itter (dyna m ic phase error) between the RX CDR-generated sa m pl i ng clock a nd i n put data sets the system ti m i ng ma rg i n
 
@@ -540,10 +540,10 @@ $$
 
 Si l icon La bs U ltra Low J itter Crysta l Osci l lator
 
-![](images/74d742e7dc29d9e25ec07c9284e3ac562bfae8a116d49999ec07dd44f1e1efa9.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/74d742e7dc29d9e25ec07c9284e3ac562bfae8a116d49999ec07dd44f1e1efa9.jpg)  
 Phase Noise at 156. 26M Hz
 
-![](images/c986f9ea2474b78220afefe2e92cc60fb5f86cdf3b8087c3abcd28d2b66202aa.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/c986f9ea2474b78220afefe2e92cc60fb5f86cdf3b8087c3abcd28d2b66202aa.jpg)  
 • Refe re n ce j itte r $\sigma _ { \mathrm { j , i n } } = 2 2 6 \mathsf { f s } _ { \mathrm { r m s } }$ ( 1 0 kHz – 1 0 M Hz)
 
 ## I n put Reference Noise
@@ -552,9 +552,9 @@ $$
 N T F _ { I N } ( s ) = \frac { \frac { K _ { P D } K _ { V C O } } { C _ { 2 } } \left( s + \frac { 1 } { R C _ { 1 } } \right) } { s ^ { 3 } + \left( \frac { C _ { 1 } + C _ { 2 } } { R C _ { 1 } C _ { 2 } } \right) s ^ { 2 } + \left( \frac { K _ { P D } K _ { V C O } } { N C _ { 2 } } \right) s + \frac { K _ { P D } K _ { V C O } } { N R C _ { 1 } C _ { 2 } } }
 $$
 
-![](images/a763df1062618cc67bd69523744c272cb9df795c31309b4168b9efffb8a78a7f.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/a763df1062618cc67bd69523744c272cb9df795c31309b4168b9efffb8a78a7f.jpg)
 
-![](images/0da1a170128366bba14b4566e6a3330c3de3c21bd1e8ac560d36b04260e2016e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/0da1a170128366bba14b4566e6a3330c3de3c21bd1e8ac560d36b04260e2016e.jpg)
 
 • Afte r P LL : $\sigma _ { \mathrm { j , i n } } = 2 1 7 \mathsf { f s } _ { \mathrm { r m s } }$ ( 1 0 kHz – 1 0 M Hz)
 
@@ -562,15 +562,15 @@ $$
 
 ## Cha rge Pu m p Noise
 
-![](images/edc73337ba878669a2dc1b1f60304d9b42ec977801e884d632ac469ab590622e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/edc73337ba878669a2dc1b1f60304d9b42ec977801e884d632ac469ab590622e.jpg)
 
-![](images/c118254787b89102e1e66a2b709b3932808eae1d84aad70ef57e257ed4fe4747.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/c118254787b89102e1e66a2b709b3932808eae1d84aad70ef57e257ed4fe4747.jpg)
 
 $$
 S _ { i _ { C P } } = \frac { T _ { r s t } } { T _ { r e f } } \left( S _ { i _ { n , M P } } + S _ { i _ { n , M N } } \right)
 $$
 
-![](images/8da2503588d71cdbc96344e1254b50701df76feeaec0fe1df8ed81f134e57f26.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/8da2503588d71cdbc96344e1254b50701df76feeaec0fe1df8ed81f134e57f26.jpg)
 
 • Cha rge pu m p noise cu rrent is i njected i nto the loop fi lter d u ri ng the PFD reset ti me
 
@@ -584,9 +584,9 @@ $$
 N T F _ { C P } ( s ) = { \frac { { \frac { K _ { V C O } } { C _ { 2 } } } \left( s + { \frac { 1 } { R C _ { 1 } } } \right) } { s ^ { 3 } + \left( { \frac { C _ { 1 } + C _ { 2 } } { R C _ { 1 } C _ { 2 } } } \right) s ^ { 2 } + \left( { \frac { K _ { P D } K _ { V C O } } { N C _ { 2 } } } \right) s + { \frac { K _ { P D } K _ { V C O } } { N R C _ { 1 } C _ { 2 } } } } }
 $$
 
-![](images/66d5224412301013fbd615298fd767ede6e47a07c33ad9502c4bf500e71e25f6.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/66d5224412301013fbd615298fd767ede6e47a07c33ad9502c4bf500e71e25f6.jpg)
 
-![](images/1acd6d2d5200c0a404f74ba3c33e6774f68584a8016c3adb5e03f76ba9c4f538.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1acd6d2d5200c0a404f74ba3c33e6774f68584a8016c3adb5e03f76ba9c4f538.jpg)
 
 • Afte r P LL : $\sigma _ { \mathrm { j , \mathsf { C P } } } = 2 0 5 \mathsf { f s } _ { \mathrm { r m s } }$ ( 1 0 kHz – 1 0 M Hz)
 
@@ -594,9 +594,9 @@ $$
 
 ## Loop Fi lter R N oise
 
-![](images/a0717a98a570b97fb1a384872da7b6442c0149ac674c0e62711165b8ca8906ce.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/a0717a98a570b97fb1a384872da7b6442c0149ac674c0e62711165b8ca8906ce.jpg)
 
-![](images/84523217f66ed726d2fe073380a2343e0e19f172a1c8c9db7731abf7f9fb1d8b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/84523217f66ed726d2fe073380a2343e0e19f172a1c8c9db7731abf7f9fb1d8b.jpg)
 
 • Tra d e-off betwee n resi sto r n o i se, l oo p fi lte r ca pacitor size, a nd cha rge pu m p noise
 
@@ -608,9 +608,9 @@ $$
 N T F _ { R } ( s ) = \frac { K _ { V C O } s \left( s + \frac { C _ { 1 } + C _ { 2 } } { R C _ { 1 } C _ { 2 } } \right) } { s ^ { 3 } + \left( \frac { C _ { 1 } + C _ { 2 } } { R C _ { 1 } C _ { 2 } } \right) s ^ { 2 } + \left( \frac { K _ { P D } K _ { V C O } } { N C _ { 2 } } \right) s + \frac { K _ { P D } K _ { V C O } } { N R C _ { 1 } C _ { 2 } } }
 $$
 
-![](images/9ab7a22716c86244d7ec0063926e7842f47494fcb2d18fcc4c04abd2d3d91472.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/9ab7a22716c86244d7ec0063926e7842f47494fcb2d18fcc4c04abd2d3d91472.jpg)
 
-![](images/8dbd79e3211159a859a9216f70efcaf3f666edb9912bf8b80fc0deb5ac6e2d56.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/8dbd79e3211159a859a9216f70efcaf3f666edb9912bf8b80fc0deb5ac6e2d56.jpg)
 
 • Afte r P LL : $\sigma _ { \mathrm { j } , \mathsf { R } } = 1 2 8 \mathsf { f s } _ { \mathsf { r m s } }$ ( 1 0 kHz – 1 0 M Hz)
 
@@ -618,9 +618,9 @@ $$
 
 ## VCO Noise
 
-![](images/75a68e0e9610334b5447a3b81964171ff191ee95519ecb7b0b4d719d76a0f8a4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/75a68e0e9610334b5447a3b81964171ff191ee95519ecb7b0b4d719d76a0f8a4.jpg)
 
-![](images/f032438482f2891cbcf20da0906fdc7d25d00cf4115a9ee8c0d488255c4055d2.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/f032438482f2891cbcf20da0906fdc7d25d00cf4115a9ee8c0d488255c4055d2.jpg)
 
 • LC-VCO phase noise sou rces
 
@@ -636,9 +636,9 @@ $$
 N T F _ { V C O } ( s ) = { \cfrac { s ^ { 2 } \left( s + { \cfrac { C _ { 1 } + C _ { 2 } } { R C _ { 1 } C _ { 2 } } } \right) } { s ^ { 3 } + \left( { \cfrac { C _ { 1 } + C _ { 2 } } { R C _ { 1 } C _ { 2 } } } \right) s ^ { 2 } + \left( { \cfrac { K _ { P D } K _ { V C O } } { N C _ { 2 } } } \right) s + { \cfrac { K _ { P D } K _ { V C O } } { N R C _ { 1 } C _ { 2 } } } } }
 $$
 
-![](images/e5a36fc6291d235993baffdd910d47af99e9506c1ac756697f0a359a9b137882.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e5a36fc6291d235993baffdd910d47af99e9506c1ac756697f0a359a9b137882.jpg)
 
-![](images/5ca4c50569f29e1c704c068763c263c762612c20fbabaab879838636695aa07e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/5ca4c50569f29e1c704c068763c263c762612c20fbabaab879838636695aa07e.jpg)
 
 • After PLL : $\sigma _ { \mathrm { j } , \mathsf { v c o } } = 2 5 7 \mathsf { f s } _ { \mathsf { r m s } }$ ( 1 0 kHz – 1 0 M Hz)
 
@@ -646,9 +646,9 @@ $$
 
 ## Tota l N oise
 
-![](images/80f95edbaf6632a04d4dd7dcc0dec57907f6680f728b9a7b511796349bafb931.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/80f95edbaf6632a04d4dd7dcc0dec57907f6680f728b9a7b511796349bafb931.jpg)
 
-![](images/14742b8ce179a76872375e05a423a9c7cc251f62ff90a908deeebae6fcdf209b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/14742b8ce179a76872375e05a423a9c7cc251f62ff90a908deeebae6fcdf209b.jpg)
 
 • After PLL : $\sigma _ { \mathrm { j , 7 o t a l } } = 4 1 4 \mathsf { f } s _ { \mathrm { r m s } } \left( 1 0 \mathsf { k H z } - 1 0 \mathsf { M } \mathsf { H } z \right)$
 
@@ -672,13 +672,13 @@ The way a PLL sha pes phase noise depends on where the noise is i ntrod uced i n
 
 ## Osci l l ato r N o i se
 
-![](images/706431ae2aca4a88c7f83e87268b5f553d2b6b39d216bd45815ecd93a4e16313.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/706431ae2aca4a88c7f83e87268b5f553d2b6b39d216bd45815ecd93a4e16313.jpg)
 
-![](images/f97dcd53dc4c146a2260ea3ebf6c25d084a08e4b80b2805415caa311c1e72f1f.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/f97dcd53dc4c146a2260ea3ebf6c25d084a08e4b80b2805415caa311c1e72f1f.jpg)
 
 ## Osci l lator Phase Noise M odel
 
-![](images/8bae54a9522988cbe12dc3e60ec6105ca8b4f04df96184d5e56611ac2ca39249.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/8bae54a9522988cbe12dc3e60ec6105ca8b4f04df96184d5e56611ac2ca39249.jpg)
 
 $$
 L ( f ) { = } 1 0 \log \left( { \frac { \mathrm { N o i s e S p e c t r a l D e n s i t y } } { \mathrm { C a r r i e r P o w e r } } } \right) \left( \mathbf { d B c } / \mathbf { H z } \right)
@@ -690,7 +690,7 @@ Leeson ’s Model : $L ( \Delta f ) = 1 0 \log \left( \frac { 2 F k T } { P _ { 
 
 ## Open - Loop VCO J itter
 
-![](images/5506805f760e9605393faf371deed1e07774d3f72658566a5b2195a62c00fc20.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/5506805f760e9605393faf371deed1e07774d3f72658566a5b2195a62c00fc20.jpg)
 
 • M easu re d istri bution of clock th reshold crossi ng s
 
@@ -698,14 +698,14 @@ Leeson ’s Model : $L ( \Delta f ) = 1 0 \log \left( \frac { 2 F k T } { P _ { 
 
 ## Open - Loop VCO J itter
 
-![](images/35d4b4ae85ea71b96c9d3519a64a909567666accbc780fa7b6385c99cca239a4.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/35d4b4ae85ea71b96c9d3519a64a909567666accbc780fa7b6385c99cca239a4.jpg)  
 J itte r   i s p ro po rti o n a l to sq rt( T)
 
 •  i s VCO ti m e d o m a i n fi g u re of m e rit
 
 ## VCO i n Closed - Loop PLL J itter
 
-![](images/58772257440ac3101fc4f4c5b811413df750b49259348dc8a941a5b061aa576f.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/58772257440ac3101fc4f4c5b811413df750b49259348dc8a941a5b061aa576f.jpg)  
 • PLL l i m its   for delays longer tha n loop ba ndwidth $\tau _ { \mathrm { L } }$
 
 $$
@@ -714,11 +714,11 @@ $$
 
 ## Ref Cl k- Referenced vs Self- Referenced
 
-![](images/acce3761356b7bab3ba05dee69a013348dbdd5935c3da6642557ad5b4a1b5864.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/acce3761356b7bab3ba05dee69a013348dbdd5935c3da6642557ad5b4a1b5864.jpg)
 
-![](images/044adc859694c569d55aa6a4ec006de6be6535370a2106881c1b9da8912ccff7.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/044adc859694c569d55aa6a4ec006de6be6535370a2106881c1b9da8912ccff7.jpg)
 
-![](images/253df331c09648ba6c9e80a7e635eab5b82bdea14915806725470652c868fc02.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/253df331c09648ba6c9e80a7e635eab5b82bdea14915806725470652c868fc02.jpg)
 
 • Ge n e ra l ly, we ca re a bo ut th e j itte r w . r . t . th e ref. c l oc k $( \sigma _ { \mathsf { x } } )$
 
@@ -728,7 +728,7 @@ $$
 
 ## Converti ng Phase N oise to J itter
 
-![](images/c0b2b00815d13c3e11146668134b345a7a7b59fff06375fa0ada9333f4117749.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/c0b2b00815d13c3e11146668134b345a7a7b59fff06375fa0ada9333f4117749.jpg)
 
 • RM S j itte r fo r $\Delta \mathsf { T }$ accu m u lation $\sigma _ { \Delta T } ^ { 2 } = \frac { 8 } { \omega _ { o } ^ { 2 } } \int _ { 0 } ^ { \infty } S _ { \phi } ( f ) s i n ^ { 2 } ( \pi f \Delta T ) d f$
 
@@ -771,33 +771,33 @@ Potentia l i m plementation tools
 ## Si m u l i n k Model
 
 PLL FREQUENCY SYNTHESIZER MODEL  
-![](images/9d696cec30d557727e8cbb287c02b4b57f59e3a2d250bf1534205aa23407436e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/9d696cec30d557727e8cbb287c02b4b57f59e3a2d250bf1534205aa23407436e.jpg)
 
 PFD  
-![](images/775abbb652244bcc5c920a613573627aa294e32baeb885e5dbfd242fa1aee916.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/775abbb652244bcc5c920a613573627aa294e32baeb885e5dbfd242fa1aee916.jpg)
 
-![](images/430fc04d8776162ca7d91ed351d926c9fcceb276cee6741339052a5bf903718b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/430fc04d8776162ca7d91ed351d926c9fcceb276cee6741339052a5bf903718b.jpg)
 
 ## Freq uency Step w/ Si m u l i n k Model
 
 VCO control voltage response to i n put freq uency step
 
 KVCO = 2 \* 1G Hz/V (LC Osc)  
-![](images/6d3083d93885cf92d4df0d71fdf2c1720981919e0af84e0392a685d2d4869df0.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/6d3083d93885cf92d4df0d71fdf2c1720981919e0af84e0392a685d2d4869df0.jpg)
 
 $v _ { \mathrm { v c o } } { = } 2 \pi ^ { * }$ 10G Hz/V (Ri ng Osc)  
-![](images/d2b4aebe3765ca2fe928f1b2288b5775b3b92faaa3a7fad189dd9bcfe1663031.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/d2b4aebe3765ca2fe928f1b2288b5775b3b92faaa3a7fad189dd9bcfe1663031.jpg)  
 • Voltage spi kes d ue to cha rge pu m p cu rrent d rivi ng loop fi lter resistor
 
 • Cycle sl i ppi ng occu rs d u ri ng lock acq u isition d ue to la rge i n itia l freq uency d ifference
 
 ## CppSi m Model
 
-![](images/f3b9540efafa52fe54b1d4bb9982028363cc7aaa1c28b75bae37ebbe7b8bb12c.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/f3b9540efafa52fe54b1d4bb9982028363cc7aaa1c28b75bae37ebbe7b8bb12c.jpg)
 
 ## [ Perrott/ Men i nger]
 
-![](images/55ea0095c933e934844a3ec33a703a2b4704be3ba7de3085fb9707dd2eeb4d0c.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/55ea0095c933e934844a3ec33a703a2b4704be3ba7de3085fb9707dd2eeb4d0c.jpg)
 
 https : //cppsi m . com/
 
@@ -805,19 +805,19 @@ https : //cppsi m . com/
 
 • Ma ny usefu l bu i ld i ng blocks i ncl uded
 
-![](images/abfdf7966b7346939377810b88c35a1dbf87b43ab0a488823cd5483863b2c9a4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/abfdf7966b7346939377810b88c35a1dbf87b43ab0a488823cd5483863b2c9a4.jpg)
 
-![](images/dc450069b2a87b4a0908724cd68a14aafef36caaf98b601a38633b183ce82a3b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/dc450069b2a87b4a0908724cd68a14aafef36caaf98b601a38633b183ce82a3b.jpg)
 
 ## Cadence Veri log-A Model
 
-![](images/148096f000b07e2a5dccdc1924b79a33e1d8626f7d5ace8cdbaee51bca3b7751.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/148096f000b07e2a5dccdc1924b79a33e1d8626f7d5ace8cdbaee51bca3b7751.jpg)
 
 module vco\_advanced\_backup (in, out);   
 parameter Emin = 13.5625G;   
 else inst\_freq =((v(in)−vmin) + (Emax−Emin)/(vnax−Vnin)) + Emin :
 
-![](images/60f30f39bb15b9b61b439f88bac1ebade47e41038e2093de477ba8c1a34da59f.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/60f30f39bb15b9b61b439f88bac1ebade47e41038e2093de477ba8c1a34da59f.jpg)
 
 ## Next Ti me
 
@@ -827,7 +827,7 @@ The fol lowi ng sl ides provide more deta i l s on PLL ci rcu its . Th is 620 ma
 
 ## PLL Loop Ga i n
 
-![](images/1489bfba96c605d8f7c2ba3c9341ebe6bc6b3283ab1d54122a21075bcf1e0bd4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1489bfba96c605d8f7c2ba3c9341ebe6bc6b3283ab1d54122a21075bcf1e0bd4.jpg)
 
 $$
 L G ( s ) = \frac { K _ { P D } F ( s ) K _ { V C O } } { N s } = \frac { K _ { P D } K _ { V C O } \left( s + \frac { 1 } { R _ { 1 } C _ { 1 } } \right) } { N C _ { 2 } s ^ { 2 } \left( s + \frac { C _ { 1 } + C _ { 2 } } { R _ { 1 } C _ { 1 } C _ { 2 } } \right) }
@@ -839,7 +839,7 @@ $$
 
 ## Loop Ga i n Response
 
-![](images/dd6ef4e8ac4feaf099e90ec260a2246fb857b753ba2f0371e62d1875b5391b2f.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/dd6ef4e8ac4feaf099e90ec260a2246fb857b753ba2f0371e62d1875b5391b2f.jpg)
 
 $$
 \omega _ { p 1 } = \omega _ { p 2 } = 0
@@ -859,7 +859,7 @@ $$
 
 ## Desig n Proced u re for Max $\Phi _ { \mathsf { m } }$
 
-![](images/309b8de44c579b8c965ce94708d42e051df3551c66539ece80b54442a4a25fce.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/309b8de44c579b8c965ce94708d42e051df3551c66539ece80b54442a4a25fce.jpg)
 
 PLL Specs
 <table><tr><td rowspan=1 colspan=1>Parameter</td><td rowspan=1 colspan=1></td></tr><tr><td rowspan=1 colspan=1>Fref</td><td rowspan=1 colspan=1>156.25MHz</td></tr><tr><td rowspan=1 colspan=1>N</td><td rowspan=1 colspan=1>90</td></tr><tr><td rowspan=1 colspan=1>Fvco</td><td rowspan=1 colspan=1>14GHz</td></tr><tr><td rowspan=1 colspan=1> $^ { 4 }$ </td><td rowspan=1 colspan=1>2MHz</td></tr><tr><td rowspan=1 colspan=1> $\infty$ </td><td rowspan=1 colspan=1> $6 0 ^ { \circ }$ </td></tr><tr><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1></td></tr><tr><td rowspan=1 colspan=1>Kvco</td><td rowspan=1 colspan=1> $2 \pi ^ { * } 1 \mathsf { G H z } N$ </td></tr><tr><td rowspan=1 colspan=1>R</td><td rowspan=1 colspan=1>??</td></tr><tr><td rowspan=1 colspan=1> ${ \mathsf { C } } _ { 1 }$ </td><td rowspan=1 colspan=1>??</td></tr><tr><td rowspan=1 colspan=1> $\mathsf { C } _ { 2 }$ </td><td rowspan=1 colspan=1>??</td></tr><tr><td rowspan=1 colspan=1> $\boldsymbol { \mathrm { I } } _ { \mathtt { C P } }$ </td><td rowspan=1 colspan=1>??</td></tr></table>
@@ -908,9 +908,9 @@ $$
 
 ## Si m u lated Responses
 
-![](images/5dd454064e408764da88a35d532a1042fa2e33635e1439459c5a2f11e34b0bdc.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/5dd454064e408764da88a35d532a1042fa2e33635e1439459c5a2f11e34b0bdc.jpg)
 
-![](images/ba90d563e515280c7c356ad87a14be9f4a3fb381e29f4ef9e19370491a57f367.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/ba90d563e515280c7c356ad87a14be9f4a3fb381e29f4ef9e19370491a57f367.jpg)
 
 • Desig n ach ieves $f _ { \mathrm { u } } { = } 2 M H z$ a n d $\Phi _ { \mathrm { m } } = 6 0 ^ { \circ }$
 
@@ -928,20 +928,20 @@ $$
 
 • D ivi d e r
 
-![](images/bada3cde0ef3442c2fc2284d14e20dbc5058c4d462d3af4c75a0499d564f9226.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/bada3cde0ef3442c2fc2284d14e20dbc5058c4d462d3af4c75a0499d564f9226.jpg)
 
 ## Phase Detector
 
-![](images/95d2a2daa8ab0492f2ed4a37a8c4ecf99f01707908662c9d26ac0a6809299d50.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/95d2a2daa8ab0492f2ed4a37a8c4ecf99f01707908662c9d26ac0a6809299d50.jpg)
 
-![](images/dd6e22c3f3bd0c4dd4f6e65d9a4178dba74fc8126825e86faa2ea28157ded2f5.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/dd6e22c3f3bd0c4dd4f6e65d9a4178dba74fc8126825e86faa2ea28157ded2f5.jpg)  
 avg ?? ௘ ?? ൌ ??௉஽ Δ??
 
 • Detects phase d ifference between feed back clock a nd reference clock
 
 • Th e l oo p fi lte r wi l l fi lte r th e p h a se d etecto r o utp ut, th us to cha racterize phase detector ga i n, extract average output voltage
 
-![](images/b383b7a81fa84c8cd72173a2d0eceba1f7267f1ed19a50d08069347884091a51.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/b383b7a81fa84c8cd72173a2d0eceba1f7267f1ed19a50d08069347884091a51.jpg)
 
 • The $K _ { \mathsf { P D } }$ factor ca n cha nge depend i ng on the specific phase detector ci rcu it
 
@@ -963,19 +963,19 @@ $$
 
 • Nea r $\Delta \phi$ l ock reg i o n of  /2 : ${ \overline { { y ( t ) } } } \approx { \frac { \alpha A _ { 1 } A _ { 2 } } { 2 } } { \left( { \frac { \pi } { 2 } } - \Delta \phi \right) }$
 
-![](images/a0b58f8def87408771b4dd5abbc94adb6a0fd4a17209d96cf4f34224904ad58d.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/a0b58f8def87408771b4dd5abbc94adb6a0fd4a17209d96cf4f34224904ad58d.jpg)
 
 ## XOR Phase Detector
 
-![](images/2d6c9658d822d9ac4a2caa6ebf4dee04434c326239e9cc76c045b51f588b67dc.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/2d6c9658d822d9ac4a2caa6ebf4dee04434c326239e9cc76c045b51f588b67dc.jpg)
 
-![](images/1db4252a2cbeae00487bcf3f4e12038e4c8c13b33afbd09eb7581cadc1def64d.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1db4252a2cbeae00487bcf3f4e12038e4c8c13b33afbd09eb7581cadc1def64d.jpg)
 
-![](images/da80ce2190d266032e4318dcb9ddf17f8ac61278081dcc69232c926733aee3e3.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/da80ce2190d266032e4318dcb9ddf17f8ac61278081dcc69232c926733aee3e3.jpg)
 
-![](images/5392260cf1f2b50943b5324f45be93a98c3d4e6b61c6fe13fef66f8a7498253f.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/5392260cf1f2b50943b5324f45be93a98c3d4e6b61c6fe13fef66f8a7498253f.jpg)
 
-![](images/fa4f8bef8904f1f5a5e8c4d6535d90f5d41dae10b811aee0bbd7e8aa8d9d7c28.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/fa4f8bef8904f1f5a5e8c4d6535d90f5d41dae10b811aee0bbd7e8aa8d9d7c28.jpg)  
 [ Razavi ]
 
 • Assu m i ng log ic $1 = " + 1 "$ a nd $0 { = } " { \bf - } 1 ^ { \prime \prime }$ the XOR PD wi l l lock when the average output is 0
@@ -986,9 +986,9 @@ $$
 
 ## XOR Phase Detector
 
-![](images/629d6c450d73d4a977188f5d26588ec94eee60614e387daa978fcb30cf9a854b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/629d6c450d73d4a977188f5d26588ec94eee60614e387daa978fcb30cf9a854b.jpg)
 
-![](images/423b71df372cb283ab398bfe55c30f2b83ab25db32d6aef0e02ba01e487e856c.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/423b71df372cb283ab398bfe55c30f2b83ab25db32d6aef0e02ba01e487e856c.jpg)
 
 Width is sa me for both leading and lagging phase difference!
 
@@ -1002,7 +1002,7 @@ $$
 
 [ Perrott ]
 
-![](images/758a282935f1cf972cca2993b5c83ab5c99deed7b4f3a3ef21b864cfb16717bd.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/758a282935f1cf972cca2993b5c83ab5c99deed7b4f3a3ef21b864cfb16717bd.jpg)
 
 ## Cycle Sl i ppi ng
 
@@ -1010,19 +1010,19 @@ $$
 
 PLL is no longer acti ng as a l i nea r system
 
-![](images/3079bf027124892057dd0daa749bdfcd7d5bcbad1695148f1ba279d881b35518.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/3079bf027124892057dd0daa749bdfcd7d5bcbad1695148f1ba279d881b35518.jpg)
 
 ## Cycle Sl i ppi ng
 
 Synthesizer Response To Divider Step  
-![](images/bd93f03ed5f38c7d20e3bf05afeb4e3a34e1fed696abb6a7c041430d71856e70.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/bd93f03ed5f38c7d20e3bf05afeb4e3a34e1fed696abb6a7c041430d71856e70.jpg)
 
-![](images/964ad272f54fea3c6d5dc53f08bd01f15747dff7b7b79358ebb3fce2f508b3c7.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/964ad272f54fea3c6d5dc53f08bd01f15747dff7b7b79358ebb3fce2f508b3c7.jpg)  
 • If freq uency d ifference is too la rge the PLL may not lock
 
 ## Phase Freq uency Detector ( PFD)
 
-![](images/1abff0f21f0cd98a70ccbc9ba446ac88fb96ef23951f83e0dda96a5f9e60be28.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1abff0f21f0cd98a70ccbc9ba446ac88fb96ef23951f83e0dda96a5f9e60be28.jpg)
 
 • Phase Freq uency Detector a l lows for wide freq uency locki ng ra nge, potentia l ly enti re VCO tu n i ng ra nge
 
@@ -1030,17 +1030,17 @@ Synthesizer Response To Divider Step
 
 • Risi ng edge-triggered resu lts i n d uty cycle i nsensitivity
 
-![](images/64f89aa5de46cbcaa883dc4ad5edb2a68d5ff9f6f46a44acc9a0b760b1646ff3.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/64f89aa5de46cbcaa883dc4ad5edb2a68d5ff9f6f46a44acc9a0b760b1646ff3.jpg)
 
-![](images/87e5209c15aa0311cd8486b46df6084c97de7c504f6a8a333636669cb5861fc1.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/87e5209c15aa0311cd8486b46df6084c97de7c504f6a8a333636669cb5861fc1.jpg)
 
 ## Averaged PFD Tra nsfer Cha racteristic
 
 U P= 1 & DN = - 1
 
-![](images/408c07d605f764169e4145c8eca965cad0b59321c6febc77570cc9dd5d6f2500.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/408c07d605f764169e4145c8eca965cad0b59321c6febc77570cc9dd5d6f2500.jpg)
 
-![](images/38dc18031d2532bba06d48f25462bbcf181914004e0a66a834d5598169b8c43c.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/38dc18031d2532bba06d48f25462bbcf181914004e0a66a834d5598169b8c43c.jpg)
 
 • Consta nt slope a nd pola rity asym metry a bout zero phase a l lows for wide freq uency ra nge operation
 
@@ -1048,7 +1048,7 @@ U P= 1 & DN = - 1
 
 ## Phase Detector
 
-![](images/68ad60cc8dfd92c4a4544585bfa82189da7676bd63cf74c0e62c7a878664a12b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/68ad60cc8dfd92c4a4544585bfa82189da7676bd63cf74c0e62c7a878664a12b.jpg)
 
 • Detects phase d ifference between feed back clock a nd reference clock
 
@@ -1056,9 +1056,9 @@ U P= 1 & DN = - 1
 
 ## PFD Deadzone
 
-![](images/52c4346d8d9d506e27e39153e83d414c24d33f63a84b3a9a5e0fe0a4e05604c4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/52c4346d8d9d506e27e39153e83d414c24d33f63a84b3a9a5e0fe0a4e05604c4.jpg)
 
-![](images/c9a1ddfa75f7681eb971e85c17fc0f9a32d37dc6283acc35e6d4bb33902d13cb.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/c9a1ddfa75f7681eb971e85c17fc0f9a32d37dc6283acc35e6d4bb33902d13cb.jpg)
 
 • If p h a se e rro r i s s m a l l , th e n s h o rt output pu lses a re prod uced by PFD
 
@@ -1066,7 +1066,7 @@ U P= 1 & DN = - 1
 
 • Resu lts i n phase detector “dead zone” wh ich ca uses low loop ga i n a nd i ncreased j itter
 
-![](images/1e8840bb58567913e78cfff89e4deb3e12bd4f7a0a18de6c7891a7abe44c01da.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1e8840bb58567913e78cfff89e4deb3e12bd4f7a0a18de6c7891a7abe44c01da.jpg)
 
 ## PFD Operation w/ Reset Delay
 
@@ -1074,9 +1074,9 @@ U P= 1 & DN = - 1
 
 • I n locked state both U P a nd D N cu rrent sou rces a re on for ${ \sf T } _ { \sf r s t } ,$ b ut i d ea l ly n o n et cu rre nt i s d e l ive red to l oo p fi lte r
 
-![](images/23902bfd970301854f3a350c9f3bb8952ee291d80d441c57d821a07e8be65466.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/23902bfd970301854f3a350c9f3bb8952ee291d80d441c57d821a07e8be65466.jpg)
 
-![](images/e289fe1dea9c960b9bc1b749d3e2d2ab1120de9055b6ab54f041900cdabe1b67.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e289fe1dea9c960b9bc1b749d3e2d2ab1120de9055b6ab54f041900cdabe1b67.jpg)
 
 ## Problems Nea r 2 
 
@@ -1086,15 +1086,15 @@ U P= 1 & DN = - 1
 
 • Reset delay ca n i ncrease acq u isition ti me a nd sets a max PFD operati ng freq uency
 
-![](images/3f94c70ba5bf2fdd0395c45ed27dddad564eb840363faaae317f42e35312882e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/3f94c70ba5bf2fdd0395c45ed27dddad564eb840363faaae317f42e35312882e.jpg)
 
-![](images/00b01fc7d3b72f5b64c4d2df8c351b9053bd0964b85a9369cf524bcdc39379f8.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/00b01fc7d3b72f5b64c4d2df8c351b9053bd0964b85a9369cf524bcdc39379f8.jpg)
 
-![](images/8fb91b0fda68e057c7fd8ba4e3d7ae048e2a4fd3a667b830e494ad75a77017fc.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/8fb91b0fda68e057c7fd8ba4e3d7ae048e2a4fd3a667b830e494ad75a77017fc.jpg)
 
 ## PFD Tra nsfer Cha racteristic w/ Reset Delay
 
-![](images/4d0fafa80980204f60fb24206bee6a54aaf4747be3e79bd25b7d453541a36fcd.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/4d0fafa80980204f60fb24206bee6a54aaf4747be3e79bd25b7d453541a36fcd.jpg)
 
 PFD reset delay generates wrong freq uency i nformation
 
@@ -1116,11 +1116,11 @@ $$
 
 • D ivi d e r
 
-![](images/a6a95de724bf8e32d54d550d325205d31e204e71dc261ed6d344b0e004ddfee4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/a6a95de724bf8e32d54d550d325205d31e204e71dc261ed6d344b0e004ddfee4.jpg)
 
 ## Cha rge Pu m p
 
-![](images/ffad68ea79e24bac19d1119f0716fc58b46c400f91400c45c9c5c98835c8a723.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/ffad68ea79e24bac19d1119f0716fc58b46c400f91400c45c9c5c98835c8a723.jpg)
 
 • Converts PFD output sig na l s to cha rge
 
@@ -1136,7 +1136,7 @@ This gain can vary if a different phase detector is used
 
 ## Si m ple Cha rge Pu m p
 
-![](images/1db97df57151bd8fe12645d55d0691dd1ea9c581e826335d63a8c22550e419ec.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1db97df57151bd8fe12645d55d0691dd1ea9c581e826335d63a8c22550e419ec.jpg)
 
 • Issues
 
@@ -1150,10 +1150,10 @@ Cha rge sha ri ng between cu rrent sou rce d ra i n nodes’ ca pacita nce a nd 
 
 ## Si m ple Cha rge Pu m p Skew Com pensation
 
-![](images/5f5f8f199d176ca50ca06454b5640fe516e6a7891b475c4bbfd0bac531b52158.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/5f5f8f199d176ca50ca06454b5640fe516e6a7891b475c4bbfd0bac531b52158.jpg)
 
 3/ 2 I nverter Path  
-![](images/83afc5e23e5f69ce9a7b0d8be1d573b344407d5ac11b715df08a66739170d70e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/83afc5e23e5f69ce9a7b0d8be1d573b344407d5ac11b715df08a66739170d70e.jpg)
 
 • Add i ng a tra nsm ission gate i n the D N sig na l path hel ps to eq ua l ize the delay with the U PB sig na l for better overla p between the U P a nd D N cu rrent sou rces
 
@@ -1163,11 +1163,11 @@ Cha rge sha ri ng between cu rrent sou rce d ra i n nodes’ ca pacita nce a nd 
 
 ## Cha rge Pu m p M ismatch
 
-![](images/9ed74ef78c2f37b80f2220c41e649982e134c445b83d68a731df2cfbe4899a59.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/9ed74ef78c2f37b80f2220c41e649982e134c445b83d68a731df2cfbe4899a59.jpg)
 
 Idea l locked cond ition, but CP m ismatch
 
-![](images/05e562ded5f40897e45d54125c5bae9f58d1ff6b3f9c95f0614342ea017b93b5.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/05e562ded5f40897e45d54125c5bae9f58d1ff6b3f9c95f0614342ea017b93b5.jpg)
 
 • P LL wi l l l oc k with stati c p h a se e rro r if there is a cha rge pu m p m ismatch
 
@@ -1177,7 +1177,7 @@ Idea l locked cond ition, but CP m ismatch
 
 Actua l locked cond ition w/ CP m ismatch
 
-![](images/1d25f91d824322fe0cc321d2b80e2977051c45459584e32685bb34644ebbddb0.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1d25f91d824322fe0cc321d2b80e2977051c45459584e32685bb34644ebbddb0.jpg)
 
 $$
 I _ { U P } = I _ { C P } - \frac { \Delta I } { 2 }
@@ -1201,7 +1201,7 @@ $$
 
 ## Cha rge Pu m p w/ I m proved Match i ng
 
-![](images/12265eb4be92dce6aca1c2f48e862af52a9ce898801fc8c6c8b2eee6bf32c1ca.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/12265eb4be92dce6aca1c2f48e862af52a9ce898801fc8c6c8b2eee6bf32c1ca.jpg)  
 [You ng JSSC 1992 ]
 
 • Pa ra l lel path keeps cu rrent sou rces a lways on
@@ -1216,11 +1216,11 @@ $$
 
 • TDC detects phase error between i n put reference clock a nd feed back clock
 
-![](images/fc706231ccc487abd44c0d5f2ffdd846b1bcad7efd472f37aeb134ae52b146b1.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/fc706231ccc487abd44c0d5f2ffdd846b1bcad7efd472f37aeb134ae52b146b1.jpg)
 
-![](images/4890893e320d13699200e727a467739ebcd4b22a73065ce32016cf40f0263e0b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/4890893e320d13699200e727a467739ebcd4b22a73065ce32016cf40f0263e0b.jpg)
 
-![](images/b9d8a2162e386d26c076f2b2cd6a84e5ac02d4a7baf8abf9f6f0b678824cda9b.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/b9d8a2162e386d26c076f2b2cd6a84e5ac02d4a7baf8abf9f6f0b678824cda9b.jpg)  
 Two pulse digital leakage compensation for leakage from supply
 
 ## Cha rge Pu m p w/ Reversed Switches
@@ -1235,7 +1235,7 @@ Two pulse digital leakage compensation for leakage from supply
 
 • H el ps with cha rge i nj ectio n , but cha rg e s h a ri n g i s sti l l a n i ss u e
 
-![](images/db40a1fd80579572a33b24913bac7cb0558a18adf2624d57d972009840f42acc.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/db40a1fd80579572a33b24913bac7cb0558a18adf2624d57d972009840f42acc.jpg)  
 [Ing i no JSSC 200 1 ]
 
 ## Cha rge- Pu m p PLL Ci rcu its
@@ -1250,11 +1250,11 @@ Two pulse digital leakage compensation for leakage from supply
 
 • D ivi d e r
 
-![](images/be9d6cbab3317346abd50991f63ed481dcecbd02a5d4c751a67ae023500474af.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/be9d6cbab3317346abd50991f63ed481dcecbd02a5d4c751a67ae023500474af.jpg)
 
 ## Cha rge Pu m p PLL Passive PI Loop Fi lter
 
-![](images/fcc90cfbf004e9f25654eb38515075bfd4b51894fef876e4ab4ad0fc79590f22.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/fcc90cfbf004e9f25654eb38515075bfd4b51894fef876e4ab4ad0fc79590f22.jpg)
 
 • Si m ple passive fi lter is most com mon ly u sed
 
@@ -1276,7 +1276,7 @@ $$
 F ( s ) = \frac { V _ { c } \left( s \right) } { I _ { e } \left( s \right) } = \frac { R \left( s + \frac { 1 } { R C _ { 1 } } \right) } { s }
 $$
 
-![](images/f2aebf2477850f7c9d3f3674b0287689d0bf2bde8edf6579e9549102df03199c.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/f2aebf2477850f7c9d3f3674b0287689d0bf2bde8edf6579e9549102df03199c.jpg)
 
 ## Loop Fi lter Tra nsfer Fu nction
 
@@ -1286,7 +1286,7 @@ $$
 Z ( s ) = { \cfrac { { \cfrac { 1 } { C _ { 2 } } } ^ { \left( s + { \cfrac { 1 } { R C _ { 1 } } } \right) } } { s ^ { 2 } + { \cfrac { s { \cfrac { \left( C _ { 1 } + C _ { 2 } \right) } { R C _ { 1 } C _ { 2 } } } } { R C _ { 1 } C _ { 2 } } } } }
 $$
 
-![](images/316666529fe7cd26b3a5a32e084262b0bf5344896df33bda5e8527addc941c6e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/316666529fe7cd26b3a5a32e084262b0bf5344896df33bda5e8527addc941c6e.jpg)
 
 ## Why have C2?
 
@@ -1298,7 +1298,7 @@ $\mathsf C _ { 2 } < \mathsf C _ { 1 } / 1 0$ fo r sta b i l ity
 
 • $\mathsf C _ { 2 } > \mathsf C _ { 1 } / 5 0$ fo r l ow j itte r
 
-![](images/e2dad48e26cb1dc37ab6bbd3989e5d581e6598a3ab3174f440676b3630c43641.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e2dad48e26cb1dc37ab6bbd3989e5d581e6598a3ab3174f440676b3630c43641.jpg)
 
 ## Loop Fi lter Ca pacitors
 
@@ -1330,7 +1330,7 @@ Lea kage is voltage a nd tem peratu re dependent
 
 • D ivi d e r
 
-![](images/f6ca76960d66d099a2bf6091cfa1200c2bbf47551dbdd50bb0a885b5b0b3d47a.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/f6ca76960d66d099a2bf6091cfa1200c2bbf47551dbdd50bb0a885b5b0b3d47a.jpg)
 
 ## Voltage-Control led Osci l lator
 
@@ -1338,7 +1338,7 @@ $$
 \mathbf { v } _ { \mathrm { c t r l } } ( \mathbf { t } ) \longrightarrow \boxed { \begin{array} { r l } \end{array} } \boxed { \begin{array} { r l } \end{array} } \boxed { \begin{array} { r l } \end{array} } \boxed { \begin{array} { r l } \end{array} }
 $$
 
-![](images/9aa4eca626fa45f8e41f923ddb6cf3e881dd8af8108ccd9b70109761f16639f4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/9aa4eca626fa45f8e41f923ddb6cf3e881dd8af8108ccd9b70109761f16639f4.jpg)
 
 $$
 \omega _ { o u t } ( t ) = \omega _ { 0 } + \Delta \omega _ { o u t } ( t ) = \omega _ { 0 } + K _ { V C O } v _ { c t r l } ( t )
@@ -1366,7 +1366,7 @@ Easy to i nteg rate
 
 H ig her phase noise
 
-![](images/f19ae41b953ac10637cfaf1106c6e410eefd782d1e0eff68d169d02a6a9c4714.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/f19ae41b953ac10637cfaf1106c6e410eefd782d1e0eff68d169d02a6a9c4714.jpg)
 
 ## • LC Osci l l ato r
 
@@ -1376,11 +1376,11 @@ Na rrow tu n i ng ra nge (20-30%)
 
 Lower phase noise
 
-![](images/0b4981f412e13461f4188cc9d3c18818753e8db6640da624f50459ef4056750b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/0b4981f412e13461f4188cc9d3c18818753e8db6640da624f50459ef4056750b.jpg)
 
 ## Ba rkha u sen ’s Osci l lation Criteria
 
-![](images/88eda4d8cb3b4b8e5207b6083c631461533c9ebc06c5a7f32fb2a138702c0e38.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/88eda4d8cb3b4b8e5207b6083c631461533c9ebc06c5a7f32fb2a138702c0e38.jpg)
 
 Closed - loop tra nsfer fu nction : $\frac { H ( j \omega ) } { 1 - H ( j \omega ) }$
 
@@ -1394,7 +1394,7 @@ Closed - loop tra nsfer fu nction : $\frac { H ( j \omega ) } { 1 - H ( j \omega
 
 ## Ri ng Osci l lator Exa m ple
 
-![](images/f7f1189236db06eca914aca2d40afac10db7f292198071908a6b329718e41f04.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/f7f1189236db06eca914aca2d40afac10db7f292198071908a6b329718e41f04.jpg)
 
 $$
 H ( s ) = - \frac { A _ { 0 } ^ { 4 } } { \left( 1 + \frac { s } { \omega _ { o } } \right) ^ { 4 } }
@@ -1406,7 +1406,7 @@ Gain Condition: $\begin{array} { r } { \frac { A _ { 0 } ^ { 4 } } { [ \sqrt { 1
 
 ## LC Osci l lator Exa m ple
 
-![](images/5945682101b4f9aebb3a1477fefe21c30dcd50ac813df3f14358255b51efec61.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/5945682101b4f9aebb3a1477fefe21c30dcd50ac813df3f14358255b51efec61.jpg)
 
 • Osci l lation phase sh ift cond ition satisfied at the freq uency when the LC (a nd R) ta n k load d isplays a pu rely rea l i m peda nce, i . e . $0 ^ { \circ }$ phase sh ift
 
@@ -1422,19 +1422,19 @@ $$
 
 ## LC Osci l lator Exa m ple
 
-![](images/8e751c5d35c2faeacc133a18afb6e4a54464fbe49de680519bf6e7a24eb7d62e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/8e751c5d35c2faeacc133a18afb6e4a54464fbe49de680519bf6e7a24eb7d62e.jpg)
 
 • Tra nsform i ng the series loss resi sto r of th e i n d u cto r to a n eq u iva lent pa ra l lel resista nce
 
-![](images/49aab2c16cd00c41dbf81d0195c0a197d181d47c514cf812259b1c1bb1564df2.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/49aab2c16cd00c41dbf81d0195c0a197d181d47c514cf812259b1c1bb1564df2.jpg)
 
 $$
 L _ { P } = L _ { 1 } \Biggl ( 1 + { \frac { R _ { S } ^ { 2 } } { L _ { 1 } ^ { 2 } \omega ^ { 2 } } } \Biggr ) , C _ { P } = C _ { 1 } , R _ { P } \approx { \frac { L _ { 1 } ^ { 2 } \omega ^ { 2 } } { R _ { s } } }
 $$
 
-![](images/36409ea83b0e55c9c00d005f074ebe9f7ad122a770016b2231b09a605e03b79b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/36409ea83b0e55c9c00d005f074ebe9f7ad122a770016b2231b09a605e03b79b.jpg)
 
-![](images/1780b4a1f7a8a00429eb219ccbaea45b7a672eab9342d2c90e511619d849d02b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/1780b4a1f7a8a00429eb219ccbaea45b7a672eab9342d2c90e511619d849d02b.jpg)
 
 $$
 \omega _ { 1 } = { \frac { 1 } { \sqrt { L _ { P } C _ { P } } } }
@@ -1444,13 +1444,13 @@ $$
 
 ## LC Osci l lator Exa m ple
 
-![](images/af98c31a83ba5fb7662f9bf2f991b4e14eec514a992a7804869eb24750edd9f4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/af98c31a83ba5fb7662f9bf2f991b4e14eec514a992a7804869eb24750edd9f4.jpg)
 
 ## Loop Gain
 
-![](images/df8f8805cd6991823d0aec5804b0159fcf48303b7a9950365e93e89080ba5b28.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/df8f8805cd6991823d0aec5804b0159fcf48303b7a9950365e93e89080ba5b28.jpg)
 
-![](images/e34a537e32a1917072c1b6e96266d4dd22cc68c9a769cefcefeb3c7249ffc050.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e34a537e32a1917072c1b6e96266d4dd22cc68c9a769cefcefeb3c7249ffc050.jpg)
 
 • Phase cond ition satisfied at $\omega _ { 1 } = \frac { 1 } { \sqrt { L _ { P } C _ { P } } }$
 
@@ -1466,7 +1466,7 @@ $$
 
 ## Su pply-Tu ned Ri ng Osci l lator
 
-![](images/5b15a242cd829be1b94a5fb2dbeebf729688813138d05ef114598e2b1004364e.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/5b15a242cd829be1b94a5fb2dbeebf729688813138d05ef114598e2b1004364e.jpg)
 
 $$
 T _ { V C O } = 2 n T _ { D } \approx \frac { 2 n C _ { s t a g e } } { \beta \left( V _ { c } - V _ { t h } \right) }
@@ -1480,31 +1480,31 @@ $$
 
 ## Cu rrent-Sta rved Ri ng Osci l lator
 
-![](images/bc2b8ea969f35f328b6940e94db0ae0a85fac9af3708597ae5868af41ff6ca04.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/bc2b8ea969f35f328b6940e94db0ae0a85fac9af3708597ae5868af41ff6ca04.jpg)  
 Current - starved VcO.
 
 ## Ca pacitive-Tu ned Ri ng Osci l lator
 
-![](images/2d92d93da61bfe3a67ce4fff5d7c0b3ad97c1839afcd98de13dd692359a31d37.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/2d92d93da61bfe3a67ce4fff5d7c0b3ad97c1839afcd98de13dd692359a31d37.jpg)
 
 ## Sym metric Load Ri ng Osci l lator
 
 VCO Replica-Feedback Bias Generator
 
-![](images/a4693030a7deaaefcf33e21a7c61d76b5ef7c857c245df77f1a289242c63870d.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/a4693030a7deaaefcf33e21a7c61d76b5ef7c857c245df77f1a289242c63870d.jpg)  
 Buffer Stage
 
-![](images/b8f209ddbe41d0c10b97a0a92928531492ead1e5c9e5ef1674d126879fa38bb4.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/b8f209ddbe41d0c10b97a0a92928531492ead1e5c9e5ef1674d126879fa38bb4.jpg)  
 [ Ma neatis JSSC 1 996 & 2003]
 
-![](images/4675892c71098f2b80222d81339688c9bbc95f7e7ab61e8c151063353bb237cc.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/4675892c71098f2b80222d81339688c9bbc95f7e7ab61e8c151063353bb237cc.jpg)  
 11-Stage Ring Oscillator
 
-![](images/e04c7493561932192e35dccd010e7b2ed566a4644fa99969eec31ede249c76d5.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e04c7493561932192e35dccd010e7b2ed566a4644fa99969eec31ede249c76d5.jpg)
 
-![](images/2f0676adcc67466c3d6d869000941b6fd73dbdf7b2a10df166fffaa23e0b5a6b.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/2f0676adcc67466c3d6d869000941b6fd73dbdf7b2a10df166fffaa23e0b5a6b.jpg)
 
-![](images/6765f9acb3e887a22a9fc36a8e1deb66cf69615eb4135ee8029aa45525f561b6.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/6765f9acb3e887a22a9fc36a8e1deb66cf69615eb4135ee8029aa45525f561b6.jpg)
 
 • Sym metric load provides freq uency tu n i ng at excel lent su pply noise rejection
 
@@ -1520,7 +1520,7 @@ $$
 \omega _ { o s c } = \frac { 1 } { \sqrt { L _ { P } C _ { P } } } = \frac { 1 } { \sqrt { L _ { P } \big ( C _ { t u n e } + C _ { f u x e d } \big ) } }
 $$
 
-![](images/38e70a7b56fbd9dcffbd00e410c79ed3660fe74641c21432a9964ee5882b2304.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/38e70a7b56fbd9dcffbd00e410c79ed3660fe74641c21432a9964ee5882b2304.jpg)
 
 ## Va ractors
 
@@ -1528,20 +1528,20 @@ $$
 
 Avoid forwa rd bias reg ion to prevent osci l lator non l i nea rity
 
-![](images/59d286b2dca2b38943baa0928189877506f5975ac8e4bd22edb678b5ae5dc0cc.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/59d286b2dca2b38943baa0928189877506f5975ac8e4bd22edb678b5ae5dc0cc.jpg)
 
 • MOS va ractor
 
 Psubstrate
 
-![](images/36d98392f7a26e7ac76c5335db99fa6d4d0c38e2cdd3dbe11bcbbfb34b133b25.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/36d98392f7a26e7ac76c5335db99fa6d4d0c38e2cdd3dbe11bcbbfb34b133b25.jpg)  
 [ Perrott]
 
 • Accu m u lation- mode devices have better Q tha n i nversion- mode
 
-![](images/717e9464ed60a1103536570b8a2d9c81796ffe50e14f3ea1e283c136d09fe0f0.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/717e9464ed60a1103536570b8a2d9c81796ffe50e14f3ea1e283c136d09fe0f0.jpg)
 
-![](images/0a0fa4d02e52d5381c97205e7f77b982517805ebb2640a79e4e93434d9bba752.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/0a0fa4d02e52d5381c97205e7f77b982517805ebb2640a79e4e93434d9bba752.jpg)  
 [Razavi]
 
 ## Cha rge- Pu m p PLL Ci rcu its
@@ -1556,7 +1556,7 @@ Psubstrate
 
 • Divider
 
-![](images/749242601386d1db6ce3ca593b08d991da2a9a12375a43d1dcf9d0cf65c7b3e1.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/749242601386d1db6ce3ca593b08d991da2a9a12375a43d1dcf9d0cf65c7b3e1.jpg)
 
 ## Loop Divider
 
@@ -1566,7 +1566,7 @@ $$
 
 $\phi _ { \mathrm { o u t } } ( \mathbf { t } )$
 
-![](images/44d2856ff2120ccdb1cbc866770f794c01580049906d9a8c32e061bb8b465fd1.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/44d2856ff2120ccdb1cbc866770f794c01580049906d9a8c32e061bb8b465fd1.jpg)
 
 • Ti me-doma i n model
 
@@ -1582,27 +1582,27 @@ $$
 
 ## Basic Divide- by-2
 
-![](images/9e8117259ecea1d61a275d9a331088d037c6abb0890dec0ac2203e3734e040e2.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/9e8117259ecea1d61a275d9a331088d037c6abb0890dec0ac2203e3734e040e2.jpg)
 
 • Divide- by-2 ca n be rea l ized by a fl i p-fl i p i n “ negative feed back”
 
 • Divider shou ld operate correctly u p to the maxi m u m output clock freq uency of i nterest PLUS some ma rg i n
 
-![](images/e9f0282728cd3934dae4f0b206aae37535528d41f100fa4f87620fde6f9be6ca.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/e9f0282728cd3934dae4f0b206aae37535528d41f100fa4f87620fde6f9be6ca.jpg)
 
 ## Divide- by-2 with TSPC FF
 
 ## True Si ng le Phase Clock Fl i p- Flop
 
-![](images/3c297c8acb7cb648398bce2cc91a1cb26b9e897b4ff34285d8ecd75efabc1450.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/3c297c8acb7cb648398bce2cc91a1cb26b9e897b4ff34285d8ecd75efabc1450.jpg)
 
 • Adva ntages
 
 Divider Eq u iva lent Ci rcu it Note : output i nverter not i n left schematic
 
-![](images/6d13f5909af27b2d7e0280c2d04f018108b9e918a0c8ba51604e0217dd86e64f.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/6d13f5909af27b2d7e0280c2d04f018108b9e918a0c8ba51604e0217dd86e64f.jpg)
 
-![](images/74ea36e1b48e912a23868bb46d8b30671cb91164e261ba72034e6440774a29bd.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/74ea36e1b48e912a23868bb46d8b30671cb91164e261ba72034e6440774a29bd.jpg)
 
 Reasona bly fast, com pact size, a nd no static power
 
@@ -1620,7 +1620,7 @@ Need fu l l swi ng CMOS i n puts
 
 ## Divide- by-2 with CM L FF
 
-![](images/372ba83a55ec666c646d671c7bb3ea93b1da984f1fd3eae3d35f5b0a2591b0bb.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/372ba83a55ec666c646d671c7bb3ea93b1da984f1fd3eae3d35f5b0a2591b0bb.jpg)
 
 • Adva ntages
 
@@ -1641,7 +1641,7 @@ N eed ta i l cu rrent biasi ng
 ## Bi n a ry D ivi d e rs : Asynch ronous vs Synch ronous
 
 Asynchronous Divider  
-![](images/24e1ab49c662b3c953f29f449067d32b323f80db6e320d41b00cdef8d8b6917c.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/24e1ab49c662b3c953f29f449067d32b323f80db6e320d41b00cdef8d8b6917c.jpg)
 
 ## • Adva ntages
 
@@ -1655,7 +1655,7 @@ J itte r a ccu m u l ati o n
 
 ## Synchronous Divider
 
-![](images/7ae4dced17562d2fb5d127910e390dd8e549a69f2a2475f5fe1a3f5b14a053f1.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/7ae4dced17562d2fb5d127910e390dd8e549a69f2a2475f5fe1a3f5b14a053f1.jpg)
 
 ## • Adva ntage
 
@@ -1669,11 +1669,11 @@ Red u ced j itter
 
 ## J itter i n Asynch ronous vs Synch ronous Dividers
 
-![](images/4ea78cac1ca82c7d6d074bbf94d75450b94f1a8f40aedb273d287dd4b33c01e4.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/4ea78cac1ca82c7d6d074bbf94d75450b94f1a8f40aedb273d287dd4b33c01e4.jpg)
 
 Synchronous
 
-![](images/93bc99988808e4eb8b959d16644729a3380e8e0ae094c1187ab19d4c55c33a97.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/93bc99988808e4eb8b959d16644729a3380e8e0ae094c1187ab19d4c55c33a97.jpg)
 
 • J itter accu m u lates with the clock-to-Q delays th roug h th e d ivi d e r
 
@@ -1687,21 +1687,21 @@ Synchronous
 
 ## Dua l Mod u l us Presca lers
 
-![](images/3c03725cb93343c0f0a313c87335b9b47cb1862735afd61de2909db123491e96.jpg)
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/3c03725cb93343c0f0a313c87335b9b47cb1862735afd61de2909db123491e96.jpg)
 
-![](images/a33c5b2bda68c23fc187caa8e503a51456a9644e218ccd2c67cc38b19633cc40.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/a33c5b2bda68c23fc187caa8e503a51456a9644e218ccd2c67cc38b19633cc40.jpg)  
 • Fo r / 1 5, fi rst p resca l e r ci rcu it d ivid es by 3 o n ce a n d 4 th ree ti m es d u ri ng the 1 5 cycles
 
 ## I njection- Locked Freq uency Dividers
 
 ## LC-osci l lator type (/ 2)
 
-![](images/0ab85a4b43ec1f99e30f25818aefa10eab0ecba1587b023602d85f5d9d1dc6b7.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/0ab85a4b43ec1f99e30f25818aefa10eab0ecba1587b023602d85f5d9d1dc6b7.jpg)  
 [Verma JSSC 2003, Rategh JSSC 1999]
 
 Ri ng -osci l lator type (/ 3)
 
-![](images/2e77d29cbd4d93b5d0f8f51042c3d148249653fe85df72c40331a6a9408cf783.jpg)  
+![](/img/mineru_output/lecture11_ee720_clocking_arch_plls/auto/images/2e77d29cbd4d93b5d0f8f51042c3d148249653fe85df72c40331a6a9408cf783.jpg)  
 [ Lo CICC 2009 ]
 
 • Su perha rmon ic i njection - locked osci l lators (I LOs) ca n rea l ize freq uency d ividers

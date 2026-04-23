@@ -47,7 +47,7 @@ tags:
 || EBGA (Enhanced BGA) | 352-896 | 增强散热 | 高性能 |
 || FC-BGA (Flip-Chip BGA) | 1089-2116 | 倒装芯片、最低阻抗 | SerDes前端 |
 
-![](lecture2_ee720_channels_images/img-020.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-020.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该图展示了从SOP到FC-BGA的封装演进路径。倒装芯片(Flip-Chip)封装消除了传统wirebond的长键合线，显著降低寄生电感，是GHz级SerDes的首选。
@@ -135,7 +135,7 @@ Flip-Chip封装:
 • 插损控制
 **Via Stub效应(背板设计关键)**：
 
-![](lecture2_ee720_channels_images/img-029.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-029.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】Via stub是背板设计中的关键问题。未背钻的过孔会形成等效谐振腔，在特定频率造成深达-40dB的谐振null，严重恶化信道性能。
@@ -173,7 +173,7 @@ f_c = R/(2πL) — 低于此频率用RC模型，高于此频率用LC/RLGC模型
 
 **时域电报方程(偏导数形式)**：
 
-![](lecture2_ee720_channels_images/img-056.ppm)
+
 
 > 🔍 深度说明：
 > 【研究背景】该图展示了传输线理论的电报方程，是分析高速信道的数学基础。方程描述了电压和电流在传输线上的传播特性，是所有SI（信号完整性）分析的理论起点。
@@ -258,7 +258,7 @@ Z₀ ≈ √(L/C) · [1 + j(R/(2ωL) - G/(2ωC))]
 
 **物理机理**：
 
-![](lecture2_ee720_channels_images/img-018.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-018.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】趋肤效应图清晰展示了高频电流在导体表面的聚集现象。皮肤深度δ随频率升高而减小，导致有效导电截面积减少，等效串联电阻增加。
@@ -333,7 +333,7 @@ tanδ = G/(ωC) = 介质电导/容性电纳
 
 **反射系数定义**：
 
-![](lecture2_ee720_channels_images/img-028.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-028.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该图解释了反射系数的物理含义。当负载阻抗Z_T与特性阻抗Z₀不匹配时，会产生反射，反射波叠加在入射波上造成信号失真。
@@ -430,7 +430,7 @@ R_FET = 1/(μC_ox·(W/L)·(V_GS - V_t))
 
 ### 5.1 差分信号优势
 
-![](lecture2_ee720_channels_images/img-054.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-054.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该图对比了单端和差分信号传输的原理。差分信号以两根线之间的电压差为信息载体，具有共模噪声自抵消的能力，是高速SerDes的标准接口形式。

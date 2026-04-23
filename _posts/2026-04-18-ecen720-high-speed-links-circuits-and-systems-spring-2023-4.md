@@ -10,7 +10,7 @@ tags:
 ---
 Lecture 10: Jitter
 
-![](images/660cc234d2f3281c2340a3e0786cc0a092ebcfaf29118203b67d492b0a043fef.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/660cc234d2f3281c2340a3e0786cc0a092ebcfaf29118203b67d492b0a043fef.jpg)
 
 Sam Palermo Analog & Mixed-Signal Center Texas A&M University
 
@@ -42,7 +42,7 @@ For independent design (interoperability) of TX and RX, a spec eye mask is used
 
 Eye at RX sampler
 
-![](images/92243255509fbe946a64a9a9d13921b682b10f149b3d6c3b926b13eddcb5cc96.jpg)  
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/92243255509fbe946a64a9a9d13921b682b10f149b3d6c3b926b13eddcb5cc96.jpg)  
 RX clock timing noise - or jitter (random noise only here)
 
 ## Jitter Definitions
@@ -87,7 +87,7 @@ Useful for characterizing random component of jitter
 
 ## Jitter Calculation Examples
 
-![](images/8afe6347bb65727dd72d6e588f0eb9ed4bdaf50a4d82986ab962f706e8f2dcaa.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/8afe6347bb65727dd72d6e588f0eb9ed4bdaf50a4d82986ab962f706e8f2dcaa.jpg)
 
 <table><tr><td rowspan=1 colspan=1>n</td><td rowspan=1 colspan=1>1</td><td rowspan=1 colspan=1>2</td><td rowspan=1 colspan=1>3</td><td rowspan=1 colspan=1>4</td><td rowspan=1 colspan=1>Mean</td><td rowspan=1 colspan=1>RMS</td><td rowspan=1 colspan=1>PP</td></tr><tr><td rowspan=1 colspan=1> $\frac { ] _ { P E R } } { P E R }$ </td><td rowspan=1 colspan=1>-0.06</td><td rowspan=1 colspan=1>0.02</td><td rowspan=1 colspan=1>-0.06</td><td rowspan=1 colspan=1>0.12</td><td rowspan=1 colspan=1>0.005</td><td rowspan=1 colspan=1>0.085</td><td rowspan=1 colspan=1>0.18</td></tr><tr><td rowspan=1 colspan=1> $\underline { { \mathsf { J } _ { \mathsf { C C } } } }$ </td><td rowspan=1 colspan=1>0.08</td><td rowspan=1 colspan=1>-0.08</td><td rowspan=1 colspan=1>0.18</td><td rowspan=1 colspan=1>-</td><td rowspan=1 colspan=1>0.06</td><td rowspan=1 colspan=1>0.131</td><td rowspan=1 colspan=1>0.26</td></tr><tr><td rowspan=1 colspan=1> $\mathsf { J } _ { \mathsf { A C } }$ </td><td rowspan=1 colspan=1>-0.07</td><td rowspan=1 colspan=1>-0.05</td><td rowspan=1 colspan=1>-0.11</td><td rowspan=1 colspan=1>0.01</td><td rowspan=1 colspan=1>-0.055</td><td rowspan=1 colspan=1>0.05</td><td rowspan=1 colspan=1>0.12</td></tr></table>
 
@@ -97,7 +97,7 @@ $\mathsf { J } _ { \mathsf { A C } }$ = time difference between measured clock a
 
 ## Jitter Histogram
 
-![](images/b3048c3c5df4274264cba9086bd18d8c04fb75fa8fe456fe764f62976ec050f3.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/b3048c3c5df4274264cba9086bd18d8c04fb75fa8fe456fe764f62976ec050f3.jpg)
 
 • Used to extract the jitter PDF
 
@@ -107,7 +107,7 @@ $\mathsf { J } _ { \mathsf { A C } }$ = time difference between measured clock a
 
 ## Jitter Categories
 
-![](images/c715de8251502ced9cf50d4c658371f9512b268f683c9fa6cad308f9ac8755f4.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/c715de8251502ced9cf50d4c658371f9512b268f683c9fa6cad308f9ac8755f4.jpg)
 
 ## Random Jitter (RJ)
 
@@ -123,7 +123,7 @@ Originates from device noise
 
 Thermal, shot, flicker noise
 
-![](images/62b96e8e52c2c71c427402f99225153b16239ef466985d08147c756426dff1f3.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/62b96e8e52c2c71c427402f99225153b16239ef466985d08147c756426dff1f3.jpg)
 
 ## Deterministic Jitter (DJ)
 
@@ -143,7 +143,7 @@ Duty Cycle Distortion (DCD)
 
 • Bounded Uncoirrelated Jitter (BUJ)
 
-![](images/122eb05832f18c8faaab6cb38f0adc913eaca8a8f3d800d4f0f817b4e57f7e76.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/122eb05832f18c8faaab6cb38f0adc913eaca8a8f3d800d4f0f817b4e57f7e76.jpg)
 
 ## Sinusoidal or Periodic Jitter (SJ or PJ)
 
@@ -161,7 +161,7 @@ $$
 
 The jitter produced by an individual sinusoid is
 
-![](images/1e681b5dba8353ef78d487b839e49b3ce33407a1ba6c799af040d252a9e479fa.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/1e681b5dba8353ef78d487b839e49b3ce33407a1ba6c799af040d252a9e479fa.jpg)
 
 ## Data Dependent Jitter (DDJ)
 
@@ -187,7 +187,7 @@ $$
 P D F _ { _ { D C D } } ( t ) = \frac { 1 } { 2 } \Bigg [ \delta \Bigg ( t - \frac { \alpha _ { D C D } } { 2 } \Bigg ) + \delta \Bigg ( t + \frac { \alpha _ { D C D } } { 2 } \Bigg ) \Bigg ]
 $$
 
-![](images/a08858652825acbabb698385ed3ac0931a4721da16044ed3596ee447de0dce42.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/a08858652825acbabb698385ed3ac0931a4721da16044ed3596ee447de0dce42.jpg)
 
 ## Intersymbol Interference (ISI)
 
@@ -195,7 +195,7 @@ $$
 
 ● Equalization can improve ISI jitter
 
-![](images/bcefd367f31502387131ecff5514f1f1331820bcbc67372b6d16710abfc23bda.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/bcefd367f31502387131ecff5514f1f1331820bcbc67372b6d16710abfc23bda.jpg)
 
 ## Bounded Uncorrelated Jitter (BUJ)
 
@@ -215,7 +215,7 @@ $$
 \begin{array} { c } { { P D F _ { \scriptscriptstyle { J T } } ( t ) = P D F _ { \scriptscriptstyle { R J } } ( t ) ^ { * } P D F _ { \scriptscriptstyle { D J } } ( t ) } } \\ { { { \bf w h e r e } P D F _ { \scriptscriptstyle { D J } } ( t ) = P D F _ { \scriptscriptstyle { S J } } ( t ) ^ { * } P D F _ { \scriptscriptstyle { D C D } } ( t ) ^ { * } P D F _ { \scriptscriptstyle { I S I } } ( t ) ^ { * } P D F _ { \scriptscriptstyle { B U J } } ( t ) } } \end{array}
 $$
 
-![](images/d1b28c1a34cb85d4e6f3369f9f6b7af4dc16cb29680ae43d3d2cf32fbe3fa9e7.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/d1b28c1a34cb85d4e6f3369f9f6b7af4dc16cb29680ae43d3d2cf32fbe3fa9e7.jpg)
 
 ## Jitter and Bit Error Rate
 
@@ -227,9 +227,9 @@ Total jitter must be quoted at a given BER
 
 ● System can potentially achieve BEI $\mathtt { \lambda } = 1 0 ^ { - 1 8 }$ before being jitter limited
 
-![](images/786b484165a941571dce17df00d0e446d2723f72b82a59935e30e22613f9d0bb.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/786b484165a941571dce17df00d0e446d2723f72b82a59935e30e22613f9d0bb.jpg)
 
-![](images/b29f352b597cc13089112fd05915b7d3ee37c9ac6c41acbc22c9280590a4104f.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/b29f352b597cc13089112fd05915b7d3ee37c9ac6c41acbc22c9280590a4104f.jpg)
 
 ## Dual Dirac Jitter Model
 
@@ -247,17 +247,17 @@ $$
 J T ( t ) = R J ( t ) ^ { * } D J ( t ) = \frac { 1 } { 2 \sqrt { 2 \pi } \sigma _ { _ { R J } } } \Biggl [ e ^ { - \frac { t - D J _ { \delta \delta } / 2 } { 2 \sigma _ { _ { R J } } ^ { 2 } } } + e ^ { - \frac { t + D J _ { \delta \delta } / 2 } { 2 \sigma _ { _ { R J } } ^ { 2 } } } \Biggr ]
 $$
 
-![](images/10f3299b1fc2ffd4390a69898fa68002b22781cae3f6bf0463362218b9b06485.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/10f3299b1fc2ffd4390a69898fa68002b22781cae3f6bf0463362218b9b06485.jpg)
 
-![](images/7e3c87dd8e527186ee759dde821a6475ad79943a95e220077b66016b0f94a676.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/7e3c87dd8e527186ee759dde821a6475ad79943a95e220077b66016b0f94a676.jpg)
 
-![](images/09cacc434e18d6e104b45524dddf7e29df54fbbd0905c9c86d91ffc9f3fa8eb8.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/09cacc434e18d6e104b45524dddf7e29df54fbbd0905c9c86d91ffc9f3fa8eb8.jpg)
 
 ## Dual Dirac Jitter Model
 
 Jitter at a given BER is computed considering both leading and trailing edges
 
-![](images/44fdfb6296d1810dbbfa5ebe94969f7a09f24d969d3d0b8e9e97e5111ff0657d.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/44fdfb6296d1810dbbfa5ebe94969f7a09f24d969d3d0b8e9e97e5111ff0657d.jpg)
 
 ## Dual Dirac Jitter Model Example
 
@@ -273,15 +273,15 @@ where $\rho _ { \mathbf { T } }$ is the transition density, typically 0.5
 
 ● Extrapolate to Q(0) to extract separation of dual-Dirac delta functions
 
-![](images/67898ef8a13bc259e3ed8f3810823482cb2a22b83b8cd6ddbeae3fefffd030ad.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/67898ef8a13bc259e3ed8f3810823482cb2a22b83b8cd6ddbeae3fefffd030ad.jpg)
 
-![](images/48b3fd4da922157198fa6745b3736ef3eff9bdf54fad1dd0314371a69db49d1f.jpg)  
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/48b3fd4da922157198fa6745b3736ef3eff9bdf54fad1dd0314371a69db49d1f.jpg)  
 DJ s = Extracted seperation of dual - Dirac delta functions  
 DJp = Actual deterministic jitter peak - to - peak value
 
 ## Dual Dirac Jitter Model Example
 
-![](images/1b93f0cbdf8cbc9ec6d50a7811cf498a83aa41a56acd24f5c86495b421b0a706.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/1b93f0cbdf8cbc9ec6d50a7811cf498a83aa41a56acd24f5c86495b421b0a706.jpg)
 
 ## Extracted dual Dirac model matches well with measured jitter PDF
 
@@ -307,7 +307,7 @@ $$
 
 ## Jitter Budget Example – PCI Express System
 
-![](images/63181947de52f6be1c0f7b4a8a29c0c1599ab95c6970ddf51dc9639640667e01.jpg)
+![](/img/mineru_output/lecture10_ee720_jitter/auto/images/63181947de52f6be1c0f7b4a8a29c0c1599ab95c6970ddf51dc9639640667e01.jpg)
 
 ## Jitter Budget Example – PCI Express System
 

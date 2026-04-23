@@ -573,27 +573,27 @@ Si波导的偏振：
 
 ****
 *Fig. 1. Measured s-parameter of the Si MZM used in this paper.*
-![](_images/a1bd9a85242ce232347faada203b7a6dd7ff6fa0bfb2d7e47c0aeb46743668a8.jpg)
+![](/img/mineru_output/Th4A.4/auto/images/a1bd9a85242ce232347faada203b7a6dd7ff6fa0bfb2d7e47c0aeb46743668a8.jpg)
 > 🔍 深度说明：本图展示Coherent Si MZM的S参数测量结果。S21：1-50GHz范围内平坦度<1dB，3dB带宽>50GHz，满足56GBd PAM4（奈奎斯特带宽约56GHz）调制需求。S11<-15dB@1-50GHz，输入阻抗匹配良好。Si MZM优势：CMOS兼容工艺（8英寸晶圆量产）、集成度高、电极损耗低（Si波导导体损耗约3dB/cm）。调制机制：Free-carrier dispersion effect，Vπ·L约2-5V·cm。对400G/lane系统，Si MZM的Vπ需要驱动放大器提供Vpp>5V。
 
 ****
 *Fig. 1. Measured s-parameter of the Si MZM used in this paper.*
-![](_images/5acdabe3002af9b82d786ca6a041c1cd3354c569c476c6baab42b75cd365081f.jpg)
+![](/img/mineru_output/Th4A.4/auto/images/5acdabe3002af9b82d786ca6a041c1cd3354c569c476c6baab42b75cd365081f.jpg)
 > 🔍 深度说明：本图展示Si MZM的差分回波损耗SDD11特性。（a）图：横轴0-70GHz，纵轴SDD11（dB），SDD11全频段<-10dB，0GHz时约-22dB，40GHz处峰值-12dB，70GHz处约-10dB——匹配性能满足高速调制要求。（b）图：60GHz处部分频点接近-10dB阈值，对56GBd PAM4（奈奎斯特频率约28GHz）的第三次谐波附近有一定反射。工程价值：SDD11<-10dB确保发射端信号反射不影响驱动放大器输出功率——反射功率被放大器吸收可能导致热失控；Si MZM的70GHz带宽为下一代200GBd/lane系统预留了频谱空间。落地注意：Si光子代工平台的S参数离散性约±2dB（工艺波动），量产时需对每颗芯片进行S参数测试筛选，分级标准：<-15dB为A级，<-12dB为B级，<-10dB为C级（仅适用于≤28GBd场景）。
 
 ****
 *Fig. 2. 400G/lane transceiver prototype with Si MZMs. (a) Block diagram of the packaged device; (b) Photo of the packaged device with inset images hig*
-![](_images/e4b68eb0b36fd79de4afe131749b45d9952fd4b459bc569b00c218b0aadee4fc.jpg)
+![](/img/mineru_output/Th4A.4/auto/images/e4b68eb0b36fd79de4afe131749b45d9952fd4b459bc569b00c218b0aadee4fc.jpg)
 > 🔍 深度说明：本图展示400G/lane硅光收发器的光电信号链路框图（Fig.2第(a)子图）。信号流：左侧输入光纤→PD（光电探测器，将光信号转为电流）→SiGe TIA（跨阻放大器，电流→电压，放大至ADC可处理范围）→CMOS ADC/DAC（模数转换，数字信号处理，然后DAC重建模拟信号）→SiGe DRV（驱动放大器，将信号放大至6Vppd驱动MZM）→Si PIC（硅光集成芯片，包含MZM调制器，将电信号调制到CW激光载波上）→右侧输出光纤。下方CW laser为连续波光源，提供光载波。工程背景：28nm CMOS ADC/DAC的采样率需达56GSa/s（2样本/符号@28GBd），ENOB>5.5bit才能保证0.5dB的OSNR余量；SiGe TIA的带宽>30GHz，等效输入噪声<10pA/√Hz才能保证灵敏度；对于400G/lane（53GBd PAM4），DSP的功耗约5W（28nm），驱动放大器约3W（GaAs工艺），是光模块中功耗最大的两颗芯片。落地注意：PD和Si PIC之间的光纤耦合损耗（通常2~4dB/facet）是链路预算的主要损耗项， grating coupler的偏振相关性也需要在耦合设计时考虑——某些方案用PM维持光纤直接耦合以避免偏振分集。 
 
 ****
 *Fig. 2. 400G/lane transceiver prototype with Si MZMs. (a) Block diagram of the packaged device; (b) Photo of the packaged device with inset images hig*
-![](_images/ee72fe28ebf9cde55f5d328975b7e0a77b95ec85c3474c8495ed2119906053a7.jpg)
+![](/img/mineru_output/Th4A.4/auto/images/ee72fe28ebf9cde55f5d328975b7e0a77b95ec85c3474c8495ed2119906053a7.jpg)
 > 🔍 深度说明：本图展示400G/lane硅光收发器原型PCB实物照片及核心器件特写（Fig.2第(b)子图）。上方为完整PCB照片，可见红色高频CPW走线、两侧接口、阻容元件。下半部分3个特写：左侧PD+TIA集成芯片（黄色封装，金色引脚，含光学耦合窗口和电极）——负责光电转换和前置放大；中间DRV+PIC模块（左侧DRV标注，右侧PIC青绿色衬底+灰色核心）——驱动MZM调制器；右侧CW激光器模块（蓝色基座，标注CW）——提供连续波光载波。工程背景：SiGe TIA的输入阻抗通常50Ω，与PD的阻抗匹配影响带宽——高速TIA通常采用共源共栅（cascode）结构提升带宽；PIC芯片的 grating coupler偏振相关损耗（PDL）约2~3dB是主要痛点，通常需要偏振分集或PM光纤耦合；CW激光器线宽约100kHz（硅光外置光源方案），功率约13dBm。落地注意：wire bonding的寄生电感（通常0.5~2nH）会限制 bandwidth，高速信号用金线键合长度需<500μm，或用倒装焊（flip-chip）替代以减少寄生效应；PCB材料选Megtron6（Df=0.002@14GHz）是为降低高速信号介质损耗。 
 
 ****
 *Fig. 3. Back-to-back optical transmitter performance at 300–420 Gb/s showing ER, RLM, Link BER, and DCA eye diagrams.*
-![](_images/7908412604767035f8f943d87bd199537856fb2d4278bebfe2f93f4ef734cc1a.jpg)
+![](/img/mineru_output/Th4A.4/auto/images/7908412604767035f8f943d87bd199537856fb2d4278bebfe2f93f4ef734cc1a.jpg)
 > 🔍 深度说明：本图展示背靠back光学发射机性能：300-420 Gb/s范围内的ER、RLM、链路BER、眼图。300-420Gb/s对应30-42GBd PAM4。消光比：30GBd时ER约5dB，42GBd时ER约3.5dB。RLM>3dB是IEEE 802.3标准要求，确保PAM4四电平间隔均匀。链路BER<1e-5（满足20% FEC开销阈值）。ER=10×log10(P1/P0)，ER越高对接收机灵敏度要求越低。
 
 ---

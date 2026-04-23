@@ -31,12 +31,12 @@ Table 1 Relevant LPM demonstrations
 
 1 Yes: uses payload data (i.e., Tx symbols are unknown)
 
-![](images/685b6ec1a6b6f7a9c6c61e0e8e1068711bc4fdba21047f059d423f9b7a9be69d.jpg)
+![](/img/mineru_output/Th4B.4/auto/images/685b6ec1a6b6f7a9c6c61e0e8e1068711bc4fdba21047f059d423f9b7a9be69d.jpg)
 
-![](images/47a22e4f9058106e7de0696e87471185b7c3ed487b951b446d12a5b7582242b1.jpg)  
+![](/img/mineru_output/Th4B.4/auto/images/47a22e4f9058106e7de0696e87471185b7c3ed487b951b446d12a5b7582242b1.jpg)  
 Fig. 1. (a) OSFP coherent pluggable module with LPM-integrated DSP inside. (b) Diagram of OSFP and DSP architecture. The LPM engine is implemented on chip alongside the Rx/Tx DSP ASIC.
 
-![](images/5bf108db6382eedad88516e4f810c184d90d5a0a9eb57138fa484b970620a9c2.jpg)  
+![](/img/mineru_output/Th4B.4/auto/images/5bf108db6382eedad88516e4f810c184d90d5a0a9eb57138fa484b970620a9c2.jpg)  
 Fig. 2. (a) Tx-side pluggable transceiver operated using a commercial network tester. (b) Experimental setup for 1005-km transmission. (c) Transmitted and received (1005km) spectrum. (d) Relative Q value vs fiber launch power after 1005-km transmission. The LPM is operated at the power level that maximizes the Q factor.
 
 The transmitted signal is not assumed to be known a priori for LPM as it is reconstructed from the demodulated signal within the DSP using hard decision of the pre-FEC data. Therefore, no special probing signal or training sequence is required, and the LPM can operate using in-service traffic signals, including those transmitted from thirdparty transceivers, enabling simultaneous communication and distributed monitoring, in an interoperable manner.
@@ -50,21 +50,21 @@ Fig. 2 shows the experimental setup. At the transmitter side, three coherent plu
 Fig. 3(a) and (b) present the on-chip LPM results over 1005 km using 400ZR+ (QPSK) and over 450 km using 800ZR+ (16QAM), respectively. Link anomalies of approximately 2.0 dB are emulated by inserting VOAs at 175 km and 724 km, and varying an EDFA gain at 450 km. Between the normal and anomalous states, highly stable and reproducible power profiles are observed in spans without anomalies, while clear power deviations are observed in the anomalous spans. The heatmap shows the normal-anomalous differences that exceed 4σ of the LPM noise, clearly localizing multiple impairments along the link. These LPM results also show good agreement with OTDR measurements, achieving RMS errors of 0.43 dB for 400ZR+ and 0.60 dB for 800ZR+ excluding the inter-span transition regions. Fig. 3(c) shows the relative variation of the Q-factor over time observed at the receiving OSFP. Stable Q values within ±0.04 dB are maintained, and post-FEC error-free are confirmed, irrespective of LPM on/off operation, confirming the on-chip LPM does not impact transmission performance and enables simultaneous communication and distributed monitoring. Fig. 3(d) further presents the module power consumption during LPM, and no measurable increase is observed when LPM is enabled, indicating that the on-chip LPM introduces negligible power consumption overhead and thus satisfies the strict power constraints of the OSFP module. Figs. 3(e) and (f) show the LPM results across different Tx vendors for 400ZR+ (1005 km) and 800ZR+ (450 km), respectively. The LPM remains consistent even when the third-party transmitters are used, with RMS deviations of 0.63 dB for 400ZR+ and 0.70 dB for 800ZR+, confirming LPM’s multi-vendor interoperability and its applicability to open optical network.
 
 (a) 400ZR+(QPSK)  
-![](images/2111740ac87a9b16c556b3bffc6bc4c76e14fc36ae58d7127eb5fafd47277225.jpg)
+![](/img/mineru_output/Th4B.4/auto/images/2111740ac87a9b16c556b3bffc6bc4c76e14fc36ae58d7127eb5fafd47277225.jpg)
 
 (b) 800ZR+(16QAM)  
-![](images/824a6563c51a3078405a3b465502645e056101fecfbf4b32c7e578bd4572bb0b.jpg)  
+![](/img/mineru_output/Th4B.4/auto/images/824a6563c51a3078405a3b465502645e056101fecfbf4b32c7e578bd4572bb0b.jpg)  
 (e) 40OZR+ interoperability
 
 (d)  
-![](images/ee89371909030917587b5c7ce3ef5eafb9f101f70c911f339ef81822287f1dde.jpg)
+![](/img/mineru_output/Th4B.4/auto/images/ee89371909030917587b5c7ce3ef5eafb9f101f70c911f339ef81822287f1dde.jpg)
 
-![](images/1284c9c6c4101e203a9399d1d55de0b5e08a6cc27521496faf179238db0e7115.jpg)  
+![](/img/mineru_output/Th4B.4/auto/images/1284c9c6c4101e203a9399d1d55de0b5e08a6cc27521496faf179238db0e7115.jpg)  
 (f) 8goZR+ interoperability
 
-![](images/8293e7f634e15af4204d14df8278db1209a9f950347d85a0e0811ba0f455aa38.jpg)
+![](/img/mineru_output/Th4B.4/auto/images/8293e7f634e15af4204d14df8278db1209a9f950347d85a0e0811ba0f455aa38.jpg)
 
-![](images/50830aeb9b32324f96d8311c2eafe07f58d58f502b3bfc2dd45aea50f3a670b4.jpg)  
+![](/img/mineru_output/Th4B.4/auto/images/50830aeb9b32324f96d8311c2eafe07f58d58f502b3bfc2dd45aea50f3a670b4.jpg)  
 Fig. 3. On-chip LPM results. (a) LPM over 1005 km using 400ZR+ (QPSK) and (b) over 450 km using 800ZR+ (16QAM), with and without power anomalies at 175, 450, and 724 km. The heatmaps show normal-anomalous difference exceeding 4σ of the LPM noise. (c) Q and (d) power consumption stability during LPM on/off operation. (e),(f) Multi-vendor interoperability results for 400ZR+ and 800ZR+, respectively.
 
 ## 5. Conclusion

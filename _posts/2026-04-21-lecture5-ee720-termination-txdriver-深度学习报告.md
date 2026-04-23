@@ -25,7 +25,7 @@ Lecture 5: Termination, TX Driver, & Multiplexer Circuits
              Analog & Mixed-Signal Center
                  Texas A&M University
 
-![](_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】本讲介绍传输线终端匹配技术和TX驱动器的设计，是高速Serdes发送端电路的核心内容。终端匹配不好会导致信号反射，造成振铃和过冲，恶化信号质量。
 > 【核心结论】常见的终端匹配方式包括：1) 串联端接（Series Termination）：在驱动器输出端串联电阻，吸收反射能量，常用值33~50Ω；2) 并联端接（Parallel Termination）：在传输线末端接电阻到Vdd或GND，常用值50Ω；3)戴维宁端接（Thevenin）：用两个电阻分压提供Vterm，功耗更低；4) AC端接：用电容交流耦合到地，消除直流功耗。
@@ -46,7 +46,7 @@ Announcements
 
                                                   2
 
-![](_images/img-001.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】本讲介绍传输线终端匹配技术和TX驱动器的设计，是高速Serdes发送端电路的核心内容。终端匹配不好会导致信号反射，造成振铃和过冲，恶化信号质量。
 > 【核心结论】常见的终端匹配方式包括：1) 串联端接（Series Termination）：在驱动器输出端串联电阻，吸收反射能量，常用值33~50Ω；2) 并联端接（Parallel Termination）：在传输线末端接电阻到Vdd或GND，常用值50Ω；3)戴维宁端接（Thevenin）：用两个电阻分压提供Vterm，功耗更低；4) AC端接：用电容交流耦合到地，消除直流功耗。
@@ -67,7 +67,7 @@ Agenda
 
                                  3
 
-![](_images/img-002.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】TX驱动器的架构示意图，展示不同类型的驱动器设计，适用于不同速率和功耗需求。
 > 【核心结论】TX驱动器的主要类型包括：1) CML（Current Mode Logic）驱动器：电流模式，切换速度快，功耗与速率成正比，适合高速应用；2) CMOS驱动器：电压模式，功耗低但是开关速度慢，适合中低速；3) 强驱动型驱动器：采用多级级联，提升驱动能力，适合长距离通道。
@@ -83,7 +83,7 @@ High-Speed Electrical Link System
 
                                     4
 
-![](_images/img-003.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】预加重（Pre-emphasis）和去加重（De-emphasis）技术，用于补偿通道的高频衰减，是高速SerdesTX设计的核心技术之一。
 > 【核心结论】预加重和去加重的原理：在信号跳变时增加高频成分，补偿通道的低通特性：1) 去加重：降低信号跳变后的直流电平，保持总能量不变，降低功耗；2) 预加重：在跳变时提升高频能量，补偿通道损耗。常用的实现方式是在驱动器的不同时间常数（tap）上加权求和，形成有限脉冲响应（FIR）滤波器。
@@ -103,7 +103,7 @@ Termination
 
                          5
 
-![](_images/img-004.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】驱动器功耗优化技术，展示不同功耗优化策略，适用于不同应用场景。
 > 【核心结论】功耗优化技术包括：1) 多电平信令（PAM4）：在同等带宽下传输2bit信息，效率翻倍，功耗比NRZ增加约30%~50%，是112G Serdes的主流选择；2) 功率循环：根据通道特性动态调整驱动器功率，在低损耗通道上降低功耗；3) 动态偏置：根据信号activity调整偏置电流，在静态时降低功耗。

@@ -108,7 +108,7 @@ Wireline Data-Rate Trend
                                                      8.1: A 224Gb/s DAC-Based PAM-4 Transmitter with 8-Tap FFE in 10nm CMOS   Page 4 of 68
 International Solid-State Circuits Conference
 
-![](_images/img-004.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】超高速Serdes的时钟架构演进，高速率和低抖动要求推动时钟电路从模拟向数字化方向发展。
 > 【核心结论】时钟架构演进路径：1) 传统模拟PLL——参考时钟的相位噪声经PLL环路过滤后输出，环路带宽受限，无法跟踪高频参考噪声，但能抑制VCO内部噪声；2) 亚采样PLL（SS-PLL）——用分频器将VCO输出分频到参考时钟频率附近工作，鉴相器工作在低频，噪声性能更好，适合低噪声应用；3) 数字PLL（DPLL）——用数字滤波器替代模拟滤波器，时间数字转换器（TDC）测量相位误差，数字控制器调整DCO/LC VCO；数字实现的 PLL在先进工艺下的一致性和可重复性更好，温度漂移更小。DPLL的关键模块：TDC（时间-数字转换器，分辨率<100fs）、数字环路滤波器、NCO（数控振荡器）。CDR架构：Bang-bang CDR在高抖动输入下有模式切换问题，导致周期性错误；高速系统倾向使用线性CDR或混合架构，在不同抖动水平下自适应调整环路参数。
@@ -145,7 +145,7 @@ International Solid-State Circuits Conference
                                                                                   8.1: A 224Gb/s DAC-Based PAM-4 Transmitter with 8-Tap FFE in 10nm CMOS   Page 5 of 68
 International Solid-State Circuits Conference
 
-![](_images/img-005.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-005.jpg)
 > 🔍 深度说明：
 > 【研究背景】超高速Serdes的功耗管理和散热设计，功耗是制约系统部署和扩展的核心因素，尤其在数据中心场景。
 > 【核心结论】功耗来源分解（以112G PAM4 Serdes为例）：TX驱动器约30%~35%（~1W/通道）、ADC/DSP约25%~30%（~0.8W/通道）、时钟和CDR约15%~20%（~0.5W/通道）、I/O封装损耗约10%~15%（~0.4W/通道）、静态泄漏功耗约10%~15%（~0.3W/通道，先进工艺占比更高）。224G系统的功耗预计比112G增加约60%~80%，主要来自ADC/DSP和时钟。功耗优化技术：1) 功率门控——空闲通道关闭电源或降低时钟频率，数据中心Idle功耗可降低70%；2) 动态电压频率调节（DVFS）——根据链路长度和噪声水平动态调整，在短通道/低噪声时降低功耗；3) 模拟/数字混合均衡——低速率场景用模拟CTLE替代部分DSP，节省数字功耗；4) 先进封装（CPO）——Serdes和光引擎共封装，Serdes输出从PCB走线（10~30cm）变为封装内走线（<5mm），驱动功耗降低30%~50%，但封装的散热设计是主要挑战。散热方案：先进节点（5nm）芯片功率密度>100W/cm²，传统空冷已无法满足，需要液冷（直接接触芯片背面，热阻<0.1°C/W）或浸没式冷却。

@@ -171,7 +171,7 @@ PVT敏感:
 • 对于长尾ISI补偿能力有限
 ```
 
-![](lecture8_ee720_rx_adaptive_eq_images/img-102.jpg)
+![](/img/serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/_images/img-102.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】CTLE通过零点补偿信道高频衰减，是高速SerDes RX的标配模拟前端；无源CTLE和有源CTLE各有适用场景，需要根据功耗、面积、增益需求选择。
@@ -280,7 +280,7 @@ t_CLK→Q + t_PROP_MUX + t_PROP_A2 ≤ 1 UI
 • 复杂度指数增长
 ```
 
-![](lecture8_ee720_rx_adaptive_eq_images/img-403.jpg)
+![](/img/serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/_images/img-403.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】DFE环路解卷绕（loop unrolling）是高速DFE实现的关键技术，通过预计算所有可能的判决结果来消除反馈时序瓶颈，是56Gb/s+ SerDes的主流架构。
@@ -344,7 +344,7 @@ ISSCC 2009 (Liu):
 • 对于有明显反射的信道，效果不佳
 ```
 
-![](lecture8_ee720_rx_adaptive_eq_images/img-405.jpg)
+![](/img/serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/_images/img-405.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】FIR反馈DFE和IIR反馈DFE是两种不同的长尾ISI消除策略，各有其适用场景；FIR适用于谐振信道（stub、多重反射），IIR适用于平滑信道（片上导线、硅载波线）。
@@ -470,7 +470,7 @@ ISSCC 2011 (Huang):
 • 类似FIR反馈的边沿采样技术
 ```
 
-![](lecture8_ee720_rx_adaptive_eq_images/img-407.jpg)
+![](/img/serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/_images/img-407.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】自适应均衡通过实时调整均衡器参数来跟踪信道变化，是高速SerDes系统可靠工作的关键；sign-sign LMS算法以其低复杂度成为实际部署的主流选择。

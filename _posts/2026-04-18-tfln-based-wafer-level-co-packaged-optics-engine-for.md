@@ -42,13 +42,13 @@ Step6: Cr/Cu seed layers (15 nm/150 nm) are sputtered again, and a 12 μm photor
 
 Finally, the wafer is diced to yield individual integrated optoelectronic assemblies. The optical facets of the chips are polished, followed by the mounting of RF decoupling capacitors and the attachment of coupling fibers. This completes the wafer-level optoelectronic heterogeneous integration process, ultimately realizing the TFLN-based CPO engine, as shown in Fig. 1(b). Figure 1(c) presents the measured performance of the TFLN EOM before and after packaging. Before packaging, the EOM exhibits a 3-dB electro-optic bandwidth of 110 GHz. After packaging, the measured 3-dB electro-optic bandwidth consistently remains above 100 GHz, while the RF return loss (S11) stays below −10 dB up to 100 GHz. In addition, the packaged EOM shows a low optical insertion loss of less than 4.2 dB and a Vπ of 4 V. These results confirm the low-loss integration capability of the proposed wafer-level optoelectronic heterogeneous integration process. Furthermore, Figure 1(d) illustrates the simulated high-frequency performance of the packaging structure. The simulation indicates a 3-dB bandwidth of over 200 GHz, with an interconnection loss of less than 0.5 dB at 100 GHz, indicating that the proposed architecture can support packaged EOM bandwidths beyond 200 GHz when packaged with a higher-intrinsic-bandwidth EOM. Figure 1(e) compares the bandwidths of different TFLN EOMs before and after packaging. It can be observed that the proposed approach preserves the bandwidth most effectively, yielding post-packaging performance closest to the unpackaged EOM response. In addition, the proposed process enables chip-scale optoelectronic high-density integration, which provides a promising and scalable packaging solution for ultra-broadband EO modulation and CPO.
 
-![](images/e35a7aa8b96022f9dde14a4a729457a184cd05cf7dfbcdb86175887ce16afba5.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/e35a7aa8b96022f9dde14a4a729457a184cd05cf7dfbcdb86175887ce16afba5.jpg)
 
-![](images/4251aae51d9eb50dd34c46cd6f77e8613b8de1d7e1cb6186968a9f4d0754d15c.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/4251aae51d9eb50dd34c46cd6f77e8613b8de1d7e1cb6186968a9f4d0754d15c.jpg)
 
-![](images/5fce2afc1cfdc5113d03216bf7d2a36295832a33de4bff5c5f653ae78aa7613a.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/5fce2afc1cfdc5113d03216bf7d2a36295832a33de4bff5c5f653ae78aa7613a.jpg)
 
-![](images/7b2727e1ef7371e56b2f837fdd0934aa60affb67d0e1dc5dedd7fa82798e43fc.jpg)  
+![](/img/mineru_output/Th4A.6/auto/images/7b2727e1ef7371e56b2f837fdd0934aa60affb67d0e1dc5dedd7fa82798e43fc.jpg)  
 Fig. 1 (a) Wafer-level optoelectronic heterogeneous integration process. PIC: Photonic Integrated Circuit, EIC: Electronic Integrated Circuit. (b) Photograph of the TFLN-based CPO engine. (c) Measured result of TFLN EOM before and after packaging. (d) Simulated results of the packaging structure. (e) Bandwidth comparison of reported TFLN EOMs (Bandwidth for Ref. [7] is defined by a 1-dB metric).
 
 ## 3. High-precision time/frequency comparison utilizing the TFLN-based CPO engine
@@ -61,19 +61,19 @@ Figure 2(b) illustrates the experimental configuration for conducting T/F compar
 
 By utilizing the high-frequency 94 GHz signal, the stability of the T/F comparison is significantly enhanced. As shown in Fig. 2(c), an unprecedented femtosecond-level precision is achieved. The time deviation at 1-s averaging time is about 0.8 fs. Previously, this level of precision was achievable only with advanced optical frequency combs [18], which, however, suffer from large size, weight, and power (SWaP). In contrast, our system leverages the copackaged TFLN engine, offering a compact, low-SWaP solution. The frequency stability is presented in Fig. 2(d), with a MDEV of $1 \bar { . 2 } \times 1 0 ^ { - 1 5 }$ at 1 s averaging time. Figure 2(e) provides a comparison with state-of-the-art systems. Alongside enhanced integration, the system exhibits a marked improvement in overall performance.
 
-![](images/f34d7b74102ed2f901b9a6f0e37f409173f37a0a96073c3245c2b3e1cbf35113.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/f34d7b74102ed2f901b9a6f0e37f409173f37a0a96073c3245c2b3e1cbf35113.jpg)
 
-![](images/087d7b6c6cfc14d9e7c4402d6617fc70e273a57d13de8a7b1bcd1d31d3cde17c.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/087d7b6c6cfc14d9e7c4402d6617fc70e273a57d13de8a7b1bcd1d31d3cde17c.jpg)
 
-![](images/5e41425a4e76a25df25c545df0cc7baa6c767eba6f163eba5f5abb33c7a5adec.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/5e41425a4e76a25df25c545df0cc7baa6c767eba6f163eba5f5abb33c7a5adec.jpg)
 
-![](images/296decd8b930f17274135510b8d60e9c189c7bf83b593df0c95fc1ed4c557c96.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/296decd8b930f17274135510b8d60e9c189c7bf83b593df0c95fc1ed4c557c96.jpg)
 
-![](images/dc54780f3b6ff33ebffe46fad108c5d2a32f3ca615b5ce528021b4bbfd87f613.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/dc54780f3b6ff33ebffe46fad108c5d2a32f3ca615b5ce528021b4bbfd87f613.jpg)
 
-![](images/db55c8ea300ecc625c7a0067fc8801dc3cc9622b18fff4abaf4a6d886eb79c1b.jpg)
+![](/img/mineru_output/Th4A.6/auto/images/db55c8ea300ecc625c7a0067fc8801dc3cc9622b18fff4abaf4a6d886eb79c1b.jpg)
 
-![](images/8d03559a0a3c715fd0eb35d2e69dc1e162b792ae5a927d6382ed1d51f14b5112.jpg)  
+![](/img/mineru_output/Th4A.6/auto/images/8d03559a0a3c715fd0eb35d2e69dc1e162b792ae5a927d6382ed1d51f14b5112.jpg)  
 Fig. 2 (a) Schematic diagram of the high-frequency EO modulation realized by the TFLN-based CPO engine. (b) Scheme of conducting the fiber-optic time and frequency comparison. (c) and (d) are the achieved time and frequency stability, respectively. (e) Comparison between our work and the prior arts.
 
 ## 4. Conclusion and future outlook

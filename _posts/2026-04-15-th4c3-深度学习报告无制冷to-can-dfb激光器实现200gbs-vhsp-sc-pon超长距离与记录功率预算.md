@@ -481,38 +481,38 @@ CSPR = 1 dB
 
 ****
 *Fig. 1: Proposed burst-mode detection. OLT: optical line terminal, ODN: optical distribution network, ONU: optical network unit, SOA: semiconductor op*
-![](_images/56015476f80d6a1ce8745667addd8206575265a6245107fbd9b1e72d1da1b8e3.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/56015476f80d6a1ce8745667addd8206575265a6245107fbd9b1e72d1da1b8e3.jpg)
 > 🔍 深度说明：本图展示提出的突发模式检测方案，以及OLT/ODN/ONU网络架构。VHSP SC-PON（Very High Speed PON，超高速无源光网络）目标：单波长200Gb/s，支持32-64个ONU，传输距离>40km。无制冷（Uncooled）DFB激光器：无需TEC（热电制冷器）温度控制，降低功耗约500mW/ONT，简化封装。突发模式检测：上行信号来自多个ONU（距离不同，功率差异可达15dB），接收机需快速响应（建立时间<100ns）。OLT: Optical Line Terminal（局端光线路终端），ODN: Optical Distribution Network（光分配网络，光纤分路器），ONU: Optical Network Unit（用户端光网络单元）。
 
 ****
 *Fig. 2: (a) Experimental setup and DSP flow charts, (b) Burst signal. VODL: variable optical delay line, PC: polarization control, PBC: polarization b*
-![](_images/2c5f638419b8fa4cb70d78940f884688f2681facb62d79e3ce6b1e8b796d5ac1.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/2c5f638419b8fa4cb70d78940f884688f2681facb62d79e3ce6b1e8b796d5ac1.jpg)
 > 🔍 深度说明：本图展示实验设置和DSP流程图，以及突发信号波形。设置：200Gb/s QPSK（100GBd × 2bit/symbol）over 40.7km SMF + 1:32光分路器。DSP流程：ADC采样 -> 时钟恢复（CDA） -> 色散补偿（FIR滤波） -> 偏振解复用（CMA） -> 载波相位恢复（CPR） -> QPSK软判决 -> LDPC FEC。突发信号：32个ONU依次发送，每个burst前有独特报头（用于同步和功率检测），burst间guard time约50ns。VODL（可变光延迟线）：补偿各ONU距离差异（40km光纤对应约200ns往返延迟）。
 
 ****
-![](_images/31fc86b8914fbe8771f7884ed1218601c01302b950d51f78172ef87e66729b9a.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/31fc86b8914fbe8771f7884ed1218601c01302b950d51f78172ef87e66729b9a.jpg)
 > 🔍 深度说明：本图展示PON系统光放大器增益优化与接收灵敏度测试结果，横坐标为接收光功率（-30dBm~-6dBm），纵坐标为误码率（对数刻度1e-3~1e-1），三条曲线分别对应EDFA前置放大器固定增益为20dB、25dB、30dB时的BER-ROP特性，同时标注了16% O-FEC纠错门限（BER=2×10⁻²，低于该值经FEC可降至<1e-12无误码）。关键数据：30dB增益时灵敏度约-28dBm（@FEC门限）、25dB约-24dBm、20dB约-20dBm——增益每提升5dB灵敏度提升约4dB，但过载点从-10dBm（30dB）移至-7dBm（25dB）和>-6dBm（20dB），动态范围约17~18dB。工程价值：说明PON场景高增益放大器适合长距高分路（1:128）广覆盖，而低增益适合城市短距高功率场景；该曲线也是现场排查"预FEC BER>2e-2"故障的标准对照：链路损耗超标或放大器增益配置错误时，系统会落在FEC门限右侧无效区。橙色过载区提醒调试时接收功率勿高于-10dBm，否则放大器饱和引入非线性失真。
 
 ****
-![](_images/2aa210d33bacee635e2b22ec76bd8647efdbce56e136db64c1a9742327c8b1bc.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/2aa210d33bacee635e2b22ec76bd8647efdbce56e136db64c1a9742327c8b1bc.jpg)
 > 🔍 深度说明：本图展示16QAM相干PON系统在背靠背（BtB）、20.36km、40.72km三种传输场景下的BER vs 接收光功率（ROP）性能曲线，核心验证光放大器增益（8dB、16dB、24dB）对接收灵敏度的影响，同时标注了15% O-FEC解码阈值（BER=2×10⁻²）。关键数据：灵敏度（@FEC门限）分别为8dB增益≈-26.5dBm、16dB≈-26dBm、24dB≈-25dBm；FEC门限以下三种增益的OSNR均约7~9dB（对应线性Q≈2.0）。核心规律：增益越高ASE噪声越大、OSNR越低，24dB相比8dB灵敏度劣化约1.5dB；但增益<16dB时噪声代价增加极小，说明该系统光放最优工作增益≤16dB。工程参考：运营商部署长距PON（如1:64分路+40km）时应选择16dB增益配置，在保持灵敏度接近最优的同时避免24dB增益带来的显著ASE代价；调试时若预FEC BER>2e-2对应接收功率落在FEC门限右侧，应检查链路损耗是否超标或放大器配置是否正确。
 
 ****
-![](_images/029d54ab0f263ac17b0bf52c676b168c94efa668cdb433ffae33b38c8593d52f.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/029d54ab0f263ac17b0bf52c676b168c94efa668cdb433ffae33b38c8593d52f.jpg)
 > 🔍 深度说明：本图展示VHSP SC-PON（Very High Speed PON，单波长200Gb/s）系统在不同传输距离（BtB/20.36km/40.72km）下的BER-接收光功率(ROP)性能，对比QPSK与16QAM两种调制格式，并附带-22dBm处的16QAM接收星座图用于直观评估信号质量。关键数据（QPSK）：BtB灵敏度约-28dBm@BER=1e-3，20.36km约-26dBm（分路器~15dB+光纤~5dB），40.7km约-24dBm，Uncooled DFB波长漂移（~0.1nm/°C）引入色散代价约0.5dB。工程价值：16QAM在短距场景（≤20km）可实现更高容量（200Gb/s），但对OSNR要求更高（需≥15dB），适合城域DCI互联；QPSK可支持40km+长距和1:64高分路，适合接入网/接入汇聚场景；系统调试时若接收星座点明显扩散且BER偏高，应优先排查链路色散补偿配置是否正确（尤其是CD估计步长是否收敛）。
 
 ****
-![](_images/e1fdf438869bd8430b3d83eeeb2b9460999f4f76af8a306e7f9cb2502998be28.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/e1fdf438869bd8430b3d83eeeb2b9460999f4f76af8a306e7f9cb2502998be28.jpg)
 > 🔍 深度说明：本图展示VHSP SC-PON系统的功率预算（Budget）与入纤发射功率（Launch Power）关系曲线，横坐标-5~12dBm，纵坐标0~40dB，三条曲线分别对应BtB（背靠背）、20.36km、40.72km传输场景，标注了BER=1e-3的目标门限。核心数据：最优入纤功率约9dBm，此时BtB预算~37.5dB、20.36km~37.2dB、40.72km~37.0dB，40km传输相对BtB代价仅~0.5dB；入纤功率<9dBm时预算随功率线性增长（每+1dBm发射功率≈+1dB预算），但>9dBm后光纤非线性（SPM/XPM）导致预算下降，11dBm时40.72km代价扩大至~0.8dB。工程参考：设计PON系统功率预算时应以9dBm为最优发射功率点，为链路老化/连接器劣化预留~2dB裕量；该曲线也可用于长距场景（如40km+1:64分光）验证系统余量是否充足，若实测功率预算低于37dB目标值需排查链路各段损耗是否超标。
 
 ****
 *Fig. 3: (a) EDFA fixed gain optimization. (b) SOA drive voltage optimization. (c) BER versus ROP for BTB, 20.36km ,40.72km transmission. (d) Maximum b*
-![](_images/99810bce632b6558479e3e8bc431b02795f9b44ff7a8cbb013ea50a3ef91c0c4.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/99810bce632b6558479e3e8bc431b02795f9b44ff7a8cbb013ea50a3ef91c0c4.jpg)
 > 🔍 深度说明：本图展示EDFA固定增益优化、SOA驱动电压优化、以及BER vs ROP (接收光功率) 在B2B、20.36km、40.7km的对比。(a) EDFA固定增益优化：分路器后信号弱（<-30dBm），EDFA增益固定在20dB，过载和噪声之间的平衡点。(b) SOA驱动电压优化：SOA（半导体光放大器）作为PON中的上行放大器，驱动电压约1.5V，过驱动（>2V）可提高增益但引入非线性失真。(c) BER vs ROP：B2B灵敏度约-28dBm@BER=1e-3，20.36km约-26dBm（分路器损耗约15dB+光纤损耗约5dB），40.7km约-24dBm。Uncooled DFB的温度漂移（波长漂移约0.1nm/°C）导致色散代价约0.5dB，但仍在系统余量内。
 
 ****
 *Fig. 3: (a) EDFA fixed gain optimization. (b) SOA drive voltage optimization. (c) BER versus ROP for BTB, 20.36km ,40.72km transmission. (d) Maximum b*
-![](_images/6ccfb6141c5aaf3a7ef7dcb75a14bb0c9289676df434464a0b29a5845a554807.jpg)
+![](/img/mineru_output/Th4C.3/auto/images/6ccfb6141c5aaf3a7ef7dcb75a14bb0c9289676df434464a0b29a5845a554807.jpg)
 > 🔍 深度说明：本图为Fig.3的(c)子图——ODN损耗容限与传输距离关联测试，横坐标ODN总损耗（5~40dB，对应不同分路比/链路长度），纵坐标BER（对数1e-3~1e-1），三条曲线分别对应BtB背靠背、20.36km、40.72km传输场景。关键数据：三种场景在ODN损耗=35dB时BER均约1e-2，40dB时约3.8~4.2×10⁻²；三条曲线均在ODN≈36dB处穿越15% O-FEC阈值（BER=2×10⁻²），说明该系统支持35dB+ ODN损耗，可满足1:64分光比或40km传输的商用部署需求。星座图（20.32km/40.72km @35dB）显示信号质量优异，点阵紧密无明显相位/幅度失真。工程价值：该图直接回答"系统能支持多长的链路+多大的分光比"——35dB预算内可覆盖绝大多数接入网场景；调试时若实测BER高于FEC门限对应ODN损耗>36dB，需检查链路法兰/熔接损耗或光放配置是否偏离标称值。
 
 ---

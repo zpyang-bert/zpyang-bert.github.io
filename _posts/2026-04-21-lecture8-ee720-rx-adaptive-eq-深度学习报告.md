@@ -24,7 +24,7 @@ Lecture 8: RX FIR, CTLE, DFE, & Adaptive Eq.
           Analog & Mixed-Signal Center
               Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第八讲，主题是接收端自适应均衡与判决反馈均衡器（DFE），DFE是中长距Serdes的核心均衡技术，能够有效消除码间干扰，同时不会放大噪声。
 > 【核心结论】内容覆盖DFE原理、DFE架构、自适应均衡算法（LMS/MMSE）、自适应环路设计、DFE时序收敛问题、噪声抑制特性，是Serdes均衡设计的核心内容。
@@ -45,7 +45,7 @@ Announcements
 
                                               2
 
-![DFE原理](_images/img-001.jpg)
+![DFE原理](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】判决反馈均衡器（DFE）的原理示意图，DFE是一种非线性均衡技术，利用已经判决出来的符号来消除后续符号的码间干扰。
 > 【核心结论】DFE由反馈抽头和加法器组成，对已经判决的符号进行加权，从当前输入信号中减去判决符号带来的残余码间干扰；由于是基于已经判决的符号，DFE不会放大噪声，这是相比线性均衡的最大优势。
@@ -67,7 +67,7 @@ Agenda
 
                                          3
 
-![DFE架构](_images/img-002.jpg)
+![DFE架构](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】典型的DFE架构示意图，包括模拟DFE和数字DFE两种实现方式，各有优缺点。
 > 【核心结论】模拟DFE在采样之前进行均衡，速度快功耗低，但精度低，调整麻烦；数字DFE在采样之后进行数字域均衡，精度高，调整灵活，但需要高速ADC，功耗高；当前主流架构是1~2 tap模拟DFE+多tap数字DFE，平衡功耗和性能。
@@ -90,7 +90,7 @@ Link with Equalization
 
                                         4
 
-![自适应均衡算法](_images/img-003.jpg)
+![自适应均衡算法](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】自适应均衡算法是均衡器自动调整系数的核心，不需要人工配置，自动适配不同的信道特性。
 > 【核心结论】最常用的自适应算法是最小均方（LMS）算法，基于最小化误差信号的均方值来调整系数，算法简单，容易实现，收敛速度适中；另外还有MMSE、RLS等算法，收敛速度快，但复杂度高，功耗大。
@@ -109,7 +109,7 @@ TX FIR Equalization
 
                                                                             5
 
-![DFE性能对比](_images/img-004.jpg)
+![DFE性能对比](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】不同均衡方案的性能对比示意图，展示了DFE相比线性均衡的性能优势。
 > 【核心结论】在相同信道损耗下，DFE可以获得比线性均衡更高的眼高和更低的误码率；信道损耗越大，DFE的性能优势越明显，损耗30dB时，DFE比线性均衡的误码率低几个数量级。

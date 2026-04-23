@@ -89,7 +89,7 @@ CDR = Clock and Data Recovery
 
 ### 2.3 Alexander (2x Oversampled)相位检测器
 
-![](lecture12_ee720_cdrs_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】Alexander相位检测器是高速SerDes中最广泛使用的相位检测器类型。它于1970年代由James Alexander提出，是一种bang-bang（二进制）相位检测器，仅提供相位误差的符号而非幅度信息。这种简化使其在高速应用中更容易实现。
@@ -163,7 +163,7 @@ CDR = Clock and Data Recovery
 
 **ISSCC 2019 (Roshan-Zamir)**：
 
-![](lecture12_ee720_cdrs_images/img-085.jpg)
+![](/img/serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/_images/img-085.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】这是ISSCC 2019发表的56Gb/s PAM4模拟PLL CDR，代表了当时最先进的CDR设计水平。相比数字CDR方案，模拟PLL CDR在功耗和延迟上具有优势，特别是在PAM4系统中需要处理更复杂的信号电平。

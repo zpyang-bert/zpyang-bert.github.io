@@ -26,7 +26,7 @@ The heterogeneous GaAs-on-TFLN photonic integrated circuit architecture is illus
 
 Optical coupling between the GaAs laser sections and the TFLN waveguides is achieved using Nexus’s optical bridge methodology as detailed in [9]. The optical gain waveguides for DFB and widely tunable laser cavities are implemented in the GaAs while the distributed gratings as well as the external Vernier ring filters are realized in the TFLN. Electro-optic modulators are implemented as traveling-wave Mach–Zehnder interferometers (MZMs) in the TFLN layer with coplanar RF electrodes optimized for broadband impedance matching and velocity matching at 1064 nm. On-chip monitor photodiodes are also integrated, enabling operational control via reverse biasing of the GaAs epitaxial structure.
 
-![](images/6b1e31dbb673cd176720c8862debb612b385dcf5223802f0994820b286506241.jpg)  
+![](/img/mineru_output/Th4A.5/auto/images/6b1e31dbb673cd176720c8862debb612b385dcf5223802f0994820b286506241.jpg)  
 Fig. 1. Heterogeneous GaAs-on-TFLN platform. (a) Schematic cross-section illustrating GaAs gain layer heterogeneously integrated on TFLN. (b) An image of the GaAs epitaxial layer bonded on top of a 4-inch patterned TFLN wafer after substrate removal. (c) A 4-inch wafer completed with the full GaAs fabrication process. (d) An image of the wafer-level characterization of all devices. (e) Microscope image of the transmitter comprising a single-mode laser, a MZM with heater phase section for bias control, traveling-wave electrodes and high-speed GSG pads, a SOA for boosting output power with multiple monitor photodiodes for operation control - all on a single chip.
 
 ## 3. Integrated GaAs Laser Performance
@@ -35,11 +35,11 @@ Figure 2 summarizes representative measured performance of integrated GaAs laser
 
 Widely tunable GaAs lasers are implemented using two Vernier ring resonators, enabling wavelength tuning over a range of >20 nm around 1064 nm. The tuning behavior is continuous and repeatable over the demonstrated range, and the output couples efficiently into the underlying TFLN waveguides. These measurements confirm robust laser operation following heterogeneous integration and provide on-chip light sources compatible with ultrafast modulation. In addition to serving as tunable lasers, the GaAs gain section also functions as a semiconductor optical amplifier (SOA), providing on chip gain to support higher output power and larger modulation signals.
 
-![](images/e8f4d504c34e0c5ea40a233195c32f129a4268d2d6de2a1d67f962151f5f4583.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/e8f4d504c34e0c5ea40a233195c32f129a4268d2d6de2a1d67f962151f5f4583.jpg)
 
-![](images/a0c65ba3a64d67eecbe81d6a15879ff69e295ef0990ed4616376c115cfd5fde1.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/a0c65ba3a64d67eecbe81d6a15879ff69e295ef0990ed4616376c115cfd5fde1.jpg)
 
-![](images/313c5b035d47475e8cca7248c71e6dcd1effaa25d979964bbf166e6c81b9042c.jpg)  
+![](/img/mineru_output/Th4A.5/auto/images/313c5b035d47475e8cca7248c71e6dcd1effaa25d979964bbf166e6c81b9042c.jpg)  
 Fig. 2. Integrated GaAs laser performance at 1064 nm. (a) DFB laser’s L–I–V curve and (b) DFB laser’s optical spectra at different gain current, indicating stable single-mode operation (SMSR> 50 dB). (b) Vernier wavelength tuning with high SMSRs across the tuning range >20 nm.
 
 ## 4. High-Speed Laser–Modulator–SOA Integration
@@ -51,18 +51,18 @@ The RF response in Figure 3(b) shows an electrical reflection $S _ { 1 1 }$ arou
 Large-signal measurements further validate system-level operation. A tunable GaAs laser serves as the optical source, followed by a TFLN MZM for high-speed modulation and a GaAs SOA for output power amplification, together demonstrating a fully integrated transmitter on a single chip. As shown in Fig. 3(e), a clear and open eye diagram is obtained at 100 Gb/s NRZ with a signal-to-noise ratio (SNR) of 14.61 dB. Figure 3(f) further demonstrates well-resolved eye openings at 160 Gb/s PAM4, with a post-FFE TDECQ of 0.04 dB. The currently achieved data rate is limited by the RF bandwidth of the test setup, which includes the arbitrary waveform generator, power amplifier, and optical receiver, exhibiting a combined attenuation of ∼ 20 dB at 50 GHz. A higher-bandwidth measurement setup, consistent with the >100 GHz bandwidth of the TFLN modulator, would enable higher data rates. These results confirm that heterogeneous integration of GaAs lasers and TFLN modulators preserves both modulation efficiency and high-speed performance, with no observable degradation introduced by the interface.
 
 (a)  
-![](images/002a1e9fe2307a0983dfd53d8836e4a5586e95c381de8920e418e0b3f3ee1d1e.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/002a1e9fe2307a0983dfd53d8836e4a5586e95c381de8920e418e0b3f3ee1d1e.jpg)
 
-![](images/4a60ce7d2c9545c4997127649de60d8dbc960b497fd987c026890d96a92d8ba5.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/4a60ce7d2c9545c4997127649de60d8dbc960b497fd987c026890d96a92d8ba5.jpg)
 
 (c)  
-![](images/78f1f22d9f7501a2bef850027ae40669115bdbcea1c815ad241e18244226b88e.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/78f1f22d9f7501a2bef850027ae40669115bdbcea1c815ad241e18244226b88e.jpg)
 
-![](images/713ec03a081cae6868073d10f07cf2b4e2fed95c8de990abbc206f259c67c735.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/713ec03a081cae6868073d10f07cf2b4e2fed95c8de990abbc206f259c67c735.jpg)
 
-![](images/0a85d3d6212a962085556dbb2c3bfa010d509a4e4fa79fdd680510d68fb7e102.jpg)
+![](/img/mineru_output/Th4A.5/auto/images/0a85d3d6212a962085556dbb2c3bfa010d509a4e4fa79fdd680510d68fb7e102.jpg)
 
-![](images/6667b6532b978a950aae084ef1397bb1abd124de1c90b42d84d84f26c5e37bf2.jpg)  
+![](/img/mineru_output/Th4A.5/auto/images/6667b6532b978a950aae084ef1397bb1abd124de1c90b42d84d84f26c5e37bf2.jpg)  
 Fig. 3. High-speed modulation at 1064 nm using heterogeneous GaAs lasers and TFLN MZMs. (a) Cross-sectional schematic of the TFLN MZM. Measured (b) electrical $S _ { 1 1 }$ and (c) EO response $S _ { 2 1 }$ up to 110 GHz. (d) Transmission spectrum at null bias with 2 MHz sinusoidal modulation for $\mathrm { v } _ { \pi }$ extraction. Measured (e) 100 Gb/s NRZ and (f) 160 Gb/s PAM4 eye diagrams using fully integrated laser, MZM, and SOA.
 
 ## 5. Conclusion

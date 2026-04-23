@@ -25,7 +25,7 @@ Lecture 11: Clocking Architectures & PLLs
         Analog & Mixed-Signal Center
             Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】Serdes时钟架构与PLL设计是高速Serdes的核心模块，决定了时钟抖动性能，直接影响链路误码率。
 > 【核心结论】PLL由鉴相器、电荷泵、环路滤波器、VCO、分频器组成，负反馈实现时钟同步，相位噪声是PLL的核心指标。
@@ -44,7 +44,7 @@ Announcements
 
                                           2
 
-![时钟架构](_images/img-001.jpg)
+![时钟架构](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】Serdes时钟分为发送端PLL时钟和接收端CDR恢复时钟，多通道Serdes可以共享PLL降低成本。
 > 【核心结论】发送端时钟要求低抖动，接收端CDR要求快速锁定、大抖动跟踪范围，参考时钟质量直接影响PLL性能。
@@ -66,7 +66,7 @@ Agenda
 
                                3
 
-![PLL原理](_images/img-002.jpg)
+![PLL原理](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】PLL是负反馈系统，通过相位比较调整VCO频率，实现输出时钟和参考时钟的相位/频率同步。
 > 【核心结论】环路带宽是PLL的核心参数，带宽大锁定快但参考噪声抑制差，带宽小噪声抑制好但锁定慢，Serdes PLL一般取1~10MHz。
@@ -88,7 +88,7 @@ References
   PhD thesis (UCLA)
                                                  4
 
-![相位噪声](_images/img-003.jpg)
+![相位噪声](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】PLL相位噪声在不同频率偏移处的来源不同，低频来自参考和电荷泵，高频来自VCO。
 > 【核心结论】环路带宽以内的噪声由参考时钟和环路组件决定，带宽以外的噪声由VCO决定，优化时需要针对性处理。
@@ -105,7 +105,7 @@ High-Speed Electrical Link System
 
                                     5
 
-![低抖动设计](_images/img-004.jpg)
+![低抖动设计](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】低抖动PLL设计需要从架构和电路两个层面优化，先进架构可以大幅降低输出抖动。
 > 【核心结论】亚采样PLL、采样保持PLL等先进架构可以降低鉴相器噪声，比传统PLL输出抖动降低一半以上。

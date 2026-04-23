@@ -34,24 +34,24 @@ In this work, we report a first field trial of an end-to-end OAM-SDM submarine c
 
 The submarine OAM fiber cable was deployed between Guishan Island and Wailingding Island, which has a total length of 30 km, including 25-km submarine cable under the sea and 5-km long cable on the land to connect terminal houses. The optical cable contains two OAM fibers with multi-layer armored protections serving to safeguard fibers against external stress and seawater (in Fig. 1(c)). A key challenge specific to undersea deployment is seawater corrosion. An excessive doping level will cause severe hydrogen-induced loss in fibers, constraining the doping level of fiber core and thereby limiting the core-cladding RID. However, weakly-coupled fibers require a sufficiently large RID to ensure adequate mode isolation for stable operation. To address this tradeoff, the core doping level is optimized to $\Delta = 0 . 7 5 \%$ in this work, enabling support for distinct $\mathrm { O A M _ { 1 1 } , O A M _ { 2 1 } }$ and $\mathrm { O A M } _ { 3 1 }$ MGs. Through meticulous process control during fiber drawing, the fabricated fiber precisely aligns with the designed index profile, exhibiting low loss (\~0.21 dB/km) and low MG crosstalk (<-31.9 dB/km). However, mechanical stress, which is absent in laboratory verifications, gradually degrades mode purity during the process from fiber cabling to deployment (Fig. 1(e)-(f)). Despite this field-induced degradation, the optimized RID ensures the maximum crosstalk remains as low as -29.4 dB/km, enabling reliable MDM propagation in undersea conditions.
 
-![](images/10c2ec675283631c11ad8ce7767b8387e1f442f1654bc16e88505ab2a3fdeb54.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/10c2ec675283631c11ad8ce7767b8387e1f442f1654bc16e88505ab2a3fdeb54.jpg)
 
-![](images/bd03aa40496ec9bffb3bd8063b7328da0c1c0e49c8e09e2c596e47f5065306d7.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/bd03aa40496ec9bffb3bd8063b7328da0c1c0e49c8e09e2c596e47f5065306d7.jpg)
 
-![](images/d605a6f62710c7d2beb8d5cff1f246c1fd9963c2c2294c5662037f6c2a8ca62a.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/d605a6f62710c7d2beb8d5cff1f246c1fd9963c2c2294c5662037f6c2a8ca62a.jpg)
 
-![](images/15eb726763a64f4407850af57f9d04fec357912a9b2f11fd4b4c95314210e9fe.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/15eb726763a64f4407850af57f9d04fec357912a9b2f11fd4b4c95314210e9fe.jpg)
 
-![](images/ed3195ca07b075df93a33f35bda11a7c8360a7e0e830dc2f2ba8793d1323b407.jpg)  
+![](/img/mineru_output/Th4C.5/auto/images/ed3195ca07b075df93a33f35bda11a7c8360a7e0e830dc2f2ba8793d1323b407.jpg)  
 Fig. 1: (a) Map of the Guishan and Wailingding Island shows the route of the deployed OAM fiber cable. (b) Enlarged map of the testbed area, shows the OAM submarine communication system. (c) Photography of the OAM submarine cable on a cable-laying ship. (d) Refractive index profile of the OAM fiber. (e) Attenuation and (f) crosstalk change from fiber fabricating to cabling and deploying.
 
-![](images/9122c8219380e48f9fa5c53699c25ffbc17df0d8694fe5717727a3d3ba15344e.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/9122c8219380e48f9fa5c53699c25ffbc17df0d8694fe5717727a3d3ba15344e.jpg)
 
-![](images/bace202b40169ebe37346459ceb27d18dd08e0a96b6629aa9c1e79e51f26ea2f.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/bace202b40169ebe37346459ceb27d18dd08e0a96b6629aa9c1e79e51f26ea2f.jpg)
 
-![](images/2347783f7a6e2b73f84bd0d6b4d86cda9c692f9a354d581905b70272d779a56d.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/2347783f7a6e2b73f84bd0d6b4d86cda9c692f9a354d581905b70272d779a56d.jpg)
 
-![](images/760bbb19a4e934ce7872e449f0f68722d906609cf22b104eea502f58443588dc.jpg)  
+![](/img/mineru_output/Th4C.5/auto/images/760bbb19a4e934ce7872e449f0f68722d906609cf22b104eea502f58443588dc.jpg)  
 Fig. 2: (a) Schema of the OAM EDFA. (b) Wavelength-dependent gain, NF, and DMG of the OAM EDFA. (c) Process of the optical mode conversion and multiplexing and photography of the packaged device. (d) Wavelength-dependent loss of the multiplexer.
 
 To realize the OAM modes amplified in fiber, an OAM amplifier was designed, which comprises a matching 3- MG OAM EDF with a length of 3 meter, and a wavelength division multiplexer featuring a cladding-pumped structure with a high coupling efficiency exceeding 90%, as shown in Fig. 2(a). The cladding-pumped architecture minimizes the number of required pump sources and enables the simultaneous amplification of six spatial modes with high spatial utilization efficiency. This advantage facilitates its potential future application in submarine repeater cabins, allowing for the transmission of more spatial channels within a single cable. Fig. 2(b) shows wavelength-dependent characteristics of gain, noise figure (NF) and DMG at a pumping power of 5 W. Across C band, the overall average gain reaches 20 dB and the NF is less than 9 dB. Benefiting from a Er-doped scheme based on a bimodal Gaussian distribution, the DMG remains consistently low within a range from 0.2 to 1 dB.
@@ -60,9 +60,9 @@ The fabricated OAM MUX device based on multi-plane light conversion (MPLC) has a
 
 ## 3. Field trials of the OAM-SDM submarine communication system
 
-![](images/339813ea524ba94104bfbe543a753e1a3bdb74d8caa72dfce3c87d6d146d8034.jpg)
+![](/img/mineru_output/Th4C.5/auto/images/339813ea524ba94104bfbe543a753e1a3bdb74d8caa72dfce3c87d6d146d8034.jpg)
 
-![](images/a53c7fea6b55f209329c2ed5abe05f061e1166f26665462a127b1c9e5979a23b.jpg)  
+![](/img/mineru_output/Th4C.5/auto/images/a53c7fea6b55f209329c2ed5abe05f061e1166f26665462a127b1c9e5979a23b.jpg)  
 Fig. 3: (a) Experimental setup of the OAM-SDM submarine communication system with two OAM cable fibers, a matching amplifier and de/multiplexers devices. (b) Spectra of the input and output signals. (c) Measured BER of all 2,232 channels.
 
 Fig. 3(a) shows the end-to-end OAM-SDM communication system setup based on the deployed submarine OAM cable with all matched components including OAM amplifier and packaged OAM MUX devices. 186 C-band WDM channels are modulated into 24G-QPSK dual-polarization signals, multiplexed via an OAM MUX and launched into a 60-km fiber link of two OAM fibers in the optical cable. At the end of cable link, an OAM amplifier is installed before a DEMUX to guarantee enough power for receiving signal, which is subsequently recovered by a 4×4 MIMO at receiver. Fig. 3(b) plots the optical spectra of three MGs on the transmitter and receiver side. As shown in Fig. 3(c), the BER is counted for 2,232 channels (comprising 186 wavelengths, 3 mode groups, 2 topological states, and 2 polarization states). As a result, it remains below the 20% soft-decision FEC threshold of $2 . 4 \times 1 0 ^ { - 2 } .$ achieving a transmission with a data capacity of 107 Tbit/s just in C Band.

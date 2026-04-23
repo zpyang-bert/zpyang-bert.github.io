@@ -42,7 +42,7 @@ tags:
 • 低功耗
 ```
 
-![](lecture15_ee720_optical_io_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】随着数据率提升到56Gb/s及以上，电气信道的损耗和串扰问题变得日益严重。光学互连利用光信号的低损耗和抗电磁干扰特性，成为短距离到中等距离传输的有力替代方案。
@@ -111,7 +111,7 @@ tags:
 需要后处理以获得合理损耗: 10dB/cm
 ```
 
-![](lecture15_ee720_optical_io_images/img-076.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-076.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】在标准CMOS工艺中实现光学波导面临巨大挑战：薄STI（浅沟道隔离）层导致光学模式无法被有效限制，硅衬底的折射率高于波导材料，导致严重的光学泄漏。
@@ -126,7 +126,7 @@ SOI工艺有更厚的埋氧层:
 • 允许低损耗波导
 ```
 
-![](lecture15_ee720_optical_io_images/img-099.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-099.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】SOI工艺的埋氧层（通常1μm以上）比标准CMOS的STI层厚得多，能够有效将光学模式限制在顶层硅中，实现低损耗波导传输。
@@ -188,7 +188,7 @@ VCSEL特点:
 • 防止"开启延迟"导致ISI
 ```
 
-![](lecture15_ee720_optical_io_images/img-100.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-100.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】VCSEL是一种垂直发射的半导体激光器，其腔体方向与芯片表面垂直。这种结构使得VCSEL易于形成二维阵列，实现高密度光并行传输。VCSEL的发射面积通常在10-20μm直径范围内。
@@ -215,7 +215,7 @@ MTTF ∝ 1/j²
 带宽增加 → 可靠性降低
 ```
 
-![](lecture15_ee720_optical_io_images/img-103.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-103.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】VCSEL的调制带宽与注入电流成正比，但可靠性（MTTF）与电流密度的平方成反比。这意味着提高带宽会显著缩短器件寿命。

@@ -163,7 +163,7 @@ PDF_TJ(t) = PDF_RJ(t) * PDF_DJ(t)
 
 ### 3.2 Dual Dirac抖动模型
 
-![](lecture10_ee720_jitter_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】Dual Dirac模型是高速链路抖动分析的核心模型。在10Gb/s以上系统中，抖动分析不能简单用高斯分布描述，因为确定性抖动(DJ)有界且非高斯。Dual Dirac将DJ建模为两个Dirac delta函数，将RJ建模为高斯分布，二者卷积得到总抖动PDF。

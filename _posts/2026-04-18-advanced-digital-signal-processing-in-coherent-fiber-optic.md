@@ -9,7 +9,7 @@ tags:
 ---
 Mahdi Malekiha
 
-![](images/5197e0728eaba6ff00b6d84b8de6682836309f88c38f6364f7023e3ae2e6f7f7.jpg)
+![](/img/mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/images/5197e0728eaba6ff00b6d84b8de6682836309f88c38f6364f7023e3ae2e6f7f7.jpg)
 
 Department of Electrical & Computer Engineering McGill University Montr´eal, Canada
 
@@ -349,5 +349,5 @@ Albert Einstein
 
 e past decade has been marked by a significant increase in Internet access media and an abundance of cloud-based storage, high-definition multimedia streaming, and services providing software and platforms. This has resulted in an unprecedented demand in the speed and volume of data transfers. As forecasted by Cisco (Fig. 1.1), this demand will definitely continue to grow and global data traffic will increase nearly 3-fold from 2014 to 2019. By the year 2019, 10.4 zettabytes of data will be transferred per year [1].
 
-![](images/895338d0d20c8298d43169303b18fc4579f9cda58a890222ce6e57a7c11736ab.jpg)  
+![](/img/mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/images/895338d0d20c8298d43169303b18fc4579f9cda58a890222ce6e57a7c11736ab.jpg)  
 Network traffic predictions for years 2014 to 2019 in zettabytes per Fig. 1.1year. Figure produced from data in [1].

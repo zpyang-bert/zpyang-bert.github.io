@@ -501,17 +501,17 @@ ETSI支持:
 
 ****
 *Fig. 1: Experimental setup including data plane and control plan with end-to-end orchestrator, packet- and optical-SDN controller.*
-![](_images/3e943340b30b040453919df58c5d528badaa3a6fedb5dfc03d9d0d81a6440e12.jpg)
+![](/img/mineru_output/Th4C.2/auto/images/3e943340b30b040453919df58c5d528badaa3a6fedb5dfc03d9d0d81a6440e12.jpg)
 > 🔍 深度说明：本图展示实验设置，包括数据平面和控制平面与端到端编排器、以及 packet-和 optical-SDN控制器的集成架构。数据平面：光开关（OXC, Optical Cross-Connect）、波段开关（WB, Wavelength Blocker）、放大器（EDFA）组成的S-C-L三波段光网络。控制平面：TeraFlowSDN控制器（基于OpenDaylight的SDN控制器扩展），通过NETCONF/YANG接口配置光器件。编排器：更高层的业务编排（Service Orchestrator），协调IP层和光层资源分配。S-C-L三波段（S:1460-1530nm, C:1530-1565nm, L:1565-1625nm）总带宽约10THz，支持约100波×100G（DWDM）。波段保护优势：当C波段光纤断裂时，业务可自动切换到L或S波段（前提是备路可用），恢复时间<50ms（满足电信级要求）。
 
 ****
 *Fig. 2: Control plane architecture and sequence diagram for telemetry based automatic closed-loop protection.*
-![](_images/93c4cec376e7240d5945c92d986079b72b64da7a880a8b4a2e77b8a21cab191d.jpg)
+![](/img/mineru_output/Th4C.2/auto/images/93c4cec376e7240d5945c92d986079b72b64da7a880a8b4a2e77b8a21cab191d.jpg)
 > 🔍 深度说明：本图展示控制平面架构和基于遥测的自动闭环保护序列图。控制平面架构：TeraFlowSDN北向接口（REST API）接收业务请求，南向接口（NETCONF/gRPC）配置光设备。序列图：检测到光纤断裂 -> OXC自动切换 -> 控制器更新网络拓扑 -> 触发重路由计算 -> 业务恢复<50ms。遥测（Telemetry）：光设备周期性上报性能数据（功率、OSNR、FEC corrected errors），SDN控制器基于实时数据进行故障预测和预防性切换。
 
 ****
 *Fig. 3: Experimental results a) before and b) after the automatic reconfiguring over the TeraFlowSDN controller took place including the relevant opti*
-![](_images/c68d14f76c54833d0350355c6fa84910b74b3cbcb12edccf54414d6d224331c3.jpg)
+![](/img/mineru_output/Th4C.2/auto/images/c68d14f76c54833d0350355c6fa84910b74b3cbcb12edccf54414d6d224331c3.jpg)
 > 🔍 深度说明：本图展示TeraFlowSDN控制器自动重配置前后的实验结果对比。(a) 自动重配置前：某些波段功率不平衡（O波段增益低约5dB），业务性能下降；(b) 自动重配置后：TeraFlowSDN控制器调整波段增益均衡器（GFF），使各波段功率差<1dB，系统恢复到正常性能。自动重配置触发条件：O波段OSNR<10dB（低于阈值）或功率波动>2dB。TeraFlowSDN的创新：闭环控制（Closed-loop control）——控制器根据网络状态自动调整光设备，无需人工干预，是未来自治网络（Autonomous Network）的雏形。
 
 ---

@@ -28,7 +28,7 @@ tags:
 
 ### 论文目标
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：数据流量指数级增长推动I/O链路带宽需求持续攀升
@@ -38,7 +38,7 @@ tags:
 
 ### 全球移动数据流量预测
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-001.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：Cisco预测2017-2022年移动数据流量将增长7倍
@@ -48,7 +48,7 @@ tags:
 
 ### Google数据中心
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-002.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：数据中心是高速有线链路的核心应用场景
@@ -58,7 +58,7 @@ tags:
 
 ### 有线标准数据率发展
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-003.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：各标准组织定义的每引脚数据率持续提升
@@ -68,7 +68,7 @@ tags:
 
 ### 有线收发器数据率趋势
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-004.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：学术论文中展示的收发器数据率不断提升
@@ -78,7 +78,7 @@ tags:
 
 ### 能效改进趋势
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-005.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-005.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：收发器能效逐年提升
@@ -92,7 +92,7 @@ tags:
 
 ### 有线串行链路框图
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-006.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-006.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：典型串行链路系统架构
@@ -102,7 +102,7 @@ tags:
 
 ### 4:1 DFF型Serializer
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-007.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-007.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：基于D触发器的并行转串行实现
@@ -112,7 +112,7 @@ tags:
 
 ### 4:1 MUX型Serializer
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-008.jpg)
+![](/img/serdes/fundamentals/papers/PAM4 oDSP原理介绍_images/img-008.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：基于多路复用器的serializer实现
@@ -122,7 +122,7 @@ tags:
 
 ### LVDS驱动器
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-009.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-009.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：低压差分信号发射机
@@ -132,7 +132,7 @@ tags:
 
 ### CML驱动器
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-010.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-010.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：电流模式逻辑驱动器
@@ -142,7 +142,7 @@ tags:
 
 ### 电压模式驱动器
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-011.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-011.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CMOS源极串联终止驱动器
@@ -152,7 +152,7 @@ tags:
 
 ### Strong-Arm Latch
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-012.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-012.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：高速比较器/判决电路
@@ -162,7 +162,7 @@ tags:
 
 ### 信道频率响应
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-013.jpg)
+![](/img/serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/_images/img-013.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：FR4带状线的频率衰减特性
@@ -172,7 +172,7 @@ tags:
 
 ### 脉冲响应分析
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-014.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-014.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：信道对单脉冲的响应
@@ -182,7 +182,7 @@ tags:
 
 ### FFE实现
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-015.jpg)
+![](/img/serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/_images/img-015.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：前馈均衡器在发射端实现
@@ -192,7 +192,7 @@ tags:
 
 ### CTLE电路
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-016.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-016.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：连续时间线性均衡器
@@ -202,7 +202,7 @@ tags:
 
 ### CTLE传递函数
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-017.jpg)
+![](/img/serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/_images/img-017.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CTLE的频率响应设计
@@ -212,7 +212,7 @@ tags:
 
 ### DFE实现
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-018.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-018.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：判决反馈均衡器
@@ -222,7 +222,7 @@ tags:
 
 ### PAM-4调制
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-019.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-019.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：四电平脉冲幅度调制
@@ -232,7 +232,7 @@ tags:
 
 ### PAM-4 vs NRZ波形
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-020.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-020.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：PAM-4 vs NRZ信号波形对比
@@ -274,7 +274,7 @@ tags:
 
 ### 高阻抗PAM-4 SST TX
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-021.jpg)
+![](/img/serdes/fundamentals/papers/高速光通信接收机前端与时钟数据恢复电路研究与实现_images/img-021.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：传统SST TX的动态功耗问题
@@ -288,7 +288,7 @@ tags:
 
 ### PAM-16 TX+RX AFE
 
-![](Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_images/img-022.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-022.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：超高高阶调制的能效研究

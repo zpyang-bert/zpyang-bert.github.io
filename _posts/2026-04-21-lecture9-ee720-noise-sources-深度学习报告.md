@@ -24,7 +24,7 @@ ECEN720: High-Speed Links
    Analog & Mixed-Signal Center
        Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第九讲，主题是Serdes中的噪声源与抖动，噪声和抖动是限制Serdes性能的两个核心因素，决定了链路的最大传输距离和最低误码率。
 > 【核心结论】内容覆盖噪声来源（热噪声、闪烁噪声、电源噪声、串扰噪声）、抖动来源（随机抖动RJ、确定性抖动DJ）、抖动的分解与测量、抖动对链路性能的影响、低噪声低抖动电路设计技术，是Serdes性能优化的核心参考。
@@ -44,7 +44,7 @@ Announcements
 
                                            2
 
-![噪声来源](_images/img-001.jpg)
+![噪声来源](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】Serdes中的主要噪声来源示意图，噪声会降低接收信号的信噪比，导致误码率升高。
 > 【核心结论】噪声主要包括：1) 热噪声：电子的热运动产生，和温度成正比，是白噪声，无法消除；2) 闪烁噪声（1/f噪声）：和频率成反比，低频噪声，CMOS工艺中主要存在于MOS管中；3) 电源噪声：电源上的波动，通过电路耦合到信号路径中，是主要的噪声来源之一；4) 串扰噪声：相邻信号的耦合，和信号速率、走线间距有关。
@@ -68,7 +68,7 @@ Noise in High-Speed Link Systems
 
                                               3
 
-![抖动分类](_images/img-002.jpg)
+![抖动分类](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】抖动的分类示意图，抖动是信号边沿偏离理想位置的偏差，会导致采样错误，是高速链路的主要性能限制因素之一。
 > 【核心结论】抖动分为两大类：1) 随机抖动（RJ）：由热噪声等随机因素导致，服从高斯分布，没有边界，用rms值表示；2) 确定性抖动（DJ）：有固定来源的抖动，有界，包括周期性抖动、数据相关抖动、占空比失真等，用峰峰值表示；总抖动（TJ）= 14×RJ + DJ（对应误码率1e-12）。
@@ -97,7 +97,7 @@ Noise Source Overview
    • Caused by random device          • Clock jitter components
      mismatches                                                           4
 
-![抖动分解](_images/img-003.jpg)
+![抖动分解](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】抖动的分解与测量方法示意图，通过抖动分解可以定位抖动的来源，指导问题解决。
 > 【核心结论】抖动测量常用方法：1) 实时光采样示波器：直接测量抖动波形，成本高，带宽有限；2) 采样示波器+抖动分析软件：可以进行抖动分解，区分RJ和DJ，定位抖动来源；3) 误码率 bathtub曲线：通过测量不同采样位置的误码率，间接计算抖动大小。
@@ -126,7 +126,7 @@ Bounded and Statistical Noise Sources
   random is critical to accurate link performance estimation
                                                                             5
 
-![低抖动设计](_images/img-004.jpg)
+![低抖动设计](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】低抖动电路设计技术示意图，抖动主要来自时钟电路和高速信号路径，需要针对性优化。
 > 【核心结论】低抖动设计技术包括：1) 低噪声PLL设计：优化相位噪声，降低时钟抖动；2) 电源隔离：模拟电路和数字电路电源分开，加入去耦电容；3) 屏蔽：敏感的模拟和时钟路径用地线屏蔽，降低串扰；4) 差分信号：所有高速信号采用差分传输，抑制共模噪声。

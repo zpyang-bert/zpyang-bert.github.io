@@ -9,7 +9,7 @@ tags:
 ---
 Lectu re 1 : I ntrod uction
 
-![](images/c277572f4a06c70699b950fdcc388349d453d391df09a711c3b6aac1d36f01d0.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/c277572f4a06c70699b950fdcc388349d453d391df09a711c3b6aac1d36f01d0.jpg)
 
 Sa m Pa lermo Ana log & M ixed -Sig na l Center Texas A&M U n iversity
 
@@ -157,9 +157,9 @@ Typica l processor platform
 
 ## AM D EPYC Rome Platform
 
-![](images/59ea2918623000b6f88d3da5b6e758218c291bdf417b629567705fa2e98f3af8.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/59ea2918623000b6f88d3da5b6e758218c291bdf417b629567705fa2e98f3af8.jpg)
 
-![](images/ddd5073908c137b713aa4d87b862dfdd9fe3f13fe57a0544396d56526d672485.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/ddd5073908c137b713aa4d87b862dfdd9fe3f13fe57a0544396d56526d672485.jpg)
 
 ## Data Center Li n ks
 
@@ -177,14 +177,14 @@ TO R switch to edge switch
 
 Futu re i ntra - ra c k
 
-![](images/cd6e5ce5b20bbcc5df28e21c84bc777499900590ba203b50733bd46f28846510.jpg)  
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/cd6e5ce5b20bbcc5df28e21c84bc777499900590ba203b50733bd46f28846510.jpg)  
 [G iga l ig ht]
 
 ## I ncreasi ng I/O Ba ndwidth Dema nd
 
-![](images/8a81b1f7e6f8ea32981198f993cac2202c7ef9bff1e8c9ac8738e80520cf68fa.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/8a81b1f7e6f8ea32981198f993cac2202c7ef9bff1e8c9ac8738e80520cf68fa.jpg)
 
-![](images/b00ada016f84071b447f6c3c8649627638b3d98821c442429b3268370e25a3d5.jpg)  
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/b00ada016f84071b447f6c3c8649627638b3d98821c442429b3268370e25a3d5.jpg)  
 [Zhou Opt. Fi ber Tech . 20 17]
 
 • Agg ressive sca l i ng of I/O data rates is req u i red for data centers a nd H PC systems
@@ -193,11 +193,11 @@ Futu re i ntra - ra c k
 
 ## H ig h -Speed Electrica l Li n k System
 
-![](images/4a2f284bc0d760439e3a920e9e6af6eafaedf7c45721ffb98b0057105b100730.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/4a2f284bc0d760439e3a920e9e6af6eafaedf7c45721ffb98b0057105b100730.jpg)
 
 ## Electrica l Backpla ne Cha n nel
 
-![](images/9b35d63f382b1504bc7cb3498c0462677da485b6b5c6891f3e1d22a2afffce8e.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/9b35d63f382b1504bc7cb3498c0462677da485b6b5c6891f3e1d22a2afffce8e.jpg)
 
 • Freq uency dependent loss Dispersion & reflections
 
@@ -205,27 +205,27 @@ Futu re i ntra - ra c k
 
 ## Cha n nel Performa nce I m pact
 
-![](images/2b1b49849c6670d7ddd7e880f8ad04a79883efb39205d49f058c5c7422d7ba84.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/2b1b49849c6670d7ddd7e880f8ad04a79883efb39205d49f058c5c7422d7ba84.jpg)
 
-![](images/b288789c458e40f2ab572766aa547bda1a16b1d7b7f08d3e02cfd37c3a4ffd1d.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/b288789c458e40f2ab572766aa547bda1a16b1d7b7f08d3e02cfd37c3a4ffd1d.jpg)
 
-![](images/f7c6a0ff5ffbe5c9dc8aa3da09ff33fdca8b433c8104c1f80256fb09a9669bba.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/f7c6a0ff5ffbe5c9dc8aa3da09ff33fdca8b433c8104c1f80256fb09a9669bba.jpg)
 
-![](images/1caf2a8c0182075c3038771cf8eb0bb69c74a74f8c662ba54731a5af477323d7.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/1caf2a8c0182075c3038771cf8eb0bb69c74a74f8c662ba54731a5af477323d7.jpg)
 
-![](images/5760bbf8118bdb8e06a1f0c09e1215ab4454c3b5ab69971c361ca8e0c022ed97.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/5760bbf8118bdb8e06a1f0c09e1215ab4454c3b5ab69971c361ca8e0c022ed97.jpg)
 
 ## Cha n nel Performa nce I m pact
 
-![](images/8bbe181e7fae18701a0fbf38a1dc3ea1a114a59e4fd7c9bb5a9b12433dacc5c3.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/8bbe181e7fae18701a0fbf38a1dc3ea1a114a59e4fd7c9bb5a9b12433dacc5c3.jpg)
 
-![](images/9b14d4020e2e7d137b1b57f294b57cc06cc25dcdf926d454eccf4b0859f93e2e.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/9b14d4020e2e7d137b1b57f294b57cc06cc25dcdf926d454eccf4b0859f93e2e.jpg)
 
-![](images/21249cc8ad63d57bb04d2794efe0f654664ea5bc10694181d2a43f2c2af1b272.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/21249cc8ad63d57bb04d2794efe0f654664ea5bc10694181d2a43f2c2af1b272.jpg)
 
-![](images/915bc788e4df622fbe7e1024dda47d486fe57c745ddc105bc7ae3252a46b88bd.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/915bc788e4df622fbe7e1024dda47d486fe57c745ddc105bc7ae3252a46b88bd.jpg)
 
-![](images/37f85f2620107442ce594465c937ceab928bae023a706bd59e1e090b62f66e27.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/37f85f2620107442ce594465c937ceab928bae023a706bd59e1e090b62f66e27.jpg)
 
 # A 1 0G b/s 5-tap D FE / 4-Tap F FE Transceiver i n 90n m C MOS Tech nology
 
@@ -235,9 +235,9 @@ I B M T . J . Watson Resea rch Ce nte r, Yorktown H e ig hts , NY
 
 ## Transm iss ion C han nel I m pai rments
 
-![](images/ae56529f78bf34aae42b9b32463cf521f589cd055718254e16f91ed4812e00cc.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/ae56529f78bf34aae42b9b32463cf521f589cd055718254e16f91ed4812e00cc.jpg)
 
-![](images/ec49dd803a49964ffc58170750370dfe9d459f54d89fd1fa2e6ac199406f6ca7.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/ec49dd803a49964ffc58170750370dfe9d459f54d89fd1fa2e6ac199406f6ca7.jpg)
 
 ## 1 0G b/s SerDes Mai n Featu res
 
@@ -265,22 +265,22 @@ I B M T . J . Watson Resea rch Ce nte r, Yorktown H e ig hts , NY
 
 <table><tr><td rowspan=1 colspan=1>FFE Taps</td><td rowspan=1 colspan=1>Full Scale</td><td rowspan=1 colspan=1>DAC bits</td></tr><tr><td rowspan=1 colspan=1>Pre-cursor</td><td rowspan=1 colspan=1>25%</td><td rowspan=1 colspan=1>4</td></tr><tr><td rowspan=1 colspan=1>Cursor</td><td rowspan=1 colspan=1>100%</td><td rowspan=1 colspan=1>6</td></tr><tr><td rowspan=1 colspan=1>1st Post-cursor</td><td rowspan=1 colspan=1>50%</td><td rowspan=1 colspan=1>5</td></tr><tr><td rowspan=1 colspan=1>2nd Post-cursor</td><td rowspan=1 colspan=1>25%</td><td rowspan=1 colspan=1>4</td></tr></table>
 
-![](images/76468bc04c68ea0af0bcac0ae531be36ffd389814d6f649d2fd1ee758c01c7c0.jpg)  
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/76468bc04c68ea0af0bcac0ae531be36ffd389814d6f649d2fd1ee758c01c7c0.jpg)  
 “A Low Powe r 1 0G b/s Se ria l Li n k Tra ns m itte r i n 90-n m C M OS” A. Rylyakov et al . , CS I CS 2005 1
 
 ## Tx Output Eye D iag ram @ 1 0G b/s
 
 No F FE, 24mA on mai n tap
 
-![](images/163284f8943f2f01cc626fb8ff435f032a9c582db636631d6f2ce0db3f6ce17d.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/163284f8943f2f01cc626fb8ff435f032a9c582db636631d6f2ce0db3f6ce17d.jpg)
 
 F F E 4= [0 , 8 5% , - 1 5% , 0 , 0]
 
-![](images/034d3e4dbefe221152e7f2ea27ddf060bed05e52cf46148f0ebf4d432e9b0460.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/034d3e4dbefe221152e7f2ea27ddf060bed05e52cf46148f0ebf4d432e9b0460.jpg)
 
 ## Receiver Arch itectu re
 
-![](images/19e0ebd9c692307e37a7623bfde5d7da79b87b5874d1426a8d231b4182a32b19.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/19e0ebd9c692307e37a7623bfde5d7da79b87b5874d1426a8d231b4182a32b19.jpg)
 
 \- 5-ta p conti n u ously ad a ptive D F E
 
@@ -294,7 +294,7 @@ F F E 4= [0 , 8 5% , - 1 5% , 0 , 0]
 
 ## D FE Approach
 
-![](images/e0f3045f6d38ca7d2a5a3705fc6569395f28830048fa0005f34e8e740d9d90eb.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/e0f3045f6d38ca7d2a5a3705fc6569395f28830048fa0005f34e8e740d9d90eb.jpg)
 
 <table><tr><td rowspan=1 colspan=1>DFE Taps</td><td rowspan=1 colspan=1>Resolution</td></tr><tr><td rowspan=1 colspan=1>H1</td><td rowspan=1 colspan=1>6 bits</td></tr><tr><td rowspan=1 colspan=1>H2</td><td rowspan=1 colspan=1>5 bits</td></tr><tr><td rowspan=1 colspan=1>H3, H4, H5</td><td rowspan=1 colspan=1>4 bits</td></tr></table>
 
@@ -308,7 +308,7 @@ F F E 4= [0 , 8 5% , - 1 5% , 0 , 0]
 
 ## CDR Loop
 
-![](images/1df4c0c1cb6681681a1d437e2a8c6289818a81359ef51c3dd89496247a8d48e6.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/1df4c0c1cb6681681a1d437e2a8c6289818a81359ef51c3dd89496247a8d48e6.jpg)
 
 ## Key Featu res :
 
@@ -320,17 +320,17 @@ freq u e n cy offset
 
 \- I nd e pe nd e nt I , Q control
 
-![](images/43c4b04c43ac7768ff78e1275f908c1b2de8fa7b7c1cc527403be6692748bc51.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/43c4b04c43ac7768ff78e1275f908c1b2de8fa7b7c1cc527403be6692748bc51.jpg)
 
 ## C h i p-to-C h i p Li n k Experi ments
 
-![](images/1a635ffdae0d5dddd528c7e69e4769c694dbd923e0e39bbe77933afce6c22651.jpg)
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/1a635ffdae0d5dddd528c7e69e4769c694dbd923e0e39bbe77933afce6c22651.jpg)
 
 <table><tr><td rowspan=1 colspan=1>TraceLength</td><td rowspan=1 colspan=1>5GHz losses(Tx module + boardtrace + Rx module)</td><td rowspan=1 colspan=1>Number of vias3.8mm via stub /1.8mm via stub /1.8mm via through</td></tr><tr><td rowspan=1 colspan=1>10&quot;(#1)</td><td rowspan=1 colspan=1>12dB</td><td rowspan=1 colspan=1>2/010</td></tr><tr><td rowspan=1 colspan=1>10&quot;(#2)</td><td rowspan=1 colspan=1>10dB</td><td rowspan=1 colspan=1>0/2/0</td></tr><tr><td rowspan=1 colspan=1>15&quot;</td><td rowspan=1 colspan=1>25dB</td><td rowspan=1 colspan=1>41210</td></tr><tr><td rowspan=1 colspan=1>20&quot;</td><td rowspan=1 colspan=1>15dB</td><td rowspan=1 colspan=1>01012</td></tr></table>
 
 ## C h i p-to-C h i p Measu rement Resu lts
 
-![](images/1be25630a851b1870cac35dc34e7a4074e4a385ecd865c619ae08bfd9ced5e2c.jpg)  
+![](/img/mineru_output/lecture1_ee720_intro/auto/images/1be25630a851b1870cac35dc34e7a4074e4a385ecd865c619ae08bfd9ced5e2c.jpg)  
 Li n k[Meg hel l i (I B M) ISSCC 2006]
 
 ## Prel i m i na ry Sched u le

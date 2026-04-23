@@ -61,7 +61,7 @@ tags:
 └──────────────┴────────────┴────────────┴────────────┘
 ```
 
-![](lecture7_ee720_eq_intro_txeq_images/img-073.jpg)
+![](/img/serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/_images/img-073.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】均衡是高速SerDes系统设计中克服信道高频衰减和ISI的核心技术；不同均衡器类型（TX FIR、RX CTLE、DFE）各有优缺点，适用于不同信道条件和设计约束。
@@ -141,7 +141,7 @@ W(f_N) = -0.131 - 0.595 - 0.274 = -1.0
 |W(f_N)| = 0dB
 ```
 
-![](lecture7_ee720_eq_intro_txeq_images/img-078.jpg)
+![](/img/serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/_images/img-078.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】TX FIR通过预畸变发射脉冲来补偿信道频率选择性和ISI；时域和频域分析揭示了de-emphasis的本质——低频衰减而高频保持，从而实现等效频率峰化。
@@ -206,7 +206,7 @@ W_ls_norm = [-0.131, 0.595, -0.274]
 • 需评估量化误差对眼图的影响
 ```
 
-![](lecture7_ee720_eq_intro_txeq_images/img-125.jpg)
+![](/img/serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/_images/img-125.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】MMSE（最小均方误差）算法是计算TX FIR最优抽头的标准方法，通过伪逆运算找到使误差范数最小的抽头系数；信道脉冲响应的精确测量是算法有效的前提。
@@ -320,7 +320,7 @@ FIR在电压模式驱动器中更难实现:
 • 对于阻抗受控信道，增益递减
 ```
 
-![](lecture7_ee720_eq_intro_txeq_images/img-133.jpg)
+![](/img/serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/_images/img-133.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】TX FIR电路实现需要考虑功耗、复杂度、输出电容等多个因素；直接FIR和分段DAC是两种主要架构，各有权衡；电压模式TX FIR因串联阻抗问题实现更复杂。
@@ -403,7 +403,7 @@ y[n] = Σ w_k · x[n-k] - Σ h_k · y_hat[n-k]
 • ISI消除时序复杂化CDR相位检测
 ```
 
-![](lecture7_ee720_eq_intro_txeq_images/img-269.jpg)
+![](/img/serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/_images/img-269.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】RX DFE通过已判决的输出反馈来消除残余ISI，是高速SerDes RX的核心技术；反馈结构不放大噪声是其主要优势，但无法消除pre-cursor ISI是固有局限。
@@ -443,7 +443,7 @@ y[n] = Σ w_k · x[n-k] - Σ h_k · y_hat[n-k]
 • 长尾ISI需要更多抽头
 ```
 
-![](lecture7_ee720_rx_adaptive_eq_images/img-272.jpg)
+![](/img/serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/_images/img-272.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】DFE的反馈时序路径是高速实现的瓶颈，单抽头DFE需要在每个UI内完成判决和反馈两个操作；多抽头DFE通过级联结构分担延迟但增加复杂度。

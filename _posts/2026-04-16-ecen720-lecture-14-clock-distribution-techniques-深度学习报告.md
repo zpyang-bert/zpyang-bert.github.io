@@ -36,7 +36,7 @@ tags:
 • 低k介质有助于减少电容
 ```
 
-![](lecture14_ee720_clk_distribution_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】随着工艺节点从N缩放到N+1，导线宽度和厚度通常按0.7x缩放，但高度可能增加以补偿电阻增加。铜互连中的趋肤效应和晶界散射导致导线电阻增加，RC延迟成为制约全局信号传输的关键因素。
@@ -80,7 +80,7 @@ tags:
 • 裸片全局时钟分布网络
 ```
 
-![](lecture14_ee720_clk_distribution_images/img-077.jpg)
+![](/img/serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/_images/img-077.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】串行I/O系统需要稳定的时钟基准来同步数据采样。嵌入式时钟系统将时钟嵌入数据流进行传输，前向时钟系统则从TX单独转发时钟到RX，两种架构都需要高效的裸片时钟分布网络。
@@ -111,7 +111,7 @@ T_j_o = (...((T_j_i × JTF_1 + PN_1) × JTF_2 + PN_2)...) × JTF_N + PN_N
 • 需要正交相位间隔和占空比校正以获得均匀输出眼图
 ```
 
-![](lecture14_ee720_clk_distribution_images/img-079.jpg)
+![](/img/serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/_images/img-079.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】时钟缓冲器的JTF描述了缓冲器对输入抖动的传递特性。在级联结构中，每一级的JTF都会影响最终的输出抖动。早期设计中忽略了JTF的累积效应，导致实际性能与预期不符。
@@ -185,7 +185,7 @@ CDR滤波器(高通)应用于获得未跟踪的有效TX抖动
 • 通常需要占空比控制
 ```
 
-![](lecture14_ee720_clk_distribution_images/img-080.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-080.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】CML2CMOS转换器用于将低摆幅CML时钟信号转换为高摆幅CMOS信号，以便驱动后续的数字电路。在高速SerDes中，时钟分布网络通常使用CML以保持低抖动，但接收端可能需要CMOS电平。
@@ -202,7 +202,7 @@ CDR滤波器(高通)应用于获得未跟踪的有效TX抖动
 • 改善占空比性能
 ```
 
-![](lecture14_ee720_clk_distribution_images/img-082.jpg)
+![](/img/serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/_images/img-082.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】AC耦合自偏置反相器输入级通过隔直电容消除DC偏移，自偏置机制自动设置工作点，跨耦合缓冲器提供额外的增益和带宽扩展。这种架构改进了基本CML2CMOS的占空比性能。
@@ -226,7 +226,7 @@ CDR滤波器(高通)应用于获得未跟踪的有效TX抖动
 • CK0, CK45, CK90, CK135, CK180, CK225, CK270, CK315
 ```
 
-![](lecture14_ee720_clk_distribution_images/img-083.jpg)
+![](/img/serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/_images/img-083.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】ILO利用注入锁定效应产生多个相位时钟输出。当振荡器被外部时钟注入时，输出相位锁定到注入时钟，其锁定带宽内的抖动被跟踪，之外的噪声被抑制。

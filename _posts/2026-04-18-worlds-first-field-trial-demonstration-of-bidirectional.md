@@ -28,32 +28,32 @@ Fig. 1 shows the field-trial experimental setup of the real-time FPGA-based bidi
 
 The downstream is transmitted at 1540 nm, while the upstream is transmitted at 1552.5 nm. In the downstream OLT transmitter side, 25.06752-GBaud dual-polarization (DP) QPSK signals are generated on two SCs and loaded into the 119.07072-Gsa/s arbitrary waveform generator (AWG, Keysight M8194A). The modulated optical signal is amplified to 2 dBm by a semiconductor optical amplifier (SOA) and then distributed to two ONUs over several allpassive optical distribution frames (ODFs) and field-deployed standard single-mode fiber (SSMF). In each ONU receiver side, a variable optical attenuator (VOA) is used to adjust the received optical power (ROP). The downstream signal is detected by an integrated coherent receiver (ICR). The signals are digitized and then processed by an FPGA (Xilinx XCVU13P) equipped with four analog-to-digital channels operating at a sampling rate of 28.20096 GSa/s. In the upstream ONU transmitter side, 25.06752-GBaud DP-QPSK burst signals are generated. At each ONU, the optical burst signal is amplified to 2 dBm by an SOA. Then the SC signals from ONU1 and ONU2 are transmitted over 14.5-km SSMF to Site B. The signal from ONU2 is then further sent over additional 0.5-km SSMF to Site C and looped back over 0.5-km SSMF to Site B. At Site B, the two upstream SCs are merged and sent back to the OLT over 14.5-km SSMF. Due to multiple ODF crossings in the deployed fiber route, additional insertion losses are introduced, leading to measured optical path losses of 23.5 dB and 28 dB for ONU1 and ONU2, respectively. There exists 4.5-dB inter-ONU power difference between two upstream SCs. Notably, the downstream and upstream reception DSP both run in real-time FPGA. Due to FPGA resource constraints, real-time processing is applied to one 100G subcarrier at a time during the experimental tests. Nevertheless, the physical layer operates with the full 2-SC 200G TFDM structure, and both subcarriers are individually tested under identical conditions.
 
-![](images/e9dcc64c2f0cfa058d46816b9ba5a66a5150e79a4c997a63e3fb586eaba3d0e3.jpg)  
+![](/img/mineru_output/Th4C.4/auto/images/e9dcc64c2f0cfa058d46816b9ba5a66a5150e79a4c997a63e3fb586eaba3d0e3.jpg)  
 Fig. 1 Field-trial setup of the real-time FPGA-based bidirectional 200G TFDM coherent PON through field-deployed fiber links. (a) The overall experimental setup; (b) Field-trial deployment map showing fiber routes and site locations, and the effective fiber lengths to the OLT are 29 km (ONU1) and 30 km (ONU2). Inset (i) is the network topology for the field-trail links.
 
 ## 3. Experimental results and discussion
 
 Fig. 2 shows the field-trial experimental results. Fig. 2 (a) and (b) present the sensitivity performance in downstream transmission, for B2B and field trial case, respectively. Chromatic dispersion is compensated by the blind channel equalizer in the ONU receiver DSP, leading to essentially identical BER performance in the back-to-back (B2B) case and after fiber transmission. For performance evaluation, a 15% overhead soft-decision FEC with a BER threshold of 2×10⁻² [6] is assumed. Note that FEC decoding is not included in the FPGA implementation. When the OLT transmits two carriers to provide an aggregate rate of 200G (200.54016 Gb/s), each ONU demodulates only one SC. However, it still receives the combined optical power of both data SCs, and the measured sensitivity becomes −34 dBm. In Fig. 2(c), the downstream sensitivity is measured versus the OLT launch power, which is controlled by the SOA drive current. The sensitivity penalty emerges when the launch power exceeds 6 dBm. For launch power up to 10 dBm, increasing the launch power improves the power budget, reaching a maximum of 42.8 dB. Fig. 2 (d) presents the upstream performance under B2B condition. The upstream sensitivity is −37 dBm when only one ONU (ONU1 or ONU2) is active and transmits a single 100G carrier. When the aggregate upstream rate is 200G, the measured sensitivity is about −34 dBm, which holds for both cases where only one ONU is active and two carriers are transmitted or two ONUs are active and two carriers are transmitted. For both 100G and 200G upstream operation, a dynamic range of up to 21 dB is achieved. Fig. 2 (e) presents the upstream performance in the field trial.
 
-![](images/8d10bc8e9fcb0612d5c0d8465e88814258fd7d1e9262ec1dd71c83efd333842a.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/8d10bc8e9fcb0612d5c0d8465e88814258fd7d1e9262ec1dd71c83efd333842a.jpg)
 
-![](images/dd1bfae69d4b8d1f3777cd504938f147452574a5f20e0726bc8aa302f919c736.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/dd1bfae69d4b8d1f3777cd504938f147452574a5f20e0726bc8aa302f919c736.jpg)
 
-![](images/63de6fd460d273b48dc90a7f558961eb4569aa5c4f3c419786ed96ad31848301.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/63de6fd460d273b48dc90a7f558961eb4569aa5c4f3c419786ed96ad31848301.jpg)
 
-![](images/34c5ee6f9128252cbb23ad736048949d10fdb7512a389008459fd3c803ecccc7.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/34c5ee6f9128252cbb23ad736048949d10fdb7512a389008459fd3c803ecccc7.jpg)
 
-![](images/28f05002ff839ca6a7dd7fd0bc3b287d88d47415c96e4783a54158dd3e6602c1.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/28f05002ff839ca6a7dd7fd0bc3b287d88d47415c96e4783a54158dd3e6602c1.jpg)
 
-![](images/b3056cc901c6aa85cf6fcbeda94aca285776a92db667524e4b449ca36d75416f.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/b3056cc901c6aa85cf6fcbeda94aca285776a92db667524e4b449ca36d75416f.jpg)
 
-![](images/cc57849e54e5024adb99ddb2dbf94fd85eff722a563717f79a06e7427bfddb2c.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/cc57849e54e5024adb99ddb2dbf94fd85eff722a563717f79a06e7427bfddb2c.jpg)
 
-![](images/03ba1b757f4d8ef86f58b8df7b7e36bab47cb69513544fbb7dc3a463507daf40.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/03ba1b757f4d8ef86f58b8df7b7e36bab47cb69513544fbb7dc3a463507daf40.jpg)
 
-![](images/9e0f73c38ad2b633812deb5770a9ffd24c34daa279bb09b862971bc806883d86.jpg)
+![](/img/mineru_output/Th4C.4/auto/images/9e0f73c38ad2b633812deb5770a9ffd24c34daa279bb09b862971bc806883d86.jpg)
 
-![](images/1fbe3b4b1a00a8c7f780b0567fa090bf224e9a6a120d684e9fc86d54d8482284.jpg)  
+![](/img/mineru_output/Th4C.4/auto/images/1fbe3b4b1a00a8c7f780b0567fa090bf224e9a6a120d684e9fc86d54d8482284.jpg)  
 Fig. 2 (a) B2B downstream sensitivity performance. (a) Field-trial downstream sensitivity performance. (c) Downstream power budget vs. SOA boost power. (d) B2B upstream performance. (e) Field-trial upstream performance. (f) Upstream time–frequency resource allocation: spectra and waveforms for 100G/200G cases. (g) OLT FPGA placement for upstream Rx DSP. (h) ONU FPGA placement for downstream Rx DSP. (j) Long-term DSP performance (200G) over time up to 24 h. (k) FPGA resource utilization.
 
 The sensitivity is −37 dBm when only one ONU transmits a single 100G carrier. The sensitivity is −34 dBm when only one ONU transmits two carriers (200G). When both ONUs are active and each transmits a 100G single-carrier signal, resulting in a 200G aggregate rate, the measured sensitivity is −31 dBm. This is attributed to a 4.5-dB power imbalance between the two ONU carriers, and the sensitivity is evaluated based on the worst-performing carrier (SC2 in Fig. 2 (e)). In Fig. 2(f), the upstream time–frequency resource allocation is illustrated by the measured spectra and waveforms, corresponding to the several allocation cases in Fig. 2(e). Fig. 2 (j) shows the long-term DSP stability. The BERs for running for 24 h are all below the FEC threshold for both downstream and upstream. Therefore, the stability of the real-time DSP is confirmed. Finally, the FPGA placements of the OLT and ONU are shown in Fig. 2 (g) and (h), and the resource utilization is summarized in Fig. 2(k).

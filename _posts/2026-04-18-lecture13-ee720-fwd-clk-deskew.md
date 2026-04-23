@@ -12,7 +12,7 @@ tags:
 
 ## Lectu re 1 3 : Forwa rded Clock Deskew Ci rcu its
 
-![](images/3e383e72df6c8ad0af50ecaaaf70793b4b81f1238545695b7bf2c87d8fc787ae.jpg)
+
 
 Sa m Pa lermo Ana log & M ixed -Sig na l Center Texas A&M U n iversity
 
@@ -54,7 +54,7 @@ Multi-Channel Serial Link System
 
 ## RX Data Channels
 
-![](images/ad23e7fad72540982c2d423588114fc27e7fce3574be25542f6bc86618c2aa34.jpg)
+
 
 • Com mon h ig h-speed reference clock is forwa rded from TX ch i p to RX ch i p
 
@@ -75,7 +75,7 @@ Multi-Channel Serial Link System
 ## Forwa rded Clock I/O Li m itations
 
 Multi-Channel Serial Link System  
-![](images/031c532434d1fd9c90648299010f675e1f3c4a68c7e1dd9ea344d3285f458a08.jpg)
+
 
 • Clock skew ca n l i m ited forwa rd clock I/O performa nce
 
@@ -90,7 +90,7 @@ Multi-Channel Serial Link System
 ## Forwa rded Clock I/O De-Skew
 
 Multi-Channel Serial Link System  
-![](images/cb31ce32ab0f241f661b44c591e988ff94de7b0da7b9c5bc287bdc118ddd53e3.jpg)
+
 
 • Per-cha n nel de-skew a l lows for sig n ifica nt data rate i ncreases
 
@@ -112,7 +112,7 @@ Multi-Channel Serial Link System
 
 ## Multi-Channel Serial Link System
 
-![](images/b27b63b2d14757a2fd8cf9706e74cd5ee26f8ef1105fb1be7b3c6d5666d36774.jpg)
+
 
 • TX PLL
 
@@ -140,12 +140,12 @@ H ig h speed forwa rded clock a l l ows j itte r tra c ki n g between clock a nd
 
 •Clock to data skew ca uses that h ig h freq uency clock a nd data j itters become out of phase on the receiver
 
-![](images/078441eeaa6e10d548ff3f829e22a57d8a4cfbef17730b66c57656c670591e74.jpg)
+
 
 ## I m pa ct of Cl ock to Data S kew o n J itte r Tracki ng
 
 J itter Freq uency = 1 00 M Hz  
-![](images/8269222c38c0fe7c7faaa85bf530d38a97ced8e6a6a0662d645a1b841af961bb.jpg)
+
 
 $$
 J _ { D } = J _ { P } \sin { ( 2 \pi f _ { j } U I \cdot n ) }
@@ -168,15 +168,15 @@ Assu m i ng 5 U I skew i n th is exa m ple
 ## I m pa ct of Cl ock to Data S kew o n J itte r Tracki ng
 
 J itter Freq uency = 200 M Hz  
-![](images/04b3f3497d7f2e72eb99dbb99342a672462af6b5bc4855c02273a46c30912c68.jpg)
 
-![](images/966ff2a8794d529cfe8a215c4166b7bd73771972ae95171f23295d280d7c05ab.jpg)
 
-![](images/a235aa1c0d7e2e43d2c55a575f36f00a57abb58495d074d537d0cd33100ca1a0.jpg)
+
+
+
 
 ## I m pa ct of Cl ock to Data S kew o n J itte r Tracki ng
 
-![](images/45d27329c1c5a0364e94095fb1aa26c6131fdbcf31d577dcad69bc67d8917e81.jpg)  
+  
 The clock skew fl i ps the j itter phase of clock faster for h ig her freq uency j itte r a n d res u lts i n h i g h e r d iffe re nti a l j itte r
 
 ## I m pact of Clock to Data Skew o n J itte r Tra cki n g
@@ -190,9 +190,9 @@ system wi l l have a
 d iffe re nti a l j itte r g reate r   
 tha n 1
 
-![](images/45ef72e228531cbd7b0f3a681e9c5394ddb6d04cf57255a2b5500a63bd06b287.jpg)
 
-![](images/33823697aeb7951cba59a0f7f2b0a8df5804418646ddbe7be23f68c03306c630.jpg)
+
+
 
 ## O pti m u m J itte r Tra cki n g fo r 200 M H z j itte r
 
@@ -206,7 +206,7 @@ I n 1 0G b/s system , U I = 1 00 ps
 
 Control la bl e JTB over 70 - 800 M Hz is desi red
 
-![](images/bb7dd16cfe03d3f3bc866126e7a476279efc088e2490f03a826cbb0816785abc.jpg)
+
 
 ## J itte r I m p u l se Respo n se(J I R) a n d J itte r Tra n sfe r Fu nction (JTF) Ana lysis Method
 
@@ -216,7 +216,7 @@ Control la bl e JTB over 70 - 800 M Hz is desi red
 
 Extraction of J I R i n ½ rate system where both clock edges a re usi ng
 
-![](images/961284b4aa8835fa5a3bab4682db27fd615fa48c327ee5cbf048c0056d450e0b.jpg)
+
 
 Idea l clock waveform su peri m posed with clock i ncorporati ng j itter i m pu l se sti m u l u s
 
@@ -228,7 +228,7 @@ J itter i m pu l se response
 
 ## Fi lter/Am pl ifier Freq uency Response & J itter Tra nsfer Response
 
-![](images/65d9987d4131fcb002a826cfb2ead011ea0bfede9a8cd4502b173de7b4e5c6d7.jpg)
+
 
 • Low- pass freq uency response ( b u ffe r, d i stri b uti o n i nte rco n n ect) i s s i m i l a r to a h i g h - pa ss j itte r fi lte r
 
@@ -244,15 +244,15 @@ J itter i m pu l se response
 
 • H ig h freq u e n cy j itte r i s a m p l ified a s it p ro pa g ates across the cha n nel
 
-![](images/2f70e395a9b83c5a138c16ebd5bf1f09127490e16e5c5b9cd879561558ad4828.jpg)
 
-![](images/46dc6f4582b2c990c380c7656c9b86c54b220f77bab8d6434d398c33a36dd36c.jpg)
+
+
 
 ## PLL or DLL/PI Forwa rded Clock Deskew
 
 • TX clock is forwa rded a long a n i ndependent cha n nel to the RX ch i p where it is d istri buted to the RX cha n nels
 
-![](images/eec1793d6a66e7fe3ea82623eb74ee351f5727ac3b866a8b48fc5e7557b3c07f.jpg)
+
 
 • The PLL or DLL locks onto the forwa rded clock a nd serves as a m u lti - phase g e n e rato r a n d a j itte r fi lte r
 
@@ -260,7 +260,7 @@ J itter i m pu l se response
 
 ## PLL/PI Forwa rded Clock Deskew Exa m ple
 
-![](images/2cca46845945c39a60e553277a46a1ec1c005474ddda18e9643707abc8304ce1.jpg)  
+  
 [ Prete ISSCC 2006]
 
 ## • Fu l ly buffered DI M M tra nsceiver
@@ -273,7 +273,7 @@ Des i red fo r u n co rre l ated j itte r
 
 N ot d esi red fo r co rre l ated h ig h freq u e n cy j itte r
 
-![](images/a2754abff4b51ed94a47d3d18e0afae8068ad81af26fe4e5dedf8b59f25f59f1.jpg)
+
 
 ## • PLL d isadva ntages
 
@@ -291,7 +291,7 @@ Des i red fo r co rre l ated j itte r
 
 N ot d es i red fo r u n co rre l ated j itte r
 
-![](images/f5fe57843d6afdc8dae807c5b38c26da9194caac15df4f3fde53f11f24f88b7a.jpg)
+
 
 ## • DLL adva ntages
 
@@ -311,15 +311,15 @@ b ) we i n s e rt a p h as e s h i ft i n the loop . We know th is wi l l ca use
 freq u e n cy to s h ift s i n ce th e loop ga i n has to   
 have exactly 2 π p hase s h ift (o r m u l t i p l e s ) .
 
-![](images/3e9a176962713a4c7b9388c866f21c5b33a1bf8fa7bfa4d948a23a65ca5adc61.jpg)  
+  
 (a)
 
-![](images/23cf10db0ddd8cd33b79d249468166828ac863b7e2d935fe1662c67cd6bf02c4.jpg)  
+  
 (b)
 
-![](images/657ce9f53cbd0c401cf9f75001e5c9a8b0fd44434be95576420fd73d7ad94fa9.jpg)
 
-![](images/b347b71914b6d36bc7baf9ece08ef8435ecec58bdcd052359abc67b0822bfaf5.jpg)  
+
+  
 (d)
 
 ## Phase Sh ift for I njected Sig na l
@@ -330,7 +330,7 @@ have exactly 2 π p hase s h ift (o r m u l t i p l e s ) .
 
 • I n o rd e r fo r t h e os c i l l ato r l o o p g a i n to b e e q u a l to u n ity with ze ro p h ase s h ift, th e s u m of th e cu rre nt of th e tra n s i sto r a n d th e i nj ected cu rre nts m ust have th e p rope r p hase s h ift to com pe nsate for th e ta n k p hase s h ift.
 
-![](images/84fed1d75f4e4b92d186fc1ec4d07456016e7d93197ed3d378b4ad17b9b998be.jpg)
+
 
 Source: [Razavi]
 
@@ -340,7 +340,7 @@ $\phi _ { 0 } =$ Tank impedance phase shift
 
 Phase shift between inj ected clock and output signal
 
-![](images/7bbd4b01416e1cf409fb98e14f331cecfe625496ab5bb95e14a7f5fa0e1442de.jpg)
+
 
 N ote that th e freq u e n cy of th e i nj ection s ig n a l d ete rm i n es th e extra p hase s h ift $\Phi _ { 0 }$ of th e ta n k. Th is is fixed by th e freq u e n cy offset.
 
@@ -368,7 +368,7 @@ $$
 \begin{array} { l } { { \displaystyle { \phi _ { 0 } = \frac { \pi } { 2 } - \tan ^ { - 1 } ( \frac { L \cdot \omega } { R _ { p } } \cdot \frac { \omega _ { 0 } ^ { 2 } } { \omega _ { 0 } ^ { 2 } - \omega ^ { 2 } } ) } } } \\ { { \displaystyle { : \omega _ { 0 } ^ { 2 } - \omega ^ { 2 } \approx 2 \omega _ { 0 } ( \omega _ { 0 } - \omega ) , \frac { L \cdot \omega } { R _ { p } } = \frac { 1 } { Q } , \frac { \pi } { 2 } - \tan ^ { - 1 } ( x ) = \tan ^ { - 1 } ( x ^ { - 1 } ) } } } \\ { { \displaystyle { : \tan \phi _ { 0 } \approx \frac { 2 Q } { \omega _ { 0 } } ( \omega _ { 0 } - \omega ) } } } \\ { { \displaystyle { \mathrm { : t a n ~ } \phi _ { 0 } = \frac { I _ { i n f } } { I _ { T } } , I _ { T } = \sqrt { I _ { a c } ^ { 2 } - I _ { i n f } ^ { 2 } } } } } \end{array}
 $$
 
-![](images/6ccbec3d717e30601fe4c6c31f1f3868279995915ef166348cc40e2c5f37b0bd.jpg)  
+  
 Sou rce : Razavi
 
 At the edge of the lock ra nge , the i nj ected cu rre nt is orthogon a l to th e ta n k cu rre nt.
@@ -397,22 +397,22 @@ Locki ng ra nge is i nversely proportiona l to osci l lator Q
 
 ## D i g ita l Co ntro l l ed Osci l l ato r ( DCO) with I nj ecti o n Loc ki n g
 
-![](images/11617032fbfa557b026031ac32f0f5f8987e0dfb48a5e9711773784ca6c9ed72.jpg)
 
-![](images/4f1b5ce2e2aa2b03b1cd3eb92999f809832deb13c6bc26316d45e874616626ab.jpg)  
+
+  
 S h e khar, S u d i p et a l , “Strong I nj ection Locki ng i n Low-Q LC Osci l l ators : M od e l i ng a nd Ap pl i cation i n a Forwa rd ed-Clocked I/O Receiver” , I E E E J SSC , 2009 .
 
 Th e d ig ita l ly control l ed switch-ca pacitor ba n k tu n es th e free-ru n n i ng freq u e n cy of DCO to adj ust the p hase of the forwa rd ed clock a nd a lso com pensate for PVT.
 
 ## Ri ng Osci l lator I LO Exa m ple
 
-![](images/9aa3491e3cddefd21d5af5b237c996bb24e3531f425ac5718aff4952d4ffdfad.jpg)
+
 
 ## Ri ng Osci l lator I LO Exa m ple
 
-![](images/fa3f9b0a5a1135ec58bbce2ecabb493d5c7a1ca2b72eeeee4de7228c1490342d.jpg)
 
-![](images/b38a37479bac0a5d71d13950412de85ca3dca691f4f96d4ff331aecec3f3ae7b.jpg)
+
+
 
 ## I LO J itte r Tra n sfe r
 
@@ -434,7 +434,7 @@ $\Delta \omega$ is a function of the desired de - skew phase : $\theta _ { \math
 
 ## I LO J itte r Tra n sfe r
 
-![](images/6996642169027806fd3728cd048e9aa780c64da12a3ffce19cde243cf079b154.jpg)
+
 
 $$
 J T F _ { _ { I N P U T } } = \frac { 1 } { 1 + \displaystyle \frac { s } { \omega _ { P } } }
@@ -454,7 +454,7 @@ $$
 
 ## I LO J itte r Tra n sfe r
 
-![](images/803d84885fa6f4b7c050f1ddf5c5a210f12c507eec1dfbf1be415b2ca1f96c9c.jpg)
+
 
 $$
 J T F _ { _ { I N P U T } } = \frac { 1 } { 1 + \displaystyle \frac { s } { \omega _ { P } } }
@@ -474,7 +474,7 @@ $$
 
 ## I LO J itte r Tra n sfe r
 
-![](images/df219371f3ab3ab9c19c05a44c19df0506da8f3920b9696149041ec55177fc29.jpg)
+
 
 $$
 J T F _ { _ { I N P U T } } = \frac { 1 } { 1 + \displaystyle \frac { s } { \omega _ { P } } }
@@ -502,7 +502,7 @@ $$
 S _ { o u t }  { \left( \omega _ { j i t t e r } \right) } = \frac { \omega _ { P } ^ { 2 } S _ { i n j } + \omega ^ { 2 } S _ { V C O } } { \omega _ { P } ^ { 2 } + \omega ^ { 2 } } = \frac { \left( \displaystyle \frac { K } { A } \right) ^ { 2 } \cos ^ { 2 } { \theta _ { s s } } S _ { i n j } + \omega ^ { 2 } S _ { V C O } } { \left( \displaystyle \frac { K } { A } \right) ^ { 2 } \cos ^ { 2 } { \theta _ { s s } } + \omega ^ { 2 } }
 $$
 
-![](images/302c94fe1ec027d3712d7e07f23afc4601a52f0d1f0cd4ec8a4243689a84d7ce.jpg)
+
 
 • U p to j itte r tra c ki n g ba ndwidth, I LO output phase noise is dom i nated by i njection clock
 
@@ -518,7 +518,7 @@ Ca n be better tha n VCO
 
 • ½ rate TX forwa rd s clock to ¼ rate RX
 
-![](images/e0e2a346aeb5ae1acf7423c98f8ff49376569e6f938e46390edf740d84036f5f.jpg)
+
 
 $$
 f _ { o s c } = m f _ { i n j }
@@ -530,7 +530,7 @@ H ere m  0 . 5
 
 ## Su per- Ha rmon ic I LO Phase Noise Fi lteri ng
 
-![](images/f01a86e3e9f9c3df01fe2c7c0991b106704a7d1958ee3bd8a8ad92c2b57b5cf7.jpg)
+
 
 • Low freq uency phase n o i se i s a ctu a l ly bette r th a n i nj ecti o n osci l l ato r by $\mathsf { m } ^ { 2 }$
 
@@ -538,7 +538,7 @@ $$
 S _ { o u t } \big ( \omega _ { j i t t e r } \big ) = \frac { m ^ { 2 } \bigg ( \displaystyle \frac { K } { A } \bigg ) ^ { 2 } \cos ^ { 2 } m \theta _ { s s } S _ { i n j } + \omega ^ { 2 } S _ { V C O } } { \bigg ( \displaystyle \frac { K } { A } \bigg ) ^ { 2 } \cos ^ { 2 } m \theta _ { s s } + \omega ^ { 2 } }
 $$
 
-![](images/01cce1a82ec801cfb077dff7c2cd687c4279d6c6700a9a4248740fdf743a2ec3.jpg)
+![](/img/mineru_output/lecture13_ee720_fwd_clk_deskew/auto/images/01cce1a82ec801cfb077dff7c2cd687c4279d6c6700a9a4248740fdf743a2ec3.jpg)
 
 ## Ri ng Osci l lator Su b- Ha rmon ic I LO Exa m ple w/ Clock Sig na l I njection
 
@@ -546,7 +546,7 @@ $$
 
 • Su b- Ha rmon ic i nj ecti o n with c l oc k sig na l ca n ca use si g n ifi ca nt I LO a m pl itude va riations a nd su b- ha rmon ic spu riou s tones
 
-![](images/1659edaf035947fe5e9e60058fa93ed77c1e79209f019136968dfbe5595bdcb0.jpg)
+
 
 ## Ri ng Osci l lator Su b- Ha rmon ic I LO Exa m ple w/ Pu lse Tra i n Sig na l I njection
 
@@ -554,25 +554,25 @@ $$
 
 • Adj u sti ng pu l se width, d, cha nges effective i nj ecti o n strength a nd ca n be u sed to adj u st j itte r tra c ki n g ba ndwidth
 
-![](images/6a3eed05d5604f73ebd7f9ec0cfd6c1524fbf9f581f5e7e9a65a5d68ff669e91.jpg)
+
 
 ## Effective I njection Strength of Pu l se Tra i n
 
-![](images/063c92413616f07bc4fda21f911d86a0bc075961cd510380838309605965859e.jpg)
+
 
 Injection strength of ${ \mathsf { n } } _ { \mathsf { t h } }$ harmonic → $K _ { n } = { \frac { 4 A } { N T } } \mathrm { s i n } \Bigg ( { \frac { n \pi d } { N T } } \Bigg )$
 
 [ Hossain ISSCC 20 10]
 
-![](images/2a902c3659bb66a268073aaf0da44e7763173501af1dc6d09ab09c4d4581dfda.jpg)
+
 
 • Wider pu lse sepa ration (lower freq uency su bha rmon ics) red uces effective i njection strength
 
 ## Adj usti ng J itter Tracki ng Ba ndwidth w/ Pu l se Tra i n Sig na l
 
-![](images/08918ccc6134cc75e03618d8a4cbaac892e22e966c27bb9dc3463a9db94920a5.jpg)
 
-![](images/34ef067ba847ec6d50bae81280ac3c2b8f3793d4244aff4b04f10078815e4760.jpg)
+
+
 
 • Wider pu lse sepa ration (lower freq uency su b- ha rmon ics) red uces effective i njection strength a nd resu lts i n lower j itte r tra c ki n g ba n d wi dth
 
@@ -580,23 +580,23 @@ Injection strength of ${ \mathsf { n } } _ { \mathsf { t h } }$ harmonic → $K 
 
 ## Phase Drifts with I LO- Based Clocki ng
 
-![](images/86f8955d626d169a644c5101af4673b40b7d8bf24bab73b541368d90804480ed.jpg)
+
 
 • Voltage a nd tem peratu re va riations ca n ca use the TX/RX I LOs’ free ru n n i ng freq uency to cha nge, a nd th us the p ha se re l atio n sh i p ca n d rift with ti m e
 
 ## Low-Overhead CDR w/I LO- Based De-Skew
 
-![](images/4c627d0f2e693516c6583c99556422b1a8cd56b94e5f70afe17fb8a66276c47f.jpg)
+
 
 • I ntrod uci ng a low-overhead CDR i nto a forwa rded -clock system a l lows tracki ng of low-freq uency phase d rifts, wh i le m a i nta i n i n g co rre l ated j itte r tra c ki n g
 
 ## M u lti - Phase E rrors at Low VD D
 
-![](images/35e687405a27547141450bd0cb754b1dc94590c01a30ee40c26bd5c87b685af8.jpg)
+
 
 ## Edge- Rotati ng 5/4X Su b- Rate CDR
 
-![](images/35edcce07581808d6d35acf97b61b3dbb5e13fd76074883a4901e440af2d6970.jpg)
+
 
 • An add itiona l period ica l ly rotati ng edge sa m pler provides the 4-eye phase i nformation to CD R l og ic
 
@@ -606,18 +606,18 @@ Injection strength of ${ \mathsf { n } } _ { \mathsf { t h } }$ harmonic → $K 
 
 ## Tracking Non-U niform Eyes
 
-![](images/171cc5b57906e1170f294b6f7c9851c48a0ff72f1840f5111820902c4d497b31.jpg)
 
-![](images/06f6713ba1e7c51d3314fe89f4eab8d960da2c381eb67efef70fb4bc66f6f176.jpg)
+
+
 
 ## Correlated J itter Tolera nce
 
-![](images/7851d681a93706d6af86f629d8e63d201e1b46c7d9d85355633910dec6f63f4c.jpg)
+
 
 <table><tr><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>[2]</td><td rowspan=1 colspan=1>[3]</td><td rowspan=1 colspan=1>[4]</td><td rowspan=1 colspan=1>This Work</td></tr><tr><td rowspan=1 colspan=1>VDD, Process</td><td rowspan=1 colspan=1>1.0V/65nm</td><td rowspan=1 colspan=1>1.25V/90mm</td><td rowspan=1 colspan=1>1.08V/32mm</td><td rowspan=1 colspan=1>0.8V/65mm</td></tr><tr><td rowspan=1 colspan=1>Data Rate</td><td rowspan=1 colspan=1>6.4Gb/s</td><td rowspan=1 colspan=1>8Gb/s</td><td rowspan=1 colspan=1>16Gb/s</td><td rowspan=1 colspan=1>14Gb/s</td></tr><tr><td rowspan=1 colspan=1>Clock Rate</td><td rowspan=1 colspan=1>3.2GHz</td><td rowspan=1 colspan=1>2GHz</td><td rowspan=1 colspan=1>4GHz</td><td rowspan=1 colspan=1>3.5GHz</td></tr><tr><td rowspan=1 colspan=1>Clock Arch.</td><td rowspan=1 colspan=1>FC</td><td rowspan=1 colspan=1>Embedded</td><td rowspan=1 colspan=1>FC</td><td rowspan=1 colspan=1>FC</td></tr><tr><td rowspan=1 colspan=1>Multi-phase Gen.</td><td rowspan=1 colspan=1>PLL/PI</td><td rowspan=1 colspan=1>DLL</td><td rowspan=1 colspan=1>ILO/PI</td><td rowspan=1 colspan=1>ILO/PI</td></tr><tr><td rowspan=1 colspan=1>RX FOM*(Excludes PLL)</td><td rowspan=1 colspan=1>3.9pJ/bit*</td><td rowspan=1 colspan=1>1.59pJ/bit*</td><td rowspan=1 colspan=1>1.02pJ/bit</td><td rowspan=1 colspan=1>0.56pJ/bit</td></tr></table>
 
 U ncorrelated J itter Tolera nce  
-![](images/f76f24e0cf79aad1a68d35d80b8af1026ed7f5c6aded1e3dfb5700cddadcb785.jpg)
+
 
 ## O pti m u m J itte r Tra cki n g fo r 200 M H z j itte r
 
@@ -635,7 +635,7 @@ Objective : I m plement o pti m a l JTB th at yi e l d s m i n i m u m d iffe re
 
 Control la bl e JTB over 70 - 800 M Hz is desi red
 
-![](images/1ba70fd9f66261b17f760eb1279c5faa98d5ccdeea8b63bc510375d1784debcc.jpg)
+
 
 ## U ndersta nd i ng of J itter Red uction usi ng Ba nd pass Fi lteri ng
 
@@ -653,9 +653,9 @@ $$
 C ( f ) \approx \frac { A } { 2 } \delta ( f - f _ { c } ) - \frac { \beta A } { 4 } [ \delta ( f - f _ { L } ) - \delta ( f - f _ { H } ) ]
 $$
 
-![](images/690a8442849deaba6e1c06fb11aef43e7a7238855cc65c177267cb52e6677e7b.jpg)
 
-![](images/ad2b75b7836cc784a06a941f86785e008797416cd56bac266450c7d352eeb570.jpg)
+
+
 
 ## U ndersta nd i ng of J itter Red uction usi ng Ba nd pass Fi lteri ng
 
@@ -703,9 +703,9 @@ $$
 
 ## Ana lysis of Ba nd pass J itter Fi lteri ng Based on J I R a nd JTF
 
-![](images/3130a10f312e54b675fffe9ee5622f6f75d14cb497d3fe3d9eb33fa18d48fa2e.jpg)
 
-![](images/133f9e93026139b76d6a44ae27ff8e31a795d856f3d38fccb3e51e35c7c17780.jpg)  
+
+  
 • Tra n s m itted j itte r exh i b its l ow- pa ss tra n sfe r cha racteristic th roug h ba nd - pass cha n nel
 
 • Received h ig h freq uency u ncorrelated j itter ca n be red uced by a ba nd pass fi lter
@@ -718,13 +718,13 @@ $$
 \begin{array} { c } { { J T F _ { B P } ( j 2 \pi f ) = \displaystyle { \frac { 1 } { 1 + \frac { j f } { f _ { p } } } } } } \\ { { f _ { p } = ( 1 / 2 ) B W _ { 3 d B } } } \end{array}
 $$
 
-![](images/e189786306ffc6600a519abe671e598a2bec60f37c5ae547d9c1aef859f562db.jpg)
+
 
 ## O pti m u m J itter Tracki n g with Ba nd pass Fi l te ri n g
 
 • Apply J I R a nd JTF a na lysis to q ua ntify the i m pact of Q on JTB of 5G Hz clock, U I = 1 00 ps
 
-![](images/5ad7aa1806268250a9a9ea8db83669d2c34c10e0b61aa4a5f767f640ad28d71b.jpg)
+
 
 Q tu n i ng ra nge over 3 -30 provides JTB ra nge over 97 – 790 M Hz
 
@@ -734,19 +734,19 @@ To ach ieve JTB of 70 M Hz to opti m ize j itte r tra c ki n g with 1 0 U I cloc
 
 SW1..SW4
 
-![](images/357067a66c94337b69c921ead33cc806a5bbf6d6418c0bba4895a5feaa4cf8e2.jpg)
 
-![](images/4b0deca21f62764736a4f1671ded267e793cd4e11a212656145904878d9cfb2e.jpg)
+
+
 
 ## Ba n d pa ss Fi lte r J itte r Fi lte ri n g
 
-![](images/ba5f622632c9cf55533933a7dc8f3d729a7134751628cdf857ef45cefef69f5f.jpg)  
+  
 Fig. 20 Simulated impact of the proposed bandpass flter cireuit on random jitter
 
-![](images/417cbafc066403fedfee1c4315b42e7f6abb0859ffc79eaf53442810e6e1abb2.jpg)  
+  
 Fig, 21 Simulated impact of the proposed andpas flter circuit on DCD
 
-![](images/2cdf466ac6218392d9d83deabb695a93549b0be9cafc9acebba5d6ec9034549d.jpg)  
+  
 Fig, 22 Simulated impact of the proposed bandpass fiter cireuit on a sinusoidal jiter component
 
 • Ba n d pa ss fi lte r i s effective i n fi lte ri n g h i g h -freq u e n cy j itte r

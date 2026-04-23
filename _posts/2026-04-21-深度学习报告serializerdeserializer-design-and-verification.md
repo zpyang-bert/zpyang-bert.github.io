@@ -90,7 +90,7 @@ Moore定律指出集成电路上晶体管数量每两年翻一番。随着芯片
 
 #### 2.2.1 电压模式和电流模式驱动
 
-![](Serializer_Deserializer_Design_Verification_Valkonen_66p_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 **深度说明**：
 > - **研究背景**：该图展示了电压模式和电流模式驱动器的典型结构，是LVDS接口设计的理论基础。
@@ -100,7 +100,7 @@ Moore定律指出集成电路上晶体管数量每两年翻一番。随着芯片
 
 #### 2.2.2 电流模式驱动器分析
 
-![](Serializer_Deserializer_Design_Verification_Valkonen_66p_images/img-001.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 
 > 🔍 **深度说明**：
 > - **研究背景**：该图展示了电流模式驱动器的详细原理图和等效电路，包含源极耦合NMOS对等关键结构。

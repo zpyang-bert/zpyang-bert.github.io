@@ -61,7 +61,7 @@ V_out(t) = Σ d_k · y_k(t - kT)
 
 **Pre-cursor / Cursor / Post-cursor ISI**：
 
-![](lecture4_ee720_channel_pulse_model_images/img-015.jpg)
+![](/img/serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/_images/img-015.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该图展示了信道脉冲响应的采样结构，是分析ISI（码间干扰）的核心工具。脉冲响应的主峰（cursor）表示当前比特，而前标（pre-cursor）和后标（post-cursor）表示相邻比特对当前比特的干扰。
@@ -146,7 +146,7 @@ Eye_Height(t) = y^{(1)}(t) - (-y^{(1)}(t))
 
 **案例1分析**：
 
-![](lecture4_ee720_channel_pulse_model_images/img-016.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-016.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该图展示了峰值失真分析的完整推导过程。通过脉冲响应采样值可以预测最坏情况眼高，无需遍历所有可能的数据模式。
@@ -216,7 +216,7 @@ s(t) = 2 × [0.426 + (-0.053) - 0.542]
 
 **NRZ/PAM-2**：
 
-![](lecture4_ee720_channel_pulse_model_images/img-034.jpg)
+![](/img/serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/_images/img-034.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该图对比了NRZ和PAM-4两种调制格式的信号电平。NRZ为2电平（1bit/symbol），PAM-4为4电平（2bit/symbol），是当前高速链路的两大主要调制方案。
@@ -343,7 +343,7 @@ PAM-4接收机复杂度:
 
 **NRZ vs PAM-4眼图对比**：
 
-![](lecture4_ee720_channel_pulse_model_images/img-035.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-035.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该图对比了NRZ和PAM-4的眼图结构。NRZ有1个眼（眼高=2A），PAM-4有3个眼（眼高=2A/3），PAM-4的眼高只有NRZ的1/3。
@@ -469,7 +469,7 @@ NRZ + 高级均衡的潜力:
 
 **决策树**：
 
-![](lecture4_ee720_channel_pulse_model_images/img-027.jpg)
+![](/img/serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_images/img-027.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】该决策树是ECEN720课程提出的NRZ vs PAM-4选择准则，基于信道损耗斜率（dB/octave）进行判断，是工程实践中常用的简化工具。

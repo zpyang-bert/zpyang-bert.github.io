@@ -14,7 +14,7 @@ Thesis for the Degree of Licentiate of Engineering
 
 Christoffer Fougstedt
 
-![](images/9e228520b5776b3e344ad798f020cc3f6e523491b81ea29b4b53616016cd1ec9.jpg)
+![](/img/mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/images/9e228520b5776b3e344ad798f020cc3f6e523491b81ea29b4b53616016cd1ec9.jpg)
 
 CHALMERS
 
@@ -28,7 +28,7 @@ INFORMATION TO ALL USERS The quality of this reproduction is dependent on the qu
 
 In the unlikely event that the author did not send a complete manuscript and there are missing pages, these will be noted. Also, if material had to be removed, a note will indicate the deletion.
 
-![](images/ce33d26971baf751f05edcf3be445ffea89cf72733330f28e986b49e220b62f3.jpg)
+![](/img/mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/images/ce33d26971baf751f05edcf3be445ffea89cf72733330f28e986b49e220b62f3.jpg)
 
 ProQuest 27753234
 

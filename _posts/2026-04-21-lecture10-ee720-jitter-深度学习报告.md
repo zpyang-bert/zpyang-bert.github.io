@@ -24,7 +24,7 @@ ECEN720: High-Speed Links
    Analog & Mixed-Signal Center
        Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第十讲，主题是抖动的深入分析，是前一讲噪声与抖动的延伸，重点讲解抖动的数学模型、对误码率的影响、抖动容限测试等内容，是Serdes测试与验证的核心参考。
 > 【核心结论】内容覆盖抖动的概率分布、误码率与抖动的关系、 bathtub曲线、抖动容限测试、抖动预算、抖动传递函数，是Serdes系统设计和测试的必备知识。
@@ -46,7 +46,7 @@ Announcements
 
                                                        2
 
-![抖动与误码率](_images/img-001.jpg)
+![抖动与误码率](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】抖动对误码率的影响示意图，抖动越大，误码率越高，两者之间有明确的数学关系。
 > 【核心结论】当采样位置偏离理想位置时，误码率会快速升高，服从高斯分布的随机抖动导致误码率随采样偏移呈指数下降；总抖动在BER=1e-12时一般定义为14倍的随机抖动rms值加上确定性抖动的峰峰值。
@@ -67,7 +67,7 @@ Agenda
 
                             3
 
-![Bathtub曲线](_images/img-002.jpg)
+![Bathtub曲线](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】误码率的Bathtub曲线示意图，是Serdes测试中最常用的曲线，直观展示了链路的时序余量。
 > 【核心结论】Bathtub曲线的横轴是采样位置偏移，纵轴是误码率，曲线的底部越宽，时序余量越大；两个边沿的斜率由随机抖动决定，斜率越陡，随机抖动越小，中间平坦部分的宽度由确定性抖动决定。
@@ -93,7 +93,7 @@ or jitter (random noise
 only here)
                                                     4
 
-![抖动容限测试](_images/img-003.jpg)
+![抖动容限测试](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】抖动容限测试方法示意图，抖动容限是接收端能够容忍的最大输入抖动，是接收端的核心指标。
 > 【核心结论】抖动容限测试是向发送信号注入不同频率、不同幅度的抖动，测量误码率保持在<1e-12时的最大抖动幅度，得到抖动容限曲线；抖动容限一般在低频时大，高频时小，符合CDR的抖动跟踪特性。
@@ -119,7 +119,7 @@ Jitter Definitions
 
                                                                         5
 
-![抖动预算](_images/img-004.jpg)
+![抖动预算](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】系统抖动预算示意图，抖动预算是Serdes系统设计的重要环节，合理分配各个环节的抖动指标，保证整个系统的时序余量足够。
 > 【核心结论】总抖动预算包括：发送端输出抖动、传输信道引入的抖动、接收端的抖动容忍度，三者需要满足：发送抖动 + 信道抖动 < 接收抖动容限 - 余量；一般需要预留0.1UI以上的余量，应对最坏情况。

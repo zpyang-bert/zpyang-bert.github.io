@@ -10,7 +10,7 @@ tags:
 ---
 Lecture 3: Time-Domain Reflectometry & S-Parameter Channel Models
 
-![](images/a06321391b10426c46bcc2d2739cf4d739a56819d2149cd83334ed1e5b97a461.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/a06321391b10426c46bcc2d2739cf4d739a56819d2149cd83334ed1e5b97a461.jpg)
 
 Sam Palermo Analog & Mixed-Signal Center Texas A&M University
 
@@ -54,7 +54,7 @@ Majority of s-parameter material from Hall "Advanced Signal Integrity for High-S
 
 ## Interconnect Modeling
 
-![](images/ccf783b7359278fb00cc26c7750940478f67a37f74d620f2d98bc1691bb5f36b.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/ccf783b7359278fb00cc26c7750940478f67a37f74d620f2d98bc1691bb5f36b.jpg)
 
 Why do we need interconnect models?
 
@@ -76,9 +76,9 @@ Network analyzer (frequency domain)
 
 ## Time-Domain Reflectometer (TDR)
 
-![](images/80ccf0b434daa283c250a94bdb715df0055fecb68bf58a6d5d33ed14cdd8f82a.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/80ccf0b434daa283c250a94bdb715df0055fecb68bf58a6d5d33ed14cdd8f82a.jpg)
 
-![](images/05a4d81272c32054d09cf224dff186c2c7fa832254117e4f0ad1b904b29409ad.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/05a4d81272c32054d09cf224dff186c2c7fa832254117e4f0ad1b904b29409ad.jpg)
 
 • TDR consists of a fast step generator and a high-speed oscilloscope
 
@@ -96,7 +96,7 @@ Only input port access to characterize channel
 
 ## TDR Impedance Calculation
 
-![](images/7653227a9411a8acb4e6dee7dbe15cff0945666678bd1ac585a2472b4c62c4b3.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/7653227a9411a8acb4e6dee7dbe15cff0945666678bd1ac585a2472b4c62c4b3.jpg)
 
 $$
 k _ { r } \left( t \right) = \frac { V _ { r } \left( t \right) } { V _ { i } } = \frac { Z _ { T } \left( t \right) - Z _ { 0 } } { Z _ { T } \left( t \right) + Z _ { 0 } }
@@ -132,33 +132,33 @@ $$
 \scriptstyle \longrightarrow \overbrace { \sum _ { \mathrm { t } _ { \mathrm { d } } = 1 \land \mathrm { s } } \sum _ { \mathrm { ~ } \forall \mathrm { ~ } \tau } } ^ { Z _ { 0 } = 5 0 \Omega } = \Big \bigcup _ { \mathrm { ~ } } Z _ { \tau } = \mathtt { s h o r t }
 $$
 
-![](images/793e5b7c6a2ed2e5e5d54ce0d7ce0d22edc9aaa7f8d2388c2f8ad4d6ef06000c.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/793e5b7c6a2ed2e5e5d54ce0d7ce0d22edc9aaa7f8d2388c2f8ad4d6ef06000c.jpg)
 
 ## TDR Waveforms (Matched & Mismatched)
 
 Matched termination
 
-![](images/038adfaecc603db4b27ac95b8f56451911f535fa1d6972e43c6b433f3ff48ccf.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/038adfaecc603db4b27ac95b8f56451911f535fa1d6972e43c6b433f3ff48ccf.jpg)
 
 ● Mismatched termination
 
-![](images/220dc142ed3dfb1603b8d40d7ea323518706ac283185c58be912db14f7bea809.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/220dc142ed3dfb1603b8d40d7ea323518706ac283185c58be912db14f7bea809.jpg)
 
-![](images/5253d8127c99f219727c3e4fdfb45f9f68a9885335d6f820ccb95a50b43eb20e.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/5253d8127c99f219727c3e4fdfb45f9f68a9885335d6f820ccb95a50b43eb20e.jpg)
 
-![](images/3990ac5fa1f18bdadae6925c58d051328fbdc42b61e6fc3e3e1e41487aed8708.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/3990ac5fa1f18bdadae6925c58d051328fbdc42b61e6fc3e3e1e41487aed8708.jpg)
 
 ## TDR Waveforms (C & L Discontinuity)
 
 • Shunt C discontinuity
 
-![](images/b2ff190af0312e15d75ad766d95497265d9f6507769ff22a52a8c58a461527a7.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/b2ff190af0312e15d75ad766d95497265d9f6507769ff22a52a8c58a461527a7.jpg)
 
 ● Series L discontinuity
 
-![](images/6c07349e148dcc26d362c4a56023b28afd73523af8f9d70fff406e34e5ee4d3b.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/6c07349e148dcc26d362c4a56023b28afd73523af8f9d70fff406e34e5ee4d3b.jpg)
 
-![](images/7c4b01c2c0e801cfe7ba3d87c0ccf936f8bdb36a933672dd670f89ade66e6920.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/7c4b01c2c0e801cfe7ba3d87c0ccf936f8bdb36a933672dd670f89ade66e6920.jpg)
 
 $$
 \cdot \cdot \mathbf { l }
@@ -190,17 +190,17 @@ Causes difficulty in estimating L & C values
 
 ## TDR Multiple Reflections
 
-![](images/37ca94d973d68123e45865a84d1a9ce634d21e3314b78ebbf869c16e90fe4fb4.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/37ca94d973d68123e45865a84d1a9ce634d21e3314b78ebbf869c16e90fe4fb4.jpg)
 
-![](images/d0dceff5833b80b1e8588950c1926a41a462819386cde62fa7516ee6667a4b94.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/d0dceff5833b80b1e8588950c1926a41a462819386cde62fa7516ee6667a4b94.jpg)
 
 ## TDR Waveforms (Multiple Discontinuities)
 
-![](images/42afd56b6c21645387cde06d079805e122382e34b0c410598bdbcf3314f8c071.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/42afd56b6c21645387cde06d079805e122382e34b0c410598bdbcf3314f8c071.jpg)
 
 ## Time-Domain Transmission (TDT)
 
-![](images/92968e75b8198149183fcfed4fbc8cdd12e9e5202ef1cee0a7adad184e6f8bfe.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/92968e75b8198149183fcfed4fbc8cdd12e9e5202ef1cee0a7adad184e6f8bfe.jpg)
 
 ● Can measure channel transfer function
 
@@ -210,13 +210,13 @@ $$
 
 Hard to isolate impedance discontinuities, as they are superimposed on a single rising edge
 
-![](images/61535879816b24685cefa7f94b555abda59d1d812da91cedc512d0779a8c547e.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/61535879816b24685cefa7f94b555abda59d1d812da91cedc512d0779a8c547e.jpg)
 
-![](images/4ce4f994a97d366e4d4c81892f09684454e6e54072187c3e18837f1c97f75c5d.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/4ce4f994a97d366e4d4c81892f09684454e6e54072187c3e18837f1c97f75c5d.jpg)
 
 ## Network Analyzer
 
-![](images/a0ef9806bc9db624d779f1f94c7d99c3060405336545e5d18dc87410774e2038.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/a0ef9806bc9db624d779f1f94c7d99c3060405336545e5d18dc87410774e2038.jpg)
 
 • Stimulates network with swept-frequency source
 
@@ -228,11 +228,11 @@ Hard to isolate impedance discontinuities, as they are superimposed on a single 
 
 ## Directional Coupler
 
-![](images/3ed8fca769aa26343d2049b8f5a684ba28b53171daba45d99c7ab5c4c3fb11d7.jpg)  
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/3ed8fca769aa26343d2049b8f5a684ba28b53171daba45d99c7ab5c4c3fb11d7.jpg)  
 Direction Coupler  
 [Dally]
 
-![](images/3a8c4e1afb238c62364ee226b291135af043cc4a9c24ea7d28b87db1967f54ae.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/3a8c4e1afb238c62364ee226b291135af043cc4a9c24ea7d28b87db1967f54ae.jpg)
 
 • Test sets in high-frequency network analyzers make use of directional couplers
 
@@ -242,10 +242,10 @@ Direction Coupler
 
 ## Transfer Function & Impedance Measurements
 
-![](images/c9337e5f990591e62587fc5a74c8d00f541a3d02ce5d2546f3d060536cc1ad85.jpg)  
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/c9337e5f990591e62587fc5a74c8d00f541a3d02ce5d2546f3d060536cc1ad85.jpg)  
 Test Set for Transfer Function
 
-![](images/ee08c8e36ef49f49a226b854e1bff24ee97ba911d9d6d2c68f8138489e59cd16.jpg)  
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/ee08c8e36ef49f49a226b854e1bff24ee97ba911d9d6d2c68f8138489e59cd16.jpg)  
 Test Set for Impedance Measurements
 
 Transfer function measurement
@@ -272,7 +272,7 @@ S parameters are obtained with nominal termination
 
 • S parameters based on incident and reflected wave ratio
 
-![](images/381c16e355917a0cca27b58d8542889977a6ce4b07dad2955a3b03fecf9d0f2c.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/381c16e355917a0cca27b58d8542889977a6ce4b07dad2955a3b03fecf9d0f2c.jpg)
 
 $$
 { \Bigg [ } B _ { 1 } { \Bigg ] } = { \Bigg [ } S _ { 1 1 } \ S _ { 1 2 } { \Bigg ] } \cdot { \Bigg [ } A _ { 1 } { \Bigg ] }
@@ -284,7 +284,7 @@ S-matrix
 
 ## Formal S-Parameter Definitions
 
-![](images/19bf56d81e112c7078c9cd7dc1c281b73e464241d0fbb5e9428886e025eade73.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/19bf56d81e112c7078c9cd7dc1c281b73e464241d0fbb5e9428886e025eade73.jpg)
 
 [Agilent]
 
@@ -306,7 +306,7 @@ Must first convert to an ABCD matrix (or T matrix)
 
 ## ABCD Parameters
 
-![](images/9a08bfbefc785ab52af5b0de901b5badbefb16d7ef71894b72ca096261ec1620.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/9a08bfbefc785ab52af5b0de901b5badbefb16d7ef71894b72ca096261ec1620.jpg)
 
 $$
 A = \frac { \nu _ { 1 } } { \nu _ { 2 } } \bigg | _ { i _ { 2 = 0 } } \ B = \frac { \nu _ { 1 } } { i _ { 2 } } \bigg | _ { \nu _ { 2 = 0 } } \ C = \frac { i _ { 1 } } { \nu _ { 2 } } \bigg | _ { i _ { 2 = 0 } } \ D = \frac { i _ { 1 } } { i _ { 2 } } \bigg | _ { \nu _ { 2 = 0 } }
@@ -366,7 +366,7 @@ $$
 
 ## S-Parameter Channel Example
 
-![](images/048d1281389b65e7716bf8b9a403564714a8f605ef87ced175b028c5aed09646.jpg)  
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/048d1281389b65e7716bf8b9a403564714a8f605ef87ced175b028c5aed09646.jpg)  
 [Peters, IEEE Backplane Ethernet Task Force]
 
 # S-Parameter Channel Example (4-port differential)
@@ -375,9 +375,9 @@ $$
 
 ## Data from 50MHz to 15GHz in 10MHz steps
 
-![](images/29e857ec4cec66ce42967caba8303248e414dd59febc635fc1dfde9b74d87700.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/29e857ec4cec66ce42967caba8303248e414dd59febc635fc1dfde9b74d87700.jpg)
 
-![](images/54949fbe5ec3f21df8e98b3726cfff371d9e33822cbde9d11b64bdb1a95c576b.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/54949fbe5ec3f21df8e98b3726cfff371d9e33822cbde9d11b64bdb1a95c576b.jpg)
 
 $$
 \begin{array} { r l r } { \underset { { \bf { \overline { { { e } } } } } } { \Longleftrightarrow } \underset { { \bf { \overline { { { e } } } } } } {  } \underset { { \bf { \overline { { { e } } } } } } {  } \underset { { \bf { \overline { { { e } } } } } } { \bf { \overbrace { { { P _ { 0 1 } } } } } } , ~ } & { { \bf { \overline { { { P o u t 2 } } } } } \underset { { \bf { \overline { { { \Psi } } } } } } {  } \underset { { \bf { \overline { { { \Psi } } } } } } {  } \quad } & { { \bf { \overline { { { W } } } } } } \\ { \underset { { \bf { \overline { { { e } } } } } } { \cong } \quad } & { { \bf { \overline { { { P _ { 0 1 } } } } } } } & { { \bf { \overline { { { { \Psi _ { 0 1 } } } } } } } } \\ { { \bf { \overline { { { { \Psi _ { 0 1 } } } } } } } } & { { \bf { \overline { { { \Psi _ { { 0 1 } } } } } } } } & { { \bf { \overline { { { \Psi _ { { 0 1 } } } } } } } } \\ { { { \bf { \overline { { { { \Psi _ { 4 1 } } } } } } } } } & { { \bf { { \overline { { { \Psi _ { { 4 2 } } } } } } } } } & { { \bf { \overline { { { { \Psi _ { 4 4 } } } } } } } } & { { \bf { \overline { { { \Psi _ { { 4 } } } } } } } } \end{array} \quad \quad \quad \begin{array} { r l }  [ \begin{array} { l } { { \mit { \tilde { b } _ { 1 } } } } \\  { \mit { \bf { b } _ { 2 } } } \\ { { \mit { \cal { b } _ { 3 } } } \\ { \mit { \cal { b } _ { 4 } } } \end{array} } ] = [ \begin{array} { l l l l } { { \mit { \tilde { S } _ { 1 1 } } } } & { { \mit { \cal { S } } _ { 1 2 } } } &   \mit  \cal  S  \end{array} \end{array}
@@ -393,7 +393,7 @@ $$
 
 ## S-Parameter Channel Example
 
-![](images/f4782df860aff278635b072ad589fd6d70516dfe983b7a8a3305c73abf355152.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/f4782df860aff278635b072ad589fd6d70516dfe983b7a8a3305c73abf355152.jpg)
 
 ## Impulse Response
 
@@ -403,7 +403,7 @@ Time domain simulations
 
 Link analysis tools
 
-![](images/7a55178a701364606f49c8908067b23e94864b2ebbeb6bd97efce3981e34110e.jpg)  
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/7a55178a701364606f49c8908067b23e94864b2ebbeb6bd97efce3981e34110e.jpg)  
 Y(ω)= H(ω)X(ω)
 
 $$
@@ -429,7 +429,7 @@ h ( t ) = F ^ { - 1 } \left\{ S ( \omega ) \right\}
 $$
 
 T20 Backplane Channel  
-![](images/0c41d3ce3ed9962ad46faf303c0bf144aa3eada403eccb852a4c8706d054d97e.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/0c41d3ce3ed9962ad46faf303c0bf144aa3eada403eccb852a4c8706d054d97e.jpg)
 
 ## Increasing Impulse Response Resolution
 
@@ -443,67 +443,67 @@ $$
 
 For 1ps resolution: zero pad to +/-500GHz
 
-![](images/03decb4299c784d07cbe4638450d44cefecc4a5a473c7d171bba14494aee22be.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/03decb4299c784d07cbe4638450d44cefecc4a5a473c7d171bba14494aee22be.jpg)
 
 ## Channel Impulse Response
 
 • Now perform ifft to produce impulse response
 
-![](images/7a8478e99bba8682c885ddf6016b7d7f9602877d69402ea61fa75f1f12ca8b92.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/7a8478e99bba8682c885ddf6016b7d7f9602877d69402ea61fa75f1f12ca8b92.jpg)
 
 ● Can sanity check by doing an fft on impulse response and comparing to measured data
 
-![](images/5151996b1e5fec9803f7f1e114dff8d888175eea234892b16223772b1f5c8309.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/5151996b1e5fec9803f7f1e114dff8d888175eea234892b16223772b1f5c8309.jpg)
 
 ## Impulse Response of Different Channels
 
-![](images/c00c33a3ba9af4eec00f74fe8608ba2f76a48ba7a30e4c90626699b1a5ca67a8.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/c00c33a3ba9af4eec00f74fe8608ba2f76a48ba7a30e4c90626699b1a5ca67a8.jpg)
 
-![](images/e895a4da423d4510b693f8a003492819706fdadae8fadeecb056f3cea5bfd104.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/e895a4da423d4510b693f8a003492819706fdadae8fadeecb056f3cea5bfd104.jpg)
 
 ## Channel Transient Response
 
-![](images/9554a35c084ef515a75baf3b42e5d41c638ce92fb2915a426bda6f74fa63cad2.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/9554a35c084ef515a75baf3b42e5d41c638ce92fb2915a426bda6f74fa63cad2.jpg)
 
-![](images/34827964a195f1b2bd7fd232576864367c52f8787f846d6ffd9b704d3f9eef9d.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/34827964a195f1b2bd7fd232576864367c52f8787f846d6ffd9b704d3f9eef9d.jpg)
 
-![](images/71a812f3a9168fddbe4fbf8ff3249bd2b88d18df8c171d2545aa4d2c845d10a6.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/71a812f3a9168fddbe4fbf8ff3249bd2b88d18df8c171d2545aa4d2c845d10a6.jpg)
 
 ## Eye Diagrams
 
-![](images/3772cefccc32d6331b60988924d7f03b977ca8a39515f8ab57c633f8d821bdf0.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/3772cefccc32d6331b60988924d7f03b977ca8a39515f8ab57c633f8d821bdf0.jpg)
 
-![](images/a88ee6a9fea811bedf4b7aadf5b49f8f2600d07b6a53ccb0bed61699bbb61f39.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/a88ee6a9fea811bedf4b7aadf5b49f8f2600d07b6a53ccb0bed61699bbb61f39.jpg)
 
 Use a precise clock to chop the data into equal periods
 
-![](images/604c683925726ab6f37ab1ff75a20ffb5b0eeab2aaf5f048bc700aac6ef4dab0.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/604c683925726ab6f37ab1ff75a20ffb5b0eeab2aaf5f048bc700aac6ef4dab0.jpg)
 
 overlay each period onto one plot
 
-![](images/cb4fb888c2cea53953fcae3c4e18cca4c227dde103af57477dff47b24419b441.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/cb4fb888c2cea53953fcae3c4e18cca4c227dde103af57477dff47b24419b441.jpg)
 
-![](images/e8ce7e5c856fa464bd9fb888d29bb1c727203772bef3e9390d24925b734674c2.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/e8ce7e5c856fa464bd9fb888d29bb1c727203772bef3e9390d24925b734674c2.jpg)
 
 ## Eye Diagrams vs Data Rate
 
-![](images/92d58121a35121f7d5f08ceba52d1019936c9a4972ce9fd423fdf0d5bbfd3055.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/92d58121a35121f7d5f08ceba52d1019936c9a4972ce9fd423fdf0d5bbfd3055.jpg)
 
-![](images/d2ab789ba4090a480ac97625080281817c989de760e6ccb5d3e177689b771c09.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/d2ab789ba4090a480ac97625080281817c989de760e6ccb5d3e177689b771c09.jpg)
 
-![](images/f1656facb383929434b0c90bafe0158f1833ea857cc36d93223cb965a2074cbc.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/f1656facb383929434b0c90bafe0158f1833ea857cc36d93223cb965a2074cbc.jpg)
 
-![](images/55d212cb87562810db5cf43569f30c832895028b49e3c26c5d673f3308da3051.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/55d212cb87562810db5cf43569f30c832895028b49e3c26c5d673f3308da3051.jpg)
 
 ## Eye Diagrams vs Channel
 
-![](images/38f660c6d53f9acc9a187a575eacf0b0d6f58ca6ed6a4a4a92fb5ebc80f71a79.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/38f660c6d53f9acc9a187a575eacf0b0d6f58ca6ed6a4a4a92fb5ebc80f71a79.jpg)
 
-![](images/dffb7b69b50bf44a9c7daa53af521a1d62b6665ed1547c9da687829e7ae0af15.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/dffb7b69b50bf44a9c7daa53af521a1d62b6665ed1547c9da687829e7ae0af15.jpg)
 
-![](images/773aea5549da80e5c38fd19b32cf30c866c05224c19e2f1ed648d6130126f655.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/773aea5549da80e5c38fd19b32cf30c866c05224c19e2f1ed648d6130126f655.jpg)
 
-![](images/f346986102a4ca551478be72b62267eb49a54d4d60dac1aa3e3f8f03d6512f24.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/f346986102a4ca551478be72b62267eb49a54d4d60dac1aa3e3f8f03d6512f24.jpg)
 
 ## Inter-Symbol Interference (ISI)
 
@@ -513,9 +513,9 @@ overlay each period onto one plot
 
 Reflections, Channel resonances, Channel loss (dispersion)
 
-![](images/0ce804a48f26ada97527053f8421852e60691339136c218d7659978f822ea838.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/0ce804a48f26ada97527053f8421852e60691339136c218d7659978f822ea838.jpg)
 
-![](images/d2e56bc4099d6eebe98a253bc1d5989759603a926925247e4b09a03d26e8e25e.jpg)
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/d2e56bc4099d6eebe98a253bc1d5989759603a926925247e4b09a03d26e8e25e.jpg)
 
 ## ISI Impact
 
@@ -523,7 +523,7 @@ Reflections, Channel resonances, Channel loss (dispersion)
 
 As data pulses propagate through channel, they experience dispersion and have significant ISI ● Result is a closed eye at channel output (RX input)
 
-![](images/0e86b9fc1b1f8df0bd2b8a3fd69e717f4649e1b199f1fb2d4efb393021b0779b.jpg)  
+![](/img/mineru_output/lecture3_ee720_tdr_spar/auto/images/0e86b9fc1b1f8df0bd2b8a3fd69e717f4649e1b199f1fb2d4efb393021b0779b.jpg)  
 [Meghelli (IBM) ISSCC 2006]
 
 ## Next Time

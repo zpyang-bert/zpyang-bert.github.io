@@ -66,7 +66,7 @@ tags:
 └─────────────────────────────────────────────────────┘
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-503.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-503.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】阻抗匹配是高速SerDes系统设计的基础问题，决定了信号传输的反射特性。不同终端配置（串联/并联/双端）适用于不同驱动器架构。
@@ -277,7 +277,7 @@ V_pp = V_s (差分)
 • 工艺缩放中电源电压降低
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-507.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-507.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】CML驱动器是当前高速SerDes最流行的架构选择，需要理解其与电压模式驱动器在功耗、线性度、电源电压适应性上的本质差异。
@@ -352,7 +352,7 @@ V_pp = I·R
 差分: I = V_pp/R
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-510.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-510.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】CML驱动器架构设计中，终端配置方式（单端vs差分）直接影响输出摆幅和驱动电流需求，是SerDes TX设计的关键决策点。
@@ -433,7 +433,7 @@ PAM-4影响:
 • MSB/LSB对齐控制
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-513.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-513.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】高摆幅TX驱动器设计面临电源电压持续降低和线性度要求提高的双重挑战；PAM-4调制相比NRZ对线性度要求更高，因为三个判决电平都需要精确。
@@ -513,7 +513,7 @@ ISSCC 2016 (Chan):
 结果: 微分模式回波损耗满足复合返回损耗mask
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-515.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-515.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】输出阻抗控制是高速TX设计的关键挑战，直接影响返回损耗性能；高摆幅电压模式驱动器因器件非线性问题，阻抗控制比电流模式更复杂。
@@ -561,7 +561,7 @@ R_term: 终端电阻
 • 电感比 L1/L2 影响带宽形状
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-514.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-514.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】TX输出Pad的寄生电容（pad、ESD、package）限制了驱动器带宽；T-coil通过磁耦合将寄生电容分离成多级谐振网络，实现带宽扩展。
@@ -620,7 +620,7 @@ Pi-coil: +40-50%带宽
 脉冲响应: T-coil略优
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-508.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-508.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】T-coil和Pi-coil是两种主流带宽扩展技术，各有优劣；双T-coil进一步提升带宽但增加设计复杂度。
@@ -756,7 +756,7 @@ CML MUX优势:
 • 工艺成熟度
 ```
 
-![](lecture5_ee720_termination_txdriver_images/img-587.jpg)
+![](/img/serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/_images/img-587.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】TX多路复用器架构决定了时钟频率和数据率的映射关系；全速率/半速率/¼速率架构各有优缺点，需根据工艺和功耗预算选择。

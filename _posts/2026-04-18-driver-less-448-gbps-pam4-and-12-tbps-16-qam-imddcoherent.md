@@ -22,7 +22,7 @@ Using a thin-film lithium niobate (TFLN) binary-weighted Mach–Zehnder modulato
 
 Optical DAC transmitters typically use segmented MZMs (SE-MZMs), where each segment encodes one bit and binary weighting is set by segment length [5–8]. However, SE-MZMs have a footprint that scales with bit count and, critically, do not ease drive requirements; the effective $V _ { \pi L }$ remains comparable to a push-pull MZM. We instead propose a parallel binary-weighted MZM (BW-MZM) on TFLN where the two MZM arms are driven independently by different differential logic-level signals. This dual-arm actuation combines binary lanes into multi-level outputs while remaining compatible with direct-drive voltages from a CMOS logic gate. BW-MZMs naturally support a local differential electrode pair $( S ^ { + } / S ^ { - } )$ per waveguide, enabling smaller electrode gap around the waveguide. This provides higher RF field intensity and waveguide overlap, reducing the intrinsic $V _ { \pi } L$ product relative to typical GSSG push-pull implementations. Moreover, native differential signaling on TFLN requires nonstandard electrode layouts (e.g., semi-differential designs) due to limited control over the crystal axis orientation; our architecture is directly compatible with differential drive on TFLN. The improved $V _ { \pi } L$ together with phase contributions from both arms relaxes the required drive voltage and enables the modulator to operate driver-less. Finally, BW-MZM allows binary inputs to be physically co-located and aligned on the PIC, eliminating the need for precise electrical delay tuning between segments that SE-MZM approaches require. The working principles of the BW-MZM and BW-IQM are shown in Fig. 1 (a). The intensity-modulated BW-MZM produces an output field where the amplitude depends on $( V _ { 1 } - V _ { 2 } ) / 2$ To create four amplitude levels from two binary signals, we apply a binary-weighted drive such that the effective MSB contribution is double the LSB contribution; $V _ { 1 } = 2 V _ { 2 }$ . Higher-order formats follow from alternative weightings (e.g., PAM6 with 3-level $V _ { 1 }$ and 2-level V2). BW-MZMs exhibit a residual phase term proportional to $( V _ { 1 } + V _ { 2 } ) / 2$ that creates chirp, causing pulse shortening or broadening in the presence of chromatic dispersion (CD). Operating in the O-band near the ∼1310 nm zero-dispersion wavelength of standard SMF minimizes the impacts of chirp. At this wavelength, we demonstrate 448 Gbps PAM4 transmission over distances of 2 km, consistent with DR8-2-class reach. For the Coherent BW-IQM, under standard IQM biasing, the phase term that is common to both arms does not translate into residual intensity chirp at the output, enabling chirp-less Coherent modulation.
 
-![](images/734bb57670493422e41c1d9f877fdfb7c7a5fadca4e957b410434162df2c514f.jpg)  
+![](/img/mineru_output/Th4B.2/auto/images/734bb57670493422e41c1d9f877fdfb7c7a5fadca4e957b410434162df2c514f.jpg)  
 Fig. 1: (a) Architecture of the binary weighted-MZM (BW-MZM) and binary weighted-IQM (BW-IQM) oDAC. OOK signals are combined optically to generate PAM4 or 16-QAM. (b) IM/DD experimental setup. A 3 nm CMOS electronic DAC is used at 1-bit resolution to emulate a logic gate. The two logic gate outputs directly drives a TFLN oDAC with 600 mV differential to optically generate a PAM4-6-8 signal. (c) Coherent experimental setup. A BW-IQM is used instead with 4 emulated logic gates to optically generate a 16-32-64-QAM signal.
 
 ## 3. Experimental setup
@@ -33,25 +33,25 @@ Fig. 1 (b)-(c) show the experimental setup and DSP stacks used in the IM/DD and 
 
 Fig. 2 (a)-(c) contain the Coherent BW-IQM oDAC results. The 16-QAM results (a) illustrate successful transmission of 800 Gbps (dual-polarization 125 Gbaud) under the 6.7% overhead HD-FEC (10 km) and c-FEC (20 km) BER limit and 1.2 Tbps (187.5 Gbaud) under the 25% SD-FEC limit at up to 10 km. At 800 Gbps, a small OSNR penalty of 0.34 dB is measured between the better performing push-pull IQM implementation and the oDAC. This 800 Gbps 16-QAM result indicates performance in line with current O-band Coherent 800G-LR1 signaling and BER targets [9] while operating with significantly reduced power consumption. The OSNR penalty is reduced at 1.2 Tbps to 0.25 dB. In our testbed, transmission performance beyond 150 Gbaud is greatly limited by the 70 GHz bandwidth limit of our balanced PDs. The 32-QAM results (b) show net transmission of 1.2 Tbps at 150 Gbaud under the 25% SD-FEC BER limit with an OSNR penalty of 0.6 dB compared to a traditional push-pull IQM. Fig 2 (d)-(e)-(f) show the oDAC constellations of the DP-16-QAM 800 Gbps and 1.2 Tbps achieved with DP-16-QAM at 10 km and 32-QAM at 500 m. The constellations are symmetric, highlighting clear transmission linearity. Fig. 2 (g) shows an eye diagram at 2 km of 225 Gbaud PAM4 transmission with a BER well under the 6.7% overhead HD-FEC limit. The driver-less logic gate drive is enough to achieve 3.76 dB of extinction ratio (ER), a value above the 200G IEEE standard minimum ER spec. The PAM4 results, shown in (h), indicate no performance difference between a back-to-back (B2B) and 2 km transmission. We highlighted previously that the IM/DD BW-MZM signal is chirped. For parallel-fiber architectures (e.g., DR8), where the laser is centered around the zero dispersion wavelength of SMF, this chirp shows no measurable performance drawback at 2 km. At 225 Gbaud PAM4, all three distances are well below the HD-FEC limit enabling net 421 Gbps PAM4 transmission. At 225 Gbaud PAM4, the received optical power (ROP) penalty for employing the oDAC is 0.4 dB. For PAM6 (i), all three distances perform similarly and net 410 Gbps is achieved using 175 Gbaud PAM6 at 2 km. PAM8 (j) also shows limited variations between all distances. At 162.5 Gbaud PAM8, net 425 Gbps is achieved under the c-FEC BER limit. With 225 Gbaud PAM8, net 540 Gbps is achieved under the 25% SD-FEC limit. While the modulation format for the next generation of DCIs has not been settled yet, we show that this oDAC-enabled, power and complexity saving architecture, can transmit either 4, 6 or 8 amplitude levels at the symbol rates required for 400G lanes. From published DCI power breakdowns [3, 4], removing the eDAC, Tx DSP, and RF drivers is expected to reduce total transceiver power by ∼23% for Coherent-lite and ∼30% for IM/DD.
 
-![](images/2c7ac7a4682a37c57559c8e6020274978e2b3ca235128259b0e35c188d8ce966.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/2c7ac7a4682a37c57559c8e6020274978e2b3ca235128259b0e35c188d8ce966.jpg)
 
-![](images/c0957b031d1a711b0ac851a5506eeeb42834a87600354bba8ec6a3aba5ef8acf.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/c0957b031d1a711b0ac851a5506eeeb42834a87600354bba8ec6a3aba5ef8acf.jpg)
 
-![](images/09197d4a190cb69b4e7a115c5faa69f616332b75ccc3df7aff58432381a36a19.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/09197d4a190cb69b4e7a115c5faa69f616332b75ccc3df7aff58432381a36a19.jpg)
 
-![](images/826cd2c5fddab6e587fb3dd55cd80b59b8ee10d53ffec101bd56ff19ed04bd7f.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/826cd2c5fddab6e587fb3dd55cd80b59b8ee10d53ffec101bd56ff19ed04bd7f.jpg)
 
-![](images/37adae4ec38d8b1053c9df7ce870d4cca24269dfa5c0a77e380398effdc47816.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/37adae4ec38d8b1053c9df7ce870d4cca24269dfa5c0a77e380398effdc47816.jpg)
 
-![](images/e4271b7ac02df61e6332f1a6ff4bf6643cb22c5a4332499462377417bf1dc91d.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/e4271b7ac02df61e6332f1a6ff4bf6643cb22c5a4332499462377417bf1dc91d.jpg)
 
-![](images/485ffbc2e1204761b8717954423331a339bceb5f985c45dc6c4908835d4c5dad.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/485ffbc2e1204761b8717954423331a339bceb5f985c45dc6c4908835d4c5dad.jpg)
 
-![](images/a364ca8a2f368fc3605451a8878016bb3216f01d7dd95934e8079b031a82ac2d.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/a364ca8a2f368fc3605451a8878016bb3216f01d7dd95934e8079b031a82ac2d.jpg)
 
-![](images/37e297874c5c8ed43c0eafe4b39be78a7a177d6e39bedb7e52528695fa689f84.jpg)
+![](/img/mineru_output/Th4B.2/auto/images/37e297874c5c8ed43c0eafe4b39be78a7a177d6e39bedb7e52528695fa689f84.jpg)
 
-![](images/7f876682c871647f0de7f266bd492594c1d72fd91437abbb3fe319a7cae67f84.jpg)  
+![](/img/mineru_output/Th4B.2/auto/images/7f876682c871647f0de7f266bd492594c1d72fd91437abbb3fe319a7cae67f84.jpg)  
 Fig. 2: (a)-(c) oDAC generated 16-32-64-QAM vs push-pull IQM at 500 m, 10 and 20 km. (d)–(e) oDAC-generated DP-16-QAM constellations at 10 km (net 800 Gbps and 1.2 Tbps). (f) DP-32-QAM constellation at 500 m (net 1.2 Tbps). (g) Measured optical eye diagram of driver-less oDAC 448 Gbps PAM4 at 2 km. (h)-(j) oDAC generated PAM4-6-8 vs push-pull MZM at B2B, 500 m and 2 km.
 
 ## 5. Conclusion

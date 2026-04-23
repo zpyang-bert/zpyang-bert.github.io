@@ -10,7 +10,7 @@ tags:
 ---
 Lectu re 1 5 : O ptica l I/O
 
-![](images/1e8d8123726a9f729cb2f30b717d287d2afaacddfe704a97f8a88edcd301dfd4.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/1e8d8123726a9f729cb2f30b717d287d2afaacddfe704a97f8a88edcd301dfd4.jpg)
 
 Sa m Pa lermo Ana log & M ixed -Sig na l Center Texas A&M U n iversity
 
@@ -40,39 +40,39 @@ E lectrica l Cha n nel Issues
 
 ## H ig h -Speed Electrica l Li n k System
 
-![](images/527e4dd9a0dd6099e143633961e03dbb593c00e1aea0f3264f4fa21a1e3ef72c.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/527e4dd9a0dd6099e143633961e03dbb593c00e1aea0f3264f4fa21a1e3ef72c.jpg)
 
 ## Cha n nel Performa nce I m pact
 
-![](images/ba03854bcd03e89694ec2713498b2d8b0e88e01a24ecc294af72301564f49236.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/ba03854bcd03e89694ec2713498b2d8b0e88e01a24ecc294af72301564f49236.jpg)
 
-![](images/cac277c8777d0aa254f2ec6e396ee7640fad607668acdf4f56d7de72f8a0cd3c.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/cac277c8777d0aa254f2ec6e396ee7640fad607668acdf4f56d7de72f8a0cd3c.jpg)
 
-![](images/8c323db33b0f9a1301504876f673dece3d4d28125787164a4bf553124a6754f9.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/8c323db33b0f9a1301504876f673dece3d4d28125787164a4bf553124a6754f9.jpg)
 
-![](images/a3b141bb8bbb32c473038e64da7edb92e5d3d74a67e2d392e794dd9ec271888b.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/a3b141bb8bbb32c473038e64da7edb92e5d3d74a67e2d392e794dd9ec271888b.jpg)
 
-![](images/55ea51c40f03d569d39b43ca7af245b41ca97dd9e2b8bc8174ab10bb9de3240d.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/55ea51c40f03d569d39b43ca7af245b41ca97dd9e2b8bc8174ab10bb9de3240d.jpg)
 
 ## Li n k with Eq ua l ization
 
-![](images/dc5ba4499809d76c266a47022c3a629bb3e1bbd55448136a7f1bc90f52dbf04c.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/dc5ba4499809d76c266a47022c3a629bb3e1bbd55448136a7f1bc90f52dbf04c.jpg)
 
 ## Cha n nel Performa nce I m pact
 
-![](images/1cf14511fa2691d8a9656eee528a27e0ef8da8d6713fe428f5af90d3d2552c23.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/1cf14511fa2691d8a9656eee528a27e0ef8da8d6713fe428f5af90d3d2552c23.jpg)
 
-![](images/7a1a5c18ac10051439ded4185aa9857ca5b1a6e5fb75a364910924b3e612654c.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/7a1a5c18ac10051439ded4185aa9857ca5b1a6e5fb75a364910924b3e612654c.jpg)
 
-![](images/9b9bdc31e27b98021a55129b7b0f9f5998fd05657d93995c40ff50bf90c7ff45.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/9b9bdc31e27b98021a55129b7b0f9f5998fd05657d93995c40ff50bf90c7ff45.jpg)
 
-![](images/e0ddeb3fff3ebb60eaa1f03a58109b56f921af64b5cc379b67d35e2af3c642dd.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/e0ddeb3fff3ebb60eaa1f03a58109b56f921af64b5cc379b67d35e2af3c642dd.jpg)
 
-![](images/182e19c36c44df1c2a34d913ebefbc5df33f37991a83a323cf07ce78a8a05b63.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/182e19c36c44df1c2a34d913ebefbc5df33f37991a83a323cf07ce78a8a05b63.jpg)
 
 ## H ig h-Speed Optica l Li n k System
 
-![](images/02caae3bec91c536a038d0ee0151e0cc2a1ae95859768cfc459c44b221ff86a9.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/02caae3bec91c536a038d0ee0151e0cc2a1ae95859768cfc459c44b221ff86a9.jpg)
 
 • Optica l i ntercon nects remove ma ny cha n nel l i m itations
 
@@ -80,11 +80,11 @@ E lectrica l Cha n nel Issues
 
 • Potentia l for h ig h i nformation density with wavelength-d ivision m u lti plexi ng (WDM )
 
-![](images/c01cbc68399734dfedc4958f8af117f90cf2f1eeba0d874e3dd7ad8dd947d03a.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/c01cbc68399734dfedc4958f8af117f90cf2f1eeba0d874e3dd7ad8dd947d03a.jpg)
 
 ## Wavelength- Division M u lti plexi ng
 
-![](images/d6428ab9b87c9fc6587ec55380de54cfa3d21936f6ede3687c5b4fb91edbaf6e.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/d6428ab9b87c9fc6587ec55380de54cfa3d21936f6ede3687c5b4fb91edbaf6e.jpg)
 
 ## • WD M a l lows for m u lti ple h ig h - ba ndwidth ( 1 0 + G b/s) sig na ls to be packed onto one optica l cha n nel
 
@@ -131,29 +131,29 @@ Sma l ler waveg u ides relative to electrica l traces
 • I m po rta nt to l i m it l a se r l i n ewi dth for long d ista nces ( > 1 km )
 
 Optica l Fi ber Cross-Section  
-![](images/ebf4bfe71431a5a9b0cf9422580708414177aa3134cac1d0e69989fdaa97e89d.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/ebf4bfe71431a5a9b0cf9422580708414177aa3134cac1d0e69989fdaa97e89d.jpg)
 
 Si ng le- Mode Fi ber Loss & Dispersion  
-![](images/5de0d07f23d4a1fd92b8c9bf2dfe554e8c307dd7be3d108b10fe32d31b33da3c.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/5de0d07f23d4a1fd92b8c9bf2dfe554e8c307dd7be3d108b10fe32d31b33da3c.jpg)
 
 ## I nter-Ch i p Waveg u ide Exa m ples
 
 ## 1 2-Channel Ribbon Fiber
 
-![](images/0c863d6b5b9636ee99ba6c9164d424da1248130ae4d7b3f7ff48f57bde5a5c1a.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/0c863d6b5b9636ee99ba6c9164d424da1248130ae4d7b3f7ff48f57bde5a5c1a.jpg)  
 [ Reflex Photon ics]  
 1 2 cha n nels at a $2 5 0 \mu \mathrm { m }$ p itc h 1 0G b/s mod .   40G b/s/m m
 
 ## Optical Polymer Waveguide in PCB
 
-![](images/75dde616ef510a6f96a7003a7a48e99eabcce80650ee25cec706191969e33554.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/75dde616ef510a6f96a7003a7a48e99eabcce80650ee25cec706191969e33554.jpg)  
 [Immonen 2009]  
 $< 1 0 0 \mu \mathrm { m }$ cha n nel pitch possi ble 1 0Gb/s mod .   1 00 +Gb/s/m m  
 • Typ i ca l d iffe re nti a l e l ectri ca l stri p l i n es a re at ${ \sim } 5 0 0 \mu \mathrm { m }$ p itc h
 
 ## Free-Space Optica l Li n ks
 
-![](images/9a417793f51e7d4769199c567557b9c6767da9b7a4a6ba63ed8e71c05da08128.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/9a417793f51e7d4769199c567557b9c6767da9b7a4a6ba63ed8e71c05da08128.jpg)
 
 • Free-space (a i r or g lass) i ntercon nect systems have a lso been proposed
 
@@ -167,9 +167,9 @@ $< 1 0 0 \mu \mathrm { m }$ cha n nel pitch possi ble 1 0Gb/s mod .   1 00 +G
 
 • Sig n ifica nt post- processi ng is req u i red for reasona ble loss ( 1 0d B/cm) waveg u ides i n a bu l k process
 
-![](images/93af74cc3d94b22bcfe39488aa8d1476b2011cb02e559b358381a7a3f82fdb94.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/93af74cc3d94b22bcfe39488aa8d1476b2011cb02e559b358381a7a3f82fdb94.jpg)
 
-![](images/fc3e7b00e2625e505099735492b2863e284275bdfcecc357cbcc721badd3b451.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/fc3e7b00e2625e505099735492b2863e284275bdfcecc357cbcc721badd3b451.jpg)  
 [ Holzwarth CLEO 2008]
 
 ## CMOS Waveg u ides – SOI
@@ -178,7 +178,7 @@ $< 1 0 0 \mu \mathrm { m }$ cha n nel pitch possi ble 1 0Gb/s mod .   1 00 +G
 
 • Al lows for low- loss waveg u ides
 
-![](images/5dd37520de2a805b73eb93b3c144d60786277c1853ae5f6fce0a57aee8cc29f8.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/5dd37520de2a805b73eb93b3c144d60786277c1853ae5f6fce0a57aee8cc29f8.jpg)  
 [ Narasimha JSSC 2007]
 
 ## CMOS Waveg u ides – Back- End Processi ng
@@ -190,7 +190,7 @@ $< 1 0 0 \mu \mathrm { m }$ cha n nel pitch possi ble 1 0Gb/s mod .   1 00 +G
 • Al lows for i ndependent o pti m i zati o n of tra n s i sto r a nd optica l device processes
 
 [Young JSSC 2010]  
-![](images/f44b2b841b5a85b55e3a1e0c247326682feb22e114d3fc04986e62321e3f982f.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/f44b2b841b5a85b55e3a1e0c247326682feb22e114d3fc04986e62321e3f982f.jpg)
 
 ## Optica l I ntercon nects
 
@@ -218,11 +218,11 @@ M ay not be necessa ry for short d ista nce ( \~ 1 00 m ) ch i p-to-ch i p I/Os
 
 • Externa l mod u lation of conti n uous-wave (CW) “ DC” laser with a bsorptive or refractive mod u lators
 
-![](images/6cfc33c7dae3ca6f2cecb53e72ccc18eeaab3eda484a7ddd0677f8ff23860fbc.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/6cfc33c7dae3ca6f2cecb53e72ccc18eeaab3eda484a7ddd0677f8ff23860fbc.jpg)
 
 ## Di rectly Mod u lated Laser
 
-![](images/e92e507306e41f84d00fecc19b306eb33ea41c9bd62e0f8bb2f66880ad126398.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/e92e507306e41f84d00fecc19b306eb33ea41c9bd62e0f8bb2f66880ad126398.jpg)
 
 • Di rectly mod u lati ng laser output power
 
@@ -234,7 +234,7 @@ M ay not be necessa ry for short d ista nce ( \~ 1 00 m ) ch i p-to-ch i p I/Os
 
 ## Externa l ly Mod u lated Laser
 
-![](images/a776aaa2423a98abad9a014e58e39e04c56690911285c39ea03b5668cac3dabf.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/a776aaa2423a98abad9a014e58e39e04c56690911285c39ea03b5668cac3dabf.jpg)
 
 • Externa l mod u lation of conti n uous-wave (CW) “ DC” laser with a bsorptive or refractive mod u lators
 
@@ -256,7 +256,7 @@ M ay not be necessa ry for short d ista nce ( \~ 1 00 m ) ch i p-to-ch i p I/Os
 
 VCSE L Cross-Section
 
-![](images/b5ce8b2b14a6ba4c893a0e081e9b78fa71fd6df05aa27dd12be5503022bb5289.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/b5ce8b2b14a6ba4c893a0e081e9b78fa71fd6df05aa27dd12be5503022bb5289.jpg)
 
 • VCSE L em its l ig ht perpend icu la r fro m to p (o r botto m ) su rfa ce
 
@@ -264,14 +264,14 @@ VCSE L Cross-Section
 
 • O pe rate at fi n ite exti n cti o n rati o $( \mathsf { P } _ { 1 } / \mathsf { P } _ { 0 } )$
 
-![](images/715ca30dfcbdc0ddfee2199872b9603128ac9ceb480ae80513c11ab7fe9fdd58.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/715ca30dfcbdc0ddfee2199872b9603128ac9ceb480ae80513c11ab7fe9fdd58.jpg)
 
 Slope Efficiency $\eta = \frac { \Delta P } { \Delta I } \left( \frac { \mathbf { W } } { \mathbf { A } } \right)$
 
 ## VCSEL Ba ndwidth vs Rel ia bi l ity
 
 1 0G b/s VCSEL Freq uency Response [ 1 ]  
-![](images/56086c44bf7f6130210fdf9393abc9bc1ed85c3719a6aea8e06a663b2eb679d3.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/56086c44bf7f6130210fdf9393abc9bc1ed85c3719a6aea8e06a663b2eb679d3.jpg)
 
 $$
 B W \propto \sqrt { I _ { a \nu g } - I _ { T H } }
@@ -293,7 +293,7 @@ $$
 
 ## Cu rrent- Mode VCSEL Driver
 
-![](images/1bfe029a189ae94c92125e5e3757af5f41e3a8dc0c3e7072401f4b155baf73c4.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/1bfe029a189ae94c92125e5e3757af5f41e3a8dc0c3e7072401f4b155baf73c4.jpg)
 
 • Cu rrent- mode d rivers often used d ue to l i nea r L-I re l ati o n sh i p
 
@@ -301,16 +301,16 @@ $$
 
 VCSE L Driver w/ 4-ta p FIR Eq ua l ization
 
-![](images/698399b05296d02e40b9543670163bda42b5dc981613f4afd2a94e6a31ac31bd.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/698399b05296d02e40b9543670163bda42b5dc981613f4afd2a94e6a31ac31bd.jpg)  
 S. Pa lermo a nd M . Horowitz, “ H ig h -Speed Tra nsm itters i n 90 n m CMOS for H ig h- Density Optica l I ntercon nects, " ESSCIRC, 2006 .
 
 ## Electro-Absorption Mod u lator ( EAM )
 
 QWAFEM Modu lator\*
 
-![](images/9947d498296046e47240c37624b4fbb71d9fb5611f1f6aef2715d5d971931d30.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/9947d498296046e47240c37624b4fbb71d9fb5611f1f6aef2715d5d971931d30.jpg)
 
-![](images/af83ef06811dc28987fbfdc78d26136190b756ecda81cc1f3044604e246367dc.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/af83ef06811dc28987fbfdc78d26136190b756ecda81cc1f3044604e246367dc.jpg)  
 \* N . Hel ma n et al, “ M isa l ig n ment-Tolera nt Su rface- Norma l Low-Voltage Mod u lator for Optica l I ntercon nects, " JSTQE, 2005 .
 
 • Absorption edge sh ifts with cha ng i ng bias voltage d ue to the “q ua ntu m-confi ned Sta rk or Fra nz-Keldysh effect” & mod u lation occu rs
@@ -325,11 +325,11 @@ QWAFEM Modu lator\*
 
 ## Waveguide EAM [ Liu ]
 
-![](images/e45a164c0c5cf6804817e1f25a987c258f283a0c00cc33c049c45d0563d424ac.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/e45a164c0c5cf6804817e1f25a987c258f283a0c00cc33c049c45d0563d424ac.jpg)
 
 ## Ri ng - Resonator Mod u lator ( RRM )
 
-![](images/1d15f6f1d75e22ac1156d08950c6377679da11e627604304d86c5c0d3a5e5c4d.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/1d15f6f1d75e22ac1156d08950c6377679da11e627604304d86c5c0d3a5e5c4d.jpg)
 
 • Refractive devices wh ich mod u late by cha ng i ng the i nterference l ig ht cou pled i nto the ri ng with the waveg u id e l ig ht
 
@@ -337,24 +337,24 @@ QWAFEM Modu lator\*
 
 • Devices ca n be used i n WD M systems to selectively mod u late a n i nd ivid ua l wavel ength or as a “d rop” fi lter at receivers
 
-![](images/c6400648bab0a05efa01b8ca3e52935baca170aaf618fbbf17906609b5c2b907.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/c6400648bab0a05efa01b8ca3e52935baca170aaf618fbbf17906609b5c2b907.jpg)
 
-![](images/21fd03ec41bdebb9b8cd56112b52c85dff72d9e412e04dd0d4cce004964af2c5.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/21fd03ec41bdebb9b8cd56112b52c85dff72d9e412e04dd0d4cce004964af2c5.jpg)
 
 Optica l Device Performa nce from : I . You ng, E . M oha m med , J . Liao, A. Kern , S. Pa lermo, B . Block, M . Reshotko, a nd P . Cha ng, “Optica l I/O Tech nology for Tera-Sca le Com puti ng, " ISSCC, 2009 . 27
 
 ## Wavelength Division M u lti plexi ng w/ Ri ng Resonators
 
-![](images/1dd9a1c7a48dc5e38c524e9c421b053d611cee36cace783cf5405db4764c533c.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/1dd9a1c7a48dc5e38c524e9c421b053d611cee36cace783cf5405db4764c533c.jpg)
 
-![](images/c0ac4d9474920018a562e7417bfbb13036c8ca3e8a806506e80648b031b1a230.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/c0ac4d9474920018a562e7417bfbb13036c8ca3e8a806506e80648b031b1a230.jpg)  
 • Ri ng resonators ca n act as both mod u lators a nd add/d rop fi lters to stee r l ig ht to receive rs o r switch l ig ht to d iffe re nt waveg u id es
 
 • Potentia l to pack > 1 00 waveg u ides, each mod u lated at more tha n 1 0G b/s on a si ng le on-ch i p waveg u ide with width $< 1 \mu \mathrm { m }$ ( p itc h $\sim 4 \mu \ m )$
 
 ## Ri ng - Resonator- Based Si l icon Photon ics Tra nsceiver
 
-![](images/665a106dcf9899443df55878c58f2164cbd3e428dc032110a5605b572584cfba.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/665a106dcf9899443df55878c58f2164cbd3e428dc032110a5605b572584cfba.jpg)
 
 • H ig h-voltage d rivers with si m ple pre-em phasis to extend ba ndwidth of si l icon ri ng - resonator mod u lators
 
@@ -370,15 +370,15 @@ Optica l Device Performa nce from : I . You ng, E . M oha m med , J . Liao, A. K
 
 • Pu lsed -Cascode d river ca n re l ia b ly p rovid e swi n g of 2xVdd (or 4xVdd) at u p to 2 FO4 data rate
 
-![](images/21e8a07413383278ec15c6387463c6cfb32a45052bbdf45f09fd430f9defde32.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/21e8a07413383278ec15c6387463c6cfb32a45052bbdf45f09fd430f9defde32.jpg)
 
 Pu lsed-Cascode Driver  
-![](images/4d08d09d3ffcf0c7a29032ef607ea6615483f5fafee2dd7442561c3ce28ea503.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/4d08d09d3ffcf0c7a29032ef607ea6615483f5fafee2dd7442561c3ce28ea503.jpg)  
 S. Pa lermo a nd M . Horowitz, “ H ig h -Speed Tra nsm itters i n 90 n m 3 0CMOS for H ig h- Density Optica l I ntercon nects, " ESSCIRC, 2006 .
 
 ## Mach-Zeh nder Mod u lator ( MZM )
 
-![](images/9c7abb2ba73faa11ffb4fc239bf0d12d3ca01ddd63e7dea997ada888924d18d5.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/9c7abb2ba73faa11ffb4fc239bf0d12d3ca01ddd63e7dea997ada888924d18d5.jpg)
 
 • Refractive mod u lator wh ich spl its i ncom i ng l ig ht i nto two paths, i nd uces a voltage-control led phase sh ift i n the two paths, a nd recom bi nes the l ig ht i n or out of phase
 
@@ -414,7 +414,7 @@ Li m iti n g a m p l ifi e rs
 
 I nteg rati ng o ptica l receiver
 
-![](images/ccb4b5423ec6cb3854a0415c16b5eb529523d63488fec5d3c5ce5ed1321fbcbf.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/ccb4b5423ec6cb3854a0415c16b5eb529523d63488fec5d3c5ce5ed1321fbcbf.jpg)
 
 ## p-i- n Photod iode
 
@@ -450,11 +450,11 @@ Trade-off between ca pacita nce a nd tra nsit-ti me
 
 ## I nteg rated Ge M SM Photodetector
 
-![](images/002de462288fcc920633dee0a2e15dcf103724b8278e33be78a1dd8ce99cb16d.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/002de462288fcc920633dee0a2e15dcf103724b8278e33be78a1dd8ce99cb16d.jpg)
 
-![](images/9677c97f058c3b67718767620d424b8aa6e9a9dbf61955647aaf2edc52c161f2.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/9677c97f058c3b67718767620d424b8aa6e9a9dbf61955647aaf2edc52c161f2.jpg)
 
-![](images/8509a9e176f7c1654cce45eb17de5cd1c35f8d1408046e2d3965294b8f53fec2.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/8509a9e176f7c1654cce45eb17de5cd1c35f8d1408046e2d3965294b8f53fec2.jpg)  
 Very low capacitance : < 1 fF Active area : < 2 u m2
 
 • Lateral M etal-Sem icond uctor-M etal (M S M Detector)
@@ -493,35 +493,35 @@ I . You ng, E . Moha m med, J . Liao, A. Kern, S. Pa lermo, B . Block, M . Resho
 
 [ Kromer]
 
-![](images/66aeeae36727a4b5cb9120075f7fe7966a63b4f99af2c33dd591305e9bc2abaf.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/66aeeae36727a4b5cb9120075f7fe7966a63b4f99af2c33dd591305e9bc2abaf.jpg)  
 Wirebonding
 
-![](images/e90e8b65f3a28dbda6a6ffa6fb7c45a9b496dd9f50fa87713367c6b202b871a9.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/e90e8b65f3a28dbda6a6ffa6fb7c45a9b496dd9f50fa87713367c6b202b871a9.jpg)  
 Flip-Chip Bonding
 
-![](images/faa46129f41412ac176bd492af2fc2807f3c34bdf464a3ba058b8d47d143c55d.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/faa46129f41412ac176bd492af2fc2807f3c34bdf464a3ba058b8d47d143c55d.jpg)  
 Short In- Package Traces
 
 ## I nteg rated CMOS Photon ics
 
 SOI CMOS Process [Ana l u i ]
 
-![](images/27cc8c05c2d887df8f7b556af1698efb7e3643f7dc861811860e394d7921f021.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/27cc8c05c2d887df8f7b556af1698efb7e3643f7dc861811860e394d7921f021.jpg)  
 Bu l k CMOS Process
 
-![](images/c9c58c647c30db4b7ccdd2673e364d78d7de79d1ece323a3187897896ce8ed71.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/c9c58c647c30db4b7ccdd2673e364d78d7de79d1ece323a3187897896ce8ed71.jpg)  
 [ Batten ]  
 “Optics On Top”  
 Optica l Layer
 
-![](images/cf2a7b7544a9ae7b336d4fd839284ee2a67a59624abdac6453a6eff9587a96ff.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/cf2a7b7544a9ae7b336d4fd839284ee2a67a59624abdac6453a6eff9587a96ff.jpg)
 
-![](images/5f672839131d8230350c8855fb00d8e2f95132b87a6fa5cb1b4b1aabf171ddd8.jpg)  
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/5f672839131d8230350c8855fb00d8e2f95132b87a6fa5cb1b4b1aabf171ddd8.jpg)  
 [You ng ]
 
 ## Futu re Photon ic CMOS Ch i p
 
-![](images/ccf7f1d31c2827922524c61ce1a01e16145a3341949944e6debfb9c325ee18c6.jpg)
+![](/img/mineru_output/lecture15_ee720_optical_io/auto/images/ccf7f1d31c2827922524c61ce1a01e16145a3341949944e6debfb9c325ee18c6.jpg)
 
 • U n ified optica l i ntercon nect for on -ch i p core-to-core a nd offch i p processor-to- processor a nd processor-to- memory
 

@@ -20,11 +20,11 @@ The practical requirement is rapid access to a limited set of well-defined wavel
 
 In this work, we demonstrate for the first time an unseeded multimode/multicore fiber optical parametric oscillator (FOPO) platform that generates multiple high-power, wavelength-selective lines without narrowband intracavity filtering or bespoke cavity management. We have recently shown that multimode fibers (MMFs) and multicore fibers (MCFs) provide an exceptional platform for engineering complex nonlinear dynamics, enabling both new fundamental phenomena [6] and all-optical control of the spatial state [7]. Here, by selectively configuring the pump modal (or core) distribution, we activate distinct intermodal four-wave-mixing (FWM) processes, enabling either single-line or multi-line emission at well-defined wavelengths within a single resonator architecture (see e.g. Fig. 1). This approach offers three distinctive features. First, the OPO cavity boosts the average power of the generated sidebands into the hundreds-of-milliwatt to watt level, far beyond typical single-pass intermodal generation in multimode fibers [8-9]. Second, the fiber geometry can be engineered to impose specific phase-matching conditions: in a tri-core fiber, we design two target detunings (≈7 THz and ≈13.2 THz), with the latter intentionally overlapping the silica Raman gain peak to access a cooperative Raman–FWM regime with high conversion efficiency. Finally, we introduce the concept of spectral concatenation, stitching distinct intermodal parametric bands to expand the accessible set of emission lines.
 
-![](images/c6b1577de445b5663951ac244ed683f925fecaaa6bf1c48d9a8c5af0fe144443.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/c6b1577de445b5663951ac244ed683f925fecaaa6bf1c48d9a8c5af0fe144443.jpg)
 
-![](images/c33989f6fe40c128e6860918d10c41a24b85c13a71f8558dc1794972b33a7139.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/c33989f6fe40c128e6860918d10c41a24b85c13a71f8558dc1794972b33a7139.jpg)
 
-![](images/bdbb241dec3a0224d4a651057d97e2fba656414e4f57e4c3861a4d0413806d23.jpg)  
+![](/img/mineru_output/Th4A.8/auto/images/bdbb241dec3a0224d4a651057d97e2fba656414e4f57e4c3861a4d0413806d23.jpg)  
 Fig. 1. (a) Illustration of wavelength-on-demand operation in multicore fibers. Distinct pump launch states across the cores select different output Stokes $( \mathrm { f _ { S 1 } } , \mathrm { f _ { S 2 } } , \mathrm { f _ { S 3 } } )$ and anti-Stokes $( \mathrm { f _ { A S 1 } } , \mathrm { f _ { A S 2 } } , \mathrm { f _ { A S 3 } } )$ lines. Moreover, with a tunable pump and switching between launch states, multiple parametric bands can be concatenated to extend wavelength coverage. (b) Experimental setup of the unseeded MCF oscillator. BM: broadband mirror; BS: beamsplitter; PBS: polarization beamsplitter; OSA: optical spectrum analyser; Delay: delay line; Block: beam block. At the far right, we show microscope images of the multicore-fiber facets fabricated and tested in this work (dual-core, tri-core, and four-core fibers).
 
 ## 2. Experimental Setup and Fiber Fabrication
@@ -44,17 +44,17 @@ Note that increasing the coupled pump power beyond 1 W further enhances the side
 Overall, these results show that with a fixed 1040-nm pump we can efficiently generate multiple discrete wavelength lines in the near- and short-wave infrared, relevant to free-space photonics applications including communications, sensing, and imaging. Importantly, the sidebands track the pump wavelength: moving the pump to 1064 nm yields similar frequency detunings, shifting the longer-wavelength sidebands towards 1260 nm, thereby supporting fiber systems that target O-band operation.
 
 (a)  
-![](images/2bb6461697c8f6c5c2111419c821b813f2c1d45ff0c629656224fb10770b06b3.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/2bb6461697c8f6c5c2111419c821b813f2c1d45ff0c629656224fb10770b06b3.jpg)
 
-![](images/969af4adf80de327473b3d435d4cac7c551da4dbdadf7a91f05dc863e24be7ee.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/969af4adf80de327473b3d435d4cac7c551da4dbdadf7a91f05dc863e24be7ee.jpg)
 
-![](images/21d2d8869ed171c76b5f0f8eb81726d608b806080311b7e57e837c9b37cf8f84.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/21d2d8869ed171c76b5f0f8eb81726d608b806080311b7e57e837c9b37cf8f84.jpg)
 
-![](images/39c520c3b1f0f8e40ceea0af112742e57f70d15af7adfedf0eebc9d760e808a4.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/39c520c3b1f0f8e40ceea0af112742e57f70d15af7adfedf0eebc9d760e808a4.jpg)
 
-![](images/a3b1196fde5f9b596ac51fbe65ae7821702da69f13cf14ebbfc6fbb7a2ee5963.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/a3b1196fde5f9b596ac51fbe65ae7821702da69f13cf14ebbfc6fbb7a2ee5963.jpg)
 
-![](images/60387c3eaec4efcd78329c2b21c97bbf71f200d49691b20891654794b464bd0d.jpg)  
+![](/img/mineru_output/Th4A.8/auto/images/60387c3eaec4efcd78329c2b21c97bbf71f200d49691b20891654794b464bd0d.jpg)  
 Fig. 2. Experimental results in the PM2000 fiber (a) The pump is mainly coupled to the LP01y and LP01x modes. Top: Output spectra of OPG (black) and OPO (red) for an input pump power of 1 W. The insets show the far-field intensity profiles and polarization states of the anti-Stokes (1010 nm) and Stokes sideband (1072 nm). Bottom: OPG and OPO conversion efficiency (CE, left axis) of the Stokes sideband and related output power (right axis). (b) Same as in panel a, but for a pump mainly coupled to LP01y and LP11ax (Stokes at 1210 nm and anti-Stokes sidebands at 912 nm) (c) Same as in panel a, but for a pump mainly coupled to LP01y and LP11bx (Stokes at 1230 nm, anti-Stokes at 900 nm)
 
 Among the various multicore-fiber experiments and fabrication iterations, we focus here on the tri-core fiber (TCF) as a representative example. The TCF supports 3 modes (indicated with m₁, m₂ and m3) and was engineered to meet two wavelength targets. First, we aimed for a sideband at a detuning of \~13.2 THz, chosen to overlap with the main
@@ -63,17 +63,17 @@ Raman-gain peak of silica so that stimulated Raman scattering and intermodal fou
 
 Figure 3 extends these outcomes to other multicore geometries, including dual-core and four-core fibers, and to a seed-assisted operation pumped at 1064 nm. As in the case of the TCF, the fibers are engineered to achieve emission at specific wavelengths through appropriate modal excitation. These experiments illustrate the versatility of the platform, which can be implemented with different multicore architectures.
 
-![](images/822cdcf8be093210d89e960c48253f1118218f433da4a5fff9843432880bd9ec.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/822cdcf8be093210d89e960c48253f1118218f433da4a5fff9843432880bd9ec.jpg)
 
-![](images/50dd9eaa594ab6eead11f6ce6d6e1a7e89afa3d260e14478bc65f5a5326a9a3a.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/50dd9eaa594ab6eead11f6ce6d6e1a7e89afa3d260e14478bc65f5a5326a9a3a.jpg)
 
-![](images/eaae98eee10b14009283337cc028f245350642801db72b376cc95d0057457f4b.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/eaae98eee10b14009283337cc028f245350642801db72b376cc95d0057457f4b.jpg)
 
-![](images/15b45fa0082c6094e928a242bdbbe734f71aad152e3c1b5d0eca723c98d18743.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/15b45fa0082c6094e928a242bdbbe734f71aad152e3c1b5d0eca723c98d18743.jpg)
 
-![](images/76bd621865ce735f2e0f974b1856c836068f5fa000275c5fd20fb589202bef32.jpg)
+![](/img/mineru_output/Th4A.8/auto/images/76bd621865ce735f2e0f974b1856c836068f5fa000275c5fd20fb589202bef32.jpg)
 
-![](images/4e99b573470905c1e9ee482b93d89726358495a70d76f9a49dea58c01b952761.jpg)  
+![](/img/mineru_output/Th4A.8/auto/images/4e99b573470905c1e9ee482b93d89726358495a70d76f9a49dea58c01b952761.jpg)  
 Fig. 3. Experimental results in home-made multicore fibers (a). Left: Output spectrum of OPG (black) and OPO (red) for a 1040-nm pump with power of 1.8 W and coupled to all the 3 fiber modes. Rigth: conversion efficiency and output power of the sideband generated at 1067 nm and 1089 nm. (b) Spectral measurements with a seed-assisted 1064-nm pump (100 mW power). The seeded anti-Stokes and generated Stokes are: 1038 nm → 1093 nm (pump to Stokes detuning Δf=7.3 THz); 1016 nm → 1118 nm ( Δf=13.5 THz); 994 nm → 1146 nm (Δf=20.0 THz)
 
 ## 4. Conclusion

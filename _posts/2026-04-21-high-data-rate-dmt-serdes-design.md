@@ -24,7 +24,7 @@ tags:
 
 ### ISSCC SerDes数据率趋势
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-000.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：ISSCC发表的SerDes收发器数据率持续攀升
@@ -34,7 +34,7 @@ tags:
 
 ### 15英寸PCB链路S参数
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-001.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：板级互连的频率响应特性
@@ -44,7 +44,7 @@ tags:
 
 ### 群延迟特性
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-002.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：群延迟是频率相关的相位偏移
@@ -54,7 +54,7 @@ tags:
 
 ### 脉冲响应
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-003.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：时域脉冲响应体现信道弥散
@@ -68,7 +68,7 @@ tags:
 
 ### NRZ波形
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-004.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：传统非归零信号的基本形式
@@ -78,7 +78,7 @@ tags:
 
 ### NRZ眼图
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-005.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：NRZ信号的眼图特征
@@ -88,7 +88,7 @@ tags:
 
 ### NRZ收发系统
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-006.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：典型NRZ SerDes架构
@@ -98,7 +98,7 @@ tags:
 
 ### PAM-4波形
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-007.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：四电平脉冲幅度调制
@@ -108,7 +108,7 @@ tags:
 
 ### PAM-4眼图
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-008.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：PAM-4眼图三个眼
@@ -118,7 +118,7 @@ tags:
 
 ### PAM-4收发系统
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-009.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：PAM-4系统架构
@@ -128,8 +128,8 @@ tags:
 
 ### PAM-8波形与眼图
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-010.ppm)
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-011.pbm)
+
+
 
 > 🔍 深度说明：
 > - **研究背景**：八电平调制探索
@@ -139,7 +139,7 @@ tags:
 
 ### SerDes发射机架构
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-012.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：典型模拟SerDes TX结构
@@ -149,7 +149,7 @@ tags:
 
 ### CML驱动器
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-013.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：电流模式逻辑驱动器
@@ -159,8 +159,8 @@ tags:
 
 ### 电压模式SST驱动器
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-014.ppm)
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-015.pbm)
+
+
 
 > 🔍 深度说明：
 > - **研究背景**：源极串联终止驱动器
@@ -170,7 +170,7 @@ tags:
 
 ### 信道脉冲响应与ISI
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-016.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：群延迟导致符号间干扰
@@ -180,7 +180,7 @@ tags:
 
 ### FFE结构
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-017.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：前馈均衡器在TX侧实现
@@ -190,7 +190,7 @@ tags:
 
 ### SerDes接收机架构
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-018.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：典型模拟RX结构
@@ -200,7 +200,7 @@ tags:
 
 ### CTLE频率响应
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-019.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：CTLE补偿信道衰减
@@ -210,8 +210,8 @@ tags:
 
 ### CTLE电路实现
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-020.ppm)
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-021.pbm)
+
+
 
 > 🔍 深度说明：
 > - **研究背景**：CTLE的电路实现
@@ -221,7 +221,7 @@ tags:
 
 ### DFE电路
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-022.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：判决反馈均衡器
@@ -231,7 +231,7 @@ tags:
 
 ### 高采样率Time DAC
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-023.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：用于DMT系统的高采样率DAC
@@ -241,7 +241,7 @@ tags:
 
 ### 时间交织ADC
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-024.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：异步时间交织ADC架构
@@ -251,7 +251,7 @@ tags:
 
 ### StrongARM Latch
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-025.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：高速比较器核心
@@ -261,7 +261,7 @@ tags:
 
 ### DMT子载波频谱
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-026.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：DMT将带宽分成多个子载波
@@ -271,7 +271,7 @@ tags:
 
 ### DMT频率响应
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-027.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：DMT的频域处理特性
@@ -281,7 +281,7 @@ tags:
 
 ### DMT系统框图
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-028.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：完整DMT系统架构
@@ -291,7 +291,7 @@ tags:
 
 ### PAPR问题
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-029.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：峰均功率比是DMT挑战
@@ -301,7 +301,7 @@ tags:
 
 ### 循环前缀
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-030.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：OFDM/DMT的循环前缀机制
@@ -315,7 +315,7 @@ tags:
 
 ### 信道频率响应
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-031.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：15英寸PCB trace测量
@@ -325,7 +325,7 @@ tags:
 
 ### 群延迟
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-032.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：信道群延迟特性
@@ -335,7 +335,7 @@ tags:
 
 ### 脉冲响应
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-033.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：时域冲激响应
@@ -345,7 +345,7 @@ tags:
 
 ### DMT仿真设置
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-034.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：系统级仿真环境
@@ -355,7 +355,7 @@ tags:
 
 ### 系统流程图
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-035.pbm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：DMT信号处理流程
@@ -365,7 +365,7 @@ tags:
 
 ### BER仿真结果
 
-![](High_Data_Rate_DMT_SerDes_Design_Jiang_115p_images/img-036.ppm)
+
 
 > 🔍 深度说明：
 > - **研究背景**：20GHz DMT系统BER

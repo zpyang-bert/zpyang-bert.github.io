@@ -23,7 +23,7 @@ Lecture 14: Clock Distribution Techniques
         Analog & Mixed-Signal Center
             Texas A&M University
 
-![](_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】本讲介绍高速Serdes中的时钟分布网络设计，时钟分布负责将PLL产生的参考时钟分配到芯片内的各个模块，是决定全局时钟 skew 和抖动特性的核心电路，对Serdes系统的时序性能有决定性影响。
 > 【核心结论】时钟分布架构的主要类型：1) H树架构：递归对称分支，保证到各端的延迟相等，skew低但布线复杂；2) 时钟网格（Clock Mesh）：全局网格结构，skew极低（<1ps）但功耗大；3) 鱼骨架构（Fishbone）：H树的变体，平衡skew和功耗；4) 分布式时钟：各模块独立 PLL，全局仅传参考时钟，skew最小但成本最高。高速Serdes通常采用分层时钟架构：PLL → 全局时钟树 → 本地时钟树。

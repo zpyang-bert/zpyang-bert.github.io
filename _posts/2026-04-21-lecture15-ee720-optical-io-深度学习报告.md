@@ -24,7 +24,7 @@ ECEN720: High-Speed Links
    Analog & Mixed-Signal Center
        Texas A&M University
 
-![](_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】本讲介绍光 I/O（Optical I/O）接口技术，探讨Serdes与光模块的接口设计，是数据中心和长距离通信中电光转换的核心技术。
 > 【核心结论】光 I/O 系统架构：1) TX侧：Serdes输出 → 驱动器 → EAM（电吸收调制器）或 MZ（马赫-曾德）调制器 → 激光器 → 光纤；2) RX侧：PIN/APD光探测器 → TIA（跨阻放大器） → Serdes输入。光调制格式：NRZ（开/关键控 OOK）、PAM4（4电平），在数据中心内部主要用NRZ，长距离用相干检测。光模块类型：SFP-DD、QSFP-DD、OSFP，密度和功耗各异。
@@ -68,7 +68,7 @@ Optical Interconnects
 
                                    3
 
-![](_images/img-002.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】光调制原理示意图，介绍不同类型的光调制器及其工作原理，是光 I/O 发射端的核心技术。
 > 【核心结论】主要光调制器类型：1) EAM（电吸收调制器）——基于量子限制 Stark 效应，调制速度快（>60GBd），体积小，常用于 DFB 激光器集成；2) MZ（马赫-曾德）调制器——基于干涉原理，消光比高（>30dB），线性度好，适合相干检测；3) SiPho（硅光子）调制器——基于等离子体色散效应，与CMOS工艺兼容，适合集成光模块。调制特性参数：Vπ（半波电压，越低越好）、消光比（ER，越高越好，>30dB）、插入损耗（IL，越低越好）、调制带宽（>60GHz for 112GBd）。

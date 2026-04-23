@@ -11,7 +11,7 @@ tags:
 ---
 Lectu re 5 : Term i nation , TX Driver, & M u lti plexer Ci rcu its
 
-![](images/6a247d1e675367035c44ad28812163a9a67fb714e6b87c27c87e6eef759a5ac6.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/6a247d1e675367035c44ad28812163a9a67fb714e6b87c27c87e6eef759a5ac6.jpg)
 
 Sa m Pa lermo Ana log & M ixed -Sig na l Center Texas A&M U n iversity
 
@@ -37,7 +37,7 @@ M u lti plexi ng tech n iq ues
 
 ## H ig h -Speed Electrica l Li n k System
 
-![](images/243f6c8bb7bf42a5d84176690f3b7b6294b24305886f2446b51fd6cc1349f4c0.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/243f6c8bb7bf42a5d84176690f3b7b6294b24305886f2446b51fd6cc1349f4c0.jpg)
 
 TX data D[n] D[n+1]D[n+2]D[n+3]   
 TX clk   
@@ -55,14 +55,14 @@ RX clk
 
 ## Off-Ch i p vs On-Ch i p Term i nation
 
-![](images/67ef173b18a7bfcef9351fbc20617627d8f873ce8748ee279393012cd491ff4a.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/67ef173b18a7bfcef9351fbc20617627d8f873ce8748ee279393012cd491ff4a.jpg)  
 (a) Extermal Terminator
 
-![](images/c5dbf32608468251f962191ccbfd8e9bba8dd9c35a37ec057e9cf7754a00e802.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/c5dbf32608468251f962191ccbfd8e9bba8dd9c35a37ec057e9cf7754a00e802.jpg)
 
-![](images/53e9578744843b405e56a097b1b4afbfacad7a180a40e37ee47fab3a58059cc5.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/53e9578744843b405e56a097b1b4afbfacad7a180a40e37ee47fab3a58059cc5.jpg)
 
-![](images/071ad2145a0bcc8c762dec7a41f7eff797b3d70d73a577d613ec55a7d894a7f2.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/071ad2145a0bcc8c762dec7a41f7eff797b3d70d73a577d613ec55a7d894a7f2.jpg)
 
 Package pa rasitics act as a n u nterm i nated stu b wh ich sends reflections back onto the l i ne
 
@@ -72,17 +72,17 @@ Package pa rasitics act as a n u nterm i nated stu b wh ich sends reflections ba
 
 Series Termination
 
-![](images/e7f95a04769ad12e90883efff1e77f58edff83b453d86316e9ab923f11c93c1f.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/e7f95a04769ad12e90883efff1e77f58edff83b453d86316e9ab923f11c93c1f.jpg)
 
 Pa ra l lel Term i nation
 
-![](images/7b163c818c429a200483672e90fa78f2c94b72c430de131a3bf2e50443f59e91.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/7b163c818c429a200483672e90fa78f2c94b72c430de131a3bf2e50443f59e91.jpg)
 
 Dou ble Termination
 
-![](images/4d2a9ce52bdefba3365ff7220f8d5b26abbbfb1222e95abb991037f5601671fa.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/4d2a9ce52bdefba3365ff7220f8d5b26abbbfb1222e95abb991037f5601671fa.jpg)
 
-![](images/35ba1b66a71b49c904200091cb6a38422eea1f46c8bf7d73876b347c5df6844c.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/35ba1b66a71b49c904200091cb6a38422eea1f46c8bf7d73876b347c5df6844c.jpg)
 
 • Low i m peda nce voltage- mode d river typica l ly em ploys se ri es te rm i n ati o n
 
@@ -104,9 +104,9 @@ H ig h i m peda nce cu rrent- mode d river typica l ly em ploys pa ra l l e l te
 
 • Data m ust be coded
 
-![](images/cc4cc327e375194c345e6815379a1e0412b233b33146ece38c9a1baee6a802ad.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/cc4cc327e375194c345e6815379a1e0412b233b33146ece38c9a1baee6a802ad.jpg)
 
-![](images/9fa9a488d2e48d00014ffc74b09783cc90f84839cf7fc6ea314e468b24ad33fb.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/9fa9a488d2e48d00014ffc74b09783cc90f84839cf7fc6ea314e468b24ad33fb.jpg)
 
 ## Passive Term i nation
 
@@ -121,13 +121,13 @@ Resistor Options (90nm CMOS)
 
 ## Active Term i nation
 
-![](images/155c91a7de079b9b4fb8c86ebb2243422139c01b7c3fdffa1a42808b8b5f6ee1.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/155c91a7de079b9b4fb8c86ebb2243422139c01b7c3fdffa1a42808b8b5f6ee1.jpg)  
 (a) Triode
 
-![](images/62ebe4cea39271d2a621c3c29819f92fcff80b852e4958a7ebf4afaad5dcc62f.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/62ebe4cea39271d2a621c3c29819f92fcff80b852e4958a7ebf4afaad5dcc62f.jpg)  
 (b) Two-Element
 
-![](images/d1a0c014a2834e0c37ad076dc27dd5591178e3eb3412c6c89b9f2e466696c7d8.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/d1a0c014a2834e0c37ad076dc27dd5591178e3eb3412c6c89b9f2e466696c7d8.jpg)  
 (c) Pass Gate
 
 • Tra nsistors m ust be used for term i nation i n CM OS processes wh ich don ’t provide resistors
@@ -138,10 +138,10 @@ Resistor Options (90nm CMOS)
 
 • Pass-gate structu re a l lows for d iffe re nti a l te rm i n ati o n
 
-![](images/96ae42b6ee7992f024fdda67acc5dc47dac9e3f3554de6a625439e8b5b187b35.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/96ae42b6ee7992f024fdda67acc5dc47dac9e3f3554de6a625439e8b5b187b35.jpg)  
 [ Da l l y ]
 
-![](images/98037e144a5400adb6f85b676a9a44193a3262e45eceac6207aafe4ba5e4f379.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/98037e144a5400adb6f85b676a9a44193a3262e45eceac6207aafe4ba5e4f379.jpg)
 
 ## Adj usta ble Term i nation
 
@@ -151,7 +151,7 @@ $$
 R _ { F E T } = \frac { 1 } { \mu C _ { o x } ( W / L ) ( V _ { G S } - V _ { t } ) }
 $$
 
-![](images/9b84ab2b5f2f171bda3a7ee383d35116a097c3366e349f60761a0b40e2394a07.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/9b84ab2b5f2f171bda3a7ee383d35116a097c3366e349f60761a0b40e2394a07.jpg)
 
 • La rge va ria nce i n FET th reshold voltage req u i res adj u sta ble term i nation structu res
 
@@ -163,7 +163,7 @@ $$
 
 ## Term i nation Dig ita l Control Loop
 
-![](images/db30a4c4d33bbd5ce877b08219413b7c9866549bfb3e6bf0c44cd6e911135d29.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/db30a4c4d33bbd5ce877b08219413b7c9866549bfb3e6bf0c44cd6e911135d29.jpg)
 
 • Off-ch i p precision resistor is u sed as reference
 
@@ -175,7 +175,7 @@ Dither fi lter typica l ly u sed to avoid voltage noise
 
 ## H ig h -Speed Electrica l Li n k System
 
-![](images/387196dbf3b1c5047cce313f41208e05edf55bcc16274a59e3788cea79b85969.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/387196dbf3b1c5047cce313f41208e05edf55bcc16274a59e3788cea79b85969.jpg)
 
 ## TX D rive r Ci rc u its
 
@@ -199,11 +199,11 @@ S l ew- rate co ntro l
 
 • Deca p l i m its I/O a rea more th at ci rcu itry
 
-![](images/663255cecd88b99059e7c0bcee191f755aa1b0afafca27f14e8a68030dc82d44.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/663255cecd88b99059e7c0bcee191f755aa1b0afafca27f14e8a68030dc82d44.jpg)
 
 ## D iffe re nti a l S i g n a l i n g
 
-![](images/bcc1d77b8051af552d31927dcff23651fa1f61ba2573cf0a06978780a936caad.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/bcc1d77b8051af552d31927dcff23651fa1f61ba2573cf0a06978780a936caad.jpg)
 
 • A d ifference between voltage or cu rrent is sent between two l i n es
 
@@ -245,15 +245,15 @@ S l ew- rate co ntro l
 
 • Pote ntia l ly ½ to ¼ th e cu rre nt fo r a g ive n outp ut swi n g
 
-![](images/272212c84d0cc43c60be9200acd46d2fafedbad4c32b8e3c998a707d1b517306.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/272212c84d0cc43c60be9200acd46d2fafedbad4c32b8e3c998a707d1b517306.jpg)  
 Current-Mode
 
-![](images/91f883117f7e6d9df865b903fa63dd88f8a372ecf6969cf0cc60909e9f473c77.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/91f883117f7e6d9df865b903fa63dd88f8a372ecf6969cf0cc60909e9f473c77.jpg)  
 Voltage-Mode
 
 ## Push - Pu l l Cu rrent- Mode Driver
 
-![](images/92a123731e6aa70d172238fd75edd9ca4c846ded2aa2a5a28ecd4193f29ff190.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/92a123731e6aa70d172238fd75edd9ca4c846ded2aa2a5a28ecd4193f29ff190.jpg)
 
 • Used i n Low-Voltage Differentia l Sig na ls ( LVDS) sta nda rd
 
@@ -265,7 +265,7 @@ Voltage-Mode
 
 ## Cu rrent- Mode Log ic (CM L) Driver
 
-![](images/7ccd262a6c8fd004073d68d2c94c09cc08ce5d6fdeec81850db5eda79d3c1397.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/7ccd262a6c8fd004073d68d2c94c09cc08ce5d6fdeec81850db5eda79d3c1397.jpg)
 
 • Used i n most h ig h performa nce seria l l i n ks
 
@@ -281,7 +281,7 @@ AC cou pl i ng req u i res data cod i ng
 
 ## Cu rrent- Mode Cu rrent Levels
 
-![](images/5f1bcc1ff5fd4c7666760bdfdf485439eb79fd868d36a2b46c3a389473192704.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/5f1bcc1ff5fd4c7666760bdfdf485439eb79fd868d36a2b46c3a389473192704.jpg)
 
 $$
 V _ { d , 1 } = ( I / 2 ) R
@@ -299,7 +299,7 @@ $$
 \pmb { I } = \frac { V _ { d , p p } } { R }
 $$
 
-![](images/345a1b11ce5ce47d2b800bd78293a7ff8d6c8c5656857264a974c4a7003d9a6d.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/345a1b11ce5ce47d2b800bd78293a7ff8d6c8c5656857264a974c4a7003d9a6d.jpg)
 
 $$
 V _ { d , 1 } = ( I / 4 ) ( 2 R )
@@ -321,7 +321,7 @@ $$
 
 Sing le- Ended Termination
 
-![](images/bb8c29b3e1c3e007aa9f7f124712aca9d867e5b284d01ffa4ecc5276a55b24c1.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/bb8c29b3e1c3e007aa9f7f124712aca9d867e5b284d01ffa4ecc5276a55b24c1.jpg)
 
 $$
 V _ { d , 1 } = \left( V _ { s } / 2 \right)
@@ -345,7 +345,7 @@ $$
 
 Differentia l Term i nation
 
-![](images/3ea6111e898958d168e9738f0d95b11ebe58ea3f35f86cba48f3e72a9d1ab890.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/3ea6111e898958d168e9738f0d95b11ebe58ea3f35f86cba48f3e72a9d1ab890.jpg)
 
 $$
 V _ { d , 1 } = \left( V _ { s } / 2 \right)
@@ -391,7 +391,7 @@ Eq ua l ization i m plementation
 
 Low-Swing Voltage-Mode Driver
 
-![](images/23e14745ecf49d42454f73af6f5a5a51a3b099d6e0f51df4b1c846efe9cc348d.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/23e14745ecf49d42454f73af6f5a5a51a3b099d6e0f51df4b1c846efe9cc348d.jpg)
 
 $$
 V _ { s } < { \frac { 4 } { 3 } } \big ( V D D - V _ { t 1 } - V _ { O D 1 } \big ) \ ( \mathrm { D i f f . T e r m } )
@@ -403,7 +403,7 @@ $$
 
 H ig h-Swing Voltage- Mode Driver
 
-![](images/ee8e8d857a077fab1eb88ee00c6253d8e81552d82142e0ea1435022ed1655007.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/ee8e8d857a077fab1eb88ee00c6253d8e81552d82142e0ea1435022ed1655007.jpg)
 
 $$
 V _ { s } > \left| V _ { t 1 } \right| + V _ { O D 1 }
@@ -431,7 +431,7 @@ S l ew- rate co ntro l
 
 • Th i s i s pa rti c u l a rly i m po rta nt with PAM 4 mod u lation
 
-![](images/1818c204e85ffbfdc09ff3edbb5254d7e98a713061fcda65da9ce79993ebe0b9.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/1818c204e85ffbfdc09ff3edbb5254d7e98a713061fcda65da9ce79993ebe0b9.jpg)
 
 $$
 \mathrm { R L M } = 3 \frac { \mathrm { V _ { m i n } } } { \mathrm { V _ { p k \mathrm { - p k } } } }
@@ -439,7 +439,7 @@ $$
 
 ## Pa ra l lel Bleeder Cu rrent Sou rce
 
-![](images/3bc5013de43de042eb7a38f74b9bccc83df0345e4e2bbae367e798cdcf027424.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/3bc5013de43de042eb7a38f74b9bccc83df0345e4e2bbae367e798cdcf027424.jpg)
 
 • Pa ra l lel th ick-oxide bleeder cu rrent sou rce from 1 . 8V su pply ra ises output com mon mode
 
@@ -447,7 +447,7 @@ $$
 
 ## CM L Driver w/ H ig her Output Stage Su pply
 
-![](images/17ab1a819d57f1551b1b8fa293c617f1e26e008a5f7197ae7dd5c1b3acdf3211.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/17ab1a819d57f1551b1b8fa293c617f1e26e008a5f7197ae7dd5c1b3acdf3211.jpg)
 
 H ig her output stage su pply
 
@@ -459,9 +459,9 @@ H ig her output stage su pply
 
 ## [Steffan ISSCC 20 17]
 
-![](images/ecc04f8bb0538e72c5d5cd3ad43652ba301c36f9dd0c47cc09be0f8aceac7dd6.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/ecc04f8bb0538e72c5d5cd3ad43652ba301c36f9dd0c47cc09be0f8aceac7dd6.jpg)
 
-![](images/3ca349c284c400fbbb054c7d2da0bb6f74f609acc7f26fdb94f89d4dbf7ad18f.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/3ca349c284c400fbbb054c7d2da0bb6f74f609acc7f26fdb94f89d4dbf7ad18f.jpg)
 
 • Botto m tra n si sto r d rive n by fu l l - rate se ri a l i zed d ata
 
@@ -471,10 +471,10 @@ H ig her output stage su pply
 
 ## Voltage- Mode Driver w/ Leve l -Sh ifti n g Pred rive r
 
-![](images/3566f3deb70a8ef033d836621645194a55ba2d8d5edbc99d4c69d0c6da578582.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/3566f3deb70a8ef033d836621645194a55ba2d8d5edbc99d4c69d0c6da578582.jpg)
 
 56.25Gbps  
-![](images/d42ebdfce6ff9ac54c3d4cbe11dffee6dbdcee30f6fa7820630386f316ff7d02.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/d42ebdfce6ff9ac54c3d4cbe11dffee6dbdcee30f6fa7820630386f316ff7d02.jpg)  
 Package+PCB loss is \~3dB, FIR applied to open eye  
 RLM = 98.5, SNDR = 37dB, SNR\_ISI = 37.7dB
 
@@ -484,7 +484,7 @@ RLM = 98.5, SNDR = 37dB, SNR\_ISI = 37.7dB
 
 ## Hybrid Voltage- Mode Driver w/ Pa ra l lel Cu rrent- Mode Seg ments
 
-![](images/2976fdfdc418d5cda7ee9c593f6d4ecdc51a14a7641ad90fe0ef3e3bf9d800b0.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/2976fdfdc418d5cda7ee9c593f6d4ecdc51a14a7641ad90fe0ef3e3bf9d800b0.jpg)
 
 • Pa ra l lel cu rrent- mode output stage provides swi ng en ha ncement
 
@@ -492,7 +492,7 @@ RLM = 98.5, SNDR = 37dB, SNR\_ISI = 37.7dB
 
 ## PAM4 Hybrid Voltage- Mode Driver w/ Pa ra l lel Push- Pu l l Cu rrent- Mode Seg ments
 
-![](images/2a8c3665de616db8da2e0d64d765991542a7ecc29f33060e4cd66963666996ee.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/2a8c3665de616db8da2e0d64d765991542a7ecc29f33060e4cd66963666996ee.jpg)
 
 • Pa ra l lel push - pu l l cu rrent sou rces d riven by the M SB & LSB a l low for a h ig h-swi ng PAM4 i m plementation
 
@@ -514,7 +514,7 @@ S l ew- rate co ntro l
 
 ## G loba l Resistor Ca l i bration
 
-![](images/2e52aa9ff2aba1f63da19c0645078d43434b2264a28a5c16aa7de60a3d82c2da.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/2e52aa9ff2aba1f63da19c0645078d43434b2264a28a5c16aa7de60a3d82c2da.jpg)
 
 • Off-ch i p precision resistor is u sed as reference
 
@@ -524,7 +524,7 @@ S l ew- rate co ntro l
 
 ## Low-Swi ng VM Driver I m peda nce Control
 
-![](images/291d96d0accf66943a5603e9f37e1f6f9b0a2f85ab1e74d9680159669c582f59.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/291d96d0accf66943a5603e9f37e1f6f9b0a2f85ab1e74d9680159669c582f59.jpg)
 
 • A l i nea r reg u lator sets the output stage su pply, $\mathsf { V } _ { \mathsf { s } }$
 
@@ -536,7 +536,7 @@ S l ew- rate co ntro l
 
 ## 4 : 1 Output M u lti plexi ng Voltage- Mode TX
 
-![](images/cbf75e2bbd5145b413b92d016602046b50701574e942cf9cdbbcddfb53926719.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/cbf75e2bbd5145b413b92d016602046b50701574e942cf9cdbbcddfb53926719.jpg)
 
 • I m peda nce control is ach ieved i ndependent of th e p re-d rive r su p p ly by add i ng add itiona l u p/down a na log - control led N MOS tra n s i sto rs
 
@@ -544,15 +544,15 @@ S l ew- rate co ntro l
 
 ## Low-Swi ng Voltage- Mode Driver Ana log I m peda nce Control
 
-![](images/cff38818e8ac09378832365381cbc3443ba5d0a47183400c7ccf86b91be9e4f5.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/cff38818e8ac09378832365381cbc3443ba5d0a47183400c7ccf86b91be9e4f5.jpg)
 
 • Repl ica g loba l i m peda nce control loop provides a na log gate voltages to the add itiona l top/bottom tra nsistors to set the pu l l - u p/down i m peda nce
 
 ## H ig h-Swi ng Voltage- Mode Driver I m peda nce Control
 
-![](images/ff75c241169f2a2a3f386585cfb822696a676eabf757e896d1ff7559f95ddd9c.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/ff75c241169f2a2a3f386585cfb822696a676eabf757e896d1ff7559f95ddd9c.jpg)
 
-![](images/eed5df3d0ae9c867dde8c7890af82b08e333f2c264282d4b723227fcf2c2c280.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/eed5df3d0ae9c867dde8c7890af82b08e333f2c264282d4b723227fcf2c2c280.jpg)
 
 • Passive resistors + tra nsistors’ triode resista nce
 
@@ -576,14 +576,14 @@ Tra n si sto r sta cki n g i n fu l l - rate path
 
 Sensitive to P/N skew va riations
 
-![](images/44f5d183e66d77d87e6c6c1b549a7feaf501b03bacaaac4f52be0cb5e0be0dcc.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/44f5d183e66d77d87e6c6c1b549a7feaf501b03bacaaac4f52be0cb5e0be0dcc.jpg)
 
 ## H ig h-Swi ng Voltage- Mode Driver Hybrid I m peda nce Control Scheme
 
-![](images/d7d5c5c5e9a175aaa784cd244ed6f607f52d8a4d784ec41c51968a8fa9a1250c.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/d7d5c5c5e9a175aaa784cd244ed6f607f52d8a4d784ec41c51968a8fa9a1250c.jpg)  
 75 to 85 d rive r s l i ces (1 0 prog ram mable s l ices with NAN D and N O R as p re-d rive r)
 
-![](images/769fc73b5c5f3dc6104d02a73fcdcb0729fb50d224e7e560a68634b878cea137.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/769fc73b5c5f3dc6104d02a73fcdcb0729fb50d224e7e560a68634b878cea137.jpg)
 
 • Prog ra m ma ble n u m ber of d river sl ices provides coa rse i m peda nce control to com pensate for resistor va riations
 
@@ -619,7 +619,7 @@ Su pport ESD
 
 ## T-Coi l Output Stage
 
-![](images/64cce7ed63c203e57661295636985ff5cbc7fd1e69dfd469ff1e39a15257cf23.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/64cce7ed63c203e57661295636985ff5cbc7fd1e69dfd469ff1e39a15257cf23.jpg)
 
 • Output T-coi l between d river a nd pad a l lows for spl itti ng of d river, ESD, a nd pad ca pacita nce
 
@@ -627,11 +627,11 @@ Su pport ESD
 
 ## T-Coi l Eq uations
 
-![](images/0572e252818ecc68bac4f3f6b9970ae8d1b1f5cc7db39a51cc4b58abd2314f3b.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/0572e252818ecc68bac4f3f6b9970ae8d1b1f5cc7db39a51cc4b58abd2314f3b.jpg)
 
-![](images/21df4cd8008b70112d34014de8400ba2c7323bbb4c76b68498e60d143c778429.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/21df4cd8008b70112d34014de8400ba2c7323bbb4c76b68498e60d143c778429.jpg)
 
-![](images/a1e1ee0f9d64428788849055544bed483031f266ad248ade2c8aac4ac1ce532d.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/a1e1ee0f9d64428788849055544bed483031f266ad248ade2c8aac4ac1ce532d.jpg)
 
 $$
 Z _ { \mathrm { T x , o u t } } ^ { \prime } = \frac { Z _ { T } \cdot Z _ { 3 } + Z _ { 1 } \cdot Z _ { 3 } + Z _ { 1 } \cdot Z _ { 2 } + Z _ { 2 } \cdot Z _ { 3 } + Z _ { 2 } \cdot Z _ { T } } { Z _ { 1 } + Z _ { 3 } + Z _ { T } }
@@ -673,14 +673,14 @@ $$
 
 ## T-Coi l Wi ri ng & I m provement
 
-![](images/df4e5b1aab327e908f42ce3a64955fbf1848e2bdb614f2c8a8da6afd789aaf61.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/df4e5b1aab327e908f42ce3a64955fbf1848e2bdb614f2c8a8da6afd789aaf61.jpg)  
 g.22.a ssiDDie) SOI CMOS SST transmiter [7] with ESD. Simulated return loss curves: (e): HFSS EM model; (f) mathematical model.
 
 ## • A hel ica l wi ri ng scheme red uces the vertica l pa rasitic fri ng i ng ca pacita nce between layers a nd i m proves self- resona nce freq uency 4 5 45
 
 ## Dou ble T-Coi l Output Ba ndwidth Extension
 
-![](images/13153a6ae180b623db425857083cdd29ca8608e30bd1f5d138be273b483425e7.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/13153a6ae180b623db425857083cdd29ca8608e30bd1f5d138be273b483425e7.jpg)
 
 • Dou ble T-coi l structu re a l lows se pa ratio n of te rm i natio n ca pacita nce
 
@@ -688,13 +688,13 @@ g.22.a ssiDDie) SOI CMOS SST transmiter [7] with ESD. Simulated return loss curv
 
 [Steffan ISSCC 20 17]
 
-![](images/06172fc902f7d3f63a7f703d95ca6fdc8aff445fcd92e881c54cfe6f064d7adc.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/06172fc902f7d3f63a7f703d95ca6fdc8aff445fcd92e881c54cfe6f064d7adc.jpg)
 
-![](images/2ffd0e01cf33de237e33d14bb1e9bf50659b2d8199a8fe239d7e57c87c433281.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/2ffd0e01cf33de237e33d14bb1e9bf50659b2d8199a8fe239d7e57c87c433281.jpg)
 
 ## -Coi l Output Ba ndwidth Extension
 
-![](images/bf1f1013a3800c56bd50ada43024ad02ae3fb1af6953e29c9a3f1e7ca034f6ad.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/bf1f1013a3800c56bd50ada43024ad02ae3fb1af6953e29c9a3f1e7ca034f6ad.jpg)
 
 • Output -coi l provides add itiona l term i nation ca pacita nce sepa ration
 
@@ -704,19 +704,19 @@ g.22.a ssiDDie) SOI CMOS SST transmiter [7] with ESD. Simulated return loss curv
 
 ## Response at TX Pad
 
-![](images/c9c94b2c7b86d69a1f6478bfc3cb691d7237cb253bdcae4816dd3c48e4ec8cc1.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/c9c94b2c7b86d69a1f6478bfc3cb691d7237cb253bdcae4816dd3c48e4ec8cc1.jpg)
 
-![](images/4c7ddec293440a21a4202c900ad1801fdebd96fd4b4c1bb67d50677939ca7324.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/4c7ddec293440a21a4202c900ad1801fdebd96fd4b4c1bb67d50677939ca7324.jpg)  
 [ Kim ISSCC 20 19]
 
-![](images/139d8103d0b7aa9fcc48c6f71af5c359a18ba354e492d8324864d7f2b76b438c.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/139d8103d0b7aa9fcc48c6f71af5c359a18ba354e492d8324864d7f2b76b438c.jpg)  
 Response after 20d B channel
 
 • 1 -2d B ba ndwidth pea ki ng resu lts i n sl ig htly deg raded retu rn l oss, b ut a bette r p u l se response over a low- pass cha n nel
 
-![](images/fc9eb28317d98692f21bd2c07a6cb0694953e31861568b6929c3de7bf777582f.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/fc9eb28317d98692f21bd2c07a6cb0694953e31861568b6929c3de7bf777582f.jpg)
 
-![](images/ada6df976974ff8e7cf6d9ca81b7dc6383f257ffd08a22df4001018034193095.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/ada6df976974ff8e7cf6d9ca81b7dc6383f257ffd08a22df4001018034193095.jpg)
 
 ## TX D rive r Ci rc u its
 
@@ -750,9 +750,9 @@ Ca use excessive crossta l k
 
 ## Slew Rate Control w/ Seg mented Driver
 
-![](images/ef1e911cb537cb0164d4aa39862468707f8698990c4cc8c0674ed9071bb96d71.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/ef1e911cb537cb0164d4aa39862468707f8698990c4cc8c0674ed9071bb96d71.jpg)
 
-![](images/5826976dd4fce070606e8eb13d909dc97f757d02a8a05b4ea726cd3526154304.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/5826976dd4fce070606e8eb13d909dc97f757d02a8a05b4ea726cd3526154304.jpg)
 
 • Slew rate control ca n be i m plemented with a seg mented o utp ut d rive r
 
@@ -762,18 +762,18 @@ Ca use excessive crossta l k
 
 ## Cu rrent- Mode Driver Exa m ple
 
-![](images/a25b6458242618e909456b806b0df88be182e7ae8c8da67a5e8f53de6863b00a.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/a25b6458242618e909456b806b0df88be182e7ae8c8da67a5e8f53de6863b00a.jpg)
 
-![](images/2a8b9afe3fc046d7a23c9be3279b1b6fb277db24fbe727976c954145542a937c.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/2a8b9afe3fc046d7a23c9be3279b1b6fb277db24fbe727976c954145542a937c.jpg)  
 A:(46.9446p 3.28265m) delta: (88.991p 586.674u) B：（135.936b 3.86933m) sloe:6.59251M
 
 ## Voltage- Mode Driver Exa m ple
 
-![](images/49aacff96beb178a9833d146450d0bc8ce039677d0df18571707db8ed2f4fdc7.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/49aacff96beb178a9833d146450d0bc8ce039677d0df18571707db8ed2f4fdc7.jpg)
 
-![](images/e2865c08d0ca3dc1353d946b7b948072f9103c47733a6e0f2dac74ed0872267e.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/e2865c08d0ca3dc1353d946b7b948072f9103c47733a6e0f2dac74ed0872267e.jpg)
 
-![](images/fc06bde1e47eda261700efcff39b4d0981e07439c77a33098d14c4a6211fcde5.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/fc06bde1e47eda261700efcff39b4d0981e07439c77a33098d14c4a6211fcde5.jpg)  
 deltc (89.4286p 476.868u) slope:B.33063M
 
 ## TX Ci rcu it Speed Li m itations
@@ -784,7 +784,7 @@ deltc (89.4286p 476.868u) slope:B.33063M
 
 • M u lti p l exi n g ci rcu itry a l so l i m its m axi m u m d ata rate
 
-![](images/cbd537fbc6bf7346d15b968653793d75edbab27604f0f8a6fed110eb993f9ed3.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/cbd537fbc6bf7346d15b968653793d75edbab27604f0f8a6fed110eb993f9ed3.jpg)
 
 ## TX M u lti p l exer – Fu l l Rate
 
@@ -796,9 +796,9 @@ deltc (89.4286p 476.868u) slope:B.33063M
 
 • Need to desig n h ig hspeed fl i p-flop
 
-![](images/4c4b1782fae1a2bf1714b8671f7c48991dad0384ab331b0a086c8675f5c686a6.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/4c4b1782fae1a2bf1714b8671f7c48991dad0384ab331b0a086c8675f5c686a6.jpg)
 
-![](images/0662fbbc814dfc3d885d17b2144160dc4d28734d058d65a4148d9e96783d0042.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/0662fbbc814dfc3d885d17b2144160dc4d28734d058d65a4148d9e96783d0042.jpg)
 
 ## TX M u lti plexer – Fu l l Rate Exa m ple
 
@@ -810,7 +810,7 @@ deltc (89.4286p 476.868u) slope:B.33063M
 
 • 1 30mW ! !
 
-![](images/c4b3080737868edb747e0ad8462da3fb10c6c5b2401d4d4c15b8e3e368d174f2.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/c4b3080737868edb747e0ad8462da3fb10c6c5b2401d4d4c15b8e3e368d174f2.jpg)
 
 ## TX M u lti p l exer – H a lf Rate
 
@@ -824,9 +824,9 @@ deltc (89.4286p 476.868u) slope:B.33063M
 
 • Ca n a l so d o th i s i n preced i ng stages for better ti m i ng ma rg i n
 
-![](images/0ce7ffd4f396a4a7a0f5165f0994f36a8f4c9bc246ffb683c136db0aa5787a03.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/0ce7ffd4f396a4a7a0f5165f0994f36a8f4c9bc246ffb683c136db0aa5787a03.jpg)
 
-![](images/91bb14375d7b903d341dab6d781aeb34aa516b8a5e69d619915b1e20cb0dd236.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/91bb14375d7b903d341dab6d781aeb34aa516b8a5e69d619915b1e20cb0dd236.jpg)
 
 ## Clock Distri bution Speed Li m itations
 
@@ -845,9 +845,9 @@ deltc (89.4286p 476.868u) slope:B.33063M
 • CM L w/ i nd uctive pea ki ng
 
 $\pmb { \mathrm { t } } _ { \mathtt { F O 4 } }$ in 90nm \~ 30ps  
-![](images/fe54df87b1fef576e706fa6dbf24fe221aa67be22b53430b9fb4dd6fe15db5c9.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/fe54df87b1fef576e706fa6dbf24fe221aa67be22b53430b9fb4dd6fe15db5c9.jpg)
 
-![](images/e2165db2a5d7c6a0a15ad9b4e46cac38f9c8509b9c38775c11b2fe0da6bf657f.jpg)  
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/e2165db2a5d7c6a0a15ad9b4e46cac38f9c8509b9c38775c11b2fe0da6bf657f.jpg)  
 \*C . - K. Ya ng, “ Desig n of H ig h -Speed Seria l Li n ks i n CM OS, " 1 998 .
 
 ## M u lti plexi ng Tech n iq ues – ½ Rate
@@ -862,15 +862,15 @@ $\pmb { \mathrm { t } } _ { \mathtt { F O 4 } }$ in 90nm \~ 30ps
 
 • $1 8 0 ^ { \circ }$ phase spaci ng (d uty cycle) criti ca l fo r u n ifo rm o utp ut eye
 
-![](images/38e283c67cd065e3e834dfdd62a242a23361d8a4474acf427a957d30180a7b91.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/38e283c67cd065e3e834dfdd62a242a23361d8a4474acf427a957d30180a7b91.jpg)
 
-![](images/59f7d51da2c6de59c2bce0e6f56ff9d739451e611398a146db55318511665caa.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/59f7d51da2c6de59c2bce0e6f56ff9d739451e611398a146db55318511665caa.jpg)
 
 ## 2 : 1 CMOS M ux
 
-![](images/f2e50b7d5af717d6c22bc5f319aaf9c64bfdd4db20d23bd8573837c9c2ebc12a.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/f2e50b7d5af717d6c22bc5f319aaf9c64bfdd4db20d23bd8573837c9c2ebc12a.jpg)
 
-![](images/ccbceb6bbf10b343496b5cdc655538bd31fbb8cdf696434696894b5d0526092b.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/ccbceb6bbf10b343496b5cdc655538bd31fbb8cdf696434696894b5d0526092b.jpg)
 
 2 : 1 CMOS m ux a ble to propagate a m i n i m u m pu lse nea r   
 2FO4 ${ \sf T } _ { \sf b }$
@@ -881,7 +881,7 @@ $\pmb { \mathrm { t } } _ { \mathtt { F O 4 } }$ in 90nm \~ 30ps
 
 ## 2 : 1 CM L M ux
 
-![](images/0c69d3c823e82e0ab774c39364273f5aab7bde8dd3dad0065f16835a2f54946a.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/0c69d3c823e82e0ab774c39364273f5aab7bde8dd3dad0065f16835a2f54946a.jpg)
 
 • CM L m ux ca n ach ieve h ig her speeds d ue to red uced se lf- l oa d i n g fa cto r
 
@@ -897,9 +897,9 @@ $\pmb { \mathrm { t } } _ { \mathtt { F O 4 } }$ in 90nm \~ 30ps
 
 • 90  phase spaci ng a nd d uty cyc l e c riti ca l fo r u n ifo rm output eye
 
-![](images/802e8a0e83bfdc4f3ef94960d162c75a7ef3726131ddcb24ec8c1bc3183b7288.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/802e8a0e83bfdc4f3ef94960d162c75a7ef3726131ddcb24ec8c1bc3183b7288.jpg)
 
-![](images/d673cb2d064d1e12f5e0ab9027d4d946f4264d1384557ea2c4a796781c42aef6.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/d673cb2d064d1e12f5e0ab9027d4d946f4264d1384557ea2c4a796781c42aef6.jpg)
 
 ## I ncreasi ng M u lti plexi ng Factor – M ux Speed
 
@@ -917,15 +917,15 @@ An agg ressive CMOS-style desig n has potentia l for 1 6G b/s i n typica l 90 n 
 
 • No way a CMOS m ux ca n ach ieve t h i s ! !
 
-![](images/43f59f93179f32d6b77e2b99b00820c946a356b2a0100e9819eb98312e2ac5ca.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/43f59f93179f32d6b77e2b99b00820c946a356b2a0100e9819eb98312e2ac5ca.jpg)
 
-![](images/a88d4b41fc0ab1a948a41bd2d9fc655be3aa3587332e5a1965964f12c8618c23.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/a88d4b41fc0ab1a948a41bd2d9fc655be3aa3587332e5a1965964f12c8618c23.jpg)
 
 ## H ig h -Order Cu rrent- Mode Output- M u lti plexed
 
 • 8 : 1 cu rrent- mode m ux d i rectly at output pad
 
-![](images/5edbc5692c2677e9149652196e386eeea220178eaed06bee3f472f2c1a49796e.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/5edbc5692c2677e9149652196e386eeea220178eaed06bee3f472f2c1a49796e.jpg)
 
 • M a kes sense if output ti me consta nt sma l ler tha n on -ch i p ti me consta nt
 
@@ -941,13 +941,13 @@ Ya ng ach ieved 6G b/s i n 0 . 3 5 m CMOS
 
 Eq u iva lent to 33G b/s i n 90n m CMOS (now cha n nel ( n ot c i rc u it) l i m ited )
 
-![](images/aa338e3a5d294af6884527fbf3ad89a7246c8fc758a72fae503531abeb33fdec.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/aa338e3a5d294af6884527fbf3ad89a7246c8fc758a72fae503531abeb33fdec.jpg)
 
 ## Cu rrent- Mode I n put- M u lti plexed
 
-![](images/b10bfad4a6d48841c729acf286bf6fb9401ab2f96c96b2ae285a32986492db42.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/b10bfad4a6d48841c729acf286bf6fb9401ab2f96c96b2ae285a32986492db42.jpg)
 
-![](images/d3625cc44773318cb2de87dbbfa03eb6781ca3b2cc7db557a9c4fbe04e5606e3.jpg)
+![](/img/mineru_output/lecture5_ee720_termination_txdriver/auto/images/d3625cc44773318cb2de87dbbfa03eb6781ca3b2cc7db557a9c4fbe04e5606e3.jpg)
 
 • Red uces output ca pacita nce relative to output- m u lti plexed d rive r
 

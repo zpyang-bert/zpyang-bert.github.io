@@ -36,39 +36,39 @@ The epitaxial wafers were grown in our MOCVD reactor, with growth conditions opt
 
 Fig.1 shows the LIV characteristics of a representative at $2 5 ~ ^ { \circ } \mathrm { C }$ and $7 0 ~ ^ { \circ } \mathrm { C } .$ The output power at 8 mA was approximately 7.2 mW at $2 5 ~ ^ { \circ } \mathrm { C }$ and 6.3 mW at $7 0 ^ { \circ } \mathrm { C } ,$ , and the voltage at 8 mA was $2 . 6 \mathrm { \bar { ~ V } }$ at $2 5 ~ ^ { \circ } \mathrm { C }$ and 2.5 V at $7 0 ^ { \circ } \mathrm { C } .$
 
-![](images/6b4e9b2f097928f43b1db3642e30a363abf75a4daecc12e1cb69665d5106df9e.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/6b4e9b2f097928f43b1db3642e30a363abf75a4daecc12e1cb69665d5106df9e.jpg)  
 (a)
 
-![](images/34b8c3aaced2ca58169540feff047f43182e4301dd366266b03f57a915468d00.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/34b8c3aaced2ca58169540feff047f43182e4301dd366266b03f57a915468d00.jpg)  
 (b)  
 Fig. 1. LIV characteristics, (a) L-I, (b) V-I
 
 Fig.2 shows the S21 response. The S21 evaluation was performed by contacting a Form Factor GSG probe and measured using a Keysight N4373E PNA network analyzer. The modulation bandwidth was over 40 GHz at $2 5 ^ { \circ } \mathrm { C } ,$ 37 GHz at $7 0 ^ { \circ } \mathrm { C } ,$ and 36 GHz at $8 0 ~ ^ { \circ } \mathrm { C }$ . The overshoot level in the S21 response was confirmed to be low, around 2 dB at both $2 5 ~ ^ { \circ } \mathrm { C }$ to $8 0 ~ ^ { \circ } \mathrm { C } ,$ which is advantageous for PAM4 operation.
 
-![](images/bdef94ef5bded87257ed6c94921a17b01db17cb04a2276466560ef4cc9b75504.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/bdef94ef5bded87257ed6c94921a17b01db17cb04a2276466560ef4cc9b75504.jpg)  
 (a)
 
-![](images/58de59483fec8bfb87508edfc8c83f3bd9425ef793110311cf8c0083e0490bf1.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/58de59483fec8bfb87508edfc8c83f3bd9425ef793110311cf8c0083e0490bf1.jpg)  
 (b)  
 Fig. 2. S21 response at bias currents of 7, 8, and 9 mA, temperatures of (a) $2 5 ^ { \circ } \mathrm { C } ,$ (b) $7 0 ~ ^ { \circ } \mathrm { C }$
 
 RIN performance as shown in $\mathrm { F i g } . 3 ,$ , was measured with a Keysight N1092 sampling oscilloscope at a DC bias current. The RIN level stabilized at an average of -150dB/Hz or less at $7 0 ~ ^ { \circ } \mathrm { C } / 8$ mA, achieving low noise performance. We confirmed that the wide bandwidth and low noise performance were achieved simultaneously.
 
-![](images/e565f3ff06bedf3aca56ff3e37d96881e7080183fe7ef5888a224b52c1284ea4.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/e565f3ff06bedf3aca56ff3e37d96881e7080183fe7ef5888a224b52c1284ea4.jpg)  
 Fig. 3. RIN at 70°C/8 mA (N=10)
 
 The optical eye diagram of 200G-PAM4 as shown in Fig. 4, was evaluated using a Keysight M8199B arbitrary waveform generator. The baud rate was 106.25 GBd PAM4 signal with a PRBS15Q pattern, an extinction ratio of approximately 2.5 dB, a 53.1 GHz filter and waveform correction of 7 taps on the Tx and 30 taps on the Rx. The signal was evaluated in a back-to-back transmission over 50um multimode fiber. Owing to the wide bandwidth and low noise performance of our VCSELs, sufficient eye opening was observed at both $2 5 ~ ^ { \circ } \mathrm { C }$ and $7 0 ^ { \circ } \mathrm { C } ,$ , with TDECQ remaining below 4 dB at each temperature.
 
-![](images/8c640994f049b9e5d12544ab502eed701c603a66fe241913048787562ba88bec.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/8c640994f049b9e5d12544ab502eed701c603a66fe241913048787562ba88bec.jpg)  
 (a)
 
-![](images/b8cb8062767b0f980d4a7fb31b6518d552ea0697c1305fe8f4fad60b8aeb5020.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/b8cb8062767b0f980d4a7fb31b6518d552ea0697c1305fe8f4fad60b8aeb5020.jpg)  
 (b)  
 Fig. 4. Eye diagram with 200 Gbps operations at $( \mathrm { a } ) 2 5 ^ { \circ } \mathrm { C } / 8 \mathrm { m A }$ and $( \mathsf { b } ) 7 0 ^ { \circ } \mathrm { C } / 8 \mathrm { m A }$
 
 Fig. 5 shows lifetime test results. For aging tests, the VCSELs were assembled in TO-CANs and stressed at $1 0 0 ~ ^ { \circ } \mathrm { C }$ with a constant bias current of 9.5 mA. A standard reliability model with acceleration factors was used for lifetime estimation. Currently lifetimes of over 10 years at $7 0 ~ ^ { \circ } \mathrm { C } / 8$ mA have been achieved, and more extensive reliability testing is ongoing to obtain more robust wear-out life statistics.
 
-![](images/0d927e5d20f8f11e644937993373fc1c652ca4289669c9411c4d23d0f604ac97.jpg)  
+![](/img/mineru_output/Th4A.3/auto/images/0d927e5d20f8f11e644937993373fc1c652ca4289669c9411c4d23d0f604ac97.jpg)  
 Fig. 5. Lifetime test results converted to 70℃/8mA using an acceleration factors (N=29)
 
 ## 4. Conclusion

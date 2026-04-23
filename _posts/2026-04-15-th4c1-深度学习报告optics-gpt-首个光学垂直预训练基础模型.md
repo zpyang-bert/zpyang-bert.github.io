@@ -494,30 +494,30 @@ vs 传统预训练：
 
 ****
 *<table><tr><td>Subset</td><td>Furner category</td><td>Counts</td></tr><tr><td rowspan="6">Lesigneo o*
-![](_images/7be4060061e1a185cd18ad86978471b1f19b5997a5487d30dafa67f620e404a7.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/7be4060061e1a185cd18ad86978471b1f19b5997a5487d30dafa67f620e404a7.jpg)
 > 🔍 深度说明：本图展示Optics GPT三阶段渐进式预训练流程与训练数据分布。(a) 预训练流程：以Qwen 7B为基座模型，经三个阶段逐步注入光学知识——第一阶段通用光学语料、第二阶段数学物理基础、第三阶段研究生级专业光学，最终通过SFT和GRPO对齐得到可用的聊天模型。(b) 训练数据分布饼图：38.4%光学领域内容、34.9%物理基础、26.2%信息科学，验证了垂直领域知识注入的合理性。(c)(d) 阶段二和三的损失曲线，显示训练收敛稳定、无过拟合。(e) 后预训练对齐流程：监督微调(SFT) + GRPO强化学习对齐。Optics GPT通过课程学习策略，将通用LLM逐步转化为光学领域专家，证明了垂直预训练中渐进式知识注入的有效性。
 
 ****
-![](_images/9d5c4a4286a2f8481ab3deac8efe804c0fa76b0f5596b518edff277ec2b4fe2c.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/9d5c4a4286a2f8481ab3deac8efe804c0fa76b0f5596b518edff277ec2b4fe2c.jpg)
 > 🔍 深度说明：本图展示相干光通信实验测试平台系统架构，包含发射端、传输链路、接收端三部分。(发射端) Tx DSP数字信号处理将比特映射为调制符号并预补偿信道损伤；AWG任意波形发生器产生驱动信号；Tx激光器提供连续波光载波；ASE源注入可控噪声以测试不同OSNR条件；EDFA前置放大WDM信号后注入光纤。(传输链路) 光纤spool模拟X公里长距离传输，随后级联EDFA补偿链路损耗。(接收端) Rx激光器作为本振进行相干检测；集成相干接收机完成光信号下变频；示波器高速采样后经Rx DSP进行色散补偿、偏振模色散均衡、相偏/载频偏移校正，最终恢复数据并计算BER。该平台用于研发测试新调制格式、DSP算法和长距离光纤传输系统。
 
 ****
-![](_images/ac0d9a4f187f8a0a6d602b0f789b6bb9c54a0dfe4e244852ab47f6a9e8a182cc.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/ac0d9a4f187f8a0a6d602b0f789b6bb9c54a0dfe4e244852ab47f6a9e8a182cc.jpg)
 > 🔍 深度说明：本图展示光学频率梳光谱分析实验结果（仅示Fig. 1(b)部分）。图为一幅光学频谱图，横轴为频率(THz)，范围约192.6-193.3 THz（对应1550nm C波段标准光通信窗口）。图中密集排列的深蓝色垂直尖峰即为光学频率梳的梳齿——等间隔、位相相干的离散光频，是WDM光通信系统的理想光源。红色高亮标注的单个梳齿标记为"OUT"，表示经AWG（阵列波导光栅）滤波后选中的单通道输出。左侧括号标注左侧梳齿范围，右侧括号标注右侧梳齿范围，展示了频率梳通道选择与分离的全过程。底部低幅度蓝峰为边缘通道或噪声。该实验验证了光学频率梳作为多通道相干光源的可行性，是高速光通信系统的关键技术之一。
 
 ****
 *<table><tr><td>Model</td><td>Method</td><td>Ripple of the optimized OSNR</td><td>Fault location accu*
-![](_images/f255377991381b78c621cfafc366bfff11eb9f2e6891b123334375806b517889.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/f255377991381b78c621cfafc366bfff11eb9f2e6891b123334375806b517889.jpg)
 > 🔍 深度说明：本图展示AI设计与人工设计DSP算法性能对比（仅示Fig. 2(d)部分）。Q因子随输入功率(dBm)变化曲线，三条曲线分别为：深紫色-Optics GPT设计的非线性DBP（数字背向传播）算法；蓝色-人工设计的线性DSP算法；粉红色-Optics GPT设计的线性DSP算法。在-4dBm至-1dBm区间，Q因子随功率上升而增加；在-1dBm最优工作点处，AI设计非线性DBP获得最高性能(Q~7.5dB)，比人工基线(~7.1dB)高出0.4dB，验证了AI超越人类的DSP设计能力。低功率区(-4dBm)三条曲线几乎重合，说明此时噪声为主要限制因素，算法设计差异不明显。
 
 ****
 *<table><tr><td>Model</td><td>Method</td><td>Ripple of the optimized OSNR</td><td>Fault location accu*
-![](_images/eb875fc3b7ef13294ffefea1caafd927603ec403f0b29c6fb4fbfecef162201d.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/eb875fc3b7ef13294ffefea1caafd927603ec403f0b29c6fb4fbfecef162201d.jpg)
 > 🔍 深度说明：本图展示基于Optics GPT的光网络智能闭环运维系统架构。核心为Optics GPT专业LLM，负责分析决策。右侧为物理光网络基础设施（机柜、光设备），持续上报OA放大器和OPM光性能监控数据。完整闭环流程：①服务任务/告警触发输入；②Optics GPT向设备发送数据请求并接收实时OA/OPM遥测；③AI分析数据，执行优化或故障定位；④通过自动/人工方式实施配置调整；⑤更新后的设备数据反馈回Optics GPT验证效果。该系统实现了意图驱动、自动化、主动式光网络管理，将LLM能力与底层光设备深度集成，可自主完成配置优化、故障诊断、性能调优等操作，显著提升运营商网络运维效率。
 
 ****
 *Fig. 3. Field-trial transmission system and OSNR prediction performance. (a) Field-trial optical network topologies. (b) Optics GPT Q&A records. (c) O*
-![](_images/43ca8a652bcfbfde550c4e2c70128a6efc42fca24a337739c5a64df608a46a70.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/43ca8a652bcfbfde550c4e2c70128a6efc42fca24a337739c5a64df608a46a70.jpg)
 > 🔍 深度说明：本图展示OSNR估计性能对比与光网络拓扑测试平台。(a) 1+1保护路径光网络拓扑：6个ROADM节点构成双路径（工作路径47km + 保护路径47km），承载200G/400G业务，展示了真实光网络结构和业务接入/落地方式。(b) 用户查询与AI推理示例：用户提供拓扑和QoT参数，要求AI估算 egress OSNR，LLM通过标准光传输损耗/增益公式和ROADM插入损耗计算，给出~29.70 dB结果。(c) OSNR估计精度对比表：CNN (需预训练) 误差0.41 dB；DeepSeek R1 (通用LLM) 误差2.75 dB（严重高估）；Optics GPT (领域LLM) 误差0.44 dB。结论：垂直领域LLM无需任务训练即可接近有监督ML模型准确率，显著优于通用LLM，证明了光学领域预训练的知识迁移价值。
 
 ---

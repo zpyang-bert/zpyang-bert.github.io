@@ -336,7 +336,7 @@ The driving forces behind the resurgence of coherent detection may be considered
 
 Although differential detection enables greater receiver sensitivity than direct detection, it is still limited by linear distortions such as CD and PMD, and may not be used easily with polarization multiplexing. This form of coherent detection is also known as self-coherent or pseudo-coherent detection, and is generally used with simple receiver signal processing. A further problem with differential detection is that the signal is itself noisy, so the receiver sensitivity is reduced considerably.
 
-![](images/c6f19fc565a9edb2ec02b92e3345b09de176d3bfdfaf140b3b016b1c6bbc9a49.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/c6f19fc565a9edb2ec02b92e3345b09de176d3bfdfaf140b3b016b1c6bbc9a49.jpg)  
 Figure 2.1 - Quadrature coherent detection
 
 By employing full coherent detection (shown in Figure 2.1, with both quadratures detected), it is possible to gain 3 dB in receiver sensitivity [9], the additional spectral efficiency made available by polarization multiplexing and the ability to compensate for linear impairments to an arbitrarily high degree. As a result of these properties, for 100 Gb/s and above full coherent detection is the most attractive possibility.
@@ -345,7 +345,7 @@ By employing full coherent detection (shown in Figure 2.1, with both quadratures
 
 The phase and polarization diverse coherent receiver (shown in Figure 2.2) consists of three main stages: polarization splitting; phase diverse coupling and detection. In the first stage, the input signal and local oscillator are split into orthogonal polarizations by a pair of polarization beam splitters. A pair of polarization controllers are used to align the local oscillator polarizations with those from the input signal. This will ensure the maximum possible interference in the mixing stage. Signal – LO coupling is performed by a pair of $9 0 ^ { \circ }$ optical hybrids, which couple together local oscillator and signal for each polarization, and have a pair of outputs in quadrature. The four optical fields are then detected individually. Detection is normally performed with P-I-N photodiodes, either in single ended [23] or balanced configurations [24]. Photodiodes have an amplitude response of the form ? ∝ ? !, where I is the photocurrent and E is the incident electrical field [25]. It is the squarelaw response of the photodiodes which mixes the signal and LO fields together and enables coherent detection. When using single-ended detection, the local oscillator must be in the region of 20 dB higher than the signal input [26]. This effectively linearises the response of the photodiode by reducing the relative contribution of the direct-detection of the signal to the overall photocurrent. While this approach simplifies the receiver somewhat and reduces the component cost, the ratio of signal to LO power is a balance of penalties due to direct-detection of the signal and penalties due to the relative intensity noise (RIN) of the local oscillator.
 
-![](images/58c5b908217607d78fdd04b3aebd0c567b9e08d41752ff034864d4cc023c53de.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/58c5b908217607d78fdd04b3aebd0c567b9e08d41752ff034864d4cc023c53de.jpg)  
 Figure 2.2 - Phase and polarization diverse coherent receiver. Dashed lines show signals required only when balanced detection is used.
 
 The response of the phase and polarization diverse coherent receiver can be described as in (2.1) when used with single-ended detection [24] and symmetric 2x2 couplers for the optical hybrids.
@@ -392,11 +392,11 @@ The question of how to best modulate in a four dimensional signal space remains 
 
 Phase shift keying (PSK) encodes information onto the phase of the carrier. This can provide high spectral density for low symbol rates. The disadvantage of modulation formats of this kind is that the tolerance to both phase noise and AWGN is greatly reduced for high orders. Due to these limitations, M-PSK is widely used for only M of 2 and 4 (Figure 2.3).
 
-![](images/ee111113f69855a28a7c1e629424a12a082d814ff9055db0c6ce402ec175d771.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/ee111113f69855a28a7c1e629424a12a082d814ff9055db0c6ce402ec175d771.jpg)
 
-![](images/7214747ed53082dd53094530d48d70eecfe0be0999916b88b69fbd5b1fe37574.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/7214747ed53082dd53094530d48d70eecfe0be0999916b88b69fbd5b1fe37574.jpg)
 
-![](images/c2085be3f3d91c65d5041f7711949f49a595c31966a1ac9cd9dbb50020cafa78.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/c2085be3f3d91c65d5041f7711949f49a595c31966a1ac9cd9dbb50020cafa78.jpg)  
 Real (a.u.)  
 Figure 2.3 - Constellation diagrams for BPSK (left), QPSK (centre) and 8PSK (right). Noise loaded to $\mathrm { E } _ { s } / \mathrm { N } _ { 0 }$ of 24.5 dB.
 
@@ -404,17 +404,17 @@ Figure 2.3 - Constellation diagrams for BPSK (left), QPSK (centre) and 8PSK (rig
 
 Quadrature amplitude modulation (QAM) refers to simultaneous amplitude modulation of two carriers of the same frequency which are in quadrature (often denoted in-phase (I) and quadrature (Q)). These modulation formats are often represented as phasors, with the real and imaginary parts of the phasor representing I and Q respectively. The most common of these types of formats results when the I and Q components are both modulated with several equally spaced amplitudes with zero mean (Figure 2.4). The resulting format is often called square QAM for obvious reasons. For equal spectral density to PSK, QAM has better tolerance to AWGN [35]. Although phase recovery becomes more complex, phase margin for QAM is also better than PSK of equivalent order. Another form of QAM is formed by multiple rings of PSK with different amplitudes. This can be implemented with aligned rings (star QAM, see Figure 2.5, left), which has somewhat reduced SNR tolerance, or with adjacent rings offset (star QAM, see Figure 2.5, right), which provides better SNR tolerance but has no Gray code [36]. This modulation format has become relatively popular in coherent optical communication and is often referred to simply as 8-QAM [37].
 
-![](images/e1bb41bcf4249446759cac815c61e02ec3a8c3fc0db15fa091aa94e17dbcf2c8.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/e1bb41bcf4249446759cac815c61e02ec3a8c3fc0db15fa091aa94e17dbcf2c8.jpg)  
 Real (a.u.)
 
-![](images/bebb22ef96656c7974f4449770664c6215ad731b158315684d541b8bee165523.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/bebb22ef96656c7974f4449770664c6215ad731b158315684d541b8bee165523.jpg)  
 Real (a.u.)
 
 Figure 2.4 - Square QAM16 (left), and QAM64 (right). Noise loaded to $\mathrm { E } _ { \mathrm { s } } / \mathrm { N } _ { 0 }$ of 24.5 dB.  
-![](images/1623b3b34d7e9cf8b8bbd98823d4852ada6c28b64bfdc6d79c2b940284c5a384.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/1623b3b34d7e9cf8b8bbd98823d4852ada6c28b64bfdc6d79c2b940284c5a384.jpg)  
 Real (a.u.)
 
-![](images/0350f708356643888c17693325b275e73759f34607c4a946ec0281bc44aeffa7.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/0350f708356643888c17693325b275e73759f34607c4a946ec0281bc44aeffa7.jpg)  
 Real (a.u.)  
 Figure 2.5 - Star QAM8 (left), and offset star QAM8 (right). Noise loaded to $\mathrm { E } _ { \mathrm { s } } / \mathrm { N } _ { 0 }$ of 24.5 dB.
 
@@ -428,9 +428,9 @@ Table 1 - Gray coding and its relation to other numbering systems
 
 The advantage of Gray coding is illustrated below in Figure 2.6. While the Gray coded constellation always has a single bit difference between adjacent points, the standard binary code has some adjacent points which have 2 bits different. This will lead to a penalty in error rate, compared with Gray coding.
 
-![](images/8031fc900b72390d1dab3ca375c1480521f156b4a690169a1fb9372283945a4c.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/8031fc900b72390d1dab3ca375c1480521f156b4a690169a1fb9372283945a4c.jpg)
 
-![](images/22200788eff0bfb987478f18c8ec204f1978b02f685b101800fac4db4a9eae66.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/22200788eff0bfb987478f18c8ec204f1978b02f685b101800fac4db4a9eae66.jpg)  
 Figure 2.6 - QPSK constellations with standard binary coding (left), and Gray coding (right).
 
 While this coding scheme is known to be optimal when it exists, there are some constellations for which it is impossible to construct, such as offset star QAM.
@@ -453,7 +453,7 @@ These asymptotes for optimal receiver performance assume a two dimensional chann
 
 The noise level is described here using the signal processing convention of $\mathrm { E _ { b } / N _ { 0 } } ,$ where $\mathrm { E _ { b } }$ is the mean energy per transmitted bit and $\mathrm { N } _ { 0 }$ is the mean noise energy per symbol. This metric enables comparison between modulation formats with differing cardinality at identical bit rates, as the SNR is normalised to the number of bits per symbol of the modulation format (unlike, for example, $\mathrm { E } _ { s } / \mathrm { N } _ { 0 } )$ . If we convert this to the optical convention of optical signal to noise ratio over a bandwidth of 12.5 GHz, we may get an indication of how they might perform in, for example, a 112 Gb/s system of the kind required for the 100 GbE standard.
 
-![](images/85e97cbacbcbdbfbde1c6481f1aa770878e25545cfbd551e1dd367d4f02a0fc2.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/85e97cbacbcbdbfbde1c6481f1aa770878e25545cfbd551e1dd367d4f02a0fc2.jpg)  
 Figure 2.7 - Noise limited receiver performance for various modulation formats. While the optimal performance asymptotes are derived for a two-dimensional channel, generalisation to the case of dual-polarization modulation formats is quite simple.
 
 <table><tr><td rowspan=1 colspan=1>Modulation Format</td><td rowspan=1 colspan=1>Symbol Rate (GBd)</td><td rowspan=1 colspan=1>Possible SpectralEfficiency (b/s/Hz)</td><td rowspan=1 colspan=1>Required OSNR $\scriptstyle ( \mathcal { Q } \mathrm { B E R } = 1 0 ^ { - 3 }$ (dB/0.1nm)</td></tr><tr><td rowspan=1 colspan=1>DP-BPSK</td><td rowspan=1 colspan=1>56</td><td rowspan=1 colspan=1>2</td><td rowspan=1 colspan=1>13.3</td></tr><tr><td rowspan=1 colspan=1>DP-QPSK</td><td rowspan=1 colspan=1>28</td><td rowspan=1 colspan=1>4</td><td rowspan=1 colspan=1>13.3</td></tr><tr><td rowspan=1 colspan=1>DP-8PSK</td><td rowspan=1 colspan=1>18.7</td><td rowspan=1 colspan=1>6</td><td rowspan=1 colspan=1>16.5</td></tr><tr><td rowspan=1 colspan=1>DP-16PSK</td><td rowspan=1 colspan=1>14</td><td rowspan=1 colspan=1>8</td><td rowspan=1 colspan=1>20.8</td></tr><tr><td rowspan=1 colspan=1>DP-QAM8</td><td rowspan=1 colspan=1>18.7</td><td rowspan=1 colspan=1>6</td><td rowspan=1 colspan=1>15.5</td></tr><tr><td rowspan=1 colspan=1>DP-QAM16</td><td rowspan=1 colspan=1>14</td><td rowspan=1 colspan=1>8</td><td rowspan=1 colspan=1>17.0</td></tr><tr><td rowspan=1 colspan=1>DP-QAM64</td><td rowspan=1 colspan=1>7</td><td rowspan=1 colspan=1>10</td><td rowspan=1 colspan=1>21.2</td></tr></table>
@@ -470,19 +470,19 @@ An important component in any optical transmitter is the optical modulator which
 
 The Mach-Zehnder interferometer is a structure which simply splits a beam into two parts, shifts the phase of one with respect to the other and then recombines them [39].
 
-![](images/56df3e70911d39a9b0f79fd6b8dcecd547864c2aeefb2c536ebcdba02b290368.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/56df3e70911d39a9b0f79fd6b8dcecd547864c2aeefb2c536ebcdba02b290368.jpg)  
 Figure 2.8 - Push-pull MZM operation.
 
 By inserting an electro-optic modulator (EOM) into each of the arms of an MZI, it is possible to control the relative phase of the two arms, and therefore the intensity of the interference products at the output. This device is known as a Mach-Zehnder modulator (MZM) (Figure 2.8).
 
-![](images/26cad6015c2fc011995b334eee6e3f36fc1e07f48aad2cd5d1f3f0b166e56e72.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/26cad6015c2fc011995b334eee6e3f36fc1e07f48aad2cd5d1f3f0b166e56e72.jpg)  
 Figure 2.9 - MZM transfer function.
 
 The transfer function of the MZM therefore has the form of a sinusoid (Figure 2.9). As the transfer characteristic of the modulator is inherently nonlinear, the output optical signal to noise ratio (OSNR) is a function of both the input electrical SNR and the range over which the modulator is driven. For modulation formats such as BPSK and QPSK, only the most extreme swing of the modulator is needed. By biasing the modulator to its null point and driving it over $2 \mathrm { V _ { \mathsf { p i } } }$ , it is possible to suppress the electrical noise on the driving signal. This is due to the fact that the modulator is at its most nonlinear around $\mathrm { V _ { p i } } ,$ small changes in the driving voltage have relatively little influence on the output field. Conversely, around the null point the transfer function of the MZM is approximately linear. This results in the noise on the electrical driving signal being transferred into the optical domain. While this effect may be suppressed when using a format such as BPSK or QPSK, when using higher order QAM or PSK it is desirable to use only the approximately linear part of the transfer function. While this is a method makes the implementation of highly complex modulation formats a good deal simpler, there is inevitably a reduction in transmitted SNR.
 
 While this device gives good control of the output field, it will only modulate a single axis of the complex plane. To gain full control of the output field, a second MZM in quadrature is used, and combined with the first by way of a third MZI. This device will modulate the carrier over the full complex plane, with the two nested MZMs modulating I and Q separately. This modulator is known by many names, including: triple Mach-Zehnder modulator, I-Q modulator, Cartesian modulator or nested Mach-Zehnder modulator.
 
-![](images/3a9aa9fcabe62ca1b2655751be8159270f4c7434b3df833764973a2821122f84.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/3a9aa9fcabe62ca1b2655751be8159270f4c7434b3df833764973a2821122f84.jpg)  
 Figure 2.10 - Dual-polarization triple Mach-Zehnder modulator.
 
 For generating dual-polarization modulation formats, typically two triple Mach-Zehnder modulators are used in parallel, each modulating an orthogonal polarization (Figure 2.10). The two unmodulated carriers come from the same laser and are split into orthogonal linear polarizations with a polarization beam splitter (PBS), before the two single polarization modulated signals are multiplexed together with a second PBS.
@@ -539,7 +539,7 @@ where T is the time between observations and Δν is the 3 dB optical linewidth.
 
 After detection, the received signals are digitised, and then processed to compensate for distortion and impairments. While none of the functionalities provided by DSP are strictly necessary for some kind of transmission to be achieved (although not used when coherent detection was proposed in the 1980s [3], [42], sophisticated DSP was considered an important advantage in the resurgence of coherent optical communications in the 2000s [43], [44]), the increase in performance and the reduction in constraints for the design of systems provided by DSP ensure that they are an extremely attractive proposition. The signal flow model of the DSP used in the coherent communication systems in this thesis is provided in Figure 2.11. It should be noted however, that as all of these functional blocks other than the decision circuit are linear, the order of the blocks may be interchanged, and this ordering is simply one possible implementation.
 
-![](images/5de058ef6b87598dfc69444a4b60592f77fef90a7613a0c25901566de2273152.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/5de058ef6b87598dfc69444a4b60592f77fef90a7613a0c25901566de2273152.jpg)  
 Figure 2.11 - DSP Signal Flow Model
 
 ## 2.6.1 Resampling
@@ -578,14 +578,14 @@ here, N is the number of taps in the filter; k is the tap index; $a _ { k }$ the
 
 Adaptive equalisation in coherent communications is most often performed with adaptive FIR filtering. These filters have been developed from the pioneering work of Bussgang [46] and Sato [47]. These equalisers are desirable as they are relatively simple to design, robust, and may be used with complex baseband signals by making the filter coefficients and signals complex. The most commonly used class of equaliser – the Bussgang equaliser - has an essential structure as described in Figure 2.12. It consists of three major parts: an FIR filter to implement the inverse channel, a memoryless non-linearity which estimates how far the filter is from the desired response, and an update algorithm which determines new filter coefficients based upon the old coefficients, the estimated position on the error surface, and the input signal to the filter [46].
 
-![](images/3e35418737838a31ebb421c14e674c7646bc9321d66d033d3bea4d0b85d5b73e.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/3e35418737838a31ebb421c14e674c7646bc9321d66d033d3bea4d0b85d5b73e.jpg)  
 Figure 2.12 - Block diagram of a Bussgang equaliser.
 
 ## 2.6.4.1 MIMO Processing with Bussgang Equalisers
 
 With coherent polarization multiplexed communication, the equaliser structure used to separate the two incoming polarizations (which are constantly rotating stochastically on the Poincaré sphere) is very similar to that used in MIMO wireless systems. The filter structure used is known as a four-filter butterfly structure (Figure 2.13). Each output is an arbitrary combination of the input signals, thus enabling both deconvolution of the signal from the channel, and separation of the two source signals.
 
-![](images/8f99abc86bc1b1ff11f6da1ba87d111d35c1713f7461a17941ce7f8222e661b9.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/8f99abc86bc1b1ff11f6da1ba87d111d35c1713f7461a17941ce7f8222e661b9.jpg)  
 Figure 2.13 - The 2x2 MIMO Bussgang Equaliser, figure taken from [46].
 
 ## 2.6.5 Least Mean Squares Algorithm
@@ -802,13 +802,13 @@ $$
 
 The two variations of the split-step method may be described in terms of two and three block nonlinear models from nonlinear systems theory [71], for each short length of fibre over which a split-step is taken. Nonlinear models of particular interest are: the Wiener model which consists of a linear block followed by a memoryless nonlinear block (Figure 2.14); the Hammerstein model, consisting of a memoryless nonlinear block followed by a linear block (Figure 2.15); and the Wiener-Hammerstein model, which represents the concatenation of the Wiener and Hammerstein models, that is, a linear block followed by a memoryless nonlinear block, followed by a second linear block (Figure 2.16).
 
-![](images/1a40bc3e9d01dfab9e3b548d7cc47b78f38a0b0c7dfa610d87b8579f72f6eb9c.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/1a40bc3e9d01dfab9e3b548d7cc47b78f38a0b0c7dfa610d87b8579f72f6eb9c.jpg)
 
 Figure 2.14 - The Wiener model  
-![](images/25c5ab17cb44b665e73376110778005302cf45c77afb51154a6837286edf75f4.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/25c5ab17cb44b665e73376110778005302cf45c77afb51154a6837286edf75f4.jpg)
 
 Figure 2.15 - The Hammerstein model  
-![](images/cfd9456ffc683a8be573a72c4792a1fbed7eb30275ecc57b28876dbd75c11faf.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/cfd9456ffc683a8be573a72c4792a1fbed7eb30275ecc57b28876dbd75c11faf.jpg)  
 Figure 2.16 - The Wiener-Hammerstein model
 
 It is immediately apparent that the Wiener-Hammerstein model (Figure 2.16) is used to represent the behaviour of an incremental section of fibre in the symmetric splitstep method. These three block systems are then cascaded to form an approximation of the entire channel. Similarly, the bulk-step approach refers to a cascaded two block (Hammerstein model) approximation of the channel. The difference between the two and three block nonlinear models stems largely from their relative accuracy, which is analysed in the next subsection. It should be noted that while the bulk-step approximation of the forward channel corresponds to a cascade of Hammerstein systems, when this model is used for compensation (that is, approximation of the inverse channel) the order of the blocks is reversed, and the bulk-step model therefore refers to a cascade of Wiener systems.
@@ -909,12 +909,12 @@ This investigation is performed by a series of single-channel experiments and si
 
 To characterise the functionality of our digital coherent receiver with nonlinearity compensation, we performed a set of transmission experiments to examine the effects of linear and nonlinear impairments. A particular focus was to investigate the effectiveness of nonlinear compensation techniques for DP-QPSK and DP-QAM16 modulation formats and the impact of varying DSP complexity on the transmission performance. The optical signals were transmitted multiple times through a singlespan recirculating fibre loop, followed by coherent detection, digitization and offline digital signal processing, as shown in Figure 3.1. The loop consisted of 80.2 km SMF fibre with an overall chromatic dispersion of 1347 ps/nm and loss of 15.4 dB. The experimental procedure was similar to that described in [26], [103].
 
-![](images/d0c726939614c8c07d0c9881b7ec00e51af664178c0968a7c9bab7e63555d944.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/d0c726939614c8c07d0c9881b7ec00e51af664178c0968a7c9bab7e63555d944.jpg)  
 Figure 3.1 - Recirculating loop setup used for transmission experiments, with optical front end of the phase and polarization diverse digital coherent receiver.
 
 The polarization-multiplexed QPSK signal was generated using an I-Q modulator, which was driven over $2 \mathrm { V } _ { \pi }$ with respect to the minimum bias point of its transfer function. For the data two decorrelated $2 ^ { 1 2 }$ PRBS sequences were used from the output of the pulse pattern generator (PPG), which were subsequently amplified to 7 $\mathrm { V } _ { \mathrm { p } \cdot \mathrm { p } } \left( 2 \mathrm { V } _ { \pi } \right)$ to separately drive the I and Q arms of the modulator. The transmitter DFB laser linewidth, wavelength and output optical power were 1 MHz, 1554 nm and 8 dBm, respectively. To emulate polarization multiplexing we used a passive delay-line fibre interferometer, where two single polarization QPSK signals were again decorrelated, time and amplitude aligned and finally recombined via a polarization beam splitter (PBS) as shown in Figure 3.2.
 
-![](images/71cf5747bf8c5602216662825927370b5df8064c4eaad16f358398932f898a77.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/71cf5747bf8c5602216662825927370b5df8064c4eaad16f358398932f898a77.jpg)  
 Figure 3.2 - Transmitter structure for DP-QPSK, with optional QAM16 stage highlighted. Inset: optical eye-diagrams at the output of the transmitter for DP-QPSK (top), and DP-QAM16 (bottom).
 
 To synthesise a DP-QAM16 signal, we employed a recently developed method based on the interferometric optical processing of a QPSK signal, developed by S. Makovejs [60]. To aid carrier phase estimation, an external cavity laser (ECL) with a linewidth of 100 kHz was used in the QAM16 transmitter. The initial QPSK signal was launched into a phase-stabilised fibre interferometer, where the two signals are decorrelated, time-aligned and attenuated with respect to each other by 6 dB (highlighted, Figure 3.2). The phase between two arms was set to 90º and maintained utilizing a feedback circuit. For the feedback circuit we used a ditherless bias control circuit; alternatively, a circuit design described in [105] may be used. Even though this method cannot be used to independently modulate different streams of data, this can be used to investigate transmission performance of DP-QAM16 signals. In addition, this generation method allows suppression of the transfer of noise between the electrical and optical domains in the transmitter, owing to the nonlinear transfer function of the modulator. Polarization multiplexing emulation was performed as in the DP-QPSK case.
@@ -939,20 +939,20 @@ The residual implementation penalty was assumed to stem mainly from electrical n
 
 To examine the variation of system performance with various implementations of digital backpropagation, we performed experiments with DP-QPSK near to the maximum reach without nonlinearity compensating DSP. Algorithm performance was examined over 97 spans (7780 km). As this distance is close to maximum reach, both nonlinear effects and the possible benefits of nonlinearity compensation are more significant than for shorter distances. A symbol rate of 10.7 GBd was chosen to exploit the full receiver bandwidth when using T/2 sampling for processing. The digital backpropagation algorithm was then investigated in terms of both the nonlinear step size and the use of both Wiener and Wiener-Hammerstein models.
 
-![](images/dfea4c2244c5001d4d357938225dbebc3315458932c6ea8f508953132a7bf931.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/dfea4c2244c5001d4d357938225dbebc3315458932c6ea8f508953132a7bf931.jpg)  
 Figure 3.3 - Contour plot of experimentally determined Q-factor in dB against launch power and nonlinear step-size for Wiener cascade compensation of 97 spans transmission DP-QPSK at 10.7 GBd. Nonlinear step-size of a single span lies at 80.2 km.
 
 The performance of the Wiener cascade model backpropagation was experimentally characterised for DP-QPSK and the results shown in Figure 3.3. Q-factor in dB is plotted as a contour graph against nonlinear step size in km on the horizontal axis and launch power in dBm on the vertical axis.
 
 In Figure 3.3 we observe that for lower powers, performance is limited by the accumulated optical noise. For launch powers of below -5 dBm there is an insignificant improvement in performance for either modulation format with any step size. As launch power is increased, we note that an improvement in performance is available for reduced step sizes up to 160 km. The optimum launch power is improved by some 2 dB, from approximately -4.5 dBm to approximately -2.5 dBm. The benefits available with decreasing nonlinear step-size become saturated at 160 km. It is noted that while the improvement in maximum Q-factor may be modest (in the region of 1.5 dB), the increase in input dynamic range (that is, the range of launch powers for which the BER is less than the FEC limit) is more dramatic: approximately 4 dB.
 
-![](images/d8bcf8c3a817c6d546b9df987b986c27e491bcb6d5202d300b0fcd663af4a716.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/d8bcf8c3a817c6d546b9df987b986c27e491bcb6d5202d300b0fcd663af4a716.jpg)  
 Figure 3.4 - Q-factor in dB for transmission of 10.7 GBd DP-QPSK over 97 spans. Unfilled markers denote experimental data, while solid markers correspond to simulated results, and lines denote polynomial fits. CD only and 1 step per span are demonstrated.  
 Figure 3.4 shows the variation of the Q-factor against launch power with and without backpropagation for a single nonlinear step per span. Experimental data is denoted by unfilled markers, while Monte-Carlo simulations (as described in the previous section) are denoted by filled markers. Simulation parameters were determined as follows: fibre chromatic dispersion, length and attenuation were measured while optical filter bandwidths and fibre PMD were taken from manufacturers specifications. The fibre nonlinear coefficient and optical amplifier noise figures were used as fitting parameters to ensure good agreement between simulated and experimental results. While the simulated results provide a good fit to the experimental results for dispersion compensation only, for short step-sizes and long transmission distances this quality of fit is much harder to attain. We believe that this is due to the unmodelled distortions in the transmitter and receiver and their interaction with the signal during backpropagation. It is noted that there is a very good agreement between the experimental and simulated results. Linear
 
 compensation denotes compensation for chromatic dispersion only, while 1 step per span correspond to a nonlinear step-size of 80.2 km.
 
-![](images/17722f323838c3647e808edf7d001781c3963f4874a148790947456515db8318.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/17722f323838c3647e808edf7d001781c3963f4874a148790947456515db8318.jpg)  
 Figure 3.5 - Variation of experimental Q-factor in dB with distribution of dispersion in Wiener-Hammerstein cascade compensation of 97 spans transmission DP-QPSK at 10.7 GBd. Shown for 0.5 dBm launch power and an 80.2 km step-size.
 
 The influence of the distribution of dispersion between the two linear blocks in the Wiener-Hammerstein cascade was then investigated. This corresponds to varying the position of the nonlinear block within the section of fibre which is approximated by each 3 block system. The optimum was found to be 85% of the dispersion in the first block and 15% in the second block. This corresponds to applying the nonlinearity at half of the effective nonlinear length of the fibre section. A graph illustrating this is shown in Figure 3.5, which shows the variation of Q-factor with the length of the first dispersive step. The figure shows an 80 km nonlinear step size for 0.5 dBm launch power. Other launch powers and nonlinear step sizes also exhibit a maximum when the split of dispersion is 85% - 15%, although the maximum improvement in Q-factor is smaller for lower launch powers and smaller nonlinear step sizes. This dispersive split was used for all subsequent uses of Wiener-Hammerstein model backpropagation. While the demonstrated maximum improvement in the optimal case is small in Figure 3.5, this improvement becomes greater as the nonlinear stepsize increases.
@@ -977,35 +977,35 @@ The characterization of DP-QPSK with varying mean dispersive block length is giv
 
 Hammerstein model backpropagation. Here we plot improvement in Q-factor at the optimum launch power (Figure 3.6) and optimum launch power improvement (Figure 3.7) using the polynomial fitting process with the experimental measurements previously described.
 
-![](images/15de0faa89f09e9ec56f1217d2be36e0322945da56465d3aae5a0aa8bec69599.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/15de0faa89f09e9ec56f1217d2be36e0322945da56465d3aae5a0aa8bec69599.jpg)  
 Figure 3.6 - Plot of improvement in inferred maximum Q-factor against mean dispersive block length for DP-QPSK at 10.7 GBd using Wiener and Wiener-Hammerstein model nonlinearity compensation.
 
 It is noted that in both Figure 3.6 and Figure 3.7 both nonlinear compensation models offer similar potential benefits for a given mean dispersive block length. Maximum Q-factor is improved by approximately 1.6 dB, and optimum launch power is increased by approximately 1.9 dB for both compensation models. The improvement in both Q-factor and launch power saturates for a mean dispersive block length of approximately 160 km, or two spans. The similarity between the models when characterised in terms of mean dispersive block length may be considered with reference to the discussion of the accuracy of the models presented in the literature review. When the step size is small, the accuracy of both models is good and there is agreement in accuracy between the two models as the error due to the commutability of the linear and nonlinear blocks is insignificant. As the nonlinear step-size increases, the benefit in accuracy of the Wiener-Hammerstein model becomes more significant. This difference is offset, however, due to the difference in mean dispersive block length between the two models. This becomes most noticeable for a nonlinear step-size corresponding to the link length L: for this case the mean dispersive block length is L for the Wiener cascade, but L/2 for the Wiener-Hammerstein cascade.
 
-![](images/aa4c223f26c17499ca627436f6f48ba1cdc6df501778b109a1d248d32cff2868.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/aa4c223f26c17499ca627436f6f48ba1cdc6df501778b109a1d248d32cff2868.jpg)  
 Figure 3.7 - Plot of improvement in inferred optimum launch power against mean dispersive block length for DP-QPSK at 10.7 GBd using Wiener and Wiener-Hammerstein model nonlinearity compensation.
 
 ## 3.6 DP-QAM16 Transmission Results
 
 We then investigated the performance benefits available when using the digital backpropagation algorithm for the compensation of fibre nonlinearity in a DP-QAM16 system over 20 spans (1600 km). Again, this transmission distance was chosen to be close to maximum reach with linear DSP, in order that the benefits available from nonlinear equalisation are more noticeable. To enable comparison of the modulation formats, we performed the comparison at the same symbol rate (10.7 GBd), thus ensuring that the nonlinearity-mitigating effect of chromatic dispersion is identical for both formats.
 
-![](images/47b8ee2db3530f49110138421c885c3d3985abe53d0a9669fb38140e2ebbad81.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/47b8ee2db3530f49110138421c885c3d3985abe53d0a9669fb38140e2ebbad81.jpg)  
 Figure 3.8 - Contour plot of experimentally determined Q-factor in dB against launch power and nonlinear step-size for Wiener cascade compensation of 20 spans transmission DP-QAM16 at 10.7 GBd. Nonlinear step-size of a single span lies at 80 km.
 
 As in the previous section, we applied Wiener model backpropagation applied to DP-QAM16 transmission varying nonlinear step-size and launch power. These results are presented in a contour plot in Figure 3.8. Again we see that a significant improvement in performance is available with nonlinear backpropagation. In this case, the improvement in performance which is obtained by reducing the nonlinear step-size is saturated for a step-size of approximately 80 km, compared to 160 km for DP-QPSK. Similarly in the large step-size region, a smaller step-size than DP-QPSK is required for DP-QAM16.
 
-![](images/1959b63902594acc75e46242c66adcf813303c22e17f9d09f52a1d5a6ba598a8.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/1959b63902594acc75e46242c66adcf813303c22e17f9d09f52a1d5a6ba598a8.jpg)  
 Figure 3.9 - Q-factor in dB for transmission of 10.7 GBd DP-QAM16 over 20 spans. Unfilled markers denote experimental data, while solid markers correspond to simulated results, and lines denote polynomial fits. CD only and 80 km nonlinear step-size are demonstrated.
 
 Again, simulations were performed in Matlab to determine the agreement of the experimental data with theoretical models. Figure 3.9 shows the variation of the Qfactor against launch power with and without nonlinear backpropagation. Experimental data is denoted by unfilled markers, while Monte-Carlo simulations (as described in the previous section) are denoted by filled markers. It is noted that there is a very good agreement between the experimental and simulated results. CD only denotes compensation for chromatic dispersion only, while 1 step per span corresponds to a nonlinear step size of 80 km.
 
 Again, we employed the polynomial fit described in equation (3.2) to the experimentally obtained data to ascertain the optimum launch power and Q-factor for each nonlinear step-size. These results were then plotted for both Wiener model backpropagation and Wiener-Hammerstein model backpropagation. These results are presented in Figure 3.10 and Figure 3.11.
 
-![](images/91a6b2449a5115061e0de61149e2bf97c5d7c53e9c8d677391a450e377698504.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/91a6b2449a5115061e0de61149e2bf97c5d7c53e9c8d677391a450e377698504.jpg)  
 Figure 3.10 - Plot of improvement in inferred maximum Q-factor against mean dispersive block length for DP-QAM16 at 10.7 GBd using Wiener and Wiener-Hammerstein model nonlinearity compensation.  
 We note from Figure 3.10 and Figure 3.11 that similarly to DP-QPSK, both nonlinear compensation models offer similar potential benefits for a given mean dispersive block length. The maximum available benefit in Q-factor is approximately 1 dB, and optimum launch power is increased by approximately 2.5 dB for both compensation models. The improvement in both Q-factor and launch power saturates for a mean dispersive block length of approximately 80 km, or one span.
 
-![](images/f743a2495e4f39075f31c8d9732853e8e75c66482f73fc96872b66246da961a1.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/f743a2495e4f39075f31c8d9732853e8e75c66482f73fc96872b66246da961a1.jpg)  
 Figure 3.11 - Plot of improvement in inferred optimum launch power against mean dispersive block length for DP-QAM16 at 10.7GBd using Wiener and Wiener-Hammerstein model nonlinearity compensation.
 
 ## 3.7 Comparison of Performance for DP-QPSK and DP-QAM16
@@ -1014,10 +1014,10 @@ By noting that the available benefit from Wiener-Hammerstein model backpropagati
 
 The comparison between DP-QPSK and DP-QAM16 is in terms of the number of nonlinear block required is presented in Figure 3.12, while a comparison by mean dispersive block length is presented in Figure 3.13.
 
-![](images/a567c76f3a533c6c5cb12cc9a6c4d500386c89475257cace7a33071f44ca1933.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/a567c76f3a533c6c5cb12cc9a6c4d500386c89475257cace7a33071f44ca1933.jpg)  
 Figure 3.12 - Plot of improvement in inferred optimum launch power against number of nonlinear blocks for Wiener model nonlinearity compensation of DP-QPSK and DP-QAM16.
 
-![](images/ec364f43f907f2f9b49532f09fe28f35f5be335ff1ec73ad72a0e1da23868cfc.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/ec364f43f907f2f9b49532f09fe28f35f5be335ff1ec73ad72a0e1da23868cfc.jpg)  
 Figure 3.13 - Plot of improvement in inferred optimum launch power against nonlinear step size for Wiener model nonlinearity compensation of DP-QPSK and DP-QAM16.
 
 We note from Figure 3.12 that for a 1.5 dB increase in optimum launch power, that DP-QPSK over 97 spans (7780 km) requires approximately 25 nonlinear blocks, while DP-QAM16 requires approximately 7 over 20 spans (1600 km). This corresponds to a slightly smaller nonlinear step-size for DP-QAM16 (230 km compared to 310 km) as may be seen in Figure 3.13, though this difference is dwarfed by the reduction of nonlinear blocks due to the reduced transmission distance. This is also in agreement with our earlier observation that DP-QAM16 requires a smaller nonlinear step size than DP-QPSK to gain the maximum available benefits from backpropagation. We note that in future coherent systems which employ highly dense modulation and relatively short transmission distances, nonlinearity compensating DSP is likely to be more attractive than for current systems, which are largely DP-QPSK.
@@ -1032,7 +1032,7 @@ $$
 
 Where $N _ { C M A C }$ is the number of complex multiplications per output sample, n is the FFT length, and s is the overlap length used in the filtering operation. When applied to the step-size analysis in the results in the previous sections (initially published in [12]), and filtering at two samples per symbol, we note that in single channel systems, the benefit in launch power is approximately linearly related to the relative complexity increase in the region prior to improvement saturation. This effect is illustrated by Figure 3.14, where we assumed an FFT size of $2 ^ { 1 2 }$ and an overlap of 25%.
 
-![](images/f670a7600d2040df570be1fd9634472690496d8c3f111162a6212567f7f02492.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/f670a7600d2040df570be1fd9634472690496d8c3f111162a6212567f7f02492.jpg)  
 Figure 3.14 - Relative increase in complexity for backpropagation of 10.7 GBd DP-QPSK and DP-QAM16
 
 We note from Figure 3.14 that that in the case of 10.7 GBd DP-QAM16, an increase of a factor of 15 in the number of complex multiplications is required for a 1 dB increase in optimum launch power. Similarly, in the case of 10.7 GBd DP-QPSK, an increase of a factor of 20 in the number of complex multiplications is required for a 1 dB increase in optimum launch power. It is also noted that for a single nonlinear step, there is a small improvement in performance over CD compensation only for a negligible increase in complexity. Since the static CD compensating filter is known to contribute a significant complexity to the receiver ASIC, even at 10.7 GBd [108], this increase in complexity is highly significant to the feasibility of backpropagation for implementation in commercial products. Since we may consider that single channel operation is an upper bound to the improvement in performance which may be achieved with a WDM system, we note that the improvement in performance is likely to be minimal while highly costly in terms of computational complexity (and therefore ASIC design cost and power consumption).
@@ -1061,7 +1061,7 @@ While the detection of all four dimensions of the incoming optical field has ena
 
 Recently, research has been performed into determining the optimum modulation format in four dimensions, given that we have the ability to detect and digitally process all four dimensions of the transmitted optical field [111]. Previous proposals have focused on optimal constellations for the power constrained case [34], with some research being performed into using the extra capacity afforded by using an optimal 24-state constellation as coding overhead [112]. More recently, research into the performance of PS-QPSK in transmission has entered the literature. While this may seem to run against the trend for higher levels of modulation and more dense constellations, it may be noted that in industry there is still a demand for highly robust transmission at the expense of spectral efficiency for ultra long-haul applications [113], [114]. Despite the recent interest in PS-QPSK modulation, DSP algorithms specifically designed for PS-QPSK were published only while the algorithm presented in this chapter [13] was in peer review [14] and shortly after publication [115]. Research prior to this focusing on transmission performance of PS-QPSK over uncompensated links [116] used an equaliser utilising a training sequence. The work presented in [117] examined the performance of PS-QPSK over dispersion managed links, did not discuss equalisation. The work presented in these papers [116], [117] indicates that PS-QPSK modulation offers a significant advantage over DP-QPSK in transmission at 112 Gb/s.
 
-![](images/1eb755402a93baac2eec8937e4eadef29e631c098a6c525b17e6c72460eb0c17.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/1eb755402a93baac2eec8937e4eadef29e631c098a6c525b17e6c72460eb0c17.jpg)  
 Figure 4.1 - Constellation diagrams for DP-QPSK and PS-QPSK in the phase space. Phase on the x polarization (ϕx) is plotted against phase on the y polarization (ϕy) (both in radians). Solid markers belong to both formats while hollow markers belong to PS-QPSK only.
 
 PS-QPSK may be visualised as a subset of DP-QPSK under a polarization rotation. This is illustrated in Figure 4.1 where the phase of each polarization of both formats is plotted (PS-QPSK is rotated relative to the representation given elsewhere in this thesis for clarity).
@@ -1086,7 +1086,7 @@ $$
 S E R _ { D P - Q P S K } = 1 - \left[ 1 - \frac { 1 } { 2 } \mathrm { e r f c } \left( \sqrt { \frac { E _ { b } } { N _ { 0 } } } \right) \right] ^ { 4 }\tag{4.1}
 $$
 
-![](images/e1dbee01a99950319445905ab3a255a8ff96778d01a6f1cd526a70d0b4785fab.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/e1dbee01a99950319445905ab3a255a8ff96778d01a6f1cd526a70d0b4785fab.jpg)  
 Figure 4.2 - Ideal receiver sensitivity in symbol error rate against $\mathrm { E _ { b } / N _ { 0 } }$ for DP-QPSK and PS-QPSK. For equivalent information carrying capacity, error rate of triplets of DP-QPSK is compared with error rate of quadruplets of PS-QPSK.
 
 We note immediately from Figure 4.2 that for identical modulation rates, PS-QPSK has receiver sensitivity significantly better than DP-QPSK at high symbol error rates, increasing to an asymptotic improvement of 1.76 dB. This is despite the fact that PS-QPSK carries 3 bits of information per symbol while DP-QPSK carries 4 bits of information per symbol, necessitating an increase in symbol rate by a factor of 4/3 for an equal bit rate. To compare symbol error rates with equivalent information, we have also compared symbol triplet errors in DP-QPSK to symbol quadruplet errors in PS-QPSK, yielding in each case a ‘super-symbol’ which contains 12 bits, transmitted at an equal rate. We found that PS-QPSK is superior over the domain examined, giving an improvement of 1.3 dB at a ‘super-symbol’ error rate of ${ { 1 0 } ^ { - 2 } } .$ Comparing modulation formats in this manner indicates that PS-QPSK is worthy of further investigation. The ultimate performance metric of any digital communications system is bit error rate (BER), and to examine this facet of PS-QPSK performance, we must first provide a map of bits to symbols.
@@ -1095,21 +1095,21 @@ Gray codes are a class of codes for which the Hamming distance between two point
 
 Karlsson and Agrell proposed the following intuitive scheme, illustrated in Figure 4.3 [34]. As each point in the PS-QPSK constellation has 6 nearest neighbours, the least-bad coding scheme is therefore to assign the 3 bit complement (which has maximum Hamming distance) to the 1 non-nearest neighbour (maximum Euclidean distance). As this mapping scheme has previously been proposed, we will refer to this scheme hereafter as ‘conventional’ mapping. Note that in addition to the expected four QPSK constellation points on each polarization, there is a fifth point at the origin. This point corresponds to the set of symbols for which the QPSK symbol exists on the orthogonal polarization.
 
-![](images/545a6d48493168d4a5d90db32fed0d0e36fa1ffff2693ba3fdbc5bb65144b973.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/545a6d48493168d4a5d90db32fed0d0e36fa1ffff2693ba3fdbc5bb65144b973.jpg)
 
-![](images/4bf4c9d4dbf099696b6fc74cd2fcde122e9663f4c49f8eab22dbf03c7c3dd9d8.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/4bf4c9d4dbf099696b6fc74cd2fcde122e9663f4c49f8eab22dbf03c7c3dd9d8.jpg)  
 Figure 4.3 - 'Conventional' bit mapping for PS-QPSK after Karlsson & Agrell.
 
 While the mapping scheme presented in Figure 4.3 provides an intuitive basis for coding a 4-dimensional modulation format based on an information-theoretical approach, we will briefly consider a sub-optimal bit mapping in passing. The three bits in each PS-QPSK symbol may be considered as 1 bit coding for polarization (a binary state) and two bits coding for phase (a quaternary state). We may therefore construct a mapping which uses two Gray coded bits for the phase of the QPSK constellation and 1 bit for polarization. This scheme is shown in Figure 4.4, and will be referred to as ‘alternative’ mapping. Although this bit mapping is inferior to conventional coding in terms of sensitivity, it provides both a convenient intermediate step to forming a scheme for differential coding, and a simplified coding scheme for which a small performance penalty must be paid.
 
-![](images/c1f15c328546ae5c60ac8ae486cdaad6ed0847e9e22fcd8d1ef85793f9626a17.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/c1f15c328546ae5c60ac8ae486cdaad6ed0847e9e22fcd8d1ef85793f9626a17.jpg)
 
-![](images/0cf601c98ef38e350160d6ae96ce4d267a5618da855b9d6063a449cc49536c6c.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/0cf601c98ef38e350160d6ae96ce4d267a5618da855b9d6063a449cc49536c6c.jpg)  
 Figure 4.4 - 'Alternative' bit mapping scheme for PS-QPSK.
 
 Differential coding is a highly effective tool, both for resolving the phase-space ambiguity present with modulation formats which possess rotational symmetries, and for reducing the effect of burst errors induced by cycle slips in the carrier phase estimation process. This scheme is widely used for M-ary PSK, and has also been proposed for more spectrally efficient QAM16 and QAM64 in the optical domain [119]. We propose a coding scheme which provides differential coding in both phase and polarization for PS-QPSK. In this coding scheme, we code two bits onto the change in phase, and one bit onto the change in polarization, providing functionality similar to that proposed in [118]. While this code is suboptimal in the same sense as the alternate bit mapping scheme described in Figure 4.4 (and also suffers from a doubling of errors seen with differentially coded M-PSK) differential coding ensures a greater robustness to the effects of phase noise and subsequent errors during carrier phase estimation. As with differentially coded DP-QPSK, the bits comprising each symbol may be differentially coded and decoded independently, though in this case, the polarization ambiguity problem is also solved. An example of the transitions described by uncoded bits for the differential code is given in Figure 4.5. It is also worth noting that after differential coding, the map of coded bits to symbols is the same as that provided by the alternative mapping described in Figure 4.4.
 
-![](images/7265aa0107410c98a190bd71613df9575638ea3ebfe51a4313e8c014ea06b0a3.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/7265aa0107410c98a190bd71613df9575638ea3ebfe51a4313e8c014ea06b0a3.jpg)  
 Figure 4.5 - Example of differential coding for PS-QPSK, based on 'alternate' bit mapping scheme.
 
 To illustrate the relative performance of these coding schemes for PS-QPSK, in Figure 4.6, a BER is plotted against SNR per uncoded bit for an ideal transmitter and receiver. A benefit in required SNR of 1 dB is found between DP-QPSK and conventional PS-QPSK (assuming a target BER of 10-3 ), while the alternate mapping yields a penalty of less than 0.05 dB. The benefit of differentially coded PS-QPSK is similarly approximately 1 dB in sensitivity over differentially coded DP-QPSK. The bit error rates for DP-QPSK were obtained from the analytical formulas provided in [35], while for PS-QPSK in each case we assumed that in the high SNR region of interest, the bit error rate is dominated by the mean Hamming distance of each of the 6 nearest neighbours [34]. In the case of the conventionally coded constellation, three of the nearest neighbours have a Hamming distance of one, while three have a Hamming distance of two. By assuming that the possibility of a non-nearest neighbour symbol error is negligible (which is a valid assumption in the high SNR regime), for a single symbol error there is a 50% chance of a 1 bit error and a 50% chance of a 2 bit error. This results in an average of 1.5 bit error per symbol error. By scaling this to the modulation density of 3 bits per symbol we find that the BER is approximately 0.5 of the SER. The same logic may be applied to the other bit-mapping schemes, leading to the approximations given in (4.4):
@@ -1126,7 +1126,7 @@ $$
 
 While we note a benefit for PS-QPSK over DP-QPSK in the region of 1.5 dB when comparing SER at equal bit rates in Figure 4.2, this improvement is only approximately 1 dB when comparing BER.
 
-![](images/4b8c6096f3d550bc6d82815b42b3b9a7733306d584c806c314e4402d92ffee2c.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/4b8c6096f3d550bc6d82815b42b3b9a7733306d584c806c314e4402d92ffee2c.jpg)  
 Figure 4.6 - Ideal receiver sensitivity in bit error rate (BER) against $\mathrm { E _ { b } / N _ { 0 } }$ for DP-QPSK and PS-QPSK with various coding schemes and bit mappings.
 
 Due to the slight advantage in receiver sensitivity afforded by the mapping proposed by Karlsson & Agrell (described as conventional mapping), we will use this map of bits-to-symbols in the following analysis of the polarization-switched CMA equaliser. During subsequent analysis of polarization tracking, we will also consider the impact on performance of differential coding.
@@ -1223,24 +1223,24 @@ $$
 
 The signal was then equalised before bit error counting and BER calculation. Qfactor was then calculated according to [120] from the observed BER, and this was compared to the ideal Q-factor corresponding to a BER of $1 0 ^ { - 3 }$ to give the Q Penalty. For both the PS-CMA and DD-LMS with PS-CMA conditioning, equaliser performance was found to be ambivalent to the input state of polarization, with Qfactor penalty being uniformly low. Figure 4.7 shows the sensitivity of the considered equalisers to the input state of polarization for the DD-LMS equaliser with no conditioning.
 
-![](images/b62dd6f7fcefdd016b6f001aec8335e9347561e71ba2ae9685290359ba43a323.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/b62dd6f7fcefdd016b6f001aec8335e9347561e71ba2ae9685290359ba43a323.jpg)  
 Figure 4.7 - Input polarization sensitivity of the DD-LMS with PS-QPSK modulation. Q-factor penalty in dB is plotted against the two angular parameters in the Jones matrix, with dark colour representing a low penalty and light colour representing a high penalty.
 
 We note from Figure 4.7 that the DD-LMS equaliser is highly sensitive to the input polarization state, and converges well for relatively few states. The PS-CMA is therefore a useful algorithm, both in its own right and for conditioning filter coefficients such that the DD-LMS may be used.
 
 The input polarization sensitivity of the PS-CMA was characterised with and without the initialisation procedure described above. The mean Q-factor penalty was calculated over the dimension $\phi$ in each case and the results presented in Figure 4.8. These results demonstrate the effectiveness of the initialisation procedure in eliminating the problem of singular mal-convergence, which results in a large Qfactor penalty. A high penalty is seen for values of θ of ±π/4 and $\pm 3 \pi / 4$ , which correspond to angles whereby the energy of each signal polarization is evenly distributed onto the two receiver polarizations. This behaviour is similar to that noted for the DD-LMS equaliser shown in Figure 4.7.
 
-![](images/806e16ee31ee3e76334477dacc8695aede0106541c14d168808d434b521bb20e.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/806e16ee31ee3e76334477dacc8695aede0106541c14d168808d434b521bb20e.jpg)  
 Figure 4.8 - Polarization sensitivity of the PS-CMA with and without initialisation algorithm. Mean Q-factor penalty is plotted against polarization angle.
 
 The DP-CMA with PS-QPSK modulation was found to provide only a degenerate solution with 1 of 3 transmitted bits being discarded. As the DP-CMA equaliser attempt to form a constant modulus with both polarization input signals, the lowest error will be reached when both input polarizations are summed and the output polarizations are equal. Here we noted that regardless of the input state of polarization, in all cases all information contained in the bit which encodes polarization is lost.
 
 The inherent mal-convergence problem with the DP-CMA is illustrated by Figure 4.9. When the PS-CMA equaliser is used, the constellation is fully recovered, and we clearly see the four constellation points belonging to the QPSK constellation on the polarization plotted, and the point at the origin which occurs when the QPSK signal is being transmitted on the other polarization. When the DP-CMA is used, both polarization outputs give the same constellation, which contains only the points which belong to the QPSK subset, and all information encoded on polarization is lost.
 
-![](images/f13795eb43f7929c5f413d743d6c9f3e5f0eaab602986d4a5633681f1d5722fe.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/f13795eb43f7929c5f413d743d6c9f3e5f0eaab602986d4a5633681f1d5722fe.jpg)  
 (a)
 
-![](images/5928f53b3a992953bec8ec9169a4e01304206eb2ad146ee1e4b69ae6efd79669.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/5928f53b3a992953bec8ec9169a4e01304206eb2ad146ee1e4b69ae6efd79669.jpg)  
 (b)  
 Figure 4.9 - Constellation diagrams showing a single output polarization of PS-QPSK modulation when equalised with the PS-CMA equaliser (a); and PS-QPSK modulation when equalised with the DP-CMA equaliser (b). Noise loaded to 5.8 dB $\mathrm { E _ { b } / N _ { 0 } } .$ for illustrative purposes.
 
@@ -1248,7 +1248,7 @@ Figure 4.9 - Constellation diagrams showing a single output polarization of PS-Q
 
 An essential capability of any practical equaliser is the ability to operate effectively in the presence of polarization dependant loss (PDL). To characterise the performance of the equaliser in the presence of PDL we took the transmitted optical signal, applied loss at a particular polarization orientation and then noise loaded to 5.8 dB $\mathrm { E _ { b } / N _ { 0 } }$ . We considered the orientation of the loss as a polarization which is circularly rotated with respect to the signal, that is, θ was varied between –π and π, while ϕ remained zero. The signal is then rotated again with respect to the polarization axes of the receiver such that the input state of polarization to the receiver is randomised. The mean Q-factor penalty with respect to the SNR limited optimum was then calculated over the entire polarization space. The results of this analysis are presented below in Figure 4.10.
 
-![](images/1eef6f65429f2a49b3a8a971316db2797d587745f1f8da235513f8b1283e1d3e.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/1eef6f65429f2a49b3a8a971316db2797d587745f1f8da235513f8b1283e1d3e.jpg)  
 Figure 4.10 - Performance of the PS-CMA with PS-QPSK modulation in the presence of PDL. Q-factor penalty in dB is plotted against the applied PDL in dB.
 
 From Figure 4.10 we note that 3 dB of PDL results in a Q-factor penalty of approximately 1 dB. It is noted that while the Q penalty of the received signal varies with the amount of PDL, this does not increase the likelihood of the singularity problem which we described earlier for levels of PDL up to 5 dB, unlike when DP-QPSK modulation is used with the DP-CMA equaliser. While some improvements in performance are possible when using the DP-CMA with DP-QPSK modulation by constraining the filters [121], [122] mal-convergence probability due to PDL is always non-zero, whilst the PS-CMA with PS-QPSK always converges correctly.
@@ -1257,14 +1257,14 @@ Practical transmission links will always suffer from polarization mode dispersio
 
 The equaliser was found to be ambivalent to the orientation of the applied DGD, being able to recover the input signal without penalty for DGD of up to 6 symbols. This is in contrast to DP-QPSK with the DP-CMA which is known to suffer malconvergence when the energy is split equally between the two principal states of polarization.
 
-![](images/46ff309cc13f1070db391eebe25a392e9ff841699c3d837ac59a37c9e60c37e0.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/46ff309cc13f1070db391eebe25a392e9ff841699c3d837ac59a37c9e60c37e0.jpg)  
 Figure 4.11 - Performance of the PS-CMA with conventionally coded PS-QPSK modulation in the presence of time varying polarization rotation.
 
 Due to the time-varying birefringence of optical fibre, another important characteristic of a digital equaliser for coherent optical communication is the ability to track the time varying state of polarization at the input of the receiver. To measure the performance of the receiver in this respect, we rotated the transmitted signal by a Jones matrix with a time varying circular rotation, such that $\phi$ remains zero and θ is increased at a constant rate to produce a rotation with constant angular frequency.
 
 The signal was then noise loaded to 5.8 dB $\mathrm { E _ { b } / N _ { 0 } }$ and equalised with the PS-CMA prior to error counting. Performance was measured by Q-factor against both the angular frequency of polarization rotation and the PS-CMA convergence parameter µ. The results of this simulation are presented in Figure 4.11. The same simulation was also performed utilising differential coding as described previously, with the results presented in Figure 4.12.
 
-![](images/18e15eb054dadf340fad166a7472e58d4e42adc80180ca717845bfe77ba184e8.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/18e15eb054dadf340fad166a7472e58d4e42adc80180ca717845bfe77ba184e8.jpg)  
 Figure 4.12 - Performance of the PS-CMA with differentially coded PS-QPSK modulation in the presence of time varying polarization rotation.
 
 It is noted from Figure 4.11 and Figure 4.12 that an increased convergence parameter µ enables a faster polarization rotation to be tracked, at the expense of a reduction in receiver sensitivity. It is also noted that for both coding schemes, a polarization rotation frequency of approximately 0.1 mrad per symbol period may be tracked for a penalty in performance of approximately 0.5 dBQ. Despite the fact that the differential coding scheme presented in Figure 4.12 has differential coding on polarization as well as phase, we note that there is no appreciable improvement in polarization tracking ability in comparison with conventional coding. This indicates that the polarization tracking capability of this system is limited by the convergence speed of the equaliser rather than burst errors caused by polarization slips. This also indicates that in a real system, polarization tracking will be significantly worse than is described here, as the equaliser will be updated at the ASIC clock rate (normally in the region of 500 MHz) rather than the symbol rate as is assumed here.
@@ -1273,7 +1273,7 @@ It is noted from Figure 4.11 and Figure 4.12 that an increased convergence param
 
 To-date, only two papers have directly addressed the issue of fully blind equalisation of PS-QPSK. The algorithm used by Nelson et al in [115] is a normalised version of the PS-CMA derived above, although the initialisation algorithm was not used, and so the singularity issue will still be present. This work was done in parallel to and was published shortly after our research, presented in [13] and [15]. An alternative equaliser algorithm was presented in [14] while our work was under review. While the algorithm presented in [14] uses a different control surface to the PS-CMA described above, the operation is remarkably similar. The only significant difference between the two algorithms is the initialisation procedure described in section 4.4, which mitigates the possibility of singular mal-convergence. To compare the performance of the two algorithms, we have simulated the back-to-back performance of both algorithms after a polarization rotation. The simulation was identical to that previously described for Figure 4.8.
 
-![](images/b19371a0f0a77faf8a9138046c1f5bc955ab9d6cd0e27167786c952befec2035.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/b19371a0f0a77faf8a9138046c1f5bc955ab9d6cd0e27167786c952befec2035.jpg)  
 Figure 4.13 - Q-factor penalty as a function of input polarization state for the equaliser algorithm as described in [14] (Johannisson et al.) compared with that described in section 4.4 (Millar et al.).
 
 We note from Figure 4.13 that while the minimum Q-factor penalty of the equalisers is broadly similar in the optimum case, the algorithm described in [14] (Johannisson et al.) suffers from singular mal-convergence resulting in a high Q-factor penalty. A high penalty is seen for values of θ of ±π/2 and ±3π/2, which correspond to angles whereby the energy of each signal polarization is evenly distributed onto the two receiver polarizations. This result is in agreement with the previous analysis of the performance of the PS-CMA with and without the initialisation algorithm presented in Figure 4.8 and demonstrates the improvement in robustness which may be achieved with the initialisation algorithm.
@@ -1282,14 +1282,14 @@ We note from Figure 4.13 that while the minimum Q-factor penalty of the equalise
 
 High-speed optical transmission systems such as the proposed PS-QPSK system are almost universally utilised in combination with wavelength division multiplexing (WDM). The current standards for first generation deployment of 100 GbE systems are for 112 Gb/s per wavelength DP-QPSK modulation over a 50 GHz WDM grid, yielding a spectral efficiency of 2 b/s/Hz after overheads [11]. An interesting comparison is therefore to examine the receiver sensitivity of both PS-QPSK and DP-QPSK WDM systems at 112 Gb/s with a spectral efficiency of 2 b/s/Hz, corresponding to symbol rates of 37.3 GBd and 28 GBd respectively. For completeness we compare conventional (which corresponds to non-differential Gray coding for DP-QPSK) and differential coding for both modulation formats. Although the use of PS-QPSK will require use of a broader spectrum than that used for DP-QPSK, we may use electrical filtering to reduce the effects of linear cross-talk introduced by WDM. In Figure 4.14 we have compared the penalty in required OSNR to achieve a BER of $1 0 ^ { - 3 }$ for differing analogue electrical bandwidths at the transmitter and receiver. The transmitted signal was a modulated impulse train, filtered using a $5 ^ { \mathrm { t h } }$ order low-pass Bessel filter, and then combined with two additional channels spaced at 50GHz using an ideal colourless power combiner. The signal was then noise loaded and detected with an ideal coherent receiver. The signal was then filtered again with a second identical $5 ^ { \mathrm { t h } }$ order low-pass Bessel filter, resampled to 2 samples per symbol and then equalised with the PS-CMA for PS-QPSK or the DP-CMA for DP-QPSK to remove the response of the analogue electrical filtering. After symbol estimation and BER calculation, the required OSNR was calculated. By varying the bandwidth of the two electrical filters, we determine the minimum required OSNR. The results of this simulation are presented in Figure 4.14.
 
-![](images/91dc6cda347da90f0e6cf5b891cbd1292fbef0d0c1528483a9955ed03480dd33.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/91dc6cda347da90f0e6cf5b891cbd1292fbef0d0c1528483a9955ed03480dd33.jpg)  
 Figure 4.14 - Back-to-back comparison of required OSNR to achieve a BER of $1 0 ^ { - 3 }$ for PS-QPSK and DOP-QPSK. Both systems are three channels at 112 Gb/s (7% FEC overhead) over 50 GHz WDM grid.
 
 From Figure 4.14, we note that the required OSNR for PS-QPSK is slightly more than 1 dB lower than that required for DP-QPSK. This relative penalty is maintained when differential coding is introduced. For lower electrical bandwidths in all cases, a penalty results from the signal filtering, while for higher electrical bandwidths, a penalty results from linear cross-talk between adjacent WDM channels.
 
 The simulation was then repeated for a 3 channel WDM system of 124.8 Gb/s over a 50 GHz grid. The increase in FEC overhead results in an increase in baud rate to 41.6 GBd for PS-QPSK and 31.2 GBd for DP-QPSK. In this case the FEC overhead was 20%, with a BER limit of $2 \mathrm { x } 1 0 ^ { - 2 }$ The results are presented in Figure 4.15.
 
-![](images/e1ca5307c428e2aa15a220a16b3e7c45624d700939a0127ecbb9cbeac8247795.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/e1ca5307c428e2aa15a220a16b3e7c45624d700939a0127ecbb9cbeac8247795.jpg)  
 Figure 4.15 - Back-to-back comparison of required OSNR to achieve a BER of $2 \mathrm { x } 1 0 ^ { - 2 }$ for PS-QPSK and DP-QPSK. Both systems are three channels at 124.8 Gb/s (20% FEC overhead) over a 50 GHz WDM grid.  
 From Figure 4.15, we notice that the improvement in required OSNR is reduced to less than 0.1dB when a higher FEC overhead of 20% is used, due to the broader spectrum of the signals. Again, we note that in the low electrical bandwidth regime there is a significant penalty from filtering, while in the high bandwidth regime there is significant penalty from cross-talk. However, the benefit from using PS-QPSK is reduced from 0.5 dB (at a BER of $2 \mathrm { x } 1 0 ^ { - 2 } )$ to less than 0.1 dB by cross-talk. While this negates much of the benefit of PS-QPSK, this may be outweighed in some circumstances by the practical benefit due to the increased robustness of the PS-CMA equaliser.
 
@@ -1315,9 +1315,9 @@ Coherent detection, combined with digital signal processing (DSP), has led to re
 
 This research has led to a variety of new modulation formats being proposed, with various degrees of complexity and difficulty of realisation. A format which has attracted interest is polarization-switched quadrature phase shift keying (PS-QPSK) [14], [34], [111], [116], [117], [125]. This format transmits a symbol, on one of two orthogonal polarizations, with one of four equally spaced phase levels from a QPSK constellation, such that the resulting symbol carries 3 bits of information.
 
-![](images/87265dc9142aaf0a1aa80397d88ce16ac3c0b7e34b90857258ac3224dfe125ed.jpg)
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/87265dc9142aaf0a1aa80397d88ce16ac3c0b7e34b90857258ac3224dfe125ed.jpg)
 
-![](images/65b0ceaf511c46a90b4a0389630c74945dde97e4937aabab7cc14896add4ec49.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/65b0ceaf511c46a90b4a0389630c74945dde97e4937aabab7cc14896add4ec49.jpg)  
 Figure 5.1 - Constellation diagrams showing two orthogonal linear polarizations of an experimentally generated PS-QPSK signal.
 
 This is illustrated with a pair of experimental constellations in Figure 5.1, where blue points denote a QPSK symbol which has been transmitted on the x-polarization, while red dots denote a QPSK symbol transmitted on the y-polarization. Whilst this modulation format has a lower available spectral efficiency than DP-QPSK, the gain in noise tolerance is as much as 1.76 dB [111] at equal bit rates and asymptotically high optical signal to noise ratio (OSNR). For the bit-error-rate (BER) values combined with modern forward error correction (FEC) codes, an improvement of 1 dB at a BER of $1 0 ^ { - 3 }$ and of 0.55 dB at a BER of $1 0 ^ { - 2 }$ is theoretically achievable. Due to the significant benefit in noise tolerance over DP-QPSK which has become the standard modulation format for 100 GbE technology [11], there has been some interest recently in the transmission properties of PS-QPSK [116], [117], [125]. For this research we used an easily realisable technique to experimentally generate PS-QPSK, without the use of either a four-dimensional modulator or custom-made photonic integrated circuits. PS-QPSK was then characterised for long-haul WDM transmission and compared to DP-QPSK.
@@ -1330,7 +1330,7 @@ The PS-QPSK format was generated as follows (Figure 5.2(b)). First a triple Mach
 
 DP-QPSK was generated using a similar method except that, after the 50:50 splitter, the QPSK signal was polarization-multiplexed by decorrelating the signal polarizations in each arm of a passive delay-line stage (Figure 5.2(a)). The effective delay between the QPSK signals in each polarization was 24 symbols.
 
-![](images/71eabd6c4720684093351570e05de51f903144bf6684325d492c978f0328232d.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/71eabd6c4720684093351570e05de51f903144bf6684325d492c978f0328232d.jpg)  
 Figure 5.2 - Experimental set-up to generate and transmit 42.9 Gb/s PS-QPSK (14.3 Gbaud) and DP-QPSK (10.725 Gbaud).
 
 In order to generate a 7-channel WDM comb, two alterations to the above configuration were introduced. Firstly, a 50 GHz WDM comb was created by combining CW light from six temperature- and current-controlled DFB lasers. An ECL with a linewidth of 100 kHz was used for the central channel. The comb was bulk modulated, and an interleaver with a channel spacing of 50 GHz was used to separate alternate channels, which were then decorrelated by 10 ns before being recombined with a 3-dB fibre coupler, as described in (A H Gnauck et al. 2011).
@@ -1375,10 +1375,10 @@ First, the receiver noise sensitivity was measured for DP- and PS-QPSK using add
 
 From Figure 5.3(a) we note an implementation penalty of 0.8 dB for single channel PS-QPSK, with an excess WDM implementation penalty of 0.2 dB at a BER of $3 . 8 \mathrm { x } 1 0 ^ { - 3 }$ . This is compared to the DP-QPSK measurements shown in Figure 5.3(b), where we see an implementation penalty of 0.9 dB for single channel with negligible excess WDM implementation penalty. We note that in absolute terms, the required OSNR of WDM PS-QPSK is 8.1 dB, compared to 8.8 dB for DP-QPSK.
 
-![](images/4025d0de2f271c8ee957f6103e730f68c97f07861adc858f6cdd651024bf3467.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/4025d0de2f271c8ee957f6103e730f68c97f07861adc858f6cdd651024bf3467.jpg)  
 (a)
 
-![](images/bffb04523c610d9df9b492cd04941ad5ae6940aceba6d4f3221a9a849b3f57e2.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/bffb04523c610d9df9b492cd04941ad5ae6940aceba6d4f3221a9a849b3f57e2.jpg)  
 (b)  
 Figure 5.3 - Back-to-back measurements. Single-channel and WDM receiver OSNR sensitivity for (a) PS-QPSK and (b) DP-QPSK.
 
@@ -1386,7 +1386,7 @@ The transmission performance was then experimentally measured for a 7-channel WD
 
 It can be seen from Figure 5.4 that in the low power, linear transmission regime (less than -7 dBm per channel), for a given reach a reduction in launch power of approximately 1dB per channel is possible for PS-QPSK, agreeing with the back-toback receiver sensitivity results in Figure 5.3. For both modulation formats, the optimum launch power was found to be approximately -3.5 dBm per channel. The maximum reach of PS-QPSK was found to be 170 recirculations corresponding to 13,640 km; this may be compared to a maximum reach of 129 recirculations for DP-QPSK, corresponding to 10,350 km.
 
-![](images/91938acb3022a59c84055d62b1abf26c94d964ac096f3113488f9863cefffade.jpg)  
+![](/img/mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/images/91938acb3022a59c84055d62b1abf26c94d964ac096f3113488f9863cefffade.jpg)  
 Figure 5.4 - Transmission performance of 42.9 Gb/s PS-QPSK and DP-QPSK compared for a 7 channel WDM system on a 50 GHz frequency grid. Maximum reach is compared for a BER of $3 . 8 \mathrm { x } 1 0 ^ { - 3 }$
 
 The use of PS-QPSK rather than DP-QPSK modulation therefore enabled an increase in maximum reach of more than 30%. In the high power, highly nonlinear transmission region (launch power greater than 0 dBm per channel), we note that the improvement in performance available from PS-QPSK is reduced in comparison to the linear regime. This reduction in improvement was due to the high levels of nonlinear phase noise present.

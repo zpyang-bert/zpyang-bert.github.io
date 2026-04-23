@@ -33,7 +33,7 @@ tags:
 • 224Gb/s PAM-4 (本研究突破)
 ```
 
-![](Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-004.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】有线数据率从2018年的32Gb/s快速增长到2021年的256Gb/s，年均增长率超过100%。这种高速增长得益于PAM-4调制、先进CMOS工艺和DSP增强均衡技术的结合。
@@ -115,7 +115,7 @@ Output Pad: T-coil (2L+3C)或Pi-coil (3L+4C)
 • 针对224Gb/s优化
 ```
 
-![](Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-005.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-005.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】224Gb/s PAM-4发射机需要解决高数据率带来的带宽压力、抖动放大和功耗挑战。该架构采用模块化设计，每个模块都针对224Gb/s操作进行了优化。
@@ -136,7 +136,7 @@ Output Pad: T-coil (2L+3C)或Pi-coil (3L+4C)
 • 抖动过滤降低输出抖动
 ```
 
-![](Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-029.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-029.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】双路径时钟分布架构是解决高频率下带宽和抖动矛盾的有效方案。高频路径提供快速瞬态响应，低频路径提供低频抖动过滤。
@@ -186,7 +186,7 @@ Series-shunt峰化: 串-并联储能
 • 在时钟分布晚期使用Shunt-series峰化
 ```
 
-![](Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-037.jpg)
+![](/img/serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/_images/img-037.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】感应峰化是扩展缓冲器带宽的常用技术。Series-shunt和Shunt-series是两种基本的峰化架构，前者提供更大的带宽扩展，后者具有更好的抖动性能。
@@ -208,7 +208,7 @@ Series-shunt峰化: 串-并联储能
 • 匹配224Gb/s数据率需求
 ```
 
-![](Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-038.jpg)
+![](/img/serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-038.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】7-bit DAC提供64级量化精度，对于PAM-4调制足够。更高的位数（如8-bit）虽然提供更好的线性度，但会增加功耗和面积。DSP中的FFE预先补偿信道失真，与DAC联合优化。
@@ -228,7 +228,7 @@ Series-shunt峰化: 串-并联储能
   - 改善回波损耗
 ```
 
-![](Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-040.jpg)
+![](/img/serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED WIRELINE_images/img-040.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】Output pad网络是连接芯片内部电路和外部信道的重要界面。对于224Gb/s系统，pad网络的带宽特性直接影响输出信号质量。

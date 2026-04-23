@@ -140,7 +140,7 @@ CDR实现:
 
 ### 3.1 PLL基本原理
 
-![](lecture11_ee720_clocking_arch_plls_images/img-000.jpg)
+![](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】PLL是高速链接系统的心脏，负责时钟合成、时钟恢复、偏斜消除等关键功能。理解PLL的负反馈机制是设计高速I/O的基础。在SerDes系统中，PLL用于生成高频率时钟，其相位噪声性能直接决定了系统的抖动性能。
@@ -218,7 +218,7 @@ F(s) = (1 + s·τ_z) / (s·τ_p)
 
 ### 4.1 VCO相位噪声
 
-![](lecture11_ee720_clocking_arch_plls_images/img-004.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】VCO相位噪声是PLL输出抖动的根本来源。在高频偏移处（通常>1MHz），VCO的相位噪声直接传递到输出，不被环路滤波抑制。这对于高速SerDes设计至关重要，因为高频抖动直接影响采样时刻的准确性。
@@ -273,7 +273,7 @@ CDR带宽缩放困难(PAM4 + ADC前端):
 
 ### 5.1 Xilinx 0.5-32Gb/s收发器时钟架构
 
-![](lecture11_ee720_clocking_arch_plls_images/img-080.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-080.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】商业SerDes收发器的时钟架构设计体现了理论与工程的深度融合。Xilinx 16nm FinFET CMOS收发器支持0.5-32Gb/s数据率，采用双PLL架构（LC-PLL用于高频，Ring-PLL用于低频）以覆盖宽频率范围，同时优化功耗和抖动性能。

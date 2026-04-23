@@ -26,7 +26,7 @@ The fundamental innovation of Optics GPT lies in being the first foundation mode
 
 To rigorously evaluate Optics GPT, we built OptiEval, the first comprehensive benchmark specifically designed for the optical domain (Fig. 1f). OptiEval integrates three complementary sources requiring extensive curation: (1) 169 real-world graduate entrance examination questions in optics; and (2) 5,772 designed optics testing derived from authoritative textbooks and papers, organized into six core subfields: Optical Communication, Ultrafast Optics, Optical Physics, Optical Design, Optical Computing, and Quantum Optics. This represents the first standardized, multi-faceted evaluation framework for optical AI systems, requiring thousands of person-hours in data collection, cleaning, and validation.
 
-![](images/7be4060061e1a185cd18ad86978471b1f19b5997a5487d30dafa67f620e404a7.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/7be4060061e1a185cd18ad86978471b1f19b5997a5487d30dafa67f620e404a7.jpg)
 
 <table><tr><td>Subset</td><td>Furner category</td><td>Counts</td></tr><tr><td rowspan="6">Lesigneo opocs tocing</td><td>Optical comuricaion</td><td>024</td></tr><tr><td>Urefat optica</td><td>1040</td></tr><tr><td>Opfeal physics</td><td>1901</td></tr><tr><td>Opfical Jesiyi</td><td>608</td></tr><tr><td>Optical eomputation</td><td>610</td></tr><tr><td>Quamum ogtics</td><td>1230</td></tr><tr><td>Croduate cntrance eramnaton</td><td></td><td>169</td></tr><tr><td>OgtEval</td><td>ALL</td><td>0240</td></tr></table>
 
@@ -38,13 +38,13 @@ Our evaluation under zero-shot settings demonstrates that Optics GPT with 8B par
 
 ## 3. Experimental and Field-trial Application Demonstrations for Optical communications
 
-![](images/9d5c4a4286a2f8481ab3deac8efe804c0fa76b0f5596b518edff277ec2b4fe2c.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/9d5c4a4286a2f8481ab3deac8efe804c0fa76b0f5596b518edff277ec2b4fe2c.jpg)
 
-![](images/ac0d9a4f187f8a0a6d602b0f789b6bb9c54a0dfe4e244852ab47f6a9e8a182cc.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/ac0d9a4f187f8a0a6d602b0f789b6bb9c54a0dfe4e244852ab47f6a9e8a182cc.jpg)
 
-![](images/f255377991381b78c621cfafc366bfff11eb9f2e6891b123334375806b517889.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/f255377991381b78c621cfafc366bfff11eb9f2e6891b123334375806b517889.jpg)
 
-![](images/eb875fc3b7ef13294ffefea1caafd927603ec403f0b29c6fb4fbfecef162201d.jpg)
+![](/img/mineru_output/Th4C.1/auto/images/eb875fc3b7ef13294ffefea1caafd927603ec403f0b29c6fb4fbfecef162201d.jpg)
 
 <table><tr><td>Model</td><td>Method</td><td>Ripple of the optimized OSNR</td><td>Fault location accuracy</td></tr><tr><td>Owen BB</td><td>No Thinking</td><td>2.35 cB</td><td>25% (5/20)</td></tr><tr><td>OeepSeek R1</td><td>Trnking</td><td>1.17 c0</td><td>75% (15/20)</td></tr><tr><td>Oetics GPT</td><td>No Thinkno</td><td>0.96 cB</td><td>100% (20/20)</td></tr></table>
 
@@ -56,7 +56,7 @@ Beyond code generation, Optics GPT demonstrates autonomous network management ca
 
 Optics GPT further exhibits remarkable capability in understanding optical network topologies for end-to-end OSNR prediction. In field-trial transmission with two services over two spans (Fig. 3a), the model processed topology descriptions, amplifier specifications, and fiber parameters to predict OSNR for proposed services (Fig. 3b). Using 235 measured OSNR values as reference data and tested on 100 samples, Optics GPT achieved an average prediction error of 0.44 dB, comparable to human-designed CNN (0.41 dB). This confirms that the model has internalized propagation equations from textbooks into genuine network insight, enabling accurate performance estimation without additional fine-tuning.
 
-![](images/43ca8a652bcfbfde550c4e2c70128a6efc42fca24a337739c5a64df608a46a70.jpg)  
+![](/img/mineru_output/Th4C.1/auto/images/43ca8a652bcfbfde550c4e2c70128a6efc42fca24a337739c5a64df608a46a70.jpg)  
 Fig. 3. Field-trial transmission system and OSNR prediction performance. (a) Field-trial optical network topologies. (b) Optics GPT Q&A records. (c) OSNR prediction performance evaluation.
 
 ## 4. Conclusion

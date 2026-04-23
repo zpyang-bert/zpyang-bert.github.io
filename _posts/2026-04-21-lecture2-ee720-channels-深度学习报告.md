@@ -24,7 +24,7 @@ Lecture 2: Channel Components, Wires, & Transmission Lines
                Analog & Mixed-Signal Center
                    Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720课程第二讲的封面，主题是信道组件、传输线理论，是Serdes设计的核心基础内容，所有高速链路的性能上限都由信道特性决定，因此信道分析是Serdes设计的第一步。
 > 【核心结论】本讲内容覆盖：传输线理论、趋肤效应与介质损耗、S参数分析、信道建模、阻抗匹配、串扰分析，是信号完整性设计的核心基础。
@@ -49,7 +49,7 @@ Announcements
 
                                            2
 
-![典型链路信道组件](_images/img-001.jpg)
+![典型链路信道组件](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是典型高速链路的信道组件构成图，展示了从发送端芯片到接收端芯片之间的所有信号路径组件，每个组件都会带来信号劣化。
 > 【核心结论】信道组件包括：1) 芯片封装：BGA封装的过孔、引线，带来插入损耗和反射；2) PCB走线：传输线、过孔、连接器，带来损耗、反射、串扰；3) 背板/线缆：长距离传输线，是损耗的主要来源；4) 接收端封装：和发送端类似。总插入损耗一般在10dB到40dB之间，取决于传输距离。
@@ -73,7 +73,7 @@ Agenda
   • Differential transmission lines
                                                       3
 
-![传输线特性](_images/img-002.jpg)
+![传输线特性](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是传输线的特性阻抗公式和传播速度公式，是信号完整性分析的基础理论，高速信号必须按照传输线理论来处理，否则会出现严重的反射和信号劣化。
 > 【核心结论】1) 特性阻抗Z0 = √(L/C)，PCB上的微带线特性阻抗一般控制在50Ω，差分线100Ω；2) 信号传播速度v = c / √εr，FR4板材的相对介电常数εr≈4，所以传播速度约为1.5e8 m/s，即每英寸信号延迟约为170ps。
@@ -107,7 +107,7 @@ Channel Components
 
                                                                                   4
 
-![趋肤效应](_images/img-003.jpg)
+![趋肤效应](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是趋肤效应的原理示意图，是高速信号在传输线中传播时的核心损耗来源之一，频率越高，趋肤效应越明显，损耗越大。
 > 【核心结论】趋肤效应：高频交流信号在导体中传播时，电流会集中在导体的表面薄层流动，导致导体的等效电阻增大，损耗与√f成正比；趋肤深度δ = √(2/(ωμσ))，频率10GHz时，铜的趋肤深度约为0.66μm，远小于普通PCB铜线的厚度（35μm）。
@@ -138,7 +138,7 @@ IC Packages
       [Package Images - Fujitsu]
                                                                                        5
 
-![介质损耗](_images/img-004.jpg)
+![介质损耗](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是介质损耗的原理示意图，是高频传输线的另一个核心损耗来源，频率越高，介质损耗越大，在10GHz以上频段，介质损耗占总损耗的比例超过趋肤效应。
 > 【核心结论】介质损耗是由于交变电场下介质分子极化滞后带来的能量损耗，损耗与频率f成正比，损耗角正切tanδ是衡量介质损耗的核心参数；普通FR4板材的tanδ≈0.02@10GHz，高速板材（比如Megtron6）的tanδ≈0.003@10GHz，损耗低一个数量级。
@@ -163,7 +163,7 @@ IC Package Examples
                                 [Package Images - Fujitsu]
                                                              6
 
-![插入损耗曲线](_images/img-005.jpg)
+![插入损耗曲线](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-005.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是不同长度的FR4传输线的插入损耗随频率变化的曲线，是Serdes设计时最常用的信道特性曲线，直接决定了均衡器需要的补偿范围。
 > 【核心结论】插入损耗随频率升高而近似线性增大（dB/Hz），10英寸FR4传输线在10GHz下损耗约为15dB，20英寸约为30dB，30英寸约为45dB；损耗超过30dB时，普通的模拟均衡架构已经无法补偿，必须采用ADC+DSP架构。
@@ -189,7 +189,7 @@ Bondwires             Package Trace
 
                                               7
 
-![串扰特性](_images/img-006.jpg)
+![串扰特性](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-006.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是传输线串扰的原理示意图，串扰是高速链路中除了损耗之外的另一个核心干扰来源，会导致接收端噪声增大，降低眼图余量。
 > 【核心结论】串扰分为近端串扰（NEXT）和远端串扰（FEXT），是相邻传输线之间的电磁耦合导致的；串扰大小和线间距成反比，和耦合长度成正比，和频率成正比；高速链路中一般要求串扰控制在-30dB以下。
@@ -212,7 +212,7 @@ IC Package Model Comparisons
 
                                               8
 
-![S参数](_images/img-007.jpg)
+![S参数](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-007.jpg)
 > 🔍 深度说明：
 > 【研究背景】S参数（散射参数）是描述线性网络端口特性的标准方法，是高速信道建模的标准格式，所有Serdes仿真都需要使用信道的S参数作为输入。
 > 【核心结论】S参数是n×n的矩阵，对于差分对二端口网络，S11是回波损耗（反射），S21是插入损耗（传输），S12和S21相等（互易网络），S22是接收端回波损耗；一般要求S11<-15dB，保证阻抗匹配良好。

@@ -22,7 +22,7 @@ tags:
 | 技术节点 | TSMC 65 nm CMOS |
 | 目标数据率 | 6.4 Gbps |
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-008.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-008.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：本文来自UIUC，研究面向65nm CMOS工艺的CDR电路设计。SerDes系统中的CDR是决定接收端信号恢复质量的核心模块，其架构选择直接影响抖动性能和锁定速度。
@@ -35,7 +35,7 @@ tags:
 ### 应用需求驱动
 随着半导体制造工艺的发展，对更高传输数据率的需求不断增加。芯片间通信需要**高能效、强鲁棒性、宽带宽**的解决方案。在20世纪80年代，芯片间信号传输速率需求略高于10 Mbps；1990年代超过100 Mbps；2000年后至少需要1 Gbps。当前多GHz时钟频率需求使得SerDes电路成为必需。
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-005.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-005.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR位于高速串行接收端的核心位置，在完成信道均衡之后从数据流中恢复出干净的时钟和数据。其性能直接决定整体SerDes链路的误码率表现。
@@ -64,7 +64,7 @@ CDR位于接收端，在适当均衡化之后。其核心功能包括：
 Phase Detector (PD) → Charge Pump (CP) → Loop Filter (LF) → Voltage-Controlled Oscillator (VCO)
 ```
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-043.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-043.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：基于PLL的CDR是经典的闭环架构，通过负反馈机制使VCO输出的取样时钟与输入数据边沿保持恒定的相位关系，从而实现数据恢复。
@@ -83,7 +83,7 @@ Phase Detector (PD) → Charge Pump (CP) → Loop Filter (LF) → Voltage-Contro
 - **原理**：UP路径产生与相位差成比例的脉冲，DOWN路径产生半时钟周期的参考脉冲
 - **锁定条件**：UP和DOWN脉冲宽度相等
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-020.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-020.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：Hogge PD是线性相位检测器的代表，与Bang-Bang(Alexander) PD不同，它产生与相位误差成比例的线性控制信号，而非仅指示方向。
@@ -98,7 +98,7 @@ Phase Detector (PD) → Charge Pump (CP) → Loop Filter (LF) → Voltage-Contro
   - DOWN信号高时，下开关闭合，从电容放电
   - UP和DOWN相同时，无充放电动作
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-013.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-013.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CP是PD与LF之间的桥梁，将PD产生的宽度调制脉冲(UP/DOWN)转换为对LF电容的充放电电流，从而实现相位误差到电压的转换。
@@ -114,7 +114,7 @@ Phase Detector (PD) → Charge Pump (CP) → Loop Filter (LF) → Voltage-Contro
   LF(s) = (1 + sRC1)/(Ceq * s * (s + ωLPF))
   ```
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-041.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-041.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：LF是CDR环路的核心，决定环路的频率响应特性。二阶LF引入的零点用于改善相位裕度，确保环路稳定。
@@ -128,7 +128,7 @@ Phase Detector (PD) → Charge Pump (CP) → Loop Filter (LF) → Voltage-Contro
 - **频率控制**：通过控制电压调节sink电流量来控制延迟，从而控制振荡频率
 - **VCO增益(KVCO)**：6 GHz输出频率对应400 mV控制电压
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-049.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-049.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：Ring VCO因结构简单、易于集成而被广泛用于CDR设计中。与LC-VCO相比，Ring VCO可产生多相位输出(0°, 90°, 180°, 270°)，非常适合半速率CDR架构。
@@ -154,7 +154,7 @@ Phase Detector (PD) → Charge Pump (CP) → Loop Filter (LF) → Voltage-Contro
 - 建立了阻尼因子(ζ)和自然频率(ωn)与环路参数的定量关系
 - 分析了简单LF和二阶LF的环路行为差异
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-048.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-048.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR本质是一个锁相环(PLL)，其闭环传递函数决定了系统对输入抖动和噪声的响应特性。ζ和ωn是描述二阶系统动态特性的核心参数。
@@ -177,7 +177,7 @@ NTFR(s) = (KVCO/s) * 1/(1 + LG(s))
 NTFVCO(s) = 1/(1 + LG(s))
 ```
 
-![](../CDR_65nm_Technology_Design_RenYi_49p_images/img-047.jpg)
+![](/img/theses/CDR_65nm_Technology_Design_RenYi_49p_images/img-047.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR的噪声性能决定最终恢复数据的抖动水平。不同噪声源通过不同的传递函数对输出抖动产生不同频率特性的影响。

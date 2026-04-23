@@ -64,7 +64,7 @@ V_pp,s = 2 × v_n_rms × SNR + V_min + V_offset
 • 每个电平的等效噪声裕量降低
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-387.jpg)
+![](/img/serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_images/img-387.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】RX灵敏度是决定系统能检测的最小信号的关键指标，直接影响传输距离和信道衰减预算；PAM-4由于需要3个判决电平，灵敏度分析比NRZ更复杂。
@@ -119,7 +119,7 @@ T-coil隔离架构:
 └─────────────────────┴───────────────────────┘
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-006.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-006.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】RX输入网络需要处理ESD保护电容、封装寄生和输入级电容的复合效应；T-coil通过磁耦合实现电容分离，是高速RX输入网络的核心技术。
@@ -223,7 +223,7 @@ Replica Bias:
 • 补偿PVT变化
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-015.jpg)
+![](/img/serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/_images/img-015.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】Gm-TIA是高速RX前端的核心增益级，需要同时实现高增益、高带宽、低噪声和低功耗；CTLE的连续时间均衡特性使信号在进入判决前得到适当补偿。
@@ -385,7 +385,7 @@ StrongARM Latch:
 • 增加输入对 → gm增加比电容更快
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-010.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-010.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】时钟比较器是RX的核心判决单元，其采样时间特性和再生增益直接影响RX的时序裕量和灵敏度；Strong-Arm Latch是高速SerDes最流行的比较器架构。
@@ -441,7 +441,7 @@ StrongARM Latch:
 • 32Gb/s PAM4 DFE接收机 (Elhadidy VLSI 2015)
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-016.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-016.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】Charge-Steering Latch是低电压应用的有力候选，仅需单时钟相位，采样孔径小；VLSI 2013 Chiang和ISSCC 2014 Bai的工作展示了其在小孔径和低延迟方面的优势。
@@ -518,7 +518,7 @@ t_metastability ~ τ · ln(V_in⁻¹)
 • 亚稳态窗口是比较器V_min的主要来源
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-043.jpg)
+![](/img/serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/_images/img-043.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】亚稳态是高速比较器设计中的关键问题，当输入过驱动电压过小时，比较器没有足够时间完成判决，导致输出不确定；这直接影响BER和系统余量。
@@ -584,7 +584,7 @@ t_metastability ~ τ · ln(V_in⁻¹)
 • 偏移校正设置可能对输入共模敏感
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-048.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-048.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】电路失配（尤其是输入对Vth失配）是RX偏移的主要来源，未经校正可能成为灵敏度预算中最大的分量；偏置校正需要覆盖±3σ工艺变化以保证99.7%良率。
@@ -651,7 +651,7 @@ t_metastability ~ τ · ln(V_in⁻¹)
 • 多相时钟分配
 ```
 
-![](lecture6_ee720_rx_circuits_images/img-049.jpg)
+![](/img/serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/_images/img-049.jpg)
 
 > 🔍 深度说明：
 > 【研究背景】RX解复用通过降低时钟频率来减轻比较器速度压力，同时给比较器更多再生和预充电时间；与TX多路复用不同，RX解复用对duty cycle不敏感但对相位间隔精度要求高。

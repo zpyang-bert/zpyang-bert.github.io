@@ -23,7 +23,7 @@ ECEN720: High-Speed Links
    Analog & Mixed-Signal Center
        Texas A&M University
 
-![封面](_images/img-000.jpg)
+![封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是2023年德州农工大学ECEN720高速链路课程的第一讲封面，该课程是Serdes领域的经典入门课程，针对高速电/光信号传输的系统设计、电路实现、性能优化等内容进行系统讲解，涵盖从信道建模到芯片电路实现的全流程内容。
 > 【核心结论】课程覆盖四大核心模块：信道特性建模与测量、高速链路电路设计（驱动/接收/均衡/定时系统）、链路系统设计与性能指标分析、实际链路案例。
@@ -85,7 +85,7 @@ Class Material
 
                                                                       4
 
-![参考书籍](_images/img-003.jpg)
+![参考书籍](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是高速链路设计领域的经典参考书籍列表，涵盖从基础理论到工程实践的全流程内容，是Serdes工程师必备的参考资料。
 > 【核心结论】核心参考资料包括：《Digital Systems Engineering》（Dally经典著作，系统级链路设计理论）、《High-Speed Digital Design: A Handbook of Black Magic》（硬件工程师入门圣经，信号完整性基础）、《Advanced Signal Integrity for High-Speed Digital Designs》（进阶信号完整性内容）。
@@ -128,7 +128,7 @@ Prerequisites
 
                                                       6
 
-![高速链路应用场景](_images/img-004.jpg)
+![高速链路应用场景](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是高速串行链路的典型应用场景图，展示了从芯片间互连、背板互连、数据中心光互连到长距光通信的全场景应用，覆盖了Serdes技术的所有主流应用领域。
 > 【核心结论】Serdes技术应用场景包括：1) 短距：芯片间互连（CPU/GPU与内存/外设互连，速率从16G到112G PAM4）；2) 中距：背板互连（设备内部板间通信，速率25G~56G PAM4）；3) 长距：数据中心光互连（100G/400G/800G光模块，距离100m到10km）；4) 超长距：骨干网光通信（100G/400G/1T，距离几百到几千公里）。
@@ -150,7 +150,7 @@ Simulation Tools
   optional
                                                     7
 
-![Serdes速率演进](_images/img-005.jpg)
+![Serdes速率演进](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-005.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是Serdes接口速率的演进路线图，从1990年代的100Mbps到2020年代的112G PAM4，速率每10年提升10倍，背后是数据中心带宽需求的爆炸式增长驱动。
 > 【核心结论】Serdes速率演进规律：1) 2000年：1Gbps（千兆以太网）；2) 2010年：10Gbps（万兆以太网）；3) 2020年：100Gbps（100G以太网，采用25G NRZ或者56G PAM4）；4) 2025年：224Gbps PAM4/1.6T以太网；5) 2030年目标：400Gbps+ PAM6/PAM8。
@@ -179,7 +179,7 @@ High-Speed Serial I/O
    • UniPRO : MIPI Universal Protocol
                                                                       8
 
-![Serdes系统架构](_images/img-103.jpg)
+![Serdes系统架构](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-103.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是典型的高速串行链路系统架构图，展示了从发送端到接收端的完整信号处理流程，是Serdes芯片设计的核心架构参考。
 > 【核心结论】完整Serdes链路包括：1) 发送端：发送器（Driver）+ 前馈均衡器（FFE）+ 时钟生成电路（PLL/CDR）；2) 信道：传输线/背板/光纤；3) 接收端：连续时间线性均衡器（CTLE）+ 决策反馈均衡器（DFE）+ 时钟数据恢复电路（CDR）+ 解串器；更高阶的PAM4链路还包括ADC+DSP数字信号处理模块。
@@ -208,7 +208,7 @@ Data Center Links
 
                                            9
 
-![信道损耗特性](_images/img-108.jpg)
+![信道损耗特性](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-108.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是高速传输信道的损耗特性图，展示了不同长度的背板传输线在不同频率下的插入损耗，是Serdes均衡器设计的核心依据。
 > 【核心结论】信道损耗随频率升高而增大（趋肤效应和介质损耗共同作用，近似与√f成正比），20英寸背板在10GHz下损耗可达25dB以上，远超过普通接收端的灵敏度范围，必须采用均衡器补偿损耗。
@@ -233,7 +233,7 @@ Increasing I/O Bandwidth Demand
       and is commonly used in electrical I/Os operating
       above 50Gb/s                                        10
 
-![均衡器效果对比](_images/img-113.jpg)
+![均衡器效果对比](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-113.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是均衡器补偿信道损耗的效果对比图，展示了无均衡、仅有CTLE、CTLE+DFE三种情况下的接收端眼图效果，直观体现了均衡器的作用。
 > 【核心结论】1) 无均衡：眼图完全闭合，无法正确接收数据；2) 仅CTLE：眼图部分张开，但仍然存在码间干扰（ISI）；3) CTLE+DFE：眼图完全张开，误码率可以达到1e-12以下，满足系统要求。

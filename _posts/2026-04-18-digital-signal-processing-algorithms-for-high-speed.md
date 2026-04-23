@@ -230,7 +230,7 @@ $$
 
 There are different values of attenuation depending on the optical frequency range that can be divided in three window:
 
-![](images/671b5359d83721bc6310e7358211b35dc40cca5b79ba09e68de9654a40444b76.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/671b5359d83721bc6310e7358211b35dc40cca5b79ba09e68de9654a40444b76.jpg)  
 Fig. 1.1: Optical fiber attenuation
 
 • first window centered around 850 nm with typical value of attenuation of 2 to 3 dB/km;
@@ -281,15 +281,15 @@ where $\tau _ { p }$ is the pulse half width[1].
 
 As in long-haul link standard single mode fiber (SSMF) are used, the propagating filed is described as a single mode consisting of two degenerate modes each corresponding of two orthogonal polarizations. The degeneration is due to the cylindrical symmetry of the optical fiber. However real optical fibers have a physical structure that is not perfectly cylindrical to core imperfections and perturbations due to mechanical tension, thermal gradients etc.
 
-![](images/30087b86e2e47c83e977b015ade08955b9c3f9eef969709ac8535ef9bb815729.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/30087b86e2e47c83e977b015ade08955b9c3f9eef969709ac8535ef9bb815729.jpg)  
 Fig. 1.2: Fiber imperfection[4]
 
-![](images/429b47d24d1cc1e3b83a6611b707ae8ba7fc4c6b00a0cbd2cdd1a259e04c98b2.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/429b47d24d1cc1e3b83a6611b707ae8ba7fc4c6b00a0cbd2cdd1a259e04c98b2.jpg)  
 Fig. 1.3: Perturbated fiber core[4]
 
 Due to these imperfections, the two fundamental modes see different effective indexes of refraction (Fig. 1.3) and optical fibers acquire birefringence meaning that the two polarization modes are propagating with slightly different group velocity. The state of polarization varies during the propagation. The polarization state is dependent on the wavelength and evolves with propagation at the end of the link, the two pulse components with different polarizations will arrive with a relative delay called Differential Group Delay (DGD) (Fig. 1.4).
 
-![](images/b9ad54fde8fc466a27665208f85067708dceca66a282cc0ca284977e6139afc7.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/b9ad54fde8fc466a27665208f85067708dceca66a282cc0ca284977e6139afc7.jpg)  
 Fig. 1.4: Impact of PMD on the propagating pulse
 
 This phenomenon is called Polarization Mode Dispersion(PMD). It’s stochastic as a consequence of the random nature of its origin. The total DGD is given by:
@@ -328,53 +328,53 @@ In modern telecommunications system information is stored and transmitted as dig
 
 Amplitude-shift keying (ASK) is a form of modulation that uses the amplitude of the carrier wave to represent the digital data. While frequency and phase are kept constant, the amplitude varies according with the bit stream. For binary transmission the level of amplitude can be used to represent binary logic 0s and 1s (Fig. 1.5). We can think of a carrier signal as an ON or OFF switch. In the modulated signal, logic 0 is represented by the absence of a carrier, thus giving OFF/ON keying operation and hence the name On-Offkeying (OOK) given.
 
-![](images/2d34f9501ec3ffd58b453146377a40789c5e6e70251366f07c007490c7418544.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/2d34f9501ec3ffd58b453146377a40789c5e6e70251366f07c007490c7418544.jpg)  
 Fig. 1.5: On-Off-keying constellation
 
 ## Phase-shift keying
 
 Using phase shift keying (PSK) the information is stored on the phase of the transmitted signal. Some of the advantages introduced by the modulation format is a better tolerance to noise at the receiver (receiver sensitivity) as well as the increasing of the spectral efficiency and the dispersion tolerance compared to On-Off keying (OOK)[1]. Figure 1.6 shows a Binary PSK (BPSK) constellation where the phase is digitally mapped in the two allowed phase states (0, π). The constellation can be obtained using a Mach-Zehnder EAM optical modulator that generates a PSK signal when driven by a single drive signal (Fig. 1.7).
 
-![](images/65c981e5115f03b1ed3ef9cfe9e2cd0d2b7688af17dddf950b81534584c617dc.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/65c981e5115f03b1ed3ef9cfe9e2cd0d2b7688af17dddf950b81534584c617dc.jpg)  
 Fig. 1.6: Binary PSK constellation
 
-![](images/a6bf93761414e80faeba99071eb2fdc7a316a00727a18aeabaf2a702142ba8a5.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/a6bf93761414e80faeba99071eb2fdc7a316a00727a18aeabaf2a702142ba8a5.jpg)  
 Fig. 1.7: PSK-OOK transmitter using a Mach-Zehnder EAM optical modulator
 
 ## Quadrature phase-shift keying
 
 Sometimes known as quaternary or quadriphase PSK (QPSK), QPSK uses four points on the constellation diagram, equispaced around a circle on four phase value $( 0 , { \frac { \pi } { 2 } } , \pi , - { \frac { \pi } { 2 } } )$ . With four phases, QPSK can encode two bits per symbol (Fig. 1.8). This may be used either to double the data rate compared to a BPSK system while maintaining the bandwidth of the signal or to maintain the data-rate of BPSK but halve the bandwidth needed. Usually QPSK is implemented using a nested Mach-Zender modulator (MZM) structure (Fig. 1.9) where complex field is modulated both in-phase and quadrature direction.
 
-![](images/6350d573e95e80256ec3c45d432882bbe82fb08e0388f9b6728cb10df676a467.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/6350d573e95e80256ec3c45d432882bbe82fb08e0388f9b6728cb10df676a467.jpg)  
 Fig. 1.8: QPSK Grey coded constellation
 
 ## Polarization shift keying
 
 In polarization shift keying (PolSK) the signal is encoded using the signal polarization state. A bit value 0 could be represented by a horizontal polarized signal and a bit value 1 by a vertical polarized signal. However, the polarization rotate randomly during the propagation of the optical field as explained in section 1.1.3. This problem limits the system performance especially for high power when non linear effects become stronger but can be compensated electronically with proper algorithms. It makes more sense to use the polarization degree of freedom to transmit two orthogonal polarized channels. An example of this is PolMux-QPSK that will described below.
 
-![](images/fdd7f544846711d59acb414f4c291e9e726c45d0effd0fd1f1c2c967f004a3fb.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/fdd7f544846711d59acb414f4c291e9e726c45d0effd0fd1f1c2c967f004a3fb.jpg)  
 Fig. 1.9: QPSK transmitter using a nested MZM modulator
 
 ## Polarization multiplexing of QPSK
 
 Polarization multiplexing of QPSK (PolMux-QPSK) is the modulation format of the data analised in section 3. PolMux-QPSK is implemented using two MZMs and then the two QPSK signals are combined with a Polarization Beam Combiner (PBC) (Fig. 1.10). PolMux-QPSK helps to reduce the requirements on electrical and opto-electrical components because it requires half the baud rate needed by a QPSK (Fig. 1.11).
 
-![](images/bf1056e0d0060975a23e4ea534bc77dfce86d8048fccdb5ebd00c0d42ed7cf5b.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/bf1056e0d0060975a23e4ea534bc77dfce86d8048fccdb5ebd00c0d42ed7cf5b.jpg)  
 Fig. 1.10: PolMux-QPSK block scheme
 
-![](images/01f16dd76ebcde3e2ba825867b8e8d0077a61abc9cac9e8a740e3599b9cec90f.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/01f16dd76ebcde3e2ba825867b8e8d0077a61abc9cac9e8a740e3599b9cec90f.jpg)  
 Fig. 1.11: Evolution from PSK to POLMUX-QPSK[5]
 
 ## 1.3 Direct detection versus coherent detection
 
 In direct detection, in an optoelectrical photodetector (a photodiode) the light intensity $| E | ^ { 2 }$ is converted in an electrical signal and the phase information is totally lost (Fig. 1.12). An alternative way to detect the optical signal is coherent detection in which the received signal is mixed with local laser being detected in the photodiode, and two detectors and proper phase delays are used (as explained below), both amplitude and phase can be preserved. While coherent detection was experimentally demonstrated as early 1979, its use in commercial systems has been hindered by the additional complexity, due to the need to track the phase and the polarization of the incoming signal (Fig. 1.13). In a digital coherent receiver these functions are implemented in the electrical domain leading to a dramatic reduction in the complexity of the optical receiver[6].
 
-![](images/857f982cccdd97dca9a5895258d014d960a0782931085a6af3dd0dd03f55c378.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/857f982cccdd97dca9a5895258d014d960a0782931085a6af3dd0dd03f55c378.jpg)  
 Fig. 1.12: Schematic direct receiver
 
 Since coherent detection maps both the intensity and the phase of the optical field into the electrical domain therefore maintaining all the information it maximizes the effectiveness of the signal processing. This allows impairments which have traditionally limited 100 Gb/s single channel systems to be overcome, since both chromatic dispersion and polarization mode dispersion may be compensated adaptively using linear digital filters.
 
-![](images/321e7df38d9c7406577c3873301b6f50fa487fea876ad7b96c96d59f5589656f.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/321e7df38d9c7406577c3873301b6f50fa487fea876ad7b96c96d59f5589656f.jpg)  
 Fig. 1.13: Schematic coherent receiver[7]
 
 ## Chapter 2
@@ -389,12 +389,12 @@ An important goal of a long-haul optical fiber systems is to transmit the highes
 
 An optical transmission system can be represented as shown in Fig. 2.1 where $E _ { T X }$ is the transmitted signal, H(ω) is the channel transfer function and $E _ { R X }$ is the received signal. The goal of DSP is to implement $H ^ { - 1 } ( \omega )$ that can be interpreted as the combination of all the linear effects that affect the signal during the propagation, and estimate $\hat { E } _ { T X }$ that represents the processed signal. In order to compensate all these effects, the received sampled electrical signal is elaborated with a series of algorithms in order to minimize the bit error rate (BER) that represents the main evaluation criterion for digital communication system quality. Another evaluation factor is the so called Constellation Plots or Diagrams (Fig. 2.2), a scatter plot of the modulated signal, amlitude and phase, in a two dimensional complex plane.
 
-![](images/55cda79c022583e6d0f205ae795217e00a205f2a54e79b3b6701bb1b77c8640e.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/55cda79c022583e6d0f205ae795217e00a205f2a54e79b3b6701bb1b77c8640e.jpg)  
 Fig. 2.1: Transmission and DSP block scheme
 
-![](images/d9536e2a5674277c9790e85d91c8740ff897a80f7495caec6a2ee3d9ab91294f.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/d9536e2a5674277c9790e85d91c8740ff897a80f7495caec6a2ee3d9ab91294f.jpg)
 
-![](images/6470e24866fd42e673fa8b6e47ea5a7f225ede655a3c6ed559fba1e6d7459112.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/6470e24866fd42e673fa8b6e47ea5a7f225ede655a3c6ed559fba1e6d7459112.jpg)  
 Fig. 2.2: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram without DSP, (b) received data constellation diagram with DSP
 
 ## 2.2 Chromatic dispersion compensation
@@ -429,9 +429,9 @@ From theory, filters for dispersion compensation in frequency and time domains c
 
 In the next section time domain techniques will be presented then in section 2.2.2 frequency technique will be analyzed.
 
-![](images/66b91c4dccb2ce89dcfdf9ee89b6ae8d1463caa26a6fdcf126cae2a8620d27d8.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/66b91c4dccb2ce89dcfdf9ee89b6ae8d1463caa26a6fdcf126cae2a8620d27d8.jpg)
 
-![](images/9be6ca550336c4c5e62dfb7e3cffc128b73068eaa789da1f878aed10af9e8201.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/9be6ca550336c4c5e62dfb7e3cffc128b73068eaa789da1f878aed10af9e8201.jpg)  
 Fig. 2.3: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram without DSP, (b) received data constellation diagram with only CD compensation
 
 ## 2.2.1 Time domain technique
@@ -444,7 +444,7 @@ $$
 
 where x is the input signal, $b _ { i }$ are the filter weights or as it is also called tap weights, N is the filter length and y is the output.
 
-![](images/a2cba7cefa33062293908c27148198b51d65a101df6eb18e5b54bc55b98d00c3.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/a2cba7cefa33062293908c27148198b51d65a101df6eb18e5b54bc55b98d00c3.jpg)  
 Fig. 2.4: Fir filter block
 
 Two different time domain techniques for CD compensation were analyzed: Savory’s method and blind adaptive equalizer such as least mean square (LMS) and constant modulus algorithm (CMA) algorithms.
@@ -475,7 +475,7 @@ where N is the number of taps, $T$ is the sampling period and bxc is the integer
 
 An adaptive algorithm incorporates an iterative procedure (Figure 2.5) that makes successive corrections to the weight of the filter in order to minimize the mean error between the output $\hat { d } ( \mathrm { n } )$ and the desired symbol d(n). An extremely important parameter is the step size $\mu$ that is linked with the filter taps weight uploading. High value of $\mu$ means faster convergence but lower precision. On the other hand low value of $\mu$ bring to slower convergence but higher precision. A good compromise is the use of high value of $\mu$ to initialize the filters taps and then switch to a low value to get an accurate precision. Least mean square (LMS) algorithm and constant modulus algorithm (CMA)[11] will be presented in the next sections.
 
-![](images/949e9a7b492703db8bddd522a855324b7a6c13ee5defce38596a44729bd7e88d.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/949e9a7b492703db8bddd522a855324b7a6c13ee5defce38596a44729bd7e88d.jpg)  
 Fig. 2.5: Adaptive filter scheme
 
 LMS method
@@ -522,7 +522,7 @@ $$
 \mathrm { \ u p l o a d i n g \ e q u a t i o n }
 $$
 
-![](images/c87946a96715337503118c80936d474e60e294d701d04d9eeaee0a3d2357c94c.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/c87946a96715337503118c80936d474e60e294d701d04d9eeaee0a3d2357c94c.jpg)  
 Fig. 2.6: LMS error evaluation
 
 At every step the algorithm (see the Matlab code in A.4) uploads the filter weight following the Eq. 2.15 and it estimates the error comparing the output at the step n with the desired response d(n) using a directed decision method (Fig. 2.6). The filter tap weights should be initialized. A solution is to set all the taps weight to zero except the central one that is set to unity corresponding to no filtering[6].
@@ -581,7 +581,7 @@ $$
 
 where $\begin{array} { r } { \omega _ { k } = \frac { 2 \pi } { T L _ { F F T } } , L _ { F F T } } \end{array}$ is the Fast Fourier Transform (FFT) length and $T$ is the sampling period (see the Matlab code in A.2). As the frequency domain
 
-![](images/95c302966ff7accd5111b121bb77e371d8fae1dbcb011214b4cecb4472e4c09c.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/95c302966ff7accd5111b121bb77e371d8fae1dbcb011214b4cecb4472e4c09c.jpg)  
 Fig. 2.7: FFT CD compensation algorithm scheme
 
 compensation uses the FFT function it is not advantageous working with long sequence of data because it increases the complexity of the algorithm. The received data should be split in smaller windows but connecting directly different blocks after the compensation results in errors at the edges. For that reason the overlap-add method is used. The overlap-add method has this procedure[10]:
@@ -592,7 +592,7 @@ compensation uses the FFT function it is not advantageous working with long sequ
 
 • the portion of the signal enters in the scheme shown in Fig. 2.7. FFT, multiplication with the filter and inverse Fast Fourier Transform (IFFT) is made;
 
-![](images/d943f75299951f909b5553508e7836fff8df9a794d6f4b05620131202bb92725.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/d943f75299951f909b5553508e7836fff8df9a794d6f4b05620131202bb92725.jpg)  
 Fig. 2.8: Overlap add method
 
 • the windows are recomposed overlapping the grey part as showed in the Fig. 2.8.
@@ -605,7 +605,7 @@ One issue of our investigation was the calculation of the FFT length and the zer
 
 Polarization tracking (section 1.3) can be archive using an adaptive CMA butterfly structure (see the Matlab code in A.6)[6][7]. The structure is com-
 
-![](images/1fbe112c9fc1e11827d96737cbb83319c5d8a23e6efb1ab81980f7456373a8fd.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/1fbe112c9fc1e11827d96737cbb83319c5d8a23e6efb1ab81980f7456373a8fd.jpg)  
 Fig. 2.9: Functionality of the digital filtering stage[6]
 
 posed by four CMA adaptive filters $( h _ { x x } , h _ { y x } , h _ { x y }$ and $h _ { y y } )$ related each other by these formulas:
@@ -658,9 +658,9 @@ $$
 
 As during the first stage of CD compensation some residual CD could not be compensated this algorithm takes care of it. Fig. 2.10 shows the differences, on a QPSK constellation, with and without PMD compensation after the first stage of CD compensation.
 
-![](images/650eca6e50bfa9470402d867430dfdbb66c1ad18f3e6c07fd3c05888b1b12db2.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/650eca6e50bfa9470402d867430dfdbb66c1ad18f3e6c07fd3c05888b1b12db2.jpg)
 
-![](images/0762146a2a59e26af043373861e525bd7bac5c5361b9cddd599b1d818ef02173.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/0762146a2a59e26af043373861e525bd7bac5c5361b9cddd599b1d818ef02173.jpg)  
 Fig. 2.10: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram before PMD compensation, (b) received data constellation diagram after PMD compensation
 
 ## 2.4 Carrier phase recovery
@@ -677,7 +677,7 @@ When the spontaneous emissions (ASE) are dominant in the system, N should be hig
 
 Fig. 2.11 shows the differences, on a QPSK constellation, with and without carrier phase recovery after CD and PMD compensation.
 
-![](images/904d6e2833398c6764e8198e954de0d9af8ae6f100ddf265865934ae981c3d96.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/904d6e2833398c6764e8198e954de0d9af8ae6f100ddf265865934ae981c3d96.jpg)  
 Fig. 2.11: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram before carrier phase recovery, (b) received data constellation diagram after carrier phase recovery
 
 ## 2.5 Nonlinear compensation
@@ -686,14 +686,14 @@ As explained in section in section 1.1.4, nonlinear effects become an important 
 
 Nonlinear effects can be compensated using the received intensity. The results that will be presented in section 3.2 were obtained using a nonlinear compensator (NLC) based on the technique of multi-span back-propagation (see Matlab code in A.9)[13]. In long-haul transmission systems the signal is periodically amplified throughout transmission to compensate for fiber loss. The optical link is therefore composed by a number of span (Fig. 2.12) made by an optical amplifier, Erbium Doped Fiber Amplifier (EDFA), followed by an optical fiber. It can be approximated that nonlinearities are concentrated just after the optical amplifiers where the power is higher. In this method we simplify things further by assuming that the nonlinear shift takes place instantaneously at the fiber input. Therefore the method consists in compensating for the CD accumulated during the span first and then treat the nonlinear effects.
 
-![](images/08c36f7c5875a00470562f389d27b26889ad90ce4132afa32d36fda43ac60e43.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/08c36f7c5875a00470562f389d27b26889ad90ce4132afa32d36fda43ac60e43.jpg)  
 Fig. 2.12: Span[13]
 
 These steps are then repeated for each span. The structure of the filter is a FIR filter for the CD compensation followed by a butterfly NLC structure called NLC core as showed in the figure 2.13 a).
 
-![](images/9333708af44d9f2f3c5e39127d1be41f95b2244e033a3da50db1535c8dcb042e.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/9333708af44d9f2f3c5e39127d1be41f95b2244e033a3da50db1535c8dcb042e.jpg)
 
-![](images/722549eeb9e4c4fc473a42cedc13a522d983f7137f0431278991392ba501a1a1.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/722549eeb9e4c4fc473a42cedc13a522d983f7137f0431278991392ba501a1a1.jpg)  
 Fig. 2.13: Nonlinear compensator[14]
 
 The NLC, presented by T. Tanimura [14], introduces a phase shift on both of the digital streams according to these formulas, as represented by Fig. 2.13 b):
@@ -720,7 +720,7 @@ In this chapter results of the DSP algorithm tests will be presented. It is divi
 
 The setup of the 112 Gb/s PolMux-QPSK coherent optical transmission system established using VPItransmissionMaker is illustrated in Fig. 3.1. The electrical data from four 28 Gb/s pseudo random bit sequence (PRBS) generators are modulated into two orthogonally polarized QPSK optical signals by two Mach-Zehnder modulators, which are then integrated into one fiber transmission channel by a polarization beam combiner to form the PolMux-QPSK optical signal. The received optical signals are mixed, with an optical local oscillator (LO) in the coherent receiver, to be transformed into four electrical signals by balanced photodetectors. In the dual polarization QPSK
 
-![](images/5a147b6c65da3fe1d79746b57d47eca5a089f624d721dfb04e9a132739041873.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/5a147b6c65da3fe1d79746b57d47eca5a089f624d721dfb04e9a132739041873.jpg)  
 Fig. 3.1: Schematic of 112 Gbit/s PM-QPSK coherent transmission system
 
 transmitter, the number of bits output from the PRBS generator in each polarization is $6 5 5 3 6 \ ( 2 ^ { 1 6 } )$ , and the number of symbols in four components $( I _ { x } ,$ $Q _ { x } , I _ { y } , Q _ { y } )$ is $3 2 7 6 8 \ : ( 2 ^ { 1 5 } )$ . The linewidth of the transmitter laser and the LO laser as the the offset between the transmitter laser and the LO laser are set to be 0 Hz (i.e. no phase noise). In the fiber, the attenuation is set to 0 as well as PMD and the nonlinear index. The chromatic dispersion coefficient is set to be $1 6 ~ \mathrm { p s / n m / k m }$ In the coherent receiver, the $2 \times 4 ~ 9 0 ^ { o }$ hybrid structure is adopted to demodulate the received optical signal, which consists of 3 dB $2 \times 2$ fiber couplers and a phase delay components of $\pi / 2$ phase shift in one branch. The goal of these simulations is to understand how the different CD compensation methods behave and a good procedure is to neglect all the effects except for CD. The back to back (transmitter and receiver, without any transmission line) OSNR level required for a bit error rate (BER) of $1 0 ^ { - 3 }$ (limit value that allow full error recovery using forward error correction techniques) is 14.8 dB. As our goal is to fully compensate for CD, this value of required OSNR is expected for all the propagation distances.
@@ -735,23 +735,23 @@ Savory’s filter is implemented using equation 2.6, 2.7 and 2.8 (section 2.2.1)
 
 Using a LMS adaptive filter it is possible to reach some expected OSNR level required for BER of $1 0 ^ { - 3 }$ as for back to back. This algorithm needs a time to converge and for longer distance it becomes a problem as a higher number of taps is needed. The issue was solved for 200 km using CMA algorithm that has better performance in convergence (section 2.2.1) and increasing the number of received symbols replying the received sequence. The longer the input sequence is, more convergence time the adaptive algorithm has. For 200 km it is enough to repeat the received data three time (65536×3 samples) but increasing the distance to 1000 km, the filter length required is too long and even CMA convergence is not reached.
 
-![](images/e8cee29f91361d58c0089a242bf94b869c6d8f8ae4e3f632f40ec403938c0005.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/e8cee29f91361d58c0089a242bf94b869c6d8f8ae4e3f632f40ec403938c0005.jpg)
 
 Fig. 3.2: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using the Savory’s method  
-![](images/45a4c69b2dbd68b6708efe11d93726c9d5abdc75446659534d6adcb6bf3f3398.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/45a4c69b2dbd68b6708efe11d93726c9d5abdc75446659534d6adcb6bf3f3398.jpg)  
 Fig. 3.3: Number of taps required using the Savory’s method
 
-![](images/e52155a9057a1a2410f280555e560277f5db9a97329c9c066c040f6f9dbd6522.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/e52155a9057a1a2410f280555e560277f5db9a97329c9c066c040f6f9dbd6522.jpg)  
 Fig. 3.4: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using CMA adaptive filter
 
-![](images/8087155dd7823fa427229a1d949957dd30525da9741614fe8a90b527c0587fe3.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/8087155dd7823fa427229a1d949957dd30525da9741614fe8a90b527c0587fe3.jpg)  
 Fig. 3.5: Number of taps required CMA adaptive filter
 
 ## Savory + adaptive filter (CMA)
 
 In this section CD compensation is performed with a combination of Savory method and CMA adaptive filter. First Savory’s filter is used to compensate most of the dispersion and then CMA adaptive filter with few taps is used for the residual dispersion. This structure is closer to a real system where a fixed long filter is used for the first stage of CD compensation and then the residual CD is treated by a shorter one. As in VPItransmissionMaker system the signal is sampled twice the symbol rate at the receiver, the algorithm has to chose the best sample to be used for the BER calculation. This decision is taken after the first CD compensation stage by plotting all the first and the second samples separately and choosing the one with the highest mean intensity. The best sample is passed to the CMA routine so that the filter weights are uploaded every 2 samples and downsampling is performed.
 
-![](images/db40ca304f9d9bb58f00f8c25570325f2c4955cbf9021238a99d8748828ac3f2.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/db40ca304f9d9bb58f00f8c25570325f2c4955cbf9021238a99d8748828ac3f2.jpg)  
 Fig. 3.6: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using Savory’s and CMA filters  
 Using Savory + CMA method leads to a required BER equal to back to
 
@@ -761,14 +761,14 @@ back. The number of taps required for the adaptive filter is related to the Savo
 
 As explained in section 2.2.2 an investigation on the length of the frequency filter was made to understand the behavior and the performance of this algorithm. The overlap-add method was firstly tested over three different propagation distance for a fixed OSNR level. FFT length was change to find the minimum required length to get the convergence of the BER value. As Fig. 3.7 shows for 20, 100 and 200 km of propagation FFT length of 32, 128 and 256 is required.
 
-![](images/743fe3fd5487a82fc48dbfd449972f48ffbbbf4b32bb120a1d964fbdb821df08.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/743fe3fd5487a82fc48dbfd449972f48ffbbbf4b32bb120a1d964fbdb821df08.jpg)  
 Fig. 3.7: FFT length in overlap add method  
 Fig. 3.8 shows the required OSNR versus the propagation distance for
 
-![](images/1f2567829b367eaf3787fba68a08f6c8d73b35b79d300c9b8b840e3f6473aa08.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/1f2567829b367eaf3787fba68a08f6c8d73b35b79d300c9b8b840e3f6473aa08.jpg)
 
 Fig. 3.8: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using FFT method  
-![](images/4b4ef09c0b536fef2ebf4a128d4533216e73697a4100a11ae4121826cea3e0ac.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/4b4ef09c0b536fef2ebf4a128d4533216e73697a4100a11ae4121826cea3e0ac.jpg)  
 Fig. 3.9: FFT length required versus the propagation distance
 
 chromatic dispersion compensation performed using only the frequency domain method. Even for 5 km the results found in back to back were not reached and increasing the distance a strong penalty appeared. For 5000 km we measured a 3 dB penalty compared with the 14.8 dB required for 5 km propagation with the adaptive filter compensation (Fig. 3.8).
@@ -779,7 +779,7 @@ As for the case Savory’s filer + CMA, chromatic dispersion compensation was al
 
 The CMA filter required only 7 taps that are needed for 500 km propagation while for shorter distance even 5 or 3 taps are necessary.
 
-![](images/9adfcdc5c6324be1f94216290bdada61e363b629dc2b8da6321649b905d4e8a1.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/9adfcdc5c6324be1f94216290bdada61e363b629dc2b8da6321649b905d4e8a1.jpg)  
 Fig. 3.10: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using FFT method and CMA filter
 
 ## 3.2 Nonlinear effects compensation
@@ -810,12 +810,12 @@ The DSP code used (A.1) is composed by:
 
 The α and $\beta$ parameter (Eq. 2.34 and 2.35) must be optimize[14]. As figure 3.11 shows, α and $\beta$ value were swept from 0 to 50. The best BER was found for $\alpha = \beta = 2 5$
 
-![](images/accc104c952911539f02b33c57d13c54149403d7bc7e5638273a10bdf7fb45f9.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/accc104c952911539f02b33c57d13c54149403d7bc7e5638273a10bdf7fb45f9.jpg)  
 Fig. 3.11: BER dependency on intra-polarization nonlinear parameter (α) and interpolarization parameter (β)
 
 The result with and without the NLC are shown in figure 3.12. The input power level in the fiber is −3dBm. From the graph it can be seen that, as the power level and nonlinearities are not so high, the improvement is only 1 dB for 200 km propagation. The blue line in figure 3.12 was compared to result obtained without NLC by Politecnico of Torino2.
 
-![](images/fa3ea0012b9be9d8501371bde2d4e0b9822013d30ce165f65f2b5db9abad51b1.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/fa3ea0012b9be9d8501371bde2d4e0b9822013d30ce165f65f2b5db9abad51b1.jpg)  
 Fig. 3.12: OSNR required for a bit error rate (BER) of $1 0 ^ { - 3 }$ versus the propagation distance with and without NLC
 
 ## 3.2.3 Multichannel result
@@ -824,7 +824,7 @@ In this section data for 16 channels WDM system with the same characteristic, as
 
 As the figure 3.13 shows there is a little improvement using the NLC (as we said in the previous section the power level is not so high). If the nonlinearities were all compensated for, the blue line should continuing decreasing with the same slope even for a power of 1.6 dBm. Using the nonlinear structure, as there is no information about the neighbors channel, only SPM can be compensated while the penalty for 1.6 dBm comes from inter-channel nonlinearities as discussed in section 1.10.
 
-![](images/3240bce538679f1f92570a096f0806124b928a61abe8a43d77e96580462e080c.jpg)  
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/3240bce538679f1f92570a096f0806124b928a61abe8a43d77e96580462e080c.jpg)  
 Fig. 3.13: BER versus power launched in the fiber with and without NLC
 
 ## Chapter 4

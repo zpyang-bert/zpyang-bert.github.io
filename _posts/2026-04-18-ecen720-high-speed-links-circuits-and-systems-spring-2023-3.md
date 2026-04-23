@@ -10,7 +10,7 @@ tags:
 ---
 Lecture 2: Channel Components, Wires, & Transmission Lines
 
-![](images/58d8c6073b3e6e4094888ac9cfea1f92959a472b9d3a0410b57a721d87504861.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/58d8c6073b3e6e4094888ac9cfea1f92959a472b9d3a0410b57a721d87504861.jpg)
 
 Sam Palermo Analog & Mixed-Signal Center Texas A&M University
 
@@ -62,7 +62,7 @@ Differential transmission lines
 
 ## Channel Components
 
-![](images/ea86c7e1082ffe8f2437ae6725392db4f9d696dbbbb103248470038603f4d8b1.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/ea86c7e1082ffe8f2437ae6725392db4f9d696dbbbb103248470038603f4d8b1.jpg)
 
 ## IC Packages
 
@@ -74,7 +74,7 @@ Differential transmission lines
 
 • Leads to I/O constrained designs and higher data rate per pin
 
-![](images/ac17dc424870af1c1459548e5db7ad27c83ac09111bd84e1a0193a92c9a7f004.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/ac17dc424870af1c1459548e5db7ad27c83ac09111bd84e1a0193a92c9a7f004.jpg)
 
 [Package Images - Fujitsu]
 
@@ -87,22 +87,22 @@ Differential transmission lines
 ● 2D solder ball array on chip allows for more signals and lower signal and supply impedance
 
 Standard Wirebond Package  
-![](images/cded7848e65c8330acf887d6ad4f9fb744452c19326700b4a653803a5cdfdad3.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/cded7848e65c8330acf887d6ad4f9fb744452c19326700b4a653803a5cdfdad3.jpg)
 
 Flip-Chip/Wirebond Package  
-![](images/37da625904561886ea083c1e6924b7bf404c01ec41481f175ac766c46873fcf6.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/37da625904561886ea083c1e6924b7bf404c01ec41481f175ac766c46873fcf6.jpg)
 
 Flip-Chip/Solder Ball Package  
-![](images/1311a65d66186f6f76a0fb806045ce1f78d1e7eba869ed74024290b438473d8d.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/1311a65d66186f6f76a0fb806045ce1f78d1e7eba869ed74024290b438473d8d.jpg)  
 [Package Images - Fujitsu]
 
 ## IC Package Model
 
-![](images/eec46d9bbc4eaa9ea0b851fa03d88e928193719ebf90d553a4d5bef05e7069dd.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/eec46d9bbc4eaa9ea0b851fa03d88e928193719ebf90d553a4d5bef05e7069dd.jpg)
 
 ## IC Package Model Comparisons
 
-![](images/cf1828c406c0939a9b134dedb8974bca8cc2293609ecf45e1c57f3509ba7023b.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/cf1828c406c0939a9b134dedb8974bca8cc2293609ecf45e1c57f3509ba7023b.jpg)  
 [Intel]
 
 FCB packaging allows for much less chip interface impedance
@@ -117,7 +117,7 @@ FCB packaging allows for much less chip interface impedance
 
 ● Backplanes can have over 30 layers
 
-![](images/165e3da869f2de7184dbad46f08cff73263d246b961db79e101f2c2b84c75aa3.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/165e3da869f2de7184dbad46f08cff73263d246b961db79e101f2c2b84c75aa3.jpg)
 
 ## PCB Stackup
 
@@ -131,7 +131,7 @@ FCB packaging allows for much less chip interface impedance
 
 "1oz' (35um) for power planes
 
-![](images/d34b5bdcfcfbe32a19da9f240dcd73ad5e29674354871e1a640e61917f22f58a.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/d34b5bdcfcfbe32a19da9f240dcd73ad5e29674354871e1a640e61917f22f58a.jpg)  
 [Dally]
 
 ## Connectors
@@ -140,7 +140,7 @@ FCB packaging allows for much less chip interface impedance
 
 ● Typical differential pair density between 16-32 pairs/10mm
 
-![](images/16c22b13c4362fcc7cd1061dd507f417309ec832e75907aa3a6c1001b90edb3d.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/16c22b13c4362fcc7cd1061dd507f417309ec832e75907aa3a6c1001b90edb3d.jpg)
 
 ## Connectors
 
@@ -148,11 +148,11 @@ Important to maintain proper differential impedance through connector
 
 • Crosstalk can be an issue in the connectors
 
-![](images/9af45342dd9a94709ecb1d6c304b43402128e1668fefdcb4f0de70bdd1b95b52.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/9af45342dd9a94709ecb1d6c304b43402128e1668fefdcb4f0de70bdd1b95b52.jpg)
 
-![](images/40cf81275b04157846f5a019d2de781b61cfcf3883479684edd126a5fb93ae6e.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/40cf81275b04157846f5a019d2de781b61cfcf3883479684edd126a5fb93ae6e.jpg)
 
-![](images/8912bdd1279b4ed2e1794c0ce1b0737d83937897d6dee886d4db434c862056d7.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/8912bdd1279b4ed2e1794c0ce1b0737d83937897d6dee886d4db434c862056d7.jpg)
 
 <table><tr><td colspan="2">TX/RX Nolse % (Victim E4F4)</td></tr><tr><td>Edge Rate</td><td>Nolse</td></tr><tr><td>50ps</td><td>1.9%</td></tr><tr><td>100ps</td><td>1.1%</td></tr></table>
 
@@ -172,14 +172,14 @@ Pads connect to signal layers/traces
 
 • Typically lower impedance and create "stubs"
 
-![](images/8e5b9d6b4487c4c88bd184e315d945edc48de84017fa8d65f3ac4d1d75c8ec03.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/8e5b9d6b4487c4c88bd184e315d945edc48de84017fa8d65f3ac4d1d75c8ec03.jpg)  
 [Dally]
 
 ## Impact of Via Stubs at Connectors
 
-![](images/866794173e429ad0636dd1a88d26abae104e57583afa8fe3832d9d155a84074d.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/866794173e429ad0636dd1a88d26abae104e57583afa8fe3832d9d155a84074d.jpg)
 
-![](images/ee9fe31addd9b0bf06e30998a888cabcf00f356871dba02083365b54cf7f183d.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/ee9fe31addd9b0bf06e30998a888cabcf00f356871dba02083365b54cf7f183d.jpg)  
 Legacy BP has default straight vias
 
 • Creates severe nulls which kills signal integrity
@@ -196,10 +196,10 @@ Refined BP has expensive backdrilled vias
 
 Has increased isolation
 
-![](images/6f46a2579393947b3c7f7216a00a37e8b9b529a6418736ef8ce584602b98137f.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/6f46a2579393947b3c7f7216a00a37e8b9b529a6418736ef8ce584602b98137f.jpg)  
 Stripline
 
-![](images/8cfa69e1de46e79a63c291cf19cb5a2cd41f8ac2ba1b6b4c81447315374da502.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/8cfa69e1de46e79a63c291cf19cb5a2cd41f8ac2ba1b6b4c81447315374da502.jpg)  
 [Johnson]
 
 ## Wire Models
@@ -218,13 +218,13 @@ Stripline
 
 • Causes signal loss and propagation delay
 
-![](images/7bc50c15f5208a770c7ed0158a78237b14e51f96b5afd1cec80dbf78b7cd4d3b.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/7bc50c15f5208a770c7ed0158a78237b14e51f96b5afd1cec80dbf78b7cd4d3b.jpg)
 
 $$
 R = \frac { \rho l } { A } = \frac { \rho l } { w h }
 $$
 
-![](images/1168ab252afe6217c1fa1fd7fd163bc88197bf4101b20d753d6e3f747990fef1.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/1168ab252afe6217c1fa1fd7fd163bc88197bf4101b20d753d6e3f747990fef1.jpg)
 
 $$
 R = \frac { \rho l } { A } = \frac { \rho l } { \pi ^ { 2 } }
@@ -244,13 +244,13 @@ Lower capacitance
 
 Higher propagation velocity
 
-![](images/4ec073f88cb5b57cf1885d64c6db0290f4c21ff2d43ad86600427bdb377bb9ba.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/4ec073f88cb5b57cf1885d64c6db0290f4c21ff2d43ad86600427bdb377bb9ba.jpg)  
 Parallel Plate
 
-![](images/c9d952dd6de2abd0008128841b598f650b0f5af1abd5b07b283206326da36837.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/c9d952dd6de2abd0008128841b598f650b0f5af1abd5b07b283206326da36837.jpg)  
 Coaxial
 
-![](images/0425b7250ecab2fe126ba21b6f65813c9d1216ae2d0f5b3d644d77c0b05a47aa.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/0425b7250ecab2fe126ba21b6f65813c9d1216ae2d0f5b3d644d77c0b05a47aa.jpg)  
 Wire Pair
 
 $$
@@ -267,7 +267,7 @@ $$
 
 <table><tr><td>TABLE 3-2 Permittivity of Some Typical Insulators</td></tr><tr><td>Material Br</td></tr><tr><td>Air 1 Teflon 2 Polyimide 3 Silicon dioxide 3.9 Glass-epoxy (PC board) 4 Alumina 10 Silicon 11.7</td></tr></table>
 
-![](images/50f71e9b161830c10acc77cbb7190412357046474481b436f2892de27e7d9440.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/50f71e9b161830c10acc77cbb7190412357046474481b436f2892de27e7d9440.jpg)  
 [Dally]  
 Rectangle over ground
 
@@ -319,7 +319,7 @@ Condition for LC or RLGC model (vs RC) $f _ { 0 } \geq \frac { R } { 2 \pi L }$
 
 ## RLGC Transmission Line Model
 
-![](images/14e517aa236a297245ffbbcd1d61a3239067d295501f7e77f393e8a1a05160fd.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/14e517aa236a297245ffbbcd1d61a3239067d295501f7e77f393e8a1a05160fd.jpg)
 
 As dx →0
 
@@ -447,9 +447,9 @@ $$
 \begin{array} { l } { \displaystyle { \boxed { D = \frac { \omega } { \beta } = \frac { 1 } { \sqrt { L C } } } } } \\ { \displaystyle { \vphantom { \sum _ { 0 } } } } \\ { \displaystyle { \vphantom { \sum _ { 0 } } } } \end{array}
 $$
 
-![](images/dac53168db3f7e14ec498ec319b0ab9dfe59d8fc8dc5549862e19dd6cd4b2d51.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/dac53168db3f7e14ec498ec319b0ab9dfe59d8fc8dc5549862e19dd6cd4b2d51.jpg)
 
-![](images/0dadbfb9afd093e4009f12c76a4dd314fe23b244777d98d45decda8aab243a1a.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/0dadbfb9afd093e4009f12c76a4dd314fe23b244777d98d45decda8aab243a1a.jpg)
 
 ## Low-Loss LRC Transmission Lines
 
@@ -493,7 +493,7 @@ $$
 
 ● The resistive $( a _ { \mathsf { R } } )$ and dielectric $( \alpha _ { \mathsf { D } } )$ loss terms cause a signal propagating down a transmissionline to become attenuated with distance
 
-![](images/795562e5e41ec80202919f23f5b0b7aa06e62cd42d6f85d41dbe71f8b9e6db51.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/795562e5e41ec80202919f23f5b0b7aa06e62cd42d6f85d41dbe71f8b9e6db51.jpg)
 
 • Resistive loss term is due to conductor skin effect
 
@@ -513,7 +513,7 @@ Both terms increase with frequency, although at different rates
 
 ● Above $\boldsymbol { \mathsf { f } } _ { \mathsf { s } }$ resistance/loss increases proportional to sqrt(frequency)
 
-![](images/3150b4d9aa9dce335b91f6a406048716d87a69ee0149183d179712ba2ff4d3a9.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/3150b4d9aa9dce335b91f6a406048716d87a69ee0149183d179712ba2ff4d3a9.jpg)  
 [Dally]
 
 $$
@@ -548,9 +548,9 @@ $$
 \boxed { \alpha _ { R } = \frac { R _ { D C } } { 2 Z _ { 0 } } \Bigg ( \frac { f } { f _ { s } } \Bigg ) ^ { \frac { 1 } { 2 } } }
 $$
 
-![](images/f32abf5b6c6bf30e0202f2c81ec7c9c12e24c6f577db491958b268c7bd83485a.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/f32abf5b6c6bf30e0202f2c81ec7c9c12e24c6f577db491958b268c7bd83485a.jpg)
 
-![](images/dac694c55010cb767b75af460d2acdd99fb0131c39eef091409ac86ef98474f6.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/dac694c55010cb767b75af460d2acdd99fb0131c39eef091409ac86ef98474f6.jpg)
 
 ## Dielectric Absorption (Loss)
 
@@ -572,26 +572,26 @@ $$
 
 ## Total Wire Loss
 
-![](images/667216a82d31878a64af32f4bc61ff1f1b4a0efd07582c7f95976af5a9ec3634.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/667216a82d31878a64af32f4bc61ff1f1b4a0efd07582c7f95976af5a9ec3634.jpg)
 
 ## Advanced Board Dielectrics
 
-![](images/91b4b741e27d800d3ba138f3e284379931bc8c0104b316e91acd54d986b97274.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/91b4b741e27d800d3ba138f3e284379931bc8c0104b316e91acd54d986b97274.jpg)  
 • Tachyon 25dB loss is 15.6"  
 • PTFE (Teflon) 25dB loss is $2 2 . 7 ^ { \prime \prime }$  
 • Cabled interconnects can support \~1.5m
 
 ## Cabled Backplane
 
-![](images/186854a2703bb116dfe4255d2a3be71c785f89a458532c5dc085e85b7e4ff1c3.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/186854a2703bb116dfe4255d2a3be71c785f89a458532c5dc085e85b7e4ff1c3.jpg)
 
 ● Cabled backplane with short daughter cards can support \~1m distances at 224Gb/s
 
 ## Reflections & Telegrapher's Eq.
 
-![](images/169bb383a45af3eda8c393a07927f25c5cb38bc59d64b8e61fd65ee583c9ed67.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/169bb383a45af3eda8c393a07927f25c5cb38bc59d64b8e61fd65ee583c9ed67.jpg)
 
-![](images/9f749719e81ae701b45ed8e3cf7c3c675ef8660e4d5230bbad78a1483d9ee8ac.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/9f749719e81ae701b45ed8e3cf7c3c675ef8660e4d5230bbad78a1483d9ee8ac.jpg)
 
 • With a Thevenin-equivalent model of the line:
 
@@ -619,7 +619,7 @@ $$
 
 ## Termination Examples - Ideal
 
-![](images/9a84d59c2775aa7ddc0298bd7c2d7dab158313bec8859d33baef9459d3820f2f.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/9a84d59c2775aa7ddc0298bd7c2d7dab158313bec8859d33baef9459d3820f2f.jpg)
 
 $$
 V _ { _ i } = 1 V \left( \frac { 5 0 } { 5 0 + 5 0 } \right) = 0 . 5 V
@@ -645,11 +645,11 @@ $$
 \mathtt { R } _ { \mathsf { T } } = 5 \mathsf { \mathbf { 0 } } \Omega
 $$
 
-![](images/3b4647db7530e4dc402f58d83f0bb73f33feb9b91a47776c431b283bc0fa855b.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/3b4647db7530e4dc402f58d83f0bb73f33feb9b91a47776c431b283bc0fa855b.jpg)
 
 ## Termination Examples - Open
 
-![](images/27930af3109f1bf6e14b9c6c6b1ac0ccd863ff6203bb5f5334c92549bc1d2a74.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/27930af3109f1bf6e14b9c6c6b1ac0ccd863ff6203bb5f5334c92549bc1d2a74.jpg)
 
 $$
 V _ { _ i } = 1 V \left( \frac { 5 0 } { 5 0 + 5 0 } \right) = 0 . 5 V
@@ -675,11 +675,11 @@ $$
 \mathbb { R } _ { \tau } \sim \infty \left( { \bf 1 } { \bf M } \Omega \right)
 $$
 
-![](images/e8140b30ae01db8fbc5ea99aa12bd2015e9394910a092448a035e2d092f50776.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/e8140b30ae01db8fbc5ea99aa12bd2015e9394910a092448a035e2d092f50776.jpg)
 
 ## Termination Examples - Short
 
-![](images/c8ded89119016e62537141f878ec9f5aa3fa6d7330e80b7819a6da4d47fc4926.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/c8ded89119016e62537141f878ec9f5aa3fa6d7330e80b7819a6da4d47fc4926.jpg)
 
 $$
 \begin{array} { l } { \displaystyle { V _ { i } = 1 V \left( \frac { 5 0 } { 5 0 + 5 0 } \right) = 0 . 5 V } } \\ { \displaystyle { k _ { r T } = \frac { 0 - 5 0 } { 0 + 5 0 } = - 1 } } \\ { \displaystyle { k _ { r S } = \frac { 5 0 - 5 0 } { 5 0 + 5 0 } = 0 } } \end{array}
@@ -689,11 +689,11 @@ $$
 \begin{array} { l } { { \sf R } _ { S } = 5 0 \Omega } \\ { { \sf Z } _ { 0 } = 5 0 \Omega , { \sf t } _ { \mathrm { d } } = 1 \mathsf { n } s } \\ { { \sf R } _ { \mathsf { T } } = 0 \Omega } \end{array}
 $$
 
-![](images/a75c84c3109c233ffea59be7d3f57ce84546cf604d97acc6a84b3114e7b780b2.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/a75c84c3109c233ffea59be7d3f57ce84546cf604d97acc6a84b3114e7b780b2.jpg)
 
 ## Arbitrary Termination Example
 
-![](images/250b15f6bb0d18b76356c77474172147bc2a7898b8edcc61ed07d62f20af2509.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/250b15f6bb0d18b76356c77474172147bc2a7898b8edcc61ed07d62f20af2509.jpg)
 
 $$
 V _ { _ { i } } = 1 V \left( { \frac { 5 0 } { 4 0 0 + 5 0 } } \right) = 0 . 1 1 1 V
@@ -719,23 +719,23 @@ $$
 \aleph _ { \tilde { \tau } } = 6 0 0 \Omega
 $$
 
-![](images/fb0ad80e377d546ad1a2b431a85b3a98160d3f6428e1758dbac7f32752c369e9.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/fb0ad80e377d546ad1a2b431a85b3a98160d3f6428e1758dbac7f32752c369e9.jpg)
 
 ## Lattice Diagram
 
-![](images/514411beceacbe2a11a21f58eb6714645947f82a009546ca3a80d90771f5ee4d.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/514411beceacbe2a11a21f58eb6714645947f82a009546ca3a80d90771f5ee4d.jpg)
 
 $$
 \begin{array} { l } { { \sf R } _ { S } = 4 0 0 \Omega } \\ { \quad \displaystyle \boldsymbol { \mathsf { Z } } _ { 0 } = 5 0 \Omega , \ : \boldsymbol { \mathsf { t } } _ { \mathrm { d } } = 1 \mathsf { n } s } \\ { \quad \displaystyle { \sf R } _ { \mathsf { T } } = 6 0 0 \Omega } \end{array}
 $$
 
-![](images/513e1dffac7daa446e27c3f16ab72beef2613e1dae46b75fdc0b7de381c23ce6.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/513e1dffac7daa446e27c3f16ab72beef2613e1dae46b75fdc0b7de381c23ce6.jpg)
 
 ## Termination Reflection Patterns
 
-![](images/08437306d083fa30d5324fd6ef6dcfe6ce8c1d1494174033ad005e012c43ad06.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/08437306d083fa30d5324fd6ef6dcfe6ce8c1d1494174033ad005e012c43ad06.jpg)
 
-![](images/6e96bbd17e99efc7b1e2c60a12668f43b340c030d853505edc3e7fe768a2d853.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/6e96bbd17e99efc7b1e2c60a12668f43b340c030d853505edc3e7fe768a2d853.jpg)
 
 ## Termination Schemes
 
@@ -757,13 +757,13 @@ Source output takes 2 steps up
 
 • Used in moderate speed pointto-point connections
 
-![](images/31a023c4a86938b60ed762eaf67557fb02b62065ddffad25901794280ffac5e2.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/31a023c4a86938b60ed762eaf67557fb02b62065ddffad25901794280ffac5e2.jpg)
 
 $$
 t _ { r } > n T _ { r o u n d - t r i p } = 2 n l \sqrt { L C }
 $$
 
-![](images/05a116c6229401abc6ddbbcb87ef72a1098532c6cd87b44f5634f2f3ab5e5738.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/05a116c6229401abc6ddbbcb87ef72a1098532c6cd87b44f5634f2f3ab5e5738.jpg)
 
 ## Termination Schemes
 
@@ -785,9 +785,9 @@ Reflections absorbed at both driver and receiver
 
 • Most common termination scheme for high performance serial links
 
-![](images/8b2508eb978bd0ce9b413fd3d1f885169feda02963e25ce425d055c381a31ff4.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/8b2508eb978bd0ce9b413fd3d1f885169feda02963e25ce425d055c381a31ff4.jpg)
 
-![](images/bb2118acaf044666c9b39354052a4b856c640d11365d8958cbb5571413bc4580.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/bb2118acaf044666c9b39354052a4b856c640d11365d8958cbb5571413bc4580.jpg)
 
 ## Differential Signaling
 
@@ -809,14 +809,14 @@ But, smaller ratio of supply/signal (return) pins
 
 ## Odd & Even Modes
 
-![](images/7a95853a3ef67af0753b6e033441852d192f0df5af423dee68311c51d47f7be4.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/7a95853a3ef67af0753b6e033441852d192f0df5af423dee68311c51d47f7be4.jpg)
 
-![](images/04a8048d6e7f7453858d6f0f74bc75dca9adc0201a158805aade49a88ed55014.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/04a8048d6e7f7453858d6f0f74bc75dca9adc0201a158805aade49a88ed55014.jpg)  
 [Hall]
 
-![](images/05ae51ba2c8c65e6c7c223987c0625eca2ab8ec1a17a13ab5ab0331728d6eef6.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/05ae51ba2c8c65e6c7c223987c0625eca2ab8ec1a17a13ab5ab0331728d6eef6.jpg)
 
-![](images/5b6c004f2df7291e14d70856bc4a123e1c559bbbd7d886bbe1cf7a7e1c715cc0.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/5b6c004f2df7291e14d70856bc4a123e1c559bbbd7d886bbe1cf7a7e1c715cc0.jpg)
 
 Even mode
 
@@ -850,7 +850,7 @@ $$
 \boxed { Z _ { D I F F } = 2 Z _ { o d d } , \quad Z _ { C M } = \frac { Z _ { e v e n } } { 2 } }
 $$
 
-![](images/affe19bb8752a0d7eb6e10380517b357b5abfb4aded4c0c7520ebfb8eeccda82.jpg)  
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/affe19bb8752a0d7eb6e10380517b357b5abfb4aded4c0c7520ebfb8eeccda82.jpg)  
 (a) Model of a Balanced Line
 
 $$
@@ -859,11 +859,11 @@ $$
 
 ## PI-Termination
 
-![](images/17b8840da9e47a6b620f464f1f78747138578b402d9ebafd72c6b158eb95e2e9.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/17b8840da9e47a6b620f464f1f78747138578b402d9ebafd72c6b158eb95e2e9.jpg)
 
 ## T-Termination
 
-![](images/56e7635f2d8b675c9f475949c0aaec3ad075949eb0b142966b38a33143b964e7.jpg)
+![](/img/mineru_output/lecture2_ee720_channels/auto/images/56e7635f2d8b675c9f475949c0aaec3ad075949eb0b142966b38a33143b964e7.jpg)
 
 ## Next Time
 

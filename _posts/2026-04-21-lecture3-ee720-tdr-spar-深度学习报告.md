@@ -23,7 +23,7 @@ Lecture 3: Time-Domain Reflectometry & S-Parameter Channel Models
                 Analog & Mixed-Signal Center
                     Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第三讲的封面，主题是TDR时域反射计和S参数测量，是高速信道特性测量的核心技术，准确的信道测量是Serdes设计和验证的基础。
 > 【核心结论】本讲内容覆盖：TDR工作原理、阻抗不连续的TDR响应、S参数测量方法、VNA矢量网络分析仪使用、测量校准技术、去嵌方法，是信号完整性工程师必备的测量技能。
@@ -45,7 +45,7 @@ Announcements
 
                                          2
 
-![TDR工作原理](_images/img-001.jpg)
+![TDR工作原理](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】TDR时域反射计的工作原理示意图，TDR是测量传输线阻抗分布的核心工具，可以定位传输线上的阻抗不连续点（比如过孔、连接器、stub等）。
 > 【核心结论】TDR的工作原理是向传输线发送一个阶跃信号，然后测量反射回来的信号，根据反射信号的幅度和时间，可以计算出阻抗不连续点的位置和阻抗值；反射系数Γ = (Z - Z0)/(Z + Z0)，阻抗高于Z0时反射为正，低于Z0时反射为负。
@@ -69,7 +69,7 @@ Agenda
 
                                         3
 
-![TDR响应示例](_images/img-002.jpg)
+![TDR响应示例](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是典型传输线结构的TDR响应示例，展示了不同阻抗不连续点的TDR波形特征，是TDR测量结果分析的基础。
 > 【核心结论】1) 开路：反射系数为+1，TDR波形跳变到2倍输入阶跃幅度；2) 短路：反射系数为-1，TDR波形跳变到0；3) 电容性不连续（比如过孔stub）：TDR波形出现向下的凹陷；4) 电感性不连续（比如引线）：TDR波形出现向上的凸起。
@@ -92,7 +92,7 @@ Lecture References
 
                                                4
 
-![S参数测量](_images/img-003.jpg)
+![S参数测量](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是VNA矢量网络分析仪测量S参数的原理示意图，S参数是频域的信道特性描述，是Serdes链路仿真的标准输入格式。
 > 【核心结论】VNA通过向被测件发送扫频的正弦信号，测量每个频率点的入射波、反射波、传输波的幅度和相位，计算得到S参数；可以测量的参数包括插入损耗（S21）、回波损耗（S11）、串扰（S31/S41）等。
@@ -117,7 +117,7 @@ Interconnect Modeling
   • Network analyzer (frequency domain)
                                                                       5
 
-![S参数校准](_images/img-004.jpg)
+![S参数校准](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是S参数测量的校准技术示意图，校准是保证S参数测量准确性的关键步骤，没有校准的测量结果是没有意义的。
 > 【核心结论】常用的校准方法包括：1) SOLT校准：使用短路（Short）、开路（Open）、负载（Load）、直通（Thru）四个校准件，是最常用的同轴校准方法；2) TRL校准：使用直通（Thru）、反射（Reflect）、延迟线（Line），适合非同轴的PCB测量，精度更高；3) SOLR校准：适用于未知负载的情况。
@@ -145,7 +145,7 @@ Time-Domain Reflectometer (TDR)
 • Only input port access to characterize channel
                                                                         6
 
-![去嵌技术](_images/img-005.jpg)
+![去嵌技术](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-005.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是S参数测量的去嵌技术示意图，去嵌是去掉测试夹具对测量结果的影响，得到真实被测件的S参数的技术。
 > 【核心结论】测试夹具包括测试端口到被测件之间的走线、过孔、连接器等，这些部分的特性会叠加到测量结果中，必须通过去嵌技术去掉；常用的去嵌方法包括：2xThru去嵌、SOLT去嵌、TRL去嵌等。

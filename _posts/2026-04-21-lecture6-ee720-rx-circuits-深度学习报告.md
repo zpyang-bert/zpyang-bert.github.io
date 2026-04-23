@@ -24,7 +24,7 @@ ECEN720: High-Speed Links
    Analog & Mixed-Signal Center
        Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第六讲，主题是接收端电路与连续时间线性均衡器（CTLE），是Serdes接收端模拟前端核心模块，直接决定接收灵敏度。
 > 【核心结论】内容覆盖接收端架构、LNA设计、CTLE原理、VGA设计、噪声优化，CTLE通过高通特性补偿信道高频损耗，是功耗最低的均衡技术。
@@ -48,7 +48,7 @@ Announcements
 
                                                 2
 
-![接收端架构](_images/img-001.jpg)
+![接收端架构](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】典型Serdes接收端模拟前端架构，从输入端口到采样器的完整路径，是接收端设计的基础框架。
 > 【核心结论】架构包括ESD保护、终端匹配电阻、LNA、CTLE、VGA、采样器，不同应用场景可裁剪，短距应用可去掉LNA降低功耗。
@@ -68,7 +68,7 @@ Outline
 • PAM4 RX example
                                     3
 
-![CTLE原理](_images/img-002.jpg)
+![CTLE原理](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】CTLE是连续时间线性均衡器，是最常用的模拟均衡技术，功耗仅为数字均衡的1/10。
 > 【核心结论】CTLE本质是高通滤波器，提升高频分量抵消信道低通损耗，通过RC参数调整高频增益和零点位置，适配不同信道。
@@ -85,7 +85,7 @@ High-Speed Electrical Link System
 
                                     4
 
-![CTLE电路](_images/img-003.jpg)
+![CTLE电路](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】差分对加源极退化RC结构是当前高速Serdes最常用的CTLE电路实现方式，适合纳米CMOS工艺。
 > 【核心结论】通过开关调整源极退化的电阻电容值，实现不同的均衡档位，工艺偏差下需要校准保证均衡精度。
@@ -110,7 +110,7 @@ Receiver Parameters
 
                                                             5
 
-![VGA电路](_images/img-004.jpg)
+![VGA电路](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】可变增益放大器VGA用于调整接收信号幅度到采样器最佳输入范围，保证判决精度。
 > 【核心结论】VGA要求增益调节范围0~20dB，步进1dB，带宽高、线性度好，增益调节时相位变化小。

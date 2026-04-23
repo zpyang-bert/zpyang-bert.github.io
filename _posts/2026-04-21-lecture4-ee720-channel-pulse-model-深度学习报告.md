@@ -24,7 +24,7 @@ Lecture 4: Channel Pulse Model & Modulation Schemes
            Analog & Mixed-Signal Center
                Texas A&M University
 
-![课程封面](_images/img-000.jpg)
+![课程封面](/img/serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是ECEN720第四讲的封面，主题是信道脉冲响应和码间干扰（ISI）模型，是均衡器设计的核心理论基础，所有均衡算法都是为了消除码间干扰。
 > 【核心结论】本讲内容覆盖：线性时不变系统理论、信道脉冲响应、阶跃响应、码间干扰产生原理、眼图的形成、链路预算分析，是Serdes系统设计的核心理论基础。
@@ -47,7 +47,7 @@ Announcements
 
                                                2
 
-![信道脉冲响应](_images/img-001.jpg)
+![信道脉冲响应](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是典型高速信道的脉冲响应示意图，脉冲响应是线性系统的时域描述，包含了信道的所有特性，是均衡器设计的核心依据。
 > 【核心结论】信道的脉冲响应h(t)是系统输入一个冲激信号时的输出响应，经过信道传输后的信号是输入信号和脉冲响应的卷积；由于信道是低通特性，脉冲响应会被展宽，导致相邻符号之间产生重叠，即码间干扰（ISI）。
@@ -69,7 +69,7 @@ Agenda
 
                                         3
 
-![码间干扰](_images/img-002.jpg)
+![码间干扰](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是码间干扰产生原理的示意图，码间干扰是高速链路中误码的主要来源，均衡器的主要作用就是消除码间干扰。
 > 【核心结论】由于脉冲响应被展宽，每个符号的能量会扩散到相邻的符号周期中，对相邻符号产生干扰，这就是码间干扰；干扰的大小取决于脉冲响应在相邻采样点的幅度，幅度越大，干扰越严重。
@@ -98,7 +98,7 @@ Inter-Symbol Interference (ISI)
 
                                                                                   4
 
-![眼图](_images/img-003.jpg)
+![眼图](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是眼图的形成原理示意图，眼图是评估高速链路性能最直观的方法，把多个符号周期的波形叠加在一起，就形成了类似眼睛的图案，因此称为眼图。
 > 【核心结论】眼图的参数包括：1) 眼高：垂直方向的张开度，反映了噪声和干扰的大小，眼高越大，灵敏度越高；2) 眼宽：水平方向的张开度，反映了抖动的大小，眼宽越大，时序余量越大；3) 眼图的交叉点：反映了信号的上升/下降时间和占空比。
@@ -125,7 +125,7 @@ NRZ Data Modeling
                                                 0 t  0
                                                                       5
 
-![链路预算](_images/img-004.jpg)
+![链路预算](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 > 🔍 深度说明：
 > 【研究背景】这是高速链路的链路预算分析示意图，链路预算是Serdes系统设计的第一步，用来计算链路的总余量，判断是否可以满足误码率要求。
 > 【核心结论】链路余量 = 接收端灵敏度 - 总损耗 - 总噪声 - 抖动代价 - 串扰代价；一般要求链路余量>3dB，保证在最坏情况下仍然可以正常工作。各部分损耗包括：信道插入损耗、反射损耗、均衡器噪声、CDR抖动等。

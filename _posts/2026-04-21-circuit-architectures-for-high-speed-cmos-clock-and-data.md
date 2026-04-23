@@ -25,7 +25,7 @@ tags:
 
 ### 研究背景
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-001.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-001.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：物联网时代对低功耗、低成本高速通信接口的迫切需求，片外带宽成为计算速度提升的瓶颈
@@ -37,7 +37,7 @@ tags:
 
 ### 数据增长趋势
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-002.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/img-002.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：半导体工艺持续缩小带动存储成本下降，推动数据爆炸式增长
@@ -47,7 +47,7 @@ tags:
 
 ### 互联网接入速度增长
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-003.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-003.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：光纤通信技术进步推动骨干网速度提升
@@ -57,7 +57,7 @@ tags:
 
 ### IO接口数据率发展趋势
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-004.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-004.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：ISSCC 2011预测显示IO signaling链路数据率每4年翻番
@@ -71,7 +71,7 @@ tags:
 
 ### 串行 vs 并行链路
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-005.jpg)
+![](/img/serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/_images/img-005.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：传统并行总线（IDE、PCI、AGP）受限明显，业界转向串行接口
@@ -81,7 +81,7 @@ tags:
 
 ### 背板trace结构
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-006.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-006.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：数据中心和大型路由器中使用的典型高速信号传输结构
@@ -91,7 +91,7 @@ tags:
 
 ### 背板横截面示意
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-007.jpg)
+![](/img/serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/_images/img-007.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：从电磁角度理解信号完整性的物理层结构
@@ -101,7 +101,7 @@ tags:
 
 ### 信道失真分析
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-008.jpg)
+![](/img/serdes/fundamentals/papers/PAM4 oDSP原理介绍_images/img-008.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：信道不完美性导致信号畸变，10 Gb/s时尤为严重
@@ -111,7 +111,7 @@ tags:
 
 ### 典型SERDES系统框图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-009.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-009.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：完整的串行通信系统包括TX、Channel、RX三大部分
@@ -121,7 +121,7 @@ tags:
 
 ### 多路复用型Serializer
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-010.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-010.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：并行转串行的直接实现方式
@@ -131,7 +131,7 @@ tags:
 
 ### 树形结构Serializer
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-011.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-011.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：解决直接多路复用结构的高频难题
@@ -141,7 +141,7 @@ tags:
 
 ### 典型PLL框图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-012.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-012.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：PLL是产生高频低抖动时钟的核心模块
@@ -151,7 +151,7 @@ tags:
 
 ### 信道频率响应
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-013.jpg)
+![](/img/serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/_images/img-013.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：实际背板信道的频率衰减特性
@@ -161,7 +161,7 @@ tags:
 
 ### 眼图分析
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-014.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-014.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：10 Gb/s下眼图闭合程度
@@ -171,7 +171,7 @@ tags:
 
 ### 均衡后眼图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-015.jpg)
+![](/img/serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/_images/img-015.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：均衡技术可恢复部分信道损失
@@ -181,7 +181,7 @@ tags:
 
 ### CDR系统框图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-016.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-016.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR是接收端核心，负责时钟提取和数据采样
@@ -191,7 +191,7 @@ tags:
 
 ### 调制技术比较
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-017.jpg)
+![](/img/serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/_images/img-017.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：不同调制方式对带宽效率的影响
@@ -201,7 +201,7 @@ tags:
 
 ### 抖动类型
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-018.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-018.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：时钟抖动对高速链路的影响
@@ -215,7 +215,7 @@ tags:
 
 ### CDR环路详细框图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-019.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-019.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR闭环工作原理的数学描述
@@ -225,7 +225,7 @@ tags:
 
 ### 相位检测器传递特性
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-020.jpg)
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-020.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：线性PD vs 二进制PD的工作特性
@@ -235,7 +235,7 @@ tags:
 
 ### Hogge相位检测器
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-021.jpg)
+![](/img/serdes/fundamentals/papers/高速光通信接收机前端与时钟数据恢复电路研究与实现_images/img-021.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：经典CDR相位检测电路
@@ -245,7 +245,7 @@ tags:
 
 ### 电荷泵电路
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-022.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-022.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：将数字鉴相脉冲转换为模拟控制电压
@@ -255,7 +255,7 @@ tags:
 
 ### 环路滤波器
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-023.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-023.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：一阶RC滤波器实现
@@ -287,7 +287,7 @@ tags:
 
 ### 单端CDR架构
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-024.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-024.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：第一种CDR实现架构
@@ -301,7 +301,7 @@ tags:
 
 ### 互补逻辑CDR架构
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-025.jpg)
+![](/img/serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/_images/img-025.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：改进的单端CDR变体
@@ -315,7 +315,7 @@ tags:
 
 ### CML CDR电路图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-026.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-026.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：最高性能CDR架构
@@ -325,7 +325,7 @@ tags:
 
 ### 超缓冲驱动器
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-027.jpg)
+![](/img/serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_images/img-027.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：强驱动能力需求
@@ -335,7 +335,7 @@ tags:
 
 ### Hogge PD实现
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-028.jpg)
+![](/img/serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/_images/img-028.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CML版本的Hogge PD
@@ -345,7 +345,7 @@ tags:
 
 ### 主从D触发器
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-029.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-029.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：高速分频器基础单元
@@ -355,7 +355,7 @@ tags:
 
 ### CML Latch
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-030.jpg)
+![](/img/serdes/fundamentals/papers/高速光通信接收机前端与时钟数据恢复电路研究与实现_images/img-030.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CML电路核心存储单元
@@ -365,7 +365,7 @@ tags:
 
 ### CML XOR门
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-031.jpg)
+![](/img/serdes/fundamentals/papers/高速光通信接收机前端与时钟数据恢复电路研究与实现_images/img-031.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：Hogge PD核心计算单元
@@ -379,7 +379,7 @@ tags:
 
 ### 控制电压锁定过程
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-032.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-032.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR上电锁定行为
@@ -389,7 +389,7 @@ tags:
 
 ### VCO频率锁定过程
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-033.jpg)
+![](/img/serdes/fundamentals/papers/高速光通信接收机前端与时钟数据恢复电路研究与实现_images/img-033.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：VCO控制电压与输出频率关系
@@ -399,7 +399,7 @@ tags:
 
 ### 发射机眼图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-034.jpg)
+![](/img/serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/_images/img-034.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：TX输出信号质量
@@ -409,7 +409,7 @@ tags:
 
 ### 信道输出眼图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-035.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-035.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：信道衰减后的信号
@@ -419,7 +419,7 @@ tags:
 
 ### CDR输出眼图
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-036.jpg)
+![](/img/serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/_images/img-036.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR恢复的信号质量
@@ -429,7 +429,7 @@ tags:
 
 ### 采样相位示意
 
-![](Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_images/img-037.jpg)
+![](/img/serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/_images/img-037.jpg)
 
 > 🔍 深度说明：
 > - **研究背景**：CDR时钟与数据的关系
