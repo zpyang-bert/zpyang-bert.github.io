@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAM4_oDSP原理介绍_深度学习报告 — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md" class="nav-item active">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">PAM4_oDSP原理介绍_深度学习报告</span>
+            <span class="topbar-breadcrumb">serdes / fundamentals / papers / PAM4_oDSP原理介绍_深度学习报告.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <h1 id="pam4-odsp">PAM4 oDSP 原理深度学习报告<a class="headerlink" href="#pam4-odsp" title="Permanent link">&para;</a></h1>
+<p><strong>文档来源</strong>: PAM4 oDSP原理介绍（2026/2/20）
+<strong>报告撰写</strong>: 深度学习分析
+<strong>日期</strong>: 2026年4月</p>
+<hr />
+<h2 id="_1">摘要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>本报告基于原始文档《PAM4 oDSP原理介绍》进行深度技术分析与扩展撰写，系统性地阐述PAM4（Pulse Amplitude Modulation 4-level，四电平脉冲幅度调制）光学数字信号处理（oDSP）的完整技术栈。本报告从PAM4调制的基础原理出发，深入解析发射端预处理（FFE FIR滤波、预编码）、接收端信号处理（CTLE、DFE、CDR）、前向纠错编码（FEC/ KP4 RS-FEC）以及线侧光路损伤补偿等核心模块，并辅以性能分析、与NRZ/PAM2的对比、400G/800G以太网应用场景及未来发展趋势。本报告在原始文档基础上进行了大量技术细节补充与深度理论扩展，力求达到专业学术与工程实践双重标准。</p>
+<hr />
+<h2 id="pam4">第一章 PAM4调制技术概述<a class="headerlink" href="#pam4" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 高速光通信的带宽需求与调制演进<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>随着数据中心和AI算力基础设施对带宽需求的爆发式增长，56Gbps乃至112Gbps每通道的传输速率已成为当前主流光互连标准的技术节点。在此速率下，传统的NRZ（Non-Return-to-Zero，非归零）调制即PAM2已接近电气带宽的物理极限。以28Gbps NRZ为例，其奈奎斯特频率为14GHz，而实际高速数字链路中信道插入损耗在14GHz处往往已超过20dB，这对模拟前端和时钟恢复电路构成了极为严苛的设计挑战。</p>
+<p>PAM4通过在单个符号周期内编码2比特信息，将有效符号率降低至原来的一半，从而在给定物理带宽条件下将系统容量翻倍。这一技术选择成为从56G PAM4向112G PAM4演进过程中的关键使能技术，并在400G/800G以太网、50G/200G/400G PON以及数据中心内部光互连中得到了广泛应用。</p>
+<h3 id="12-pam4">1.2 PAM4信号基础理论<a class="headerlink" href="#12-pam4" title="Permanent link">&para;</a></h3>
+<p>PAM4信号采用四个离散的幅度电平来表示两比特二进制数据。四电平分别对应逻辑电平00、01、11和10（采用格雷码映射以最小化相邻电平间的比特错误概率）。四个电平的标称幅度通常归一化为-3、-1、+1、+3（也有实现采用0、1、2、3的线性映射）。</p>
+<p>PAM4信号的眼图呈现为三个并行的"眼睛"——上眼、中眼和下眼。与NRZ的单一眼图不同，PAM4的三个眼图在垂直方向上共享总信号动态范围，每个眼的开口高度（眼高）约为NRZ的约三分之一。这意味着PAM4对噪声和串扰的容忍度较NRZ显著降低，对系统的线性度和动态范围提出了更高要求。</p>
+<p>从信息论角度分析，PAM4每符号携带2比特信息，其谱效率是NRZ的两倍。然而，PAM4的最小欧氏距离（相邻电平间的幅度差）为NRZ的约1/3（假设同样的峰值功率约束下），这直接导致PAM4的符号间干扰（ISI）容忍度下降约9.54dB（20log10(1/3) ≈ -9.54 dB），这正是PAM4系统需要更强大的均衡技术和纠错能力来补偿的根本原因。</p>
+<h3 id="13-pam4-vs-nrzpam2">1.3 PAM4 vs NRZ/PAM2 全面对比<a class="headerlink" href="#13-pam4-vs-nrzpam2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>技术指标</th>
+<th>NRZ (PAM2)</th>
+<th>PAM4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电平数</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>每符号比特数</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>谱效率</td>
+<td>1 bit/s/Hz</td>
+<td>2 bit/s/Hz</td>
+</tr>
+<tr>
+<td>所需带宽</td>
+<td>R_b (符号率等于比特率)</td>
+<td>R_b/2</td>
+</tr>
+<tr>
+<td>最小幅度间距（峰值功率相同）</td>
+<td>2 (归一化)</td>
+<td>2/3</td>
+</tr>
+<tr>
+<td>SNR代价（vs NRZ）</td>
+<td>0 dB</td>
+<td>~9.54 dB</td>
+</tr>
+<tr>
+<td>眼图数量</td>
+<td>1个</td>
+<td>3个</td>
+</tr>
+<tr>
+<td>ADC/DAC分辨率需求</td>
+<td>4-6 bit</td>
+<td>6-8 bit</td>
+</tr>
+<tr>
+<td>均衡复杂度</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+<tr>
+<td>FEC需求</td>
+<td>KR4 (RS(528,514))</td>
+<td>KP4 (RS(544,514))</td>
+</tr>
+<tr>
+<td>典型应用速率</td>
+<td>25G/28G NRZ</td>
+<td>56G/112G PAM4</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="odsp">第二章 oDSP系统架构总览<a class="headerlink" href="#odsp" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 光数字信号处理流程<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>oDSP（optical Digital Signal Processing，光数字信号处理）是高速光传输系统中将模拟光信号转换为可用数字域信号并进行智能处理的核心技术模块。与传统的模拟均衡方案相比，oDSP在数字域实现精确的线性与非线性均衡，具备自适应配置和算法迭代升级的灵活性。</p>
+<p>完整的PAM4 oDSP收发链路架构如下：</p>
+<p><strong>发射端（TX）链路</strong>：
+数据流 → Gray编码 → 预编码(Precoder) → FIR/FFE滤波 → DAC → 激光调制器</p>
+<p><strong>接收端（RX）链路</strong>：
+光探测器 → TIA → CTLE → ADC → FFE(前馈均衡) → DFE(判决反馈均衡) → CDR(时钟数据恢复) → Gray解码 → 数据流</p>
+<p>上述架构中，TX端与RX端各包含多个关键信号处理模块，原始文档在第3页给出了清晰的系统架构总览（Analog TX architecture中的FFE EQ、RX端的CTLE、FFE adapt、DFE adapt、CDR等）。</p>
+<blockquote>
+<p>🔍 <strong>深度说明：PAM4 oDSP系统架构原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-001.jpg</code>（134KB，高清系统框图）
+- <strong>工程价值</strong>: 该图是理解整个PAM4 oDSP链路的核心参考，展示了从Host-side到Line-side的完整信号流向
+- <strong>关键洞察</strong>: 图中可见CDR位于DFE之后，这是baud-rate CDR的典型布局——CDR需要DFE输出已均衡信号才能有效提取时钟相位；CTLE位于ADC之前完成模拟域预均衡，降低ADC采样精度压力
+- <strong>设计启示</strong>: 实际系统中TX FFE与RX CTLE需要联动调优——TX发送端的预加重强度与RX CTLE的高频提升量存在反向关联，调优时需整体考虑</p>
+</blockquote>
+<h3 id="22-dac">2.2 模拟发射架构与DAC架构对比<a class="headerlink" href="#22-dac" title="Permanent link">&para;</a></h3>
+<p>原始文档区分了两种发射端架构：</p>
+<p><strong>纯模拟TX架构（Analog TX architecture）</strong>：在模拟域完成FIR滤波和均衡功能，适用于对功耗和延迟有极端要求的短距离场景。该架构中FIR滤波器以模拟电路（连续时间滤波器或开关电容网络）实现，配置灵活度低但功耗最优。</p>
+<p><strong>基于DAC的TX架构（DAC-based TX architecture）</strong>：先将数字信号经过数字FIR滤波器，再通过高速DAC转换为模拟信号驱动调制器。该架构利用数字电路的高精度和可编程性，能够实现复杂的预均衡策略（如预加重/去加重），且同一硬件平台可通过配置适应不同信道条件，是当前主流方案。</p>
+<hr />
+<h2 id="_2">第三章 发射端预处理技术<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="31-firtx-ffe">3.1 FIR滤波与发送端前馈均衡（TX FFE）<a class="headerlink" href="#31-firtx-ffe" title="Permanent link">&para;</a></h3>
+<h4 id="311-fir">3.1.1 FIR滤波器原理<a class="headerlink" href="#311-fir" title="Permanent link">&para;</a></h4>
+<p>发送端FIR（Finite Impulse Response，有限脉冲响应）滤波器是最常用的发射端预均衡技术。原始文档第4页给出了2-tap和3-tap FIR的数学表达：</p>
+<blockquote>
+<p>🔍 <strong>深度说明：TX FFE FIR滤波器原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-004.jpg</code>（55KB）和<code>img-005.jpg</code>（24KB）
+- <strong>工程价值</strong>: 该图直观展示了2-tap（main+post）和3-tap（pre+main+post）FIR的结构差异，以及9.7dB预均衡效果的可视化
+- <strong>关键洞察</strong>: pre-cursor系数c(-1)用于补偿前一个符号对当前符号的干扰，这在高速背板中尤为关键——相邻通道的远端串扰（far-end crosstalk）会产生pre-cursor ISI，只能通过发送端pre-cursor EQ消除；main-cursor系数c(0)决定信号主体强度；post-cursor系数c(1)补偿当前符号对后续符号的干扰
+- <strong>设计启示</strong>: 9.7dB的2-tap FIR能在13dB插入损耗链路上实现有效预均衡，说明FIR tap数的选择应基于信道脉冲响应测量——tap系数不为零的个数决定了所需FIR阶数</p>
+</blockquote>
+<p>y(n) = c(-1) * x(n) + c(0) * x(n-1) + c(1) * x(n-2)</p>
+<p>其中，c(-1)为前标（pre-cursor）系数，c(0)为主标（main-cursor）系数，c(1)为后标（post-cursor）系数。在3-tap FIR中，x(n)为当前符号，x(n-1)为前一符号（pre-cursor），x(n+1)为后一符号（post-cursor）。</p>
+<p>其Z域传递函数为：
+H(z) = c(-1) + c(0) * z^(-1) + c(1) * z^(-2)</p>
+<p>FIR滤波器的核心作用是在发送端对信道的高频衰减特性进行预补偿，使得经过信道后的总体响应趋于平坦。对于典型的PCB背板信道，其插入损耗随频率近似按f^0.5或f^1增长，在14GHz处的损耗可能高达15-20dB。通过在发送端施加与信道频率响应相反的预加重（FIR滤波器的高频系数大于低频系数），可以有效展宽信号的高频谱能量，补偿信道引起的频率相关性衰减。</p>
+<h4 id="312-fir">3.1.2 FIR系数设计<a class="headerlink" href="#312-fir" title="Permanent link">&para;</a></h4>
+<p>FIR系数的确定有两种主要方式：固定系数设计（依据典型信道模型预设）和自适应系数调整（通过链路训练获取最优系数）。原始文档第4页给出的9.7dB 2-tap FIR（仅含main和post）示例，说明了对于一个13dB插入损耗的链路如何通过FIR滤波在发送端实现约9.7dB的预均衡效果。实际设计中，FIR的tap数（2-tap、3-tap、5-tap乃至9-tap）取决于信道的长度、反射特性以及功耗预算。</p>
+<h3 id="32-precoding">3.2 预编码（Precoding）<a class="headerlink" href="#32-precoding" title="Permanent link">&para;</a></h3>
+<p>预编码是PAM4系统中一项重要的发送端信号处理技术，其核心目的是将信道引入的符号间干扰（ISI）转化为已知的、可通过接收端处理消除的确定性干扰模式。</p>
+<p>PAM4信号的四个电平（-3, -1, +1, +3）在经过存在ISI的信道后，相邻符号之间会产生特定模式的码间干扰。预编码器在发送端对数据进行预变换，使得接收端在简单的逐符号判决后即可恢复原始数据，无需迭代ISI消除。</p>
+<p>典型的预编码方案为模二加（modulo-2）预编码。对于二进制数据流b_n，预编码输出p_n = b_n XOR p_(n-1)（XOR表示异或运算）。在接收端，恢复数据为 b_hat_n = p_hat_n XOR p_hat_(n-1)。该方案将信道导致的"差错传播"特性转化为"差错累积"特性，使得误码模式更为集中，有利于FEC的纠错处理。</p>
+<hr />
+<h2 id="_3">第四章 接收端信号处理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="41-ctle">4.1 连续时间线性均衡器（CTLE）<a class="headerlink" href="#41-ctle" title="Permanent link">&para;</a></h3>
+<h4 id="411-ctle">4.1.1 CTLE工作原理<a class="headerlink" href="#411-ctle" title="Permanent link">&para;</a></h4>
+<p>CTLE（Continuous Time Linear Equalizer，连续时间线性均衡器）是接收端模拟域的第一个线性均衡模块，位于TIA（跨阻放大器）之后和ADC之前。CTLE本质上是一个频率响应可调的模拟高通滤波器或带通滤波器，其频率响应可表示为：</p>
+<p>H_CTLE(s) = (omega_z / (s + omega_z)) * ((s + omega_p) / (s + alpha * omega_p))</p>
+<p>其中omega_z为零点频率，omega_p为极点频率，alpha为直流增益控制参数。通过调节这些参数，CTLE可以在特定频率范围内提升增益（零点处开始提升，极点处达到峰值），从而补偿信道的低通特性。</p>
+<p>原始文档第6页指出"CTLE code is determined by FFE frequency spectrum"，这表明CTLE的均衡深度（均衡代码）与FFE的频率响应特性紧密耦合。在实际系统中，CTLE首先对宽频带噪声和信道失真进行初步均衡，降低接收信号的高频噪声含量，为后续的数字FFE和ADC创造更好的信号条件。</p>
+<h4 id="412-ctle">4.1.2 CTLE与眼图张开度<a class="headerlink" href="#412-ctle" title="Permanent link">&para;</a></h4>
+<p>CTLE的核心工程目标是"打开眼图"——即恢复因信道带宽限制而模糊的PAM4三个眼图的垂直开口度。CTLE的高频提升效果直接增加了信号在高频段的幅度，从而压缩因群时延波动和频率选择性好导致的符号展宽。但CTLE增强高频的同时也会放大高频噪声，因此CTLE的均衡深度需要在信号增强与噪声放大之间取得工程折中。</p>
+<blockquote>
+<p>🔍 <strong>深度说明：CTLE眼图效果原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-006.jpg</code>（24KB，CTLE效果对比图）
+- <strong>工程价值</strong>: 该图直观展示CTLE如何"打开"被信道带宽压缩的眼图，是理解CTLE工程效果的最佳视觉材料
+- <strong>关键洞察</strong>: CTLE均衡后的眼图在高频处幅度明显提升，但噪声同时也被放大——这说明CTLE设置存在最优工作点：均衡不足则眼图闭合、均衡过度则噪声主导；实际系统中CTLE code通常由FFE频谱分析结果决定（原文"CTLE code is determined by FFE frequency spectrum"），形成CTLE+FFE的联动优化
+- <strong>设计启示</strong>: CTLE作为模拟域均衡器，其功耗远低于数字FFE，但在28G+速率下模拟CTLE的带宽和线性度设计难度极大；部分高端SerDes采用"数字CTLE"（在ADC之后用数字滤波器实现CTLE功能）替代模拟CTLE，以换取设计灵活性和可调性</p>
+</blockquote>
+<h3 id="42-ffe">4.2 前馈均衡器（FFE）与自适应算法<a class="headerlink" href="#42-ffe" title="Permanent link">&para;</a></h3>
+<h4 id="421-ffe">4.2.1 FFE数学模型<a class="headerlink" href="#421-ffe" title="Permanent link">&para;</a></h4>
+<p>FFE（Feed-Forward Equalizer，前馈均衡器）的核心是一个抽头延迟线滤波器，其输出为：</p>
+<p>Y_out = sum(H_k * X_in(n-k)), k从-N到M</p>
+<p>其中H_k为各抽头的复数或实数系数，X_in为输入信号序列，N和M分别为前向和后向抽头的数量。FFE在数字域实现，其抽头系数可通过训练序列或盲均衡算法自适应调整。</p>
+<p>原始文档第7页给出了FFE均衡的简洁表达：
+Y_out = sum(X_in * H)</p>
+<p>这表明FFE本质上是一个线性卷积过程，通过对输入信号与信道冲激响应进行反卷积来补偿信道的频率选择性衰落。</p>
+<blockquote>
+<p>🔍 <strong>深度说明：FFE均衡与CMA/DDLMS自适应算法原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-007.jpg</code>（80KB，FFE均衡框图）和<code>img-008.jpg</code>（56KB，CMA/DDLMS算法图）
+- <strong>工程价值</strong>: 这两张图是理解FFE自适应调整机制的核心——CMA粗收敛→DDLMS精调的两阶段架构是工业级SerDes的标准配置
+- <strong>关键洞察</strong>: CMA利用信号幅度统计进行盲收敛（无需训练序列），但收敛精度有限且存在局部收敛问题；DDLMS以判决结果为参考进行有监督更新，收敛精度高但需要初始判决正确；两阶段级联解决了"鸡生蛋"问题——CMA先建立初始均衡使判决器能正常工作，DDLMS再精细调优
+- <strong>设计启示</strong>: 步长参数μ的选择存在收敛速度与稳态误差的折中——μ大则收敛快但稳态抖动大，μ小则收敛慢但精度高；实际系统中μ通常随时间自适应减小（减慢收敛速度以换取精度）</p>
+</blockquote>
+<h4 id="422-cma">4.2.2 CMA盲均衡算法<a class="headerlink" href="#422-cma" title="Permanent link">&para;</a></h4>
+<p>CMA（Constant Modulus Algorithm，常模算法）是一种无需训练序列的盲均衡算法，广泛应用于接收端FFE系数的初始收敛阶段。CMA的核心代价函数为：</p>
+<p>J_CMA = (|Y_out|^2 - R)^2</p>
+<p>其中R为目标幅度常数（对于PAM4，需根据四个电平的幅度分布设定适当的目标值）。CMA通过梯度下降法更新系数：</p>
+<p>H(n+1) = H(n) + mu * X_in * Y_out * err</p>
+<p>其中err = R - |Y_out|^2为幅度误差，mu为步长参数。</p>
+<p>CMA的优势在于不依赖训练序列即可在链路建立初期快速收敛，但CMA存在收敛速度慢、稳态误差大、对载波频率偏移敏感等固有缺陷。因此原始文档指出"CMA performs coarse equalization based on the average energy of signal"——CMA基于信号的平均能量进行粗均衡，主要用于系数初始值的获取。</p>
+<h4 id="423-ddlms">4.2.3 DDLMS决策导向自适应算法<a class="headerlink" href="#423-ddlms" title="Permanent link">&para;</a></h4>
+<p>DDLMS（Decision-Directed Least Mean Square，决策导向最小均方）算法是FFE系数精细调整阶段的核心算法。与CMA不同，DDLMS在判决器（slicer）输出硬判决结果后，以判决结果作为参考信号进行有监督的自适应更新：</p>
+<p>H(n+1) = H(n) + mu * X_in * err</p>
+<p>其中err = Y_out - Y_DDLMS_out，Y_DDLMS_out为判决器的输出（硬判决结果）。</p>
+<p>DDLMS的收敛精度远高于CMA，因为判决结果提供了比幅度统计更为精确的参考信息。原始文档指出"DDLMS performs precise equalization based on the decision target of signal"——DDLMS基于信号的判决目标进行精确均衡。这两个算法通常级联使用：CMA先完成粗收敛，DDLMS再进行精确跟踪，形成完整的两阶段自适应均衡体系。</p>
+<h3 id="43-dfe">4.3 判决反馈均衡器（DFE）<a class="headerlink" href="#43-dfe" title="Permanent link">&para;</a></h3>
+<h4 id="431-dfe">4.3.1 DFE原理与优势<a class="headerlink" href="#431-dfe" title="Permanent link">&para;</a></h4>
+<p>DFE（Decision Feedback Equalizer，判决反馈均衡器）是接收端最关键的非线性均衡模块之一。DFE的核心思想是利用已判决符号的信息来消除当前符号所受到的来自已判符号的码间干扰（post-ISI），而不会将这种消除过程产生的噪声放大。</p>
+<p>DFE的结构包含两个基本组件：一个前馈滤波器（通常与FFE共享或合并实现）和一个反馈滤波器。反馈滤波器的输入为已判决符号序列，其输出被从当前符号的均衡结果中减去：</p>
+<p>Y_out = X_in + sum(X_in * H_k^FB), k从1到N</p>
+<p>原始文档第8页给出了DFE的精确数学表达并配有10G背板的脉冲响应实例：h1 = 0.175（相邻符号的ISI系数），h2 = 0.075（次相邻符号的ISI系数）。对于2-tap DFE，位流"11011"中比特"0"的DFE输出为0.375 - 0.075 - 0.175 = 0.1，可被正确判决为"0"。这说明DFE能够有效消除已知的post-ISI分量。</p>
+<blockquote>
+<p>🔍 <strong>深度说明：DFE判决反馈均衡原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-009.jpg</code>（40KB，DFE结构与脉冲响应图）
+- <strong>工程价值</strong>: 该图展示了10G背板的实测脉冲响应——h1=0.175、h2=0.075这些具体数值反映了实际信道的ISI分布，是设计DFE抽头数的重要依据
+- <strong>关键洞察</strong>: h1=0.175意味着相邻符号对当前符号的干扰达到主幅度的17.5%，这在PAM4系统中会导致显著的眼图闭合；DFE反馈滤波器利用已判决的"干净"符号（无噪声干扰）来消除这种确定性干扰，这是其相对FFE的核心优势——不放大噪声
+- <strong>设计启示</strong>: DFE的反馈滤波器长度（tap数）应覆盖信道脉冲响应中显著非零的主要尾瓣；对于10G背板2-tap DFE足够，但56G/112G高速系统可能需要4-tap甚至更多；同时需注意error propagation问题——判决错误会通过反馈传播，后续符号都会受影响；缓解方法包括在DFE前加强FFE线性均衡降低初始判决错误率</p>
+</blockquote>
+<h4 id="432-dfeffe">4.3.2 DFE与FFE的关键差异<a class="headerlink" href="#432-dfeffe" title="Permanent link">&para;</a></h4>
+<p>DFE相对于FFE的核心优势在于：FFE在抑制post-ISI时必须同时放大噪声功率（因为FFE是一个纯线性滤波器，提升高频增益的同时必然提升该频段的噪声），而DFE利用已判决符号的确定信息来消除post-ISI，不会额外放大噪声。这一特性使DFE在高损耗信道（如长距离背板或光纤传输）中成为不可或缺的均衡模块。</p>
+<p>然而DFE也有其固有限制：一旦发生判决错误，错误会通过反馈滤波器传播到后续符号的均衡结果中，造成错误传播（error propagation）。在PAM4系统中，由于眼图开口较小，判决错误概率高于NRZ系统，因此DFE的错误传播问题更为突出。解决方案包括：采用软判决DFE、限制反馈滤波器的深度（tap数）、以及在DFE前设置足够强的FFE/线性均衡以降低判决错误概率。</p>
+<h3 id="44-baud-rate-cdrmueller-muller">4.4 baud-rate CDR与Mueller-Muller定时恢复<a class="headerlink" href="#44-baud-rate-cdrmueller-muller" title="Permanent link">&para;</a></h3>
+<h4 id="441-cdr">4.4.1 CDR基本原理<a class="headerlink" href="#441-cdr" title="Permanent link">&para;</a></h4>
+<p>CDR（Clock and Data Recovery，时钟数据恢复）是接收端最核心的时序同步模块。CDR从收到的数据流中提取时钟相位信息，并将ADC的采样时刻对准每个符号的最佳采样点（眼图中央）。PAM4系统对CDR的要求比NRZ更为严苛——PAM4的三个眼图中每个眼图都需要在最佳时刻采样，且三个眼图的垂直偏移不同，CDR的相位锁定精度要求更高。</p>
+<h4 id="442-mueller-muller">4.4.2 Mueller-Muller算法<a class="headerlink" href="#442-mueller-muller" title="Permanent link">&para;</a></h4>
+<p>原始文档第9页介绍了baud-rate CDR中广泛使用的Mueller-Muller（MM）定时恢复算法。MM算法的核心原理是从baud-rate采样（每个符号仅一个采样点）的数据中推断信道冲激响应，然后据此调整采样时钟相位使其对齐到脉冲响应的中心位置。</p>
+<p>MM算法的自适应更新规则为：</p>
+<ul>
+<li>若h(t_k - T_b) &lt; h(t_k + T_b)，则CDR采样时刻过早（early），需要将采样时钟向后调整；</li>
+<li>若h(t_k - T_b) &gt; h(t_k + T_b)，则CDR采样时刻过迟（late），需要将采样时钟向前调整。</li>
+</ul>
+<blockquote>
+<p>🔍 <strong>深度说明：Mueller-Muller CDR定时恢复原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-010.jpg</code>（37KB，MM算法示意）和<code>img-011.jpg</code>（45KB，CDR结构图）
+- <strong>工程价值</strong>: MM算法是baud-rate CDR的核心——不需要额外时钟信号，仅从数据序列本身推断采样相位，是高速SerDes实现CDR的主流方案
+- <strong>关键洞察</strong>: MM算法利用脉冲响应的对称性来判断采样时刻是否处于"中心"位置——理想情况下脉冲响应对称，h(t-Tb)=h(t+Tb)对应眼图中央；当采样偏离中心时，脉冲响应失去对称性，算法据此调整相位；这个原理本质上是让采样点收敛到信道冲激响应的峰值位置
+- <strong>设计启示</strong>: MM算法在低SNR条件下可能收敛到错误的相位（锁定在次优点而非最有点），因此通常需要与线性相位检测器联合使用；PAM4系统中由于三个眼图垂直电平不同，MM算法的误差检测需要考虑PAM4电平的非线性映射，这是PAM4 CDR比NRZ CDR设计更复杂的主要原因之一</p>
+</blockquote>
+<p>其中T_b为符号周期，h(t_k)为第k个采样时刻的信道脉冲响应估计值。MM算法的优点在于不需要独立的时钟信号，仅从数据序列本身即可恢复时钟相位，且收敛速度较快。</p>
+<hr />
+<h2 id="fec">第五章 前向纠错编码（FEC）<a class="headerlink" href="#fec" title="Permanent link">&para;</a></h2>
+<h3 id="51-fec">5.1 FEC基本原理<a class="headerlink" href="#51-fec" title="Permanent link">&para;</a></h3>
+<p>FEC（Forward Error Correction，前向纠错编码）通过在数据流中引入冗余比特，使接收端能够在不依赖重传的情况下纠正一定范围内的错误比特。FEC编码将k个信息符号映射为n个编码符号（n &gt; k），形成(n, k)分组码。编码开销率（overhead）为(n-k)/k。</p>
+<p>原始文档第11页给出了KP4 FEC（Key Performance 4-level FEC）的标准定义：</p>
+<ul>
+<li>RS(528, 514, T=7, M=10)：用于IEEE P802.3bj 25G NRZ的KR4 FEC，纠错半径T=7；</li>
+<li>RS(544, 514, T=15, M=10)：用于28G/56G/112G PAM4的KP4 FEC，纠错半径T=15。</li>
+</ul>
+<p>其中RS为Reed-Solomon（里德-所罗门）码，M=10表示符号宽度为10比特，T表示最大可纠正的符号错误数。RS(544, 514)将514个10-bit信息符号编码为544个10-bit编码符号，每个码字可纠正最多15个符号错误。</p>
+<h3 id="52-kp4-fec">5.2 KP4 FEC的纠错能力分析<a class="headerlink" href="#52-kp4-fec" title="Permanent link">&para;</a></h3>
+<p>原始文档第11页指出KP4 FEC在不同错误分布下的纠错效果差异极大：</p>
+<p><strong>最优情况</strong>：KP4 FEC在5440比特（544符号 x 10比特/符号）的码字中可纠正多达150个错误比特。这要求错误高度集中分布在少数几个符号内，使得每个符号的错误比特数不超过15（RS码的纠错能力）。</p>
+<p><strong>最差情况</strong>：KP4 FEC仅能纠正15个错误比特——即当16个比特错误分散在16个不同的10比特符号中时，由于每个符号的错误比特数均不超过1（远低于T=15的阈值），但符号错误数达到16个，超过了RS(544, 514, T=15)的符号纠错上限。</p>
+<p>这说明FEC的实际纠错效果不仅取决于总错误比特数，更关键的是错误的分布特性。突发错误（burst error）模式对FEC更为友好，而分散错误（random error）模式对FEC的挑战更大。</p>
+<h3 id="53-rs">5.3 RS解码器架构<a class="headerlink" href="#53-rs" title="Permanent link">&para;</a></h3>
+<p>原始文档第12页给出了RS解码器的四步经典架构：</p>
+<p><strong>第一步：伴随式计算（Syndrome Computation）</strong>
+s = [s_1, s_2, ..., s_{2t-1}, s_{2t}] = H x R^T = H x E^T</p>
+<p>通过计算接收矢量与校验矩阵的乘积，得到2t个伴随式分量。若所有s_i = 0，则判决无错误；否则伴随式向量将引导后续的错误值查找过程。</p>
+<p><strong>第二步：BM算法（Berlekamp-Massey）</strong>
+lambda(x) = (1 - P_1 * x)(1 - P_2 * x)...(1 - P_v * x), v &lt;= t</p>
+<p>BM算法从伴随式向量中恢复错误位置多项式lambda(x)和错误值多项式Omega(x)，确定错误发生的符号位置v和错误幅度。</p>
+<p><strong>第三步：Chien搜索（Chien Search Algorithm）</strong>
+x = a^n, a^(n-1), ..., a^2, a^1</p>
+<p>将有限域GF(2^10)中的各元素逐一代入错误位置多项式，找到使lambda(x) = 0的根，即为错误符号的位置。</p>
+<p><strong>第四步：Forney算法</strong>
+利用错误位置多项式和错误值多项式，计算各错误位置上正确的符号值，完成错误修正。</p>
+<blockquote>
+<p>🔍 <strong>深度说明：RS(544,514)解码器四步算法原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-012.jpg</code>（97KB，RS解码器架构图）
+- <strong>工程价值</strong>: 该图展示了RS解码器从接收码字到错误修正的完整四步流程，是理解FEC解码硬件实现的核心参考
+- <strong>关键洞察</strong>: 伴随式计算（Syndrome）是第一步也是最关键的一步——2t个伴随式分量完全描述了错误图样；BM算法（Berlekamp-Massey）是计算量最大的步骤，其复杂度随错误数增加而急剧上升；Chien搜索在GF(2^10)的1024个元素中逐一搜索，需要1024次多项式求值，是电路实现中面积最大的模块；Forney算法利用错误位置和错误值多项式直接计算错误值，无需迭代
+- <strong>设计启示</strong>: RS(544,514)的GF(2^10)算术运算需要专门的有限域运算电路，综合面积较大；实际IC实现中常采用时分复用方式共享Chien搜索电路以降低面积；解码器延迟主要来自BM算法（与错误数v相关）和Chien搜索（固定1024周期）</p>
+</blockquote>
+<h3 id="54-coding-gain">5.4 编码增益（Coding Gain）<a class="headerlink" href="#54-coding-gain" title="Permanent link">&para;</a></h3>
+<p>编码增益是衡量FEC性能的核心指标，定义为在达到相同BER目标的条件下，有FEC时所需的SNR相对于无FEC时所需的SNR的减少量（dB）。原始文档第13页给出了KP4 FEC的编码增益计算：</p>
+<p>C_G = Q_ref - Q_in = 20 * log10(2 * erfcinv(2 * 2e-15)) - 20 * log10(2 * erfcinv(2 * 2.4e-4)) = 7.04 dB</p>
+<ul>
+<li>KR4 FEC（RS(528, 514)）编码增益约5.63 dB</li>
+<li>KP4 FEC（RS(544, 514)）编码增益约7.04 dB</li>
+</ul>
+<p>KP4 FEC比KR4 FEC高出约1.4 dB的编码增益，这主要来源于KP4更大的纠错半径（T=15 vs T=7）和更大的符号宽度（M=10）。</p>
+<h3 id="55-fecodsp">5.5 各型FEC方案对比与oDSP发展趋势<a class="headerlink" href="#55-fecodsp" title="Permanent link">&para;</a></h3>
+<p>原始文档第14页系统性地对比了当前主流FEC方案的各项性能指标：</p>
+<table>
+<thead>
+<tr>
+<th>FEC方案</th>
+<th>编码结构</th>
+<th>开销(OH)</th>
+<th>编码增益(dB)</th>
+<th>译码前BER阈值</th>
+<th>延迟</th>
+<th>典型应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KP4</td>
+<td>RS(544,514)</td>
+<td>5.83%</td>
+<td>7.04</td>
+<td>2.4e-4</td>
+<td>~40ns</td>
+<td>56G/112G PAM4</td>
+</tr>
+<tr>
+<td>CI-BCH</td>
+<td>BCH(1022,990)</td>
+<td>6.67%</td>
+<td>9.15</td>
+<td>4.2e-3</td>
+<td>&gt;5us</td>
+<td>短距离高编码增益</td>
+</tr>
+<tr>
+<td>CFEC</td>
+<td>Staircase+Hamming(128,120)</td>
+<td>14.8%</td>
+<td>10.6</td>
+<td>1.21e-2</td>
+<td>~10us</td>
+<td>超高速率长距</td>
+</tr>
+<tr>
+<td>OFEC</td>
+<td>Braided code+BCH(256,239)</td>
+<td>15.3%</td>
+<td>11.1</td>
+<td>1.93e-2</td>
+<td>~4us</td>
+<td>下一代高编码增益</td>
+</tr>
+<tr>
+<td>KP4+Hammingv</td>
+<td>KP4+Hamming(128,120)</td>
+<td>12.9%</td>
+<td>9.56</td>
+<td>4.5e-3</td>
+<td>~60ns</td>
+<td>高增益双层编码</td>
+</tr>
+<tr>
+<td>Strong FEC</td>
+<td>RS(576,514)</td>
+<td>12.1%</td>
+<td>8.26</td>
+<td>1.2e-3</td>
+<td>&gt;60ns</td>
+<td>超强纠错</td>
+</tr>
+</tbody>
+</table>
+<p>| 随着PAM4符号率从56G向112G乃至224G演进，系统对FEC的依赖程度持续提升。更高速率的PAM4系统面临更大的信道损伤和更低的原生信噪比，必须依靠更强编码增益的FEC方案来弥补。原始文档明确指出"FEC在oDSP会越来越重要"。</p>
+<blockquote>
+<p>🔍 <strong>深度说明：各型FEC方案对比原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-013.jpg</code>（135KB，FEC方案对比表）
+- <strong>工程价值</strong>: 该图是当前业界最完整的FEC方案对比表，覆盖了从28G NRZ（KR4）到112G PAM4（KP4）再到下一代800G/1.6T（OFEC/CFEC）的全系列FEC演进路线
+- <strong>关键洞察</strong>: 开销与编码增益的折中关系清晰——OH从5.83%增加到15.3%，编码增益从7.04dB提升到11.1dB；OFEC的4us延迟比CFEC的10us更适合高速系统（延迟直接影响缓存深度和功耗）；CI-BCH的&gt;5us延迟主要来自BCH迭代译码，不适合高吞吐场景
+- <strong>设计启示</strong>: 56G/112G PAM4选择KP4是因为其40ns低延迟特性——高速SerDes无法承受大数据缓存在FEC中等待译码；随着速率向224G演进，系统可能需要在OFEC的11.1dB高增益和KP4的40ns低延迟之间做更细分的选择</p>
+</blockquote>
+<hr />
+<h2 id="_4">第六章 线侧光路损伤与补偿<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 铜缆与光缆损伤对比<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<p>原始文档第16页系统性地对比了铜缆和光缆传输中的主要损伤类型：</p>
+<table>
+<thead>
+<tr>
+<th>损伤类型</th>
+<th>铜缆特性</th>
+<th>光缆特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>带宽限制</td>
+<td>电气走线损耗</td>
+<td>调制器、驱动器、TIA带宽限制</td>
+</tr>
+<tr>
+<td>射频反射</td>
+<td>电连接器不匹配</td>
+<td>光电元件界面反射</td>
+</tr>
+<tr>
+<td>噪声</td>
+<td>量化噪声、抖动、热噪声</td>
+<td>暗电流、热噪声、散粒噪声、RIN</td>
+</tr>
+<tr>
+<td>幅度非线性</td>
+<td>—</td>
+<td>调制器、驱动器、TIA非线性</td>
+</tr>
+<tr>
+<td>时间非线性</td>
+<td>—</td>
+<td>调制器啁啾</td>
+</tr>
+<tr>
+<td></td>
+<td>非线性光纤损伤</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>🔍 <strong>深度说明：铜缆与光缆损伤类型对比原图解析</strong>
+- <strong>图片来源</strong>: <code>PAM4 oDSP原理介绍_images/img-014.jpg</code>（35KB，损伤类型对比图）
+- <strong>工程价值</strong>: 该图系统梳理了电域与光域损伤的完整分类，是理解线侧光路补偿与电侧均衡差异的核心参考
+- <strong>关键洞察</strong>: 铜缆损伤主要是线性的（带宽限制、射频反射），而光缆损伤包含丰富的非线性效应（调制器啁啾、光纤Kerr效应）；光纤损伤中的色散(CD)和偏振模色散(DGD)是长距离传输的主要限制，而MPI（多径干涉）在相干检测系统中尤为严重；RIN（相对强度噪声）是激光器的固有特性，在直接检测系统中是主要噪声源之一
+- <strong>设计启示</strong>: 电侧均衡（CTLE/FFE/DFE）主要解决线性带宽限制和符号间干扰，对光纤特有的非线性损伤效果有限；对于相干检测系统，色散补偿（CD compensation）通常在数字域通过DBP（数字背向传播）等算法实现，而非传统的FFE/DFE均衡</p>
+</blockquote>
+<p>光传输系统面临着铜缆系统所没有的独特损伤机制——色度色散（Chromatic Dispersion, CD）、偏振模色散（Polarization Mode Dispersion, PMD/DGD）以及多径干涉（MPI, Multipath Interference）等。这些损伤在数字域中可以通过自适应均衡和补偿算法进行修复。</p>
+<h3 id="62-laser-chirp">6.2 激光调制器啁啾（Laser Chirp）<a class="headerlink" href="#62-laser-chirp" title="Permanent link">&para;</a></h3>
+<p>啁啾是激光器在调制过程中由于载流子浓度变化引起的瞬时频率偏移现象。原始文档第17页将激光调制器分为三类：</p>
+<p><strong>MZM（Mach-Zehnder调制器）</strong>：双臂干涉结构，理论上无啁啾（chirp-free），是长距离高速光传输的首选方案。</p>
+<p><strong>EML（Electro-absorption Modulated Laser，电吸收调制激光器）</strong>：主要受瞬态啁啾（transient chirp）影响。当调制信号使吸收边发生快速变化时，输出光频率随之产生短暂的偏移。瞬态啁啾与调制信号的上升/下降沿强相关。</p>
+<p><strong>DML（Directly Modulated Laser，直接调制激光器）</strong>：同时受瞬态啁啾和绝热啁啾（adiabatic chirp）影响。绝热啁啾是调制电流持续变化时激光器输出频率的连续偏移，与调制信号的幅度直接相关。DML的啁啾特性最为复杂，在长距离光纤传输中会与色散效应相互作用，产生额外的功率衰落。</p>
+<p>在高速PAM4系统中，啁啾会导致信号频谱的相位失真，与色散效应共同恶化信号质量。数字域补偿通常需要引入非线性均衡器（如Volterra滤波器）来建模和消除啁啾效应。</p>
+<h3 id="63-chromatic-dispersion-cd">6.3 色度色散（Chromatic Dispersion, CD）<a class="headerlink" href="#63-chromatic-dispersion-cd" title="Permanent link">&para;</a></h3>
+<p>色度色散是光纤中不同波长光信号传输速度不同的物理现象。原始文档第18页给出了色散的定义、影响和数学模型：</p>
+<p><strong>定义</strong>：不同频率的信号具有不同的传输速率。</p>
+<p><strong>影响一（符号展宽）</strong>：色散导致不同频率分量以不同速度传播，使脉冲在时域展宽，产生符号间干扰（ISI）。这一效应对高速PAM4信号的影响尤为严重，因为PAM4的眼图开口垂直方向本就较NRZ更小，ISI的叠加会进一步闭合眼图。</p>
+<p><strong>影响二（功率衰落）</strong>：色散导致不同频率分量具有不同的频率域相位。在IM/DD（强度调制/直接检测）系统中，平方律检测将双边带信号的上、下两个边带相乘，产生拍频项。由于色散使上、下边带的相位差随频率变化，平方检测后的信号功率出现周期性衰落：</p>
+<p>P(dB) = 10*log10(|sin(phi)/phi|), phi = D_z * f * lambda * pi</p>
+<p>其中D_z为色散系数，f为信号频率，lambda为光波长。当phi接近pi的整数倍时，sin(phi)/phi趋近于零，出现深度功率衰落（power fading）。</p>
+<p>在数字域中，色散补偿通常通过有限脉冲响应（FIR）滤波器或更复杂的自适应均衡器实现。色散引起的频率相关相位旋转可以通过在数字域引入与频率成正比的相移来精确补偿，即数字色散补偿滤波器。</p>
+<h3 id="64-mpi">6.4 多径干涉（MPI）<a class="headerlink" href="#64-mpi" title="Permanent link">&para;</a></h3>
+<p>MPI（Multipath Interference，多径干涉）是指光信号沿多条不同路径到达接收端时，各路径信号因时延差和相位差叠加而产生的干涉现象。原始文档第19页特别指出光MPI与电反射的关键差异：</p>
+<ul>
+<li><strong>电反射</strong>的受影响符号长度通常较短（几十至几百UI，取决于反射点的位置）</li>
+<li><strong>光MPI</strong>的受影响符号长度特别长，可达约10000 UI（对于10 Gbaud符号率，相当于1ms的时延扩展）</li>
+</ul>
+<p>MPI导致的符号间干扰持续时间极长，传统的浮点FIR（有限长度均衡器）无法有效补偿如此长时延的干扰。这要求oDSP系统采用更长的均衡器抽头或引入专门的MPI补偿算法，如迭代干扰消除（Successive Interference Cancellation, SIC）或多输入多输出（MIMO）均衡。</p>
+<h3 id="65">6.5 线侧均衡方案<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
+<p>原始文档第20页给出了线侧（Line-side）光路均衡的三种主要技术方案：</p>
+<p><strong>DFE（判决反馈均衡器）</strong>：利用已判决符号消除当前符号所受的ISI。优点是不放大噪声，缺点是存在错误传播。对于MPI等长时延干扰，DFE需要极多的前向和反馈抽头，实现复杂度高。</p>
+<p><strong>FFE（前馈均衡器）</strong>：直接对接收信号进行线性滤波补偿。FFE的优点是实现简单、无错误传播，但消除长时延干扰需要极多的抽头数，且抽头系数收敛困难。</p>
+<p><strong>MLSE（最大似然序列估计）</strong>：在理论上最优的均衡方案，通过动态规划算法（Viterbi算法）在整个接收序列中搜索最可能的发送序列。MLSE能够同时处理短时延和长时延的ISI，但计算复杂度为O(2^M)（M为记忆长度），对于PAM4和长记忆信道实际上不可行。实际系统通常采用Truncated MLSE或Volterra-MLSE等简化方案。</p>
+<p><strong>Volterra FFE</strong>：基于Volterra级数的非线性均衡器，能够建模和分析包括激光啁啾、光纤非线性、调制器非线性在内的多种非线性损伤。Volterra滤波器的核（kernel）系数通过自适应训练获取，是应对复杂光损伤的关键技术。</p>
+<hr />
+<h2 id="_5">第七章 性能分析<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="71-snr">7.1 信噪比（SNR）分析<a class="headerlink" href="#71-snr" title="Permanent link">&para;</a></h3>
+<p>PAM4系统的性能分析以信噪比（SNR）为核心指标。对于PAM4信号，其信号功率与符号的均方值成正比：</p>
+<p>P_signal = (1/4)[(-3)^2 + (-1)^2 + (1)^2 + (3)^2] = 5</p>
+<p>噪声功率N包括热噪声、散粒噪声、量化噪声和RIN（相对强度噪声）等各种噪声源的叠加。在总功率约束下，PAM4的信号噪声比相对于NRZ有所降低——由于同样的峰值功率约束下，PAM4的相邻电平差为NRZ的1/3，因此PAM4的SNR代价约为：</p>
+<p>delta_SNR_PAM4vsNRZ = 20*log10(3) ≈ 9.54 dB</p>
+<p>这意味着在相同的信道噪声功率密度下，PAM4的误码率性能比NRZ差约9.54 dB，需要通过更强的均衡和FEC来弥补这一差距。</p>
+<h3 id="72-berq">7.2 误码率（BER）与Q因子<a class="headerlink" href="#72-berq" title="Permanent link">&para;</a></h3>
+<p>BER（Bit Error Rate，误码率）是衡量通信系统性能的最直接指标。PAM4系统的BER可以通过Q因子来估算：</p>
+<p>BER ≈ (3/4)*erfc(Q/sqrt(2))</p>
+<p>其中Q = delta/(2*sigma)，delta为相邻电平间的最小间距，sigma为噪声标准差。</p>
+<p>KP4 FEC将系统BER从FEC输入侧的约2.4e-4（纠错阈值）降低到输出侧的10^-15量级，这一约11个数量级的改善正是FEC的核心价值所在。原始文档第14页的编码增益数据表明，最强的OFEC方案可达到11.1 dB的编码增益，对应的FEC输入阈值BER高达1.93e-2，说明超强编码方案能够容忍极为恶劣的信道条件。</p>
+<h3 id="73">7.3 眼图分析<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<p>眼图是评估PAM4信号质量的综合工具。在示波器上叠加多个PAM4符号的眼图可以同时显示三个眼图的开合程度、抖动分布和幅度噪声。</p>
+<p><strong>关键眼图指标</strong>：
+- <strong>眼高（Eye Height）</strong>：三个眼图中各自垂直开口的高度，直接反映该眼图的噪声容限
+- <strong>眼宽（Eye Width）</strong>：时域上的采样窗口宽度，反映定时抖动的大小
+- <strong>眼图交叉点偏移</strong>：反映占空比失真和偏置误差
+- <strong>眼图线性度</strong>：四个电平之间的间距是否均匀，影响格雷码映射的有效性</p>
+<p>PAM4的三个眼图中，中间眼的线性度和张开度通常最差，因为中间眼同时受到上下两个方向上的码间干扰影响，噪声累积最为严重。</p>
+<hr />
+<h2 id="pam4400g800g">第八章 PAM4在400G/800G以太网中的应用<a class="headerlink" href="#pam4400g800g" title="Permanent link">&para;</a></h2>
+<h3 id="81-400g">8.1 400G以太网光接口标准<a class="headerlink" href="#81-400g" title="Permanent link">&para;</a></h3>
+<p>400G以太网（IEEE 802.3bs）定义了多种光物理层规范，其中PAM4是核心调制方案：</p>
+<p><strong>400GBASE-LR8</strong>：采用8波长×50G PAM4，总速率400G，使用LWDM（长波长波分复用），传输距离可达10km。</p>
+<p><strong>400GBASE-DR4</strong>：采用4波长×100G PAM4，使用PSM4（并行单模光纤）技术，传输距离500m。</p>
+<p><strong>400GBASE-FR8</strong>：8波长×50G PAM4，传输距离2km（细粒度可达到8×50G的灵活栅格）。</p>
+<p>在这些标准中，每个波长通道承载56 Gbaud或106 Gbaud的PAM4信号，符号率约为28 GBaud或53 GBaud。oDSP在这些应用中负责完成全部的数字信号处理功能，包括发射端的数字预均衡、接收端的自适应均衡、CDR和FEC。</p>
+<h3 id="82-800g112g-pam4">8.2 800G以太网与112G PAM4<a class="headerlink" href="#82-800g112g-pam4" title="Permanent link">&para;</a></h3>
+<p>800G以太网（IEEE 802.3ck及后续标准）将每通道速率提升至112 Gbps，符号率相应提升至56 Gbaud。112G PAM4对系统的带宽、线性度、均衡能力和FEC性能都提出了更高要求：</p>
+<p><strong>112G PAM4的技术挑战</strong>：
+1. <strong>带宽压力</strong>：56 Gbaud的PAM4信号的3dB带宽约为28 GHz，对DAC/ADC、调制器、探测器的带宽要求极为严苛
+2. <strong>ADC分辨率</strong>：PAM4眼图开口仅为NRZ的约1/3，要求ADC有效位数达到6.5-7 bit以上
+3. <strong>均衡深度</strong>：56 Gbaud下信道的高频损耗更为严重，需要更长的FFE/DFE抽头
+4. <strong>CDR精度</strong>：更高的符号率意味着相同的相位抖动对应更大的时间误差
+5. <strong>FEC设计</strong>：112G PAM4的原生BER更高，需要编码增益更强的FEC方案</p>
+<p>原始文档指出RS(544, 514, T=15, M=10)（KP4 FEC）是112G PAM4的标准FEC方案，对应IEEE P802.3ck标准。</p>
+<h3 id="83-cpoodsp">8.3 共封装光学（CPO）与oDSP的协同<a class="headerlink" href="#83-cpoodsp" title="Permanent link">&para;</a></h3>
+<p>800G及更高速率系统的一个重要技术趋势是共封装光学（Co-Packaged Optics, CPO）。CPO将光引擎（光模块）与交换芯片在物理上紧耦合共封装，大幅缩短电气走线长度，从而将高速电气互连的损耗从传统可插拔光模块方案的20+dB降低到5dB以下。</p>
+<p>在CPO架构中，oDSP的功能定位发生了重要变化：
+- 由于电气互连损耗大幅降低，发射端的预均衡强度可以降低，节省TX功耗
+- 接收端的均衡复杂度也可能降低，但ADC采样率和分辨率要求进一步提升
+- oDSP的功耗和面积成为系统功耗预算的关键约束，需要在算法性能和实现效率之间进行更深入的优化</p>
+<hr />
+<h2 id="pam">第九章 PAM调制技术未来趋势<a class="headerlink" href="#pam" title="Permanent link">&para;</a></h2>
+<h3 id="91-pam6pam8">9.1 PAM6/PAM8的探索<a class="headerlink" href="#91-pam6pam8" title="Permanent link">&para;</a></h3>
+<p>随着单通道速率向200G乃至400G演进，业界已开始研究更高阶的PAM调制格式，如PAM6（每符号3比特，64电平）和PAM8（每符号3比特，256电平...实际上PAM8为8电平对应每符号log2(8)=3比特）。但更高阶的调制面临严峻挑战：</p>
+<ul>
+<li>最小电平间距进一步缩小（以PAM8为例，相邻电平间距仅为NRZ的约1/15），对噪声和线性度的要求几乎不可接受</li>
+<li>需要ADC/DAC分辨率达到9-10 bit以上，实际系统实现难度极大</li>
+<li>FEC的纠错负荷急剧增加，需要接近香农极限的极化码或LDPC码来弥补</li>
+</ul>
+<p>因此，PAM6/PAM8更可能作为短距离（如芯片间互连）的特殊应用方案，而非远距离光传输的主流技术。</p>
+<h3 id="92-probabilistic-shapinggeometric-shaping">9.2 概率整形（Probabilistic Shaping）与几何整形（Geometric Shaping）<a class="headerlink" href="#92-probabilistic-shapinggeometric-shaping" title="Permanent link">&para;</a></h3>
+<p>为了在不增加符号率的情况下提升谱效率，概率整形和几何整形技术受到了广泛关注：</p>
+<p><strong>概率整形（PS）</strong>：通过非均匀地分配各符号的出现概率（使低幅度符号出现概率更高），使信号星座图的有效SNR得到提升。配合64QAM等高阶调制格式，概率整形可在相同的平均功率下实现接近香农极限的性能。</p>
+<p><strong>几何整形（GS）</strong>：优化各符号点在星座空间中的位置，使各符号点之间的最小欧氏距离最大化。几何整形可以针对特定信道条件定制最优星座图。</p>
+<p>这些技术已在有线通信（如CableLabs的DOCSIS 4.0）和部分光通信实验系统中得到验证，预计将在下一代800G/1.6T光互连中与PAM4结合使用。</p>
+<h3 id="93-odsp">9.3 数字孪生辅助的自适应oDSP<a class="headerlink" href="#93-odsp" title="Permanent link">&para;</a></h3>
+<p>未来的oDSP系统将更多地借助数字孪生（Digital Twin）技术来实现信道状态估计和均衡器的实时优化。数字孪生通过对真实信道进行高精度的数字建模，在离线状态下完成最优均衡器系数的搜索，再将结果部署到实际系统中。这可以显著减少在线训练时间，并支持更复杂的均衡算法（如全数字域的MLSE或神经网络均衡器）。</p>
+<h3 id="94">9.4 神经网络均衡器<a class="headerlink" href="#94" title="Permanent link">&para;</a></h3>
+<p>近年来，深度神经网络（DNN）均衡器和递归神经网络（RNN/LSTM）均衡器在光通信系统中的应用研究日益活跃。与传统线性均衡器相比，神经网络均衡器能够建模任意形式的非线性损伤（如激光啁啾、放大器非线性、光纤Kerr效应等），其表达能力远超Volterra滤波器。实验结果表明，基于DNN的均衡器在长距离相干光通信系统中可获得1-2 dB的额外增益。</p>
+<p>在PAM4直接检测系统中，神经网络均衡器已开始被用于替代或增强传统的FFE/DFE结构，其优势在于：
+1. 自动学习信道中的复杂非线性特性，无需人工设计均衡器结构
+2. 可通过迁移学习将在一个信道上训练的模型快速适配到相似信道
+3. 与传统FEC协同设计时，可将均衡器输出直接送入神经网络译码器</p>
+<hr />
+<h2 id="_6">第十章 总结与展望<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>本报告系统性地阐述了小鹏PAM4 oDSP的核心技术体系。从调制基础出发，PAM4通过在单个符号周期内编码2比特信息，在相同带宽条件下将系统容量翻倍，是56G/112G乃至224G高速光互连的核心使能技术。然而，更高的谱效率以约9.54 dB的SNR代价换取，这要求oDSP系统具备强大的信号处理能力。</p>
+<p>在发射端，FIR预滤波和预编码技术通过预补偿和码间干扰变换，为接收端处理创造有利条件。在接收端，CTLE、FFE和DFE构成三级级联均衡体系：CTLE在模拟域进行初步线性均衡，FFE通过CMA和DDLMS两阶段自适应算法完成精细线性均衡，DFE利用已判决信息消除post-ISI而不放大噪声。Mueller-Muller CDR在baud-rate采样条件下恢复精确的时钟相位。</p>
+<p>在纠错领域，KP4 FEC（RS(544, 514, T=15)）以7.04 dB的编码增益将系统BER从10^-4量级改善到10^-15量级，为高速PAM4系统提供了可靠的数据完整性保障。随着速率向112G/224G演进，更高编码增益的OFEC（11.1 dB）和双层编码方案（KP4+Hamming）将成为主流。</p>
+<p>在光路损伤补偿方面，色散、啁啾和MPI等损伤的建模与均衡是oDSP算法设计的核心难点。Volterra FFE和MLSE等高阶均衡方案在应对复杂光损伤时展现出独特的优势，但也面临计算复杂度和功耗的工程约束。</p>
+<p>展望未来，PAM4将在400G/800G以太网中持续演进，同时更高阶的调制格式（如PAM6/PAM8）和智能均衡技术（神经网络均衡器、数字孪生辅助优化）将成为下一代oDSP的研究热点。随着共封装光学（CPO）和片上光网络技术的发展，oDSP的功耗和集成度将成为决定技术路线成败的关键因素。</p>
+<hr />
+<p><strong>参考来源</strong>：原始文档《PAM4 oDSP原理介绍》（2026/2/20），原文共20页，涵盖SerDes系统架构、FFE/CTLE/DFE/CDR均衡理论、KP4 FEC编解码原理、光路损伤类型及线侧均衡方案等核心内容。</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul>
+<li><a href="#pam4-odsp">PAM4 oDSP 原理深度学习报告</a><ul>
+<li><a href="#_1">摘要</a></li>
+<li><a href="#pam4">第一章 PAM4调制技术概述</a><ul>
+<li><a href="#11">1.1 高速光通信的带宽需求与调制演进</a></li>
+<li><a href="#12-pam4">1.2 PAM4信号基础理论</a></li>
+<li><a href="#13-pam4-vs-nrzpam2">1.3 PAM4 vs NRZ/PAM2 全面对比</a></li>
+</ul>
+</li>
+<li><a href="#odsp">第二章 oDSP系统架构总览</a><ul>
+<li><a href="#21">2.1 光数字信号处理流程</a></li>
+<li><a href="#22-dac">2.2 模拟发射架构与DAC架构对比</a></li>
+</ul>
+</li>
+<li><a href="#_2">第三章 发射端预处理技术</a><ul>
+<li><a href="#31-firtx-ffe">3.1 FIR滤波与发送端前馈均衡（TX FFE）</a><ul>
+<li><a href="#311-fir">3.1.1 FIR滤波器原理</a></li>
+<li><a href="#312-fir">3.1.2 FIR系数设计</a></li>
+</ul>
+</li>
+<li><a href="#32-precoding">3.2 预编码（Precoding）</a></li>
+</ul>
+</li>
+<li><a href="#_3">第四章 接收端信号处理</a><ul>
+<li><a href="#41-ctle">4.1 连续时间线性均衡器（CTLE）</a><ul>
+<li><a href="#411-ctle">4.1.1 CTLE工作原理</a></li>
+<li><a href="#412-ctle">4.1.2 CTLE与眼图张开度</a></li>
+</ul>
+</li>
+<li><a href="#42-ffe">4.2 前馈均衡器（FFE）与自适应算法</a><ul>
+<li><a href="#421-ffe">4.2.1 FFE数学模型</a></li>
+<li><a href="#422-cma">4.2.2 CMA盲均衡算法</a></li>
+<li><a href="#423-ddlms">4.2.3 DDLMS决策导向自适应算法</a></li>
+</ul>
+</li>
+<li><a href="#43-dfe">4.3 判决反馈均衡器（DFE）</a><ul>
+<li><a href="#431-dfe">4.3.1 DFE原理与优势</a></li>
+<li><a href="#432-dfeffe">4.3.2 DFE与FFE的关键差异</a></li>
+</ul>
+</li>
+<li><a href="#44-baud-rate-cdrmueller-muller">4.4 baud-rate CDR与Mueller-Muller定时恢复</a><ul>
+<li><a href="#441-cdr">4.4.1 CDR基本原理</a></li>
+<li><a href="#442-mueller-muller">4.4.2 Mueller-Muller算法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#fec">第五章 前向纠错编码（FEC）</a><ul>
+<li><a href="#51-fec">5.1 FEC基本原理</a></li>
+<li><a href="#52-kp4-fec">5.2 KP4 FEC的纠错能力分析</a></li>
+<li><a href="#53-rs">5.3 RS解码器架构</a></li>
+<li><a href="#54-coding-gain">5.4 编码增益（Coding Gain）</a></li>
+<li><a href="#55-fecodsp">5.5 各型FEC方案对比与oDSP发展趋势</a></li>
+</ul>
+</li>
+<li><a href="#_4">第六章 线侧光路损伤与补偿</a><ul>
+<li><a href="#61">6.1 铜缆与光缆损伤对比</a></li>
+<li><a href="#62-laser-chirp">6.2 激光调制器啁啾（Laser Chirp）</a></li>
+<li><a href="#63-chromatic-dispersion-cd">6.3 色度色散（Chromatic Dispersion, CD）</a></li>
+<li><a href="#64-mpi">6.4 多径干涉（MPI）</a></li>
+<li><a href="#65">6.5 线侧均衡方案</a></li>
+</ul>
+</li>
+<li><a href="#_5">第七章 性能分析</a><ul>
+<li><a href="#71-snr">7.1 信噪比（SNR）分析</a></li>
+<li><a href="#72-berq">7.2 误码率（BER）与Q因子</a></li>
+<li><a href="#73">7.3 眼图分析</a></li>
+</ul>
+</li>
+<li><a href="#pam4400g800g">第八章 PAM4在400G/800G以太网中的应用</a><ul>
+<li><a href="#81-400g">8.1 400G以太网光接口标准</a></li>
+<li><a href="#82-800g112g-pam4">8.2 800G以太网与112G PAM4</a></li>
+<li><a href="#83-cpoodsp">8.3 共封装光学（CPO）与oDSP的协同</a></li>
+</ul>
+</li>
+<li><a href="#pam">第九章 PAM调制技术未来趋势</a><ul>
+<li><a href="#91-pam6pam8">9.1 PAM6/PAM8的探索</a></li>
+<li><a href="#92-probabilistic-shapinggeometric-shaping">9.2 概率整形（Probabilistic Shaping）与几何整形（Geometric Shaping）</a></li>
+<li><a href="#93-odsp">9.3 数字孪生辅助的自适应oDSP</a></li>
+<li><a href="#94">9.4 神经网络均衡器</a></li>
+</ul>
+</li>
+<li><a href="#_6">第十章 总结与展望</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

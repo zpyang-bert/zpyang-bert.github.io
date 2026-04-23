@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lecture5_ee720_termination_txdriver — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md" class="nav-item active">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">lecture5_ee720_termination_txdriver</span>
+            <span class="topbar-breadcrumb">mineru_output / lecture5_ee720_termination_txdriver / auto / lecture5_ee720_termination_txdriver.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <h1 id="ecen-720-h-ig-h-speed-li-n-ks-ci-rcu-its-a-nd-systems-spri-ng-2023">ECEN 720 : H ig h-Speed Li n ks Ci rcu its a nd Systems Spri ng 2023<a class="headerlink" href="#ecen-720-h-ig-h-speed-li-n-ks-ci-rcu-its-a-nd-systems-spri-ng-2023" title="Permanent link">&para;</a></h1>
+<p>Lectu re 5 : Term i nation , TX Driver, &amp; M u lti plexer Ci rcu its</p>
+<p><img alt="" src="images/6a247d1e675367035c44ad28812163a9a67fb714e6b87c27c87e6eef759a5ac6.jpg" /></p>
+<p>Sa m Pa lermo Ana log &amp; M ixed -Sig na l Center Texas A&amp;M U n iversity</p>
+<h2 id="an-nou-ncements">An nou ncements<a class="headerlink" href="#an-nou-ncements" title="Permanent link">&para;</a></h2>
+<p>• La b 3 report a nd Prela b 4 d ue Feb 20</p>
+<p>• Read i ng</p>
+<p>• Pa pers posted on voltage- mode d rivers a nd h ig ho rd e r TX m u lti p l exe r ci rcu its</p>
+<h2 id="agenda">Agenda<a class="headerlink" href="#agenda" title="Permanent link">&para;</a></h2>
+<p>• Te rm i n ati o n Ci rcu its</p>
+<p>• TX D rive r Ci rcu its</p>
+<p>• TX ci rcu it speed l i m itati o n s</p>
+<p>• Cl ock d i stri b uti o n</p>
+<p>M u lti plexi ng tech n iq ues</p>
+<h2 id="h-ig-h-speed-electrica-l-li-n-k-system">H ig h -Speed Electrica l Li n k System<a class="headerlink" href="#h-ig-h-speed-electrica-l-li-n-k-system" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/243f6c8bb7bf42a5d84176690f3b7b6294b24305886f2446b51fd6cc1349f4c0.jpg" /></p>
+<p>TX data D[n] D[n+1]D[n+2]D[n+3] <br />
+TX clk <br />
+RX clk</p>
+<h2 id="term-i-nation">Term i nation<a class="headerlink" href="#term-i-nation" title="Permanent link">&para;</a></h2>
+<p>• Off-ch i p vs on -ch i p</p>
+<p>• Se ri es vs pa ra l l e l</p>
+<p>• DC vs AC Cou pl i ng</p>
+<p>• Te rm i n ati o n ci rcu its</p>
+<h2 id="off-ch-i-p-vs-on-ch-i-p-term-i-nation">Off-Ch i p vs On-Ch i p Term i nation<a class="headerlink" href="#off-ch-i-p-vs-on-ch-i-p-term-i-nation" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/67ef173b18a7bfcef9351fbc20617627d8f873ce8748ee279393012cd491ff4a.jpg" /><br />
+(a) Extermal Terminator</p>
+<p><img alt="" src="images/c5dbf32608468251f962191ccbfd8e9bba8dd9c35a37ec057e9cf7754a00e802.jpg" /></p>
+<p><img alt="" src="images/53e9578744843b405e56a097b1b4afbfacad7a180a40e37ee47fab3a58059cc5.jpg" /></p>
+<p><img alt="" src="images/071ad2145a0bcc8c762dec7a41f7eff797b3d70d73a577d613ec55a7d894a7f2.jpg" /></p>
+<p>Package pa rasitics act as a n u nterm i nated stu b wh ich sends reflections back onto the l i ne</p>
+<p>• On-ch i p term i nation ma kes package i nd ucta nce pa rt of tra n s m i ssi o n l i n e</p>
+<h2 id="series-vs-pa-ra-l-lel-term-i-nation">Series vs Pa ra l lel Term i nation<a class="headerlink" href="#series-vs-pa-ra-l-lel-term-i-nation" title="Permanent link">&para;</a></h2>
+<p>Series Termination</p>
+<p><img alt="" src="images/e7f95a04769ad12e90883efff1e77f58edff83b453d86316e9ab923f11c93c1f.jpg" /></p>
+<p>Pa ra l lel Term i nation</p>
+<p><img alt="" src="images/7b163c818c429a200483672e90fa78f2c94b72c430de131a3bf2e50443f59e91.jpg" /></p>
+<p>Dou ble Termination</p>
+<p><img alt="" src="images/4d2a9ce52bdefba3365ff7220f8d5b26abbbfb1222e95abb991037f5601671fa.jpg" /></p>
+<p><img alt="" src="images/35ba1b66a71b49c904200091cb6a38422eea1f46c8bf7d73876b347c5df6844c.jpg" /></p>
+<p>• Low i m peda nce voltage- mode d river typica l ly em ploys se ri es te rm i n ati o n</p>
+<p>H ig h i m peda nce cu rrent- mode d river typica l ly em ploys pa ra l l e l te rm i n ati o n</p>
+<p>• Dou ble term i nation yield s best sig na l q ua l ity</p>
+<p>• Done i n majority of h ig h performa nce seria l l i n ks</p>
+<h2 id="ac-vs-dc-cou-pled-term-i-nation">AC vs DC Cou pled Term i nation<a class="headerlink" href="#ac-vs-dc-cou-pled-term-i-nation" title="Permanent link">&para;</a></h2>
+<p>• DC cou pl i ng a l lows for u ncoded data</p>
+<p>• RX com mon-mode set by tra n s m itte r s i g n a l l e v e l</p>
+<p>• AC cou pl i ng a l lows for i ndependent RX com mon-mode level</p>
+<p>• Now cha n nel has low freq uency cut-off</p>
+<p>• Data m ust be coded</p>
+<p><img alt="" src="images/cc4cc327e375194c345e6815379a1e0412b233b33146ece38c9a1baee6a802ad.jpg" /></p>
+<p><img alt="" src="images/9fa9a488d2e48d00014ffc74b09783cc90f84839cf7fc6ea314e468b24ad33fb.jpg" /></p>
+<h2 id="passive-term-i-nation">Passive Term i nation<a class="headerlink" href="#passive-term-i-nation" title="Permanent link">&para;</a></h2>
+<p>• Choice of i nteg rated resistors i nvolves trade-offs i n ma n ufactu ri ng steps, sheet resista nce, pa rasitic ca pacita nce, l i nea rity, a nd ES D tolera nce</p>
+<p>• I nteg rated passive term i nation resistors a re typica l ly rea l ized with u n sa l icid ed po ly, d iffu sio n , o r n -we l l resi sto rs</p>
+<p>• Poly resistors a re typica l ly u sed d ue to l i nea rity a nd tig hter tolera nces, but they typica l ly va ry +/-30% over process a nd tem peratu re</p>
+<p>Resistor Options (90nm CMOS)</p>
+<table><tr><td rowspan=1 colspan=1>Resistor</td><td rowspan=1 colspan=1>Poly</td><td rowspan=1 colspan=1>N-diffusion</td><td rowspan=1 colspan=1>N-well</td></tr><tr><td rowspan=1 colspan=1>Sheet R (2/sq)</td><td rowspan=1 colspan=1>90±10</td><td rowspan=1 colspan=1>300±50</td><td rowspan=1 colspan=1>450±200</td></tr><tr><td rowspan=1 colspan=1>VC1(V-1)</td><td rowspan=1 colspan=1>0</td><td rowspan=1 colspan=1>10-3</td><td rowspan=1 colspan=1>8x10-3</td></tr><tr><td rowspan=1 colspan=1>Parasitic Cap</td><td rowspan=1 colspan=1>2-3fF/um2(min L poly)</td><td rowspan=1 colspan=1>0.9fF/um2 (area),0.04fF/um (perimeter)</td><td rowspan=1 colspan=1>0.2fF/um² (area),0.7fF/um (perimeter)</td></tr></table>
+
+<h2 id="active-term-i-nation">Active Term i nation<a class="headerlink" href="#active-term-i-nation" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/155c91a7de079b9b4fb8c86ebb2243422139c01b7c3fdffa1a42808b8b5f6ee1.jpg" /><br />
+(a) Triode</p>
+<p><img alt="" src="images/62ebe4cea39271d2a621c3c29819f92fcff80b852e4958a7ebf4afaad5dcc62f.jpg" /><br />
+(b) Two-Element</p>
+<p><img alt="" src="images/d1a0c014a2834e0c37ad076dc27dd5591178e3eb3412c6c89b9f2e466696c7d8.jpg" /><br />
+(c) Pass Gate</p>
+<p>• Tra nsistors m ust be used for term i nation i n CM OS processes wh ich don ’t provide resistors</p>
+<p>• Triode-biased FET works wel l for low-swi ng ( &lt; 500 mV)</p>
+<p>• Add i ng a d iode con nected FET i ncreases l i nea r ra nge</p>
+<p>• Pass-gate structu re a l lows for d iffe re nti a l te rm i n ati o n</p>
+<p><img alt="" src="images/96ae42b6ee7992f024fdda67acc5dc47dac9e3f3554de6a625439e8b5b187b35.jpg" /><br />
+[ Da l l y ]</p>
+<p><img alt="" src="images/98037e144a5400adb6f85b676a9a44193a3262e45eceac6207aafe4ba5e4f379.jpg" /></p>
+<h2 id="adj-usta-ble-term-i-nation">Adj usta ble Term i nation<a class="headerlink" href="#adj-usta-ble-term-i-nation" title="Permanent link">&para;</a></h2>
+<p>• FET resista nce is a fu n cti o n of g ate overd rive</p>
+<p>$$
+R _ { F E T } = \frac { 1 } { \mu C _ { o x } ( W / L ) ( V _ { G S } - V _ { t } ) }
+$$</p>
+<p><img alt="" src="images/9b84ab2b5f2f171bda3a7ee383d35116a097c3366e349f60761a0b40e2394a07.jpg" /></p>
+<p>• La rge va ria nce i n FET th reshold voltage req u i res adj u sta ble term i nation structu res</p>
+<p>• Ca l i bration ca n be done with a n a na log control vo ltag e or th rou g h d ig ita l “tri m m i ng ”</p>
+<p>• Ana log control red uces $\mathsf { V } _ { \mathsf { G S } }$ a nd l i nea r ra nge</p>
+<p>• D i g ita l co ntro l i s g e n e ra l ly p refe rred</p>
+<h2 id="term-i-nation-dig-ita-l-control-loop">Term i nation Dig ita l Control Loop<a class="headerlink" href="#term-i-nation-dig-ita-l-control-loop" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/db30a4c4d33bbd5ce877b08219413b7c9866549bfb3e6bf0c44cd6e911135d29.jpg" /></p>
+<p>• Off-ch i p precision resistor is u sed as reference</p>
+<p>• O n -ch i p te rm i n ati o n i s va ri ed u nti l vo lta g es a re with i n a n LSB</p>
+<p>Dither fi lter typica l ly u sed to avoid voltage noise</p>
+<p>• Control loop may be sha red a mong severa l l i n ks, but with i ncreased na nometer CMOS va riation per-cha n nel ca l i bration may be necessa ry</p>
+<h2 id="h-ig-h-speed-electrica-l-li-n-k-system_1">H ig h -Speed Electrica l Li n k System<a class="headerlink" href="#h-ig-h-speed-electrica-l-li-n-k-system_1" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/387196dbf3b1c5047cce313f41208e05edf55bcc16274a59e3788cea79b85969.jpg" /></p>
+<h2 id="tx-d-rive-r-ci-rc-u-its">TX D rive r Ci rc u its<a class="headerlink" href="#tx-d-rive-r-ci-rc-u-its" title="Permanent link">&para;</a></h2>
+<p>• Si ng le-ended vs d ifferentia l sig na l i ng</p>
+<p>• Control led -i m peda nce cu rrent &amp; voltagemode d rivers</p>
+<p>Swi ng en ha ncement tech n iq ues</p>
+<p>• I m peda nce control</p>
+<p>• Pad ba ndwidth extension</p>
+<p>S l ew- rate co ntro l</p>
+<h2 id="si-ng-le-ended-sig-na-l-i-ng">Si ng le- Ended Sig na l i ng<a class="headerlink" href="#si-ng-le-ended-sig-na-l-i-ng" title="Permanent link">&para;</a></h2>
+<p>• Fi n ite su pply i m peda nce ca u ses sig n ifica nt Si m u lta neous Switch i ng Output (SSO) noise (xta l k)</p>
+<p>• N ecessitates la rge a mou nts of decou pl i ng ca pacita nce for su ppl ies a nd reference voltage</p>
+<p>• Deca p l i m its I/O a rea more th at ci rcu itry</p>
+<p><img alt="" src="images/663255cecd88b99059e7c0bcee191f755aa1b0afafca27f14e8a68030dc82d44.jpg" /></p>
+<h2 id="d-iffe-re-nti-a-l-s-i-g-n-a-l-i-n-g">D iffe re nti a l S i g n a l i n g<a class="headerlink" href="#d-iffe-re-nti-a-l-s-i-g-n-a-l-i-n-g" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/bcc1d77b8051af552d31927dcff23651fa1f61ba2573cf0a06978780a936caad.jpg" /></p>
+<p>• A d ifference between voltage or cu rrent is sent between two l i n es</p>
+<p>• Req u i res 2x sig na l l i nes relative to si ng le-ended sig na l i ng , b ut l ess retu rn p i n s</p>
+<p>• Adva ntages</p>
+<p>Sig na l is self- referenced</p>
+<p>• Ca n ach ieve twice the sig na l swi ng</p>
+<p>Rejects com mon- mode noise</p>
+<p>Retu rn cu rrent is idea l ly on ly DC</p>
+<h2 id="tx-d-rive-r-ci-rc-u-its_1">TX D rive r Ci rc u its<a class="headerlink" href="#tx-d-rive-r-ci-rc-u-its_1" title="Permanent link">&para;</a></h2>
+<p>• Si ng le-ended vs d ifferentia l sig na l i ng</p>
+<p>• Control led -i m peda nce cu rrent &amp; voltagemode d rivers</p>
+<p>Swi ng en ha ncement tech n iq ues</p>
+<p>• I m peda nce control</p>
+<p>• Pad ba ndwidth extension</p>
+<p>S l ew- rate co ntro l</p>
+<h2 id="control-led-i-m-peda-nce-drivers">Control led -I m peda nce Drivers<a class="headerlink" href="#control-led-i-m-peda-nce-drivers" title="Permanent link">&para;</a></h2>
+<p>• Sig na l i nteg rity considerations ( m i n . reflections) req u i res 50 Ω d river output i m peda nce</p>
+<p>• To prod uce a n output d rive voltage</p>
+<p>• Cu rrent- mode d rivers use Norton-eq u iva lent pa ra l lel term i nation Easier to control output i m peda nce</p>
+<p>• Voltage- mode d rivers use Theven i n-eq u iva lent series te rm i n ati o n</p>
+<p>• Pote ntia l ly ½ to ¼ th e cu rre nt fo r a g ive n outp ut swi n g</p>
+<p><img alt="" src="images/272212c84d0cc43c60be9200acd46d2fafedbad4c32b8e3c998a707d1b517306.jpg" /><br />
+Current-Mode</p>
+<p><img alt="" src="images/91f883117f7e6d9df865b903fa63dd88f8a372ecf6969cf0cc60909e9f473c77.jpg" /><br />
+Voltage-Mode</p>
+<h2 id="push-pu-l-l-cu-rrent-mode-driver">Push - Pu l l Cu rrent- Mode Driver<a class="headerlink" href="#push-pu-l-l-cu-rrent-mode-driver" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/92a123731e6aa70d172238fd75edd9ca4c846ded2aa2a5a28ecd4193f29ff190.jpg" /></p>
+<p>• Used i n Low-Voltage Differentia l Sig na ls ( LVDS) sta nda rd</p>
+<p>• D rive r cu rre nt i s i d ea l ly co n sta nt, resu lti n g i n l ow d I/dt n o i se</p>
+<p>• Dua l cu rrent sou rces a l low for good PSRR, but head room ca n be a problem i n low-voltage tech nolog ies</p>
+<p>• Differentia l pea k-to- pea k RX swi ng is  I R with dou ble term i nation</p>
+<h2 id="cu-rrent-mode-log-ic-cm-l-driver">Cu rrent- Mode Log ic (CM L) Driver<a class="headerlink" href="#cu-rrent-mode-log-ic-cm-l-driver" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/7ccd262a6c8fd004073d68d2c94c09cc08ce5d6fdeec81850db5eda79d3c1397.jpg" /></p>
+<p>• Used i n most h ig h performa nce seria l l i n ks</p>
+<p>• Low voltage operation relative to push - pu l l d river</p>
+<p>H ig h output com mon - mode keeps cu rrent sou rce satu rated</p>
+<p>• Ca n use DC or AC cou pl i ng</p>
+<p>AC cou pl i ng req u i res data cod i ng</p>
+<p>• D iffe re nti a l p p RX swi n g i s $\pm \mathrm { I R } / 2$ with dou ble term i nation</p>
+<h2 id="cu-rrent-mode-cu-rrent-levels">Cu rrent- Mode Cu rrent Levels<a class="headerlink" href="#cu-rrent-mode-cu-rrent-levels" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/5f1bcc1ff5fd4c7666760bdfdf485439eb79fd868d36a2b46c3a389473192704.jpg" /></p>
+<p>$$
+V _ { d , 1 } = ( I / 2 ) R
+$$</p>
+<p>$$
+V _ { d , 0 } = - ( I / 2 ) R
+$$</p>
+<p>$$
+V _ { d , p p } = I R
+$$</p>
+<p>$$
+\pmb { I } = \frac { V _ { d , p p } } { R }
+$$</p>
+<p><img alt="" src="images/345a1b11ce5ce47d2b800bd78293a7ff8d6c8c5656857264a974c4a7003d9a6d.jpg" /></p>
+<p>$$
+V _ { d , 1 } = ( I / 4 ) ( 2 R )
+$$</p>
+<p>$$
+V _ { d , 0 } = - ( I / 4 ) ( 2 R )
+$$</p>
+<p>$$
+V _ { d , p p } = I R
+$$</p>
+<p>$$
+\pmb { I } = \frac { V _ { d , p p } } { R }
+$$</p>
+<h2 id="voltage-mode-cu-rrent-levels">Voltage- Mode Cu rrent Levels<a class="headerlink" href="#voltage-mode-cu-rrent-levels" title="Permanent link">&para;</a></h2>
+<p>Sing le- Ended Termination</p>
+<p><img alt="" src="images/bb8c29b3e1c3e007aa9f7f124712aca9d867e5b284d01ffa4ecc5276a55b24c1.jpg" /></p>
+<p>$$
+V _ { d , 1 } = \left( V _ { s } / 2 \right)
+$$</p>
+<p>$$
+V _ { d , 0 } = - \big ( V _ { s } / 2 \big )
+$$</p>
+<p>$$
+V _ { d , p p } = V _ { s }
+$$</p>
+<p>$$
+I = \left( V _ { s } / 2 R \right)
+$$</p>
+<p>$$
+\pmb { I } = \frac { V _ { d , p p } } { 2 R }
+$$</p>
+<p>Differentia l Term i nation</p>
+<p><img alt="" src="images/3ea6111e898958d168e9738f0d95b11ebe58ea3f35f86cba48f3e72a9d1ab890.jpg" /></p>
+<p>$$
+V _ { d , 1 } = \left( V _ { s } / 2 \right)
+$$</p>
+<p>$$
+V _ { d , 0 } = - \big ( V _ { s } / 2 \big )
+$$</p>
+<p>$$
+V _ { d , p p } = V _ { s }
+$$</p>
+<p>$$
+I = \left( V _ { s } / 4 R \right)
+$$</p>
+<p>$$
+\pmb { I } = \frac { V _ { d , p p } } { 4 R }
+$$</p>
+<h2 id="cu-rrent-mode-vs-voltage-mode-su-m-ma-ry">Cu rrent- Mode vs Voltage- Mode Su m ma ry<a class="headerlink" href="#cu-rrent-mode-vs-voltage-mode-su-m-ma-ry" title="Permanent link">&para;</a></h2>
+<table><tr><td rowspan=1 colspan=1>Driver/Termination</td><td rowspan=1 colspan=1>Current Level</td><td rowspan=1 colspan=1>Normalized Current Level</td></tr><tr><td rowspan=1 colspan=1>Current-Mode/SE</td><td rowspan=1 colspan=1> $\underline { { \mathsf { V } _ { \mathrm { d } , \mathsf { p p } } / Z _ { 0 } } }$ </td><td rowspan=1 colspan=1>1x</td></tr><tr><td rowspan=1 colspan=1>Current-Mode/Diff</td><td rowspan=1 colspan=1> $\underline { { \mathsf { V } _ { \mathrm { d } , \mathsf { p p } } / Z _ { 0 } } }$ </td><td rowspan=1 colspan=1>1x</td></tr><tr><td rowspan=1 colspan=1>Voltage-Mode/SE</td><td rowspan=1 colspan=1> $\mathsf { V } _ { \mathsf { d } , \mathsf { p p } } / 2 \mathsf { Z } _ { 0 }$ </td><td rowspan=1 colspan=1>0.5x</td></tr><tr><td rowspan=1 colspan=1>Voltage-Mode/Diff</td><td rowspan=1 colspan=1> $\mathsf { V } _ { \mathsf { d } , \mathsf { p p } } / 4 \mathsf { Z } _ { 0 }$ </td><td rowspan=1 colspan=1>0.25x</td></tr></table>
+
+<p>• An idea l voltage- mode d river with d ifferentia l RX term i nation ena bles a potential 4x red uction i n d river power</p>
+<p>• Actual d river power levels a lso depend on</p>
+<p>• Output i m peda nce control</p>
+<p>Pre-d river power</p>
+<p>Eq ua l ization i m plementation</p>
+<h2 id="voltage-mode-drivers">Voltage- Mode Drivers<a class="headerlink" href="#voltage-mode-drivers" title="Permanent link">&para;</a></h2>
+<p>• Voltage- mode d river i m plementation depends on output swi ng req u i rements</p>
+<p>• For low-swi ng $( &lt; 4 0 0 { - } 5 0 0 \mathsf { m V p } )$ , a n a l l N M OS d rive r i s su ita b l e</p>
+<p>• For h ig h -swi ng , CM OS d river is u sed</p>
+<p>Low-Swing Voltage-Mode Driver</p>
+<p><img alt="" src="images/23e14745ecf49d42454f73af6f5a5a51a3b099d6e0f51df4b1c846efe9cc348d.jpg" /></p>
+<p>$$
+V _ { s } &lt; { \frac { 4 } { 3 } } \big ( V D D - V _ { t 1 } - V _ { O D 1 } \big ) \ ( \mathrm { D i f f . T e r m } )
+$$</p>
+<p>$$
+V _ { \it s } &lt; 2 \big ( V D D - V _ { \it t 1 } - V _ { \it O D 1 } \big ) \mathrm { ~ ( S E ~ T e r m ) }
+$$</p>
+<p>H ig h-Swing Voltage- Mode Driver</p>
+<p><img alt="" src="images/ee8e8d857a077fab1eb88ee00c6253d8e81552d82142e0ea1435022ed1655007.jpg" /></p>
+<p>$$
+V _ { s } &gt; \left| V _ { t 1 } \right| + V _ { O D 1 }
+$$</p>
+<h2 id="tx-d-rive-r-ci-rc-u-its_2">TX D rive r Ci rc u its<a class="headerlink" href="#tx-d-rive-r-ci-rc-u-its_2" title="Permanent link">&para;</a></h2>
+<p>• Si ng le-ended vs d ifferentia l sig na l i ng</p>
+<p>• Control led -i m peda nce cu rrent &amp; voltagemode d rivers</p>
+<p>• Swi ng en ha ncement tech n iq ues</p>
+<p>• I m peda nce control</p>
+<p>• Pad ba ndwidth extension</p>
+<p>S l ew- rate co ntro l</p>
+<h2 id="h-ig-h-swi-ng-tra-nsm-itter-li-nea-rity">H ig h -Swi ng Tra nsm itter Li nea rity<a class="headerlink" href="#h-ig-h-swi-ng-tra-nsm-itter-li-nea-rity" title="Permanent link">&para;</a></h2>
+<p>• Tra nsm it swi ng s $\geq 1 \mathsf { V } _ { \mathsf { p p d } }$ a re often needed to su pport operation over h ig h - loss cha n nel s</p>
+<p>• Red uctions i n su pply voltages ma ke ach ievi ng th i s swi n g with h i g h l i n ea rity d iffi cu lt</p>
+<p>• Th i s i s pa rti c u l a rly i m po rta nt with PAM 4 mod u lation</p>
+<p><img alt="" src="images/1818c204e85ffbfdc09ff3edbb5254d7e98a713061fcda65da9ce79993ebe0b9.jpg" /></p>
+<p>$$
+\mathrm { R L M } = 3 \frac { \mathrm { V _ { m i n } } } { \mathrm { V _ { p k \mathrm { - p k } } } }
+$$</p>
+<h2 id="pa-ra-l-lel-bleeder-cu-rrent-sou-rce">Pa ra l lel Bleeder Cu rrent Sou rce<a class="headerlink" href="#pa-ra-l-lel-bleeder-cu-rrent-sou-rce" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/3bc5013de43de042eb7a38f74b9bccc83df0345e4e2bbae367e798cdcf027424.jpg" /></p>
+<p>• Pa ra l lel th ick-oxide bleeder cu rrent sou rce from 1 . 8V su pply ra ises output com mon mode</p>
+<p>• Ach ieves $&gt; 1 . 2 \mathsf { V } _ { \mathsf { p p d } }$ swi ng i n a 1 6n m Fi n FET process</p>
+<h2 id="cm-l-driver-w-h-ig-her-output-stage-su-pply">CM L Driver w/ H ig her Output Stage Su pply<a class="headerlink" href="#cm-l-driver-w-h-ig-her-output-stage-su-pply" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/17ab1a819d57f1551b1b8fa293c617f1e26e008a5f7197ae7dd5c1b3acdf3211.jpg" /></p>
+<p>H ig her output stage su pply</p>
+<p>• Sou rce voltage of switch PM OS tra nsistors rema i ns nea r 1V fo r 1 0 n m re l i a b i l ity</p>
+<p>• ${ \tt &gt; } 1 \tt V _ { \tt p p d }$ swi ng</p>
+<h2 id="ta-i-l-less-cu-rrent-m-ode-driver">Ta i l - Less Cu rrent- M ode Driver<a class="headerlink" href="#ta-i-l-less-cu-rrent-m-ode-driver" title="Permanent link">&para;</a></h2>
+<h2 id="steffan-isscc-20-17">[Steffan ISSCC 20 17]<a class="headerlink" href="#steffan-isscc-20-17" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/ecc04f8bb0538e72c5d5cd3ad43652ba301c36f9dd0c47cc09be0f8aceac7dd6.jpg" /></p>
+<p><img alt="" src="images/3ca349c284c400fbbb054c7d2da0bb6f74f609acc7f26fdb94f89d4dbf7ad18f.jpg" /></p>
+<p>• Botto m tra n si sto r d rive n by fu l l - rate se ri a l i zed d ata</p>
+<p>• Repl ica - bias network sets output stage cascode tra nsistors’ gate voltage to ach ieve the desi red output swi ng</p>
+<p>• Ach ieves $1 . 2 \mathsf { V } _ { \mathsf { p p d } }$ output swi ng with 94% RLM</p>
+<h2 id="voltage-mode-driver-w-leve-l-sh-ifti-n-g-pred-rive-r">Voltage- Mode Driver w/ Leve l -Sh ifti n g Pred rive r<a class="headerlink" href="#voltage-mode-driver-w-leve-l-sh-ifti-n-g-pred-rive-r" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/3566f3deb70a8ef033d836621645194a55ba2d8d5edbc99d4c69d0c6da578582.jpg" /></p>
+<p>56.25Gbps<br />
+<img alt="" src="images/d42ebdfce6ff9ac54c3d4cbe11dffee6dbdcee30f6fa7820630386f316ff7d02.jpg" /><br />
+Package+PCB loss is \~3dB, FIR applied to open eye<br />
+RLM = 98.5, SNDR = 37dB, SNR_ISI = 37.7dB</p>
+<p>• Pred river uses a 0 . 85V su pply to d rive the N MOS a nd a level sh ifted 0 . 1 5V G N D to d rive the PMOS</p>
+<p>• Ach ieves $1 \mathsf { V } _ { \mathsf { p p d } }$ output swi ng i n 7n m CMOS</p>
+<h2 id="hybrid-voltage-mode-driver-w-pa-ra-l-lel-cu-rrent-mode-seg-ments">Hybrid Voltage- Mode Driver w/ Pa ra l lel Cu rrent- Mode Seg ments<a class="headerlink" href="#hybrid-voltage-mode-driver-w-pa-ra-l-lel-cu-rrent-mode-seg-ments" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/2976fdfdc418d5cda7ee9c593f6d4ecdc51a14a7641ad90fe0ef3e3bf9d800b0.jpg" /></p>
+<p>• Pa ra l lel cu rrent- mode output stage provides swi ng en ha ncement</p>
+<p>• Ach ieves $1 . 2 \mathsf { V } _ { \mathsf { p p d } }$ output swi ng i n 40n m CMOS</p>
+<h2 id="pam4-hybrid-voltage-mode-driver-w-pa-ra-l-lel-push-pu-l-l-cu-rrent-mode-seg-ments">PAM4 Hybrid Voltage- Mode Driver w/ Pa ra l lel Push- Pu l l Cu rrent- Mode Seg ments<a class="headerlink" href="#pam4-hybrid-voltage-mode-driver-w-pa-ra-l-lel-push-pu-l-l-cu-rrent-mode-seg-ments" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/2a8c3665de616db8da2e0d64d765991542a7ecc29f33060e4cd66963666996ee.jpg" /></p>
+<p>• Pa ra l lel push - pu l l cu rrent sou rces d riven by the M SB &amp; LSB a l low for a h ig h-swi ng PAM4 i m plementation</p>
+<p>• Ach ieves $1 . 3 \mathsf { V } _ { \mathsf { p p d } }$ output swi ng i n 1V 28n m CMOS with &gt; 94% RLM</p>
+<h2 id="tx-d-rive-r-ci-rc-u-its_3">TX D rive r Ci rc u its<a class="headerlink" href="#tx-d-rive-r-ci-rc-u-its_3" title="Permanent link">&para;</a></h2>
+<p>• Si ng le-ended vs d ifferentia l sig na l i ng</p>
+<p>• Control led -i m peda nce cu rrent &amp; voltagemode d rivers</p>
+<p>Swi ng en ha ncement tech n iq ues</p>
+<p>I m peda nce control</p>
+<p>• Pad ba ndwidth extension</p>
+<p>S l ew- rate co ntro l</p>
+<h2 id="g-loba-l-resistor-ca-l-i-bration">G loba l Resistor Ca l i bration<a class="headerlink" href="#g-loba-l-resistor-ca-l-i-bration" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/2e52aa9ff2aba1f63da19c0645078d43434b2264a28a5c16aa7de60a3d82c2da.jpg" /></p>
+<p>• Off-ch i p precision resistor is u sed as reference</p>
+<p>• On -ch i p term i nation is va ried u nti l voltages a re with i n a n LSB Dither fi lter typica l ly u sed to avoid voltage noise</p>
+<p>• I n cu rrent- mode d rivers, th is code is u sed for the nom i na l l oa d setti n g</p>
+<h2 id="low-swi-ng-vm-driver-i-m-peda-nce-control">Low-Swi ng VM Driver I m peda nce Control<a class="headerlink" href="#low-swi-ng-vm-driver-i-m-peda-nce-control" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/291d96d0accf66943a5603e9f37e1f6f9b0a2f85ab1e74d9680159669c582f59.jpg" /></p>
+<p>• A l i nea r reg u lator sets the output stage su pply, $\mathsf { V } _ { \mathsf { s } }$</p>
+<p>• Term i nation is i m plemented by output N MOS tra nsistors</p>
+<p>• To com pensate for PVT a nd va ryi ng output swi ng levels, the pre-d rive su pply is adj usted with a feed back loop</p>
+<p>• The top a nd bottom output stage tra nsistors need to be sized d iffe re ntl $\mathsf { y } ,$ as they see a d ifferent $\mathsf { V } _ { \mathsf { O D } }$</p>
+<h2 id="4-1-output-m-u-lti-plexi-ng-voltage-mode-tx">4 : 1 Output M u lti plexi ng Voltage- Mode TX<a class="headerlink" href="#4-1-output-m-u-lti-plexi-ng-voltage-mode-tx" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/cbf75e2bbd5145b413b92d016602046b50701574e942cf9cdbbcddfb53926719.jpg" /></p>
+<p>• I m peda nce control is ach ieved i ndependent of th e p re-d rive r su p p ly by add i ng add itiona l u p/down a na log - control led N MOS tra n s i sto rs</p>
+<h2 id="leve-l-s-h-ifti-n-g-p-re-d-rive-r-a-l-l-ows-fo-r-s-m-a-l-l-e-r-output-tra-nsistors">• Leve l -s h ifti n g p re-d rive r a l l ows fo r s m a l l e r output tra nsistors<a class="headerlink" href="#leve-l-s-h-ifti-n-g-p-re-d-rive-r-a-l-l-ows-fo-r-s-m-a-l-l-e-r-output-tra-nsistors" title="Permanent link">&para;</a></h2>
+<h2 id="low-swi-ng-voltage-mode-driver-ana-log-i-m-peda-nce-control">Low-Swi ng Voltage- Mode Driver Ana log I m peda nce Control<a class="headerlink" href="#low-swi-ng-voltage-mode-driver-ana-log-i-m-peda-nce-control" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/cff38818e8ac09378832365381cbc3443ba5d0a47183400c7ccf86b91be9e4f5.jpg" /></p>
+<p>• Repl ica g loba l i m peda nce control loop provides a na log gate voltages to the add itiona l top/bottom tra nsistors to set the pu l l - u p/down i m peda nce</p>
+<h2 id="h-ig-h-swi-ng-voltage-mode-driver-i-m-peda-nce-control">H ig h-Swi ng Voltage- Mode Driver I m peda nce Control<a class="headerlink" href="#h-ig-h-swi-ng-voltage-mode-driver-i-m-peda-nce-control" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/ff75c241169f2a2a3f386585cfb822696a676eabf757e896d1ff7559f95ddd9c.jpg" /></p>
+<p><img alt="" src="images/eed5df3d0ae9c867dde8c7890af82b08e333f2c264282d4b723227fcf2c2c280.jpg" /></p>
+<p>• Passive resistors + tra nsistors’ triode resista nce</p>
+<p>Output i m peda nce wi l l cha nge d ue to process va riation</p>
+<p>• Ca uses reflection a nd level m ismatch</p>
+<h2 id="h-ig-h-swi-ng-voltage-mode-driver-i-m-peda-nce-control_1">H ig h-Swi ng Voltage- Mode Driver I m peda nce Control<a class="headerlink" href="#h-ig-h-swi-ng-voltage-mode-driver-i-m-peda-nce-control_1" title="Permanent link">&para;</a></h2>
+<p>• Eq ua l ization control by setti ng the n u m ber of seg ments con nected to each ta p</p>
+<p>• Term i nation control by setti ng the tota l n u m ber of ena bled seg ments</p>
+<p>• Disadva ntages :</p>
+<p>Tra n si sto r sta cki n g i n fu l l - rate path</p>
+<p>• Extra a rea d ue to red u nda nt seg ments</p>
+<p>• Extra power consu m ption beca use pre-d river shou ld be sized to d rive maxi m u m load</p>
+<p>Sensitive to P/N skew va riations</p>
+<p><img alt="" src="images/44f5d183e66d77d87e6c6c1b549a7feaf501b03bacaaac4f52be0cb5e0be0dcc.jpg" /></p>
+<h2 id="h-ig-h-swi-ng-voltage-mode-driver-hybrid-i-m-peda-nce-control-scheme">H ig h-Swi ng Voltage- Mode Driver Hybrid I m peda nce Control Scheme<a class="headerlink" href="#h-ig-h-swi-ng-voltage-mode-driver-hybrid-i-m-peda-nce-control-scheme" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/d7d5c5c5e9a175aaa784cd244ed6f607f52d8a4d784ec41c51968a8fa9a1250c.jpg" /><br />
+75 to 85 d rive r s l i ces (1 0 prog ram mable s l ices with NAN D and N O R as p re-d rive r)</p>
+<p><img alt="" src="images/769fc73b5c5f3dc6104d02a73fcdcb0729fb50d224e7e560a68634b878cea137.jpg" /></p>
+<p>• Prog ra m ma ble n u m ber of d river sl ices provides coa rse i m peda nce control to com pensate for resistor va riations</p>
+<p>• Ana log i m peda nce loop provides fi ne i m peda nce control to com pensate for N MOS/PMOS va riations</p>
+<p>• M easu red d ifferentia l mode retu rn loss meets key protocol s com posite retu rn loss mask</p>
+<h2 id="tx-d-rive-r-ci-rc-u-its_4">TX D rive r Ci rc u its<a class="headerlink" href="#tx-d-rive-r-ci-rc-u-its_4" title="Permanent link">&para;</a></h2>
+<p>• Si ng le-ended vs d ifferentia l sig na l i ng</p>
+<p>• Control led -i m peda nce cu rrent &amp; voltagemode d rivers</p>
+<p>Swi ng en ha ncement tech n iq ues</p>
+<p>• I m peda nce control</p>
+<p>• Pad ba ndwidth extension</p>
+<p>S l ew- rate co ntro l</p>
+<h2 id="output-pad-network-cha-l-lenges">Output Pad Network Cha l lenges<a class="headerlink" href="#output-pad-network-cha-l-lenges" title="Permanent link">&para;</a></h2>
+<p>• M eeti ng retu rn loss $( \mathsf { S } _ { 1 1 } )$ spec</p>
+<p>• &lt; - 7d B at Nyq u i st</p>
+<p>• Maxi m izi ng ba ndwidth with sma l l g rou p delay</p>
+<p>Su pport ESD</p>
+<p>• Ba la nce output network size versus performa nce</p>
+<h2 id="t-coi-l-output-stage">T-Coi l Output Stage<a class="headerlink" href="#t-coi-l-output-stage" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/64cce7ed63c203e57661295636985ff5cbc7fd1e69dfd469ff1e39a15257cf23.jpg" /></p>
+<p>• Output T-coi l between d river a nd pad a l lows for spl itti ng of d river, ESD, a nd pad ca pacita nce</p>
+<p>• Provides sig n ifica nt ba ndwidth en ha ncement a nd i m proved retu rn loss</p>
+<h2 id="t-coi-l-eq-uations">T-Coi l Eq uations<a class="headerlink" href="#t-coi-l-eq-uations" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/0572e252818ecc68bac4f3f6b9970ae8d1b1f5cc7db39a51cc4b58abd2314f3b.jpg" /></p>
+<p><img alt="" src="images/21df4cd8008b70112d34014de8400ba2c7323bbb4c76b68498e60d143c778429.jpg" /></p>
+<p><img alt="" src="images/a1e1ee0f9d64428788849055544bed483031f266ad248ade2c8aac4ac1ce532d.jpg" /></p>
+<p>$$
+Z _ { \mathrm { T x , o u t } } ^ { \prime } = \frac { Z _ { T } \cdot Z _ { 3 } + Z _ { 1 } \cdot Z _ { 3 } + Z _ { 1 } \cdot Z _ { 2 } + Z _ { 2 } \cdot Z _ { 3 } + Z _ { 2 } \cdot Z _ { T } } { Z _ { 1 } + Z _ { 3 } + Z _ { T } }
+$$</p>
+<p>[ Kossel JSSC 2008]</p>
+<p>(4)</p>
+<p>(6)</p>
+<p>$$
+Z _ { 1 } = { \frac { ( L _ { a } + M ) \cdot s + R _ { a } } { D ( s ) } }\tag{7}
+$$</p>
+<p>$$
+Z _ { 2 } = { \frac { ( L _ { b } + M ) \cdot s + R _ { b } } { D ( s ) } }
+$$</p>
+<p>$$
+Z _ { 3 } = \frac { v _ { 4 } s ^ { 4 } + v _ { 3 } s ^ { 3 } + v _ { 2 } s ^ { 2 } + v _ { 1 } s + 1 } { u _ { 3 } s ^ { 3 } + u _ { 2 } s ^ { 2 } + u _ { 1 } s }\tag{8}
+$$</p>
+<p>$$
+Z _ { T } = \frac { R _ { \mathrm { T x } } } { 1 + s R _ { \mathrm { T x } } C _ { T } } .\tag{9}
+$$</p>
+<p>$$
+Z _ { \mathrm { T x , o u t } } = \frac { Z _ { \mathrm { T x , o u t } } ^ { \prime } } { 1 + s C _ { P } Z _ { \mathrm { T x , o u t } } ^ { \prime } } .
+$$</p>
+<p>Output Reflection Factor</p>
+<p>$$
+r = \frac { Z _ { \mathrm { T x , o u t } } - 5 0 \Omega } { Z _ { \mathrm { T x , o u t } } + 5 0 \Omega }\tag{10}
+$$</p>
+<table><tr><td rowspan=1 colspan=4>Parameters: $L _ { \mathrm { a } } = 3 6 0$ pH, Lb = 240 pH, k = 0.4, M = 118 pH, Cb = 15 fF, Ct = 600 fF, $C _ { \mathrm { p } } = 7 0$ fF, $R _ { \mathrm { T x } } = R _ { \mathrm { R x } } = 5 0 \Omega$ </td></tr><tr><td rowspan=1 colspan=4> $\begin{array} { r } { { \cal D } ( s ) = C _ { b } \big ( L _ { a } + L _ { b } + 2 M \big ) \cdot s ^ { 2 } + C _ { b } \big ( R _ { a } + R _ { b } \big ) \cdot s + 1 } \end{array}$ </td></tr><tr><td rowspan=1 colspan=1> $\overline { { \nu _ { 1 } = C _ { b } \big ( R _ { a } + R _ { b } \big ) } }$ </td><td rowspan=1 colspan=1> $\overline { { \nu _ { 2 } = R _ { a } R _ { b } C _ { b } C _ { e } + C _ { b } \big ( L _ { a } + L _ { b } + 2 M \big ) - M C _ { e } } }$ </td><td rowspan=1 colspan=1> $\overline { { \nu _ { 3 } = C _ { b } C _ { e } \left( L _ { a } R _ { b } + L _ { b } R _ { a } \right) } }$ </td><td rowspan=1 colspan=1> $\overline { { { \nu _ { 4 } = C _ { b } C _ { e } \big ( L _ { a } L _ { b } - M ^ { 2 } \big ) } } }$ </td></tr><tr><td rowspan=1 colspan=1> $u _ { 1 } = C _ { e }$ </td><td rowspan=1 colspan=1> $\overline { { u _ { 2 } = C _ { b } C _ { e } \big ( R _ { a } + R _ { b } \big ) } }$ </td><td rowspan=1 colspan=2> $\overline { { u _ { 3 } = C _ { b } C _ { e } \big ( L _ { a } + L _ { b } + 2 M \big ) } }$ </td></tr></table>
+
+<h2 id="t-coi-l-wi-ri-ng-i-m-provement">T-Coi l Wi ri ng &amp; I m provement<a class="headerlink" href="#t-coi-l-wi-ri-ng-i-m-provement" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/df4e5b1aab327e908f42ce3a64955fbf1848e2bdb614f2c8a8da6afd789aaf61.jpg" /><br />
+g.22.a ssiDDie) SOI CMOS SST transmiter [7] with ESD. Simulated return loss curves: (e): HFSS EM model; (f) mathematical model.</p>
+<h2 id="a-hel-ica-l-wi-ri-ng-scheme-red-uces-the-vertica-l-pa-rasitic-fri-ng-i-ng-ca-pacita-nce-between-layers-a-nd-i-m-proves-self-resona-nce-freq-uency-4-5-45">• A hel ica l wi ri ng scheme red uces the vertica l pa rasitic fri ng i ng ca pacita nce between layers a nd i m proves self- resona nce freq uency 4 5 45<a class="headerlink" href="#a-hel-ica-l-wi-ri-ng-scheme-red-uces-the-vertica-l-pa-rasitic-fri-ng-i-ng-ca-pacita-nce-between-layers-a-nd-i-m-proves-self-resona-nce-freq-uency-4-5-45" title="Permanent link">&para;</a></h2>
+<h2 id="dou-ble-t-coi-l-output-ba-ndwidth-extension">Dou ble T-Coi l Output Ba ndwidth Extension<a class="headerlink" href="#dou-ble-t-coi-l-output-ba-ndwidth-extension" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/13153a6ae180b623db425857083cdd29ca8608e30bd1f5d138be273b483425e7.jpg" /></p>
+<p>• Dou ble T-coi l structu re a l lows se pa ratio n of te rm i natio n ca pacita nce</p>
+<p>• En ha nces ba ndwidth by 1 . 5X</p>
+<p>[Steffan ISSCC 20 17]</p>
+<p><img alt="" src="images/06172fc902f7d3f63a7f703d95ca6fdc8aff445fcd92e881c54cfe6f064d7adc.jpg" /></p>
+<p><img alt="" src="images/2ffd0e01cf33de237e33d14bb1e9bf50659b2d8199a8fe239d7e57c87c433281.jpg" /></p>
+<h2 id="-coi-l-output-ba-ndwidth-extension">-Coi l Output Ba ndwidth Extension<a class="headerlink" href="#-coi-l-output-ba-ndwidth-extension" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/bf1f1013a3800c56bd50ada43024ad02ae3fb1af6953e29c9a3f1e7ca034f6ad.jpg" /></p>
+<p>• Output -coi l provides add itiona l term i nation ca pacita nce sepa ration</p>
+<p>• Provides add itiona l ba ndwidth extension at the cost of sl ig htly deg raded retu rn loss</p>
+<h2 id="-coi-l-output-ba-ndwidth-extension_1">-Coi l Output Ba ndwidth Extension<a class="headerlink" href="#-coi-l-output-ba-ndwidth-extension_1" title="Permanent link">&para;</a></h2>
+<h2 id="response-at-tx-pad">Response at TX Pad<a class="headerlink" href="#response-at-tx-pad" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/c9c94b2c7b86d69a1f6478bfc3cb691d7237cb253bdcae4816dd3c48e4ec8cc1.jpg" /></p>
+<p><img alt="" src="images/4c7ddec293440a21a4202c900ad1801fdebd96fd4b4c1bb67d50677939ca7324.jpg" /><br />
+[ Kim ISSCC 20 19]</p>
+<p><img alt="" src="images/139d8103d0b7aa9fcc48c6f71af5c359a18ba354e492d8324864d7f2b76b438c.jpg" /><br />
+Response after 20d B channel</p>
+<p>• 1 -2d B ba ndwidth pea ki ng resu lts i n sl ig htly deg raded retu rn l oss, b ut a bette r p u l se response over a low- pass cha n nel</p>
+<p><img alt="" src="images/fc9eb28317d98692f21bd2c07a6cb0694953e31861568b6929c3de7bf777582f.jpg" /></p>
+<p><img alt="" src="images/ada6df976974ff8e7cf6d9ca81b7dc6383f257ffd08a22df4001018034193095.jpg" /></p>
+<h2 id="tx-d-rive-r-ci-rc-u-its_5">TX D rive r Ci rc u its<a class="headerlink" href="#tx-d-rive-r-ci-rc-u-its_5" title="Permanent link">&para;</a></h2>
+<p>• Si ng le-ended vs d ifferentia l sig na l i ng</p>
+<p>• Control led -i m peda nce cu rrent &amp; voltagemode d rivers</p>
+<p>Swi ng en ha ncement tech n iq ues</p>
+<p>• I m peda nce control</p>
+<p>• Pad ba ndwidth extension</p>
+<p>• Slew- rate control</p>
+<h2 id="tx-driver-slew-rate-control">TX Driver Slew Rate Control<a class="headerlink" href="#tx-driver-slew-rate-control" title="Permanent link">&para;</a></h2>
+<p>• Output tra nsition ti mes shou ld be control led</p>
+<p>• Too sl ow •</p>
+<p>• Li m its max data rate</p>
+<p>• Too fa st</p>
+<p>Ca n excite resona nt ci rcu its, resu lti ng i n ISI d ue to ri ng i ng</p>
+<p>Ca use excessive crossta l k</p>
+<h2 id="slew-rate-control-red-uces-reflections-a-nd-crossta-l-k">• Slew rate control red uces reflections a nd crossta l k<a class="headerlink" href="#slew-rate-control-red-uces-reflections-a-nd-crossta-l-k" title="Permanent link">&para;</a></h2>
+<h2 id="slew-rate-control-w-seg-mented-driver">Slew Rate Control w/ Seg mented Driver<a class="headerlink" href="#slew-rate-control-w-seg-mented-driver" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/ef1e911cb537cb0164d4aa39862468707f8698990c4cc8c0674ed9071bb96d71.jpg" /></p>
+<p><img alt="" src="images/5826976dd4fce070606e8eb13d909dc97f757d02a8a05b4ea726cd3526154304.jpg" /></p>
+<p>• Slew rate control ca n be i m plemented with a seg mented o utp ut d rive r</p>
+<p>• Seg ments tu rn-on ti me a re spaced by $1 / \mathsf { n }$ of d esi red tra n s iti o n ti m e</p>
+<p>• Pred river tra nsition ti me shou ld a l so be control led</p>
+<h2 id="cu-rrent-mode-driver-exa-m-ple">Cu rrent- Mode Driver Exa m ple<a class="headerlink" href="#cu-rrent-mode-driver-exa-m-ple" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/a25b6458242618e909456b806b0df88be182e7ae8c8da67a5e8f53de6863b00a.jpg" /></p>
+<p><img alt="" src="images/2a8b9afe3fc046d7a23c9be3279b1b6fb277db24fbe727976c954145542a937c.jpg" /><br />
+A:(46.9446p 3.28265m) delta: (88.991p 586.674u) B：（135.936b 3.86933m) sloe:6.59251M</p>
+<h2 id="voltage-mode-driver-exa-m-ple">Voltage- Mode Driver Exa m ple<a class="headerlink" href="#voltage-mode-driver-exa-m-ple" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/49aacff96beb178a9833d146450d0bc8ce039677d0df18571707db8ed2f4fdc7.jpg" /></p>
+<p><img alt="" src="images/e2865c08d0ca3dc1353d946b7b948072f9103c47733a6e0f2dac74ed0872267e.jpg" /></p>
+<p><img alt="" src="images/fc06bde1e47eda261700efcff39b4d0981e07439c77a33098d14c4a6211fcde5.jpg" /><br />
+deltc (89.4286p 476.868u) slope:B.33063M</p>
+<h2 id="tx-ci-rcu-it-speed-li-m-itations">TX Ci rcu it Speed Li m itations<a class="headerlink" href="#tx-ci-rcu-it-speed-li-m-itations" title="Permanent link">&para;</a></h2>
+<p>• H ig h -speed l i n ks ca n be l i m ited by both the cha n nel a n d th e ci rcu its</p>
+<p>• Clock generation a nd d istri bution is key ci rcu it ba ndwidth bottleneck</p>
+<p>• M u lti p l exi n g ci rcu itry a l so l i m its m axi m u m d ata rate</p>
+<p><img alt="" src="images/cbd537fbc6bf7346d15b968653793d75edbab27604f0f8a6fed110eb993f9ed3.jpg" /></p>
+<h2 id="tx-m-u-lti-p-l-exer-fu-l-l-rate">TX M u lti p l exer – Fu l l Rate<a class="headerlink" href="#tx-m-u-lti-p-l-exer-fu-l-l-rate" title="Permanent link">&para;</a></h2>
+<p>• Tree-m ux a rch itectu re with cascaded 2 : 1 stages often used</p>
+<p>• Fu l l - rate a rc h itectu re relaxes clock d utycyc l e, b ut l i m its m ax d ata rate</p>
+<p>• Need to generate a nd d istri bute h ig h -speed clock</p>
+<p>• Need to desig n h ig hspeed fl i p-flop</p>
+<p><img alt="" src="images/4c4b1782fae1a2bf1714b8671f7c48991dad0384ab331b0a086c8675f5c686a6.jpg" /></p>
+<p><img alt="" src="images/0662fbbc814dfc3d885d17b2144160dc4d28734d058d65a4148d9e96783d0042.jpg" /></p>
+<h2 id="tx-m-u-lti-plexer-fu-l-l-rate-exa-m-ple">TX M u lti plexer – Fu l l Rate Exa m ple<a class="headerlink" href="#tx-m-u-lti-plexer-fu-l-l-rate-exa-m-ple" title="Permanent link">&para;</a></h2>
+<p>• CM L log ic someti mes u sed i n last stages</p>
+<p>• M i n i m ize CM L to save power</p>
+<p>• 1 0G b/s i n 0 . 1 8 m CM OS</p>
+<p>• 1 30mW ! !</p>
+<p><img alt="" src="images/c4b3080737868edb747e0ad8462da3fb10c6c5b2401d4d4c15b8e3e368d174f2.jpg" /></p>
+<h2 id="tx-m-u-lti-p-l-exer-h-a-lf-rate">TX M u lti p l exer – H a lf Rate<a class="headerlink" href="#tx-m-u-lti-p-l-exer-h-a-lf-rate" title="Permanent link">&para;</a></h2>
+<p>• Ha lf- rate a rch itectu re el i m i nates h ig h-speed c l ock a n d fl i p-fl o p</p>
+<p>• Output eye is sensitive to clock d uty cycle</p>
+<p>• Critica l path no longer has fl i p-fl o p setu p ti m e</p>
+<p>• Fi n a l m ux co ntro l i s swa pped to prevent output g l itches</p>
+<p>• Ca n a l so d o th i s i n preced i ng stages for better ti m i ng ma rg i n</p>
+<p><img alt="" src="images/0ce7ffd4f396a4a7a0f5165f0994f36a8f4c9bc246ffb683c136db0aa5787a03.jpg" /></p>
+<p><img alt="" src="images/91bb14375d7b903d341dab6d781aeb34aa516b8a5e69d619915b1e20cb0dd236.jpg" /></p>
+<h2 id="clock-distri-bution-speed-li-m-itations">Clock Distri bution Speed Li m itations<a class="headerlink" href="#clock-distri-bution-speed-li-m-itations" title="Permanent link">&para;</a></h2>
+<p>• Max clock freq uency that ca n be efficiently d istri buted i s l i m ited by cl ock b uffe rs a bi l ity to propagate na rrow pu l ses</p>
+<p>• C M OS b uffe rs a re l i m ited to a m i n clock period nea r 8 FO4 i nverter delays</p>
+<p>• About 4G Hz i n typica l 90n m CMOS</p>
+<p>• Fu l l - rate a rc h itectu re l i m ited to th i s d ata rate i n G b/s</p>
+<h2 id="n-eed-a-faster-clock-u-se-fa-ste-r-cl-ock-b-uffe-rs">• N eed a faster clock   u se fa ste r cl ock b uffe rs<a class="headerlink" href="#n-eed-a-faster-clock-u-se-fa-ste-r-cl-ock-b-uffe-rs" title="Permanent link">&para;</a></h2>
+<p>• CM L</p>
+<p>• CM L w/ i nd uctive pea ki ng</p>
+<p>$\pmb { \mathrm { t } } _ { \mathtt { F O 4 } }$ in 90nm \~ 30ps<br />
+<img alt="" src="images/fe54df87b1fef576e706fa6dbf24fe221aa67be22b53430b9fb4dd6fe15db5c9.jpg" /></p>
+<p><img alt="" src="images/e2165db2a5d7c6a0a15ad9b4e46cac38f9c8509b9c38775c11b2fe0da6bf657f.jpg" /><br />
+*C . - K. Ya ng, “ Desig n of H ig h -Speed Seria l Li n ks i n CM OS, " 1 998 .</p>
+<h2 id="m-u-lti-plexi-ng-tech-n-iq-ues-12-rate">M u lti plexi ng Tech n iq ues – ½ Rate<a class="headerlink" href="#m-u-lti-plexi-ng-tech-n-iq-ues-12-rate" title="Permanent link">&para;</a></h2>
+<p>• Fu l l - rate a rc h itectu re i s l i m ited by maxi m u m clock freq uency to 8 FO4 ${ \sf T } _ { \sf b }$</p>
+<p>• To i ncrease data rates e l i m i n ate fi n a l reti m i n g a n d u se m u lti ple phases of a slower clock to m ux data</p>
+<p>• H a lf- rate a rch itectu re u ses 2 clock phases sepa rated by $1 8 0 ^ { \circ }$ to m ux data</p>
+<p>• Al l ows fo r $4 F O 4 T _ { \mathsf { b } }$</p>
+<p>• $1 8 0 ^ { \circ }$ phase spaci ng (d uty cycle) criti ca l fo r u n ifo rm o utp ut eye</p>
+<p><img alt="" src="images/38e283c67cd065e3e834dfdd62a242a23361d8a4474acf427a957d30180a7b91.jpg" /></p>
+<p><img alt="" src="images/59f7d51da2c6de59c2bce0e6f56ff9d739451e611398a146db55318511665caa.jpg" /></p>
+<h2 id="2-1-cmos-m-ux">2 : 1 CMOS M ux<a class="headerlink" href="#2-1-cmos-m-ux" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/f2e50b7d5af717d6c22bc5f319aaf9c64bfdd4db20d23bd8573837c9c2ebc12a.jpg" /></p>
+<p><img alt="" src="images/ccbceb6bbf10b343496b5cdc655538bd31fbb8cdf696434696894b5d0526092b.jpg" /></p>
+<p>2 : 1 CMOS m ux a ble to propagate a m i n i m u m pu lse nea r <br />
+2FO4 ${ \sf T } _ { \sf b }$</p>
+<p>• H oweve r, with a ½ - rate a rc h itectu re sti l l l i m ited by clock d istri bution to 4FO4 ${ \sf T } _ { \sf b }$</p>
+<p>8G b/s i n typica l 90 n m</p>
+<h2 id="2-1-cm-l-m-ux">2 : 1 CM L M ux<a class="headerlink" href="#2-1-cm-l-m-ux" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/0c69d3c823e82e0ab774c39364273f5aab7bde8dd3dad0065f16835a2f54946a.jpg" /></p>
+<p>• CM L m ux ca n ach ieve h ig her speeds d ue to red uced se lf- l oa d i n g fa cto r</p>
+<p>• Cost is h ig her power consu m ption that is i ndependent of data rate (stati c cu rre nt)</p>
+<h2 id="i-ncreasi-ng-m-u-lti-plexi-ng-factor-14-rate">I ncreasi ng M u lti plexi ng Factor – ¼ Rate<a class="headerlink" href="#i-ncreasi-ng-m-u-lti-plexi-ng-factor-14-rate" title="Permanent link">&para;</a></h2>
+<p>• I ncrease m u lti plexi ng fa cto r to a l l ow fo r l owe r freq uency clock d i stri b uti o n</p>
+<p>• ¼ - rate a rc h itectu re</p>
+<p>• 4- phase clock d istri bution spaced at $90 \textdegree$ a l l ows fo r 2FO4 Tb</p>
+<p>• 90  phase spaci ng a nd d uty cyc l e c riti ca l fo r u n ifo rm output eye</p>
+<p><img alt="" src="images/802e8a0e83bfdc4f3ef94960d162c75a7ef3726131ddcb24ec8c1bc3183b7288.jpg" /></p>
+<p><img alt="" src="images/d673cb2d064d1e12f5e0ab9027d4d946f4264d1384557ea2c4a796781c42aef6.jpg" /></p>
+<h2 id="i-ncreasi-ng-m-u-lti-plexi-ng-factor-m-ux-speed">I ncreasi ng M u lti plexi ng Factor – M ux Speed<a class="headerlink" href="#i-ncreasi-ng-m-u-lti-plexi-ng-factor-m-ux-speed" title="Permanent link">&para;</a></h2>
+<p>• H ig her fa n - i n m uxes ru n slower d ue to i ncreased ca p at m ux node</p>
+<h2 id="14-rate-a-rc-h-itectu-re">• ¼ - rate a rc h itectu re<a class="headerlink" href="#14-rate-a-rc-h-itectu-re" title="Permanent link">&para;</a></h2>
+<p>• 4 : 1 CMOS m ux ca n potentia l ly ach ieve 2 FO4 ${ \sf T } _ { \sf b }$ with l ow fa n o ut</p>
+<p>An agg ressive CMOS-style desig n has potentia l for 1 6G b/s i n typica l 90 n m CMOS</p>
+<h2 id="18-rate-a-rch-itectu-re">• 1/8- rate a rch itectu re<a class="headerlink" href="#18-rate-a-rch-itectu-re" title="Permanent link">&para;</a></h2>
+<p>8- phase clock d istri bution spaced at $4 5 ^ { \circ }$ a l lows for 1 FO4 Tb</p>
+<p>• No way a CMOS m ux ca n ach ieve t h i s ! !</p>
+<p><img alt="" src="images/43f59f93179f32d6b77e2b99b00820c946a356b2a0100e9819eb98312e2ac5ca.jpg" /></p>
+<p><img alt="" src="images/a88d4b41fc0ab1a948a41bd2d9fc655be3aa3587332e5a1965964f12c8618c23.jpg" /></p>
+<h2 id="h-ig-h-order-cu-rrent-mode-output-m-u-lti-plexed">H ig h -Order Cu rrent- Mode Output- M u lti plexed<a class="headerlink" href="#h-ig-h-order-cu-rrent-mode-output-m-u-lti-plexed" title="Permanent link">&para;</a></h2>
+<p>• 8 : 1 cu rrent- mode m ux d i rectly at output pad</p>
+<p><img alt="" src="images/5edbc5692c2677e9149652196e386eeea220178eaed06bee3f472f2c1a49796e.jpg" /></p>
+<p>• M a kes sense if output ti me consta nt sma l ler tha n on -ch i p ti me consta nt</p>
+<p>*C . - K. Ya ng, “ Desig n of H ig h-Speed Seria l Li n ks i n CMOS, " 1 998 .</p>
+<p>Very sensitive to clock phase spaci ng</p>
+<p>$$
+\tau _ { o u t } = 2 5 \Omega \times C _ { o u t }
+$$</p>
+<p>Ya ng ach ieved 6G b/s i n 0 . 3 5 m CMOS</p>
+<p>Eq u iva lent to 33G b/s i n 90n m CMOS (now cha n nel ( n ot c i rc u it) l i m ited )</p>
+<p><img alt="" src="images/aa338e3a5d294af6884527fbf3ad89a7246c8fc758a72fae503531abeb33fdec.jpg" /></p>
+<h2 id="cu-rrent-mode-i-n-put-m-u-lti-plexed">Cu rrent- Mode I n put- M u lti plexed<a class="headerlink" href="#cu-rrent-mode-i-n-put-m-u-lti-plexed" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/b10bfad4a6d48841c729acf286bf6fb9401ab2f96c96b2ae285a32986492db42.jpg" /></p>
+<p><img alt="" src="images/d3625cc44773318cb2de87dbbfa03eb6781ca3b2cc7db557a9c4fbe04e5606e3.jpg" /></p>
+<p>• Red uces output ca pacita nce relative to output- m u lti plexed d rive r</p>
+<p>Easier to i m plement TX eq ua l ization</p>
+<p>• N ot sensitive to output stage cu rrent m ismatches</p>
+<p>• Red uces power d ue to each m ux stage not havi ng to be si zed to d e l ive r fu l l o utp ut cu rre nt</p>
+<h2 id="next-ti-me">Next Ti me<a class="headerlink" href="#next-ti-me" title="Permanent link">&para;</a></h2>
+<p>Receiver Ci rcu its</p>
+<p>• RX pa ra meters</p>
+<p>• RX stati c a m p l ifi e rs</p>
+<p>• Clocked com pa rators</p>
+<p>• C i rc u i ts</p>
+<p>Cha racterization tech n iq ues</p>
+<p>• I nteg rati n g rece ive rs</p>
+<p>• RX se n s itivity</p>
+<p>• Offset co rrecti o n</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul>
+<li><a href="#ecen-720-h-ig-h-speed-li-n-ks-ci-rcu-its-a-nd-systems-spri-ng-2023">ECEN 720 : H ig h-Speed Li n ks Ci rcu its a nd Systems Spri ng 2023</a><ul>
+<li><a href="#an-nou-ncements">An nou ncements</a></li>
+<li><a href="#agenda">Agenda</a></li>
+<li><a href="#h-ig-h-speed-electrica-l-li-n-k-system">H ig h -Speed Electrica l Li n k System</a></li>
+<li><a href="#term-i-nation">Term i nation</a></li>
+<li><a href="#off-ch-i-p-vs-on-ch-i-p-term-i-nation">Off-Ch i p vs On-Ch i p Term i nation</a></li>
+<li><a href="#series-vs-pa-ra-l-lel-term-i-nation">Series vs Pa ra l lel Term i nation</a></li>
+<li><a href="#ac-vs-dc-cou-pled-term-i-nation">AC vs DC Cou pled Term i nation</a></li>
+<li><a href="#passive-term-i-nation">Passive Term i nation</a></li>
+<li><a href="#active-term-i-nation">Active Term i nation</a></li>
+<li><a href="#adj-usta-ble-term-i-nation">Adj usta ble Term i nation</a></li>
+<li><a href="#term-i-nation-dig-ita-l-control-loop">Term i nation Dig ita l Control Loop</a></li>
+<li><a href="#h-ig-h-speed-electrica-l-li-n-k-system_1">H ig h -Speed Electrica l Li n k System</a></li>
+<li><a href="#tx-d-rive-r-ci-rc-u-its">TX D rive r Ci rc u its</a></li>
+<li><a href="#si-ng-le-ended-sig-na-l-i-ng">Si ng le- Ended Sig na l i ng</a></li>
+<li><a href="#d-iffe-re-nti-a-l-s-i-g-n-a-l-i-n-g">D iffe re nti a l S i g n a l i n g</a></li>
+<li><a href="#tx-d-rive-r-ci-rc-u-its_1">TX D rive r Ci rc u its</a></li>
+<li><a href="#control-led-i-m-peda-nce-drivers">Control led -I m peda nce Drivers</a></li>
+<li><a href="#push-pu-l-l-cu-rrent-mode-driver">Push - Pu l l Cu rrent- Mode Driver</a></li>
+<li><a href="#cu-rrent-mode-log-ic-cm-l-driver">Cu rrent- Mode Log ic (CM L) Driver</a></li>
+<li><a href="#cu-rrent-mode-cu-rrent-levels">Cu rrent- Mode Cu rrent Levels</a></li>
+<li><a href="#voltage-mode-cu-rrent-levels">Voltage- Mode Cu rrent Levels</a></li>
+<li><a href="#cu-rrent-mode-vs-voltage-mode-su-m-ma-ry">Cu rrent- Mode vs Voltage- Mode Su m ma ry</a></li>
+<li><a href="#voltage-mode-drivers">Voltage- Mode Drivers</a></li>
+<li><a href="#tx-d-rive-r-ci-rc-u-its_2">TX D rive r Ci rc u its</a></li>
+<li><a href="#h-ig-h-swi-ng-tra-nsm-itter-li-nea-rity">H ig h -Swi ng Tra nsm itter Li nea rity</a></li>
+<li><a href="#pa-ra-l-lel-bleeder-cu-rrent-sou-rce">Pa ra l lel Bleeder Cu rrent Sou rce</a></li>
+<li><a href="#cm-l-driver-w-h-ig-her-output-stage-su-pply">CM L Driver w/ H ig her Output Stage Su pply</a></li>
+<li><a href="#ta-i-l-less-cu-rrent-m-ode-driver">Ta i l - Less Cu rrent- M ode Driver</a></li>
+<li><a href="#steffan-isscc-20-17">[Steffan ISSCC 20 17]</a></li>
+<li><a href="#voltage-mode-driver-w-leve-l-sh-ifti-n-g-pred-rive-r">Voltage- Mode Driver w/ Leve l -Sh ifti n g Pred rive r</a></li>
+<li><a href="#hybrid-voltage-mode-driver-w-pa-ra-l-lel-cu-rrent-mode-seg-ments">Hybrid Voltage- Mode Driver w/ Pa ra l lel Cu rrent- Mode Seg ments</a></li>
+<li><a href="#pam4-hybrid-voltage-mode-driver-w-pa-ra-l-lel-push-pu-l-l-cu-rrent-mode-seg-ments">PAM4 Hybrid Voltage- Mode Driver w/ Pa ra l lel Push- Pu l l Cu rrent- Mode Seg ments</a></li>
+<li><a href="#tx-d-rive-r-ci-rc-u-its_3">TX D rive r Ci rc u its</a></li>
+<li><a href="#g-loba-l-resistor-ca-l-i-bration">G loba l Resistor Ca l i bration</a></li>
+<li><a href="#low-swi-ng-vm-driver-i-m-peda-nce-control">Low-Swi ng VM Driver I m peda nce Control</a></li>
+<li><a href="#4-1-output-m-u-lti-plexi-ng-voltage-mode-tx">4 : 1 Output M u lti plexi ng Voltage- Mode TX</a></li>
+<li><a href="#leve-l-s-h-ifti-n-g-p-re-d-rive-r-a-l-l-ows-fo-r-s-m-a-l-l-e-r-output-tra-nsistors">• Leve l -s h ifti n g p re-d rive r a l l ows fo r s m a l l e r output tra nsistors</a></li>
+<li><a href="#low-swi-ng-voltage-mode-driver-ana-log-i-m-peda-nce-control">Low-Swi ng Voltage- Mode Driver Ana log I m peda nce Control</a></li>
+<li><a href="#h-ig-h-swi-ng-voltage-mode-driver-i-m-peda-nce-control">H ig h-Swi ng Voltage- Mode Driver I m peda nce Control</a></li>
+<li><a href="#h-ig-h-swi-ng-voltage-mode-driver-i-m-peda-nce-control_1">H ig h-Swi ng Voltage- Mode Driver I m peda nce Control</a></li>
+<li><a href="#h-ig-h-swi-ng-voltage-mode-driver-hybrid-i-m-peda-nce-control-scheme">H ig h-Swi ng Voltage- Mode Driver Hybrid I m peda nce Control Scheme</a></li>
+<li><a href="#tx-d-rive-r-ci-rc-u-its_4">TX D rive r Ci rc u its</a></li>
+<li><a href="#output-pad-network-cha-l-lenges">Output Pad Network Cha l lenges</a></li>
+<li><a href="#t-coi-l-output-stage">T-Coi l Output Stage</a></li>
+<li><a href="#t-coi-l-eq-uations">T-Coi l Eq uations</a></li>
+<li><a href="#t-coi-l-wi-ri-ng-i-m-provement">T-Coi l Wi ri ng &amp; I m provement</a></li>
+<li><a href="#a-hel-ica-l-wi-ri-ng-scheme-red-uces-the-vertica-l-pa-rasitic-fri-ng-i-ng-ca-pacita-nce-between-layers-a-nd-i-m-proves-self-resona-nce-freq-uency-4-5-45">• A hel ica l wi ri ng scheme red uces the vertica l pa rasitic fri ng i ng ca pacita nce between layers a nd i m proves self- resona nce freq uency 4 5 45</a></li>
+<li><a href="#dou-ble-t-coi-l-output-ba-ndwidth-extension">Dou ble T-Coi l Output Ba ndwidth Extension</a></li>
+<li><a href="#-coi-l-output-ba-ndwidth-extension">-Coi l Output Ba ndwidth Extension</a></li>
+<li><a href="#-coi-l-output-ba-ndwidth-extension_1">-Coi l Output Ba ndwidth Extension</a></li>
+<li><a href="#response-at-tx-pad">Response at TX Pad</a></li>
+<li><a href="#tx-d-rive-r-ci-rc-u-its_5">TX D rive r Ci rc u its</a></li>
+<li><a href="#tx-driver-slew-rate-control">TX Driver Slew Rate Control</a></li>
+<li><a href="#slew-rate-control-red-uces-reflections-a-nd-crossta-l-k">• Slew rate control red uces reflections a nd crossta l k</a></li>
+<li><a href="#slew-rate-control-w-seg-mented-driver">Slew Rate Control w/ Seg mented Driver</a></li>
+<li><a href="#cu-rrent-mode-driver-exa-m-ple">Cu rrent- Mode Driver Exa m ple</a></li>
+<li><a href="#voltage-mode-driver-exa-m-ple">Voltage- Mode Driver Exa m ple</a></li>
+<li><a href="#tx-ci-rcu-it-speed-li-m-itations">TX Ci rcu it Speed Li m itations</a></li>
+<li><a href="#tx-m-u-lti-p-l-exer-fu-l-l-rate">TX M u lti p l exer – Fu l l Rate</a></li>
+<li><a href="#tx-m-u-lti-plexer-fu-l-l-rate-exa-m-ple">TX M u lti plexer – Fu l l Rate Exa m ple</a></li>
+<li><a href="#tx-m-u-lti-p-l-exer-h-a-lf-rate">TX M u lti p l exer – H a lf Rate</a></li>
+<li><a href="#clock-distri-bution-speed-li-m-itations">Clock Distri bution Speed Li m itations</a></li>
+<li><a href="#n-eed-a-faster-clock-u-se-fa-ste-r-cl-ock-b-uffe-rs">• N eed a faster clock  u se fa ste r cl ock b uffe rs</a></li>
+<li><a href="#m-u-lti-plexi-ng-tech-n-iq-ues-12-rate">M u lti plexi ng Tech n iq ues – ½ Rate</a></li>
+<li><a href="#2-1-cmos-m-ux">2 : 1 CMOS M ux</a></li>
+<li><a href="#2-1-cm-l-m-ux">2 : 1 CM L M ux</a></li>
+<li><a href="#i-ncreasi-ng-m-u-lti-plexi-ng-factor-14-rate">I ncreasi ng M u lti plexi ng Factor – ¼ Rate</a></li>
+<li><a href="#i-ncreasi-ng-m-u-lti-plexi-ng-factor-m-ux-speed">I ncreasi ng M u lti plexi ng Factor – M ux Speed</a></li>
+<li><a href="#14-rate-a-rc-h-itectu-re">• ¼ - rate a rc h itectu re</a></li>
+<li><a href="#18-rate-a-rch-itectu-re">• 1/8- rate a rch itectu re</a></li>
+<li><a href="#h-ig-h-order-cu-rrent-mode-output-m-u-lti-plexed">H ig h -Order Cu rrent- Mode Output- M u lti plexed</a></li>
+<li><a href="#cu-rrent-mode-i-n-put-m-u-lti-plexed">Cu rrent- Mode I n put- M u lti plexed</a></li>
+<li><a href="#next-ti-me">Next Ti me</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

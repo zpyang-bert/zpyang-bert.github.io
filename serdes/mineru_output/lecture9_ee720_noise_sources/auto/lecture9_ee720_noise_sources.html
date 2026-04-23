@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lecture9_ee720_noise_sources — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md" class="nav-item active">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">lecture9_ee720_noise_sources</span>
+            <span class="topbar-breadcrumb">mineru_output / lecture9_ee720_noise_sources / auto / lecture9_ee720_noise_sources.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <h1 id="ecen-720-h-ig-h-speed-li-n-ks-ci-rcu-its-a-nd-systems-spri-ng-2023">ECEN 720 : H ig h-Speed Li n ks Ci rcu its a nd Systems Spri ng 2023<a class="headerlink" href="#ecen-720-h-ig-h-speed-li-n-ks-ci-rcu-its-a-nd-systems-spri-ng-2023" title="Permanent link">&para;</a></h1>
+<p>Lectu re 9 : Noise Sou rces</p>
+<p><img alt="" src="images/31853f0618e32f718a767a5b6b334a73bd54d28aec5d414bf7c308ab261213e3.jpg" /></p>
+<p>Sa m Pa lermo Ana log &amp; M ixed -Sig na l Center Texas A&amp;M U n iversity</p>
+<h2 id="an-nou-ncements">An nou ncements<a class="headerlink" href="#an-nou-ncements" title="Permanent link">&para;</a></h2>
+<p>• La b 5 Report &amp; Prela b 6 d ue Ma r 27</p>
+<p>• Stateye theory pa per posted on website</p>
+<h2 id="noise-i-n-h-ig-h-speed-li-n-k-systems">Noise i n H ig h-Speed Li n k Systems<a class="headerlink" href="#noise-i-n-h-ig-h-speed-li-n-k-systems" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/f4ba928889e728a3c8c06bbebb8108ad3d5cd0cfd0df508aeab791f25ea6097b.jpg" /></p>
+<h2 id="m-u-lti-ple-noise-sou-rces-ca-n-deg-rade-l-i-n-k-ti-m-i-ng-a-nd-a-m-pl-itude-ma-rg-i-n">• M u lti ple noise sou rces ca n deg rade l i n k ti m i ng a nd a m pl itude ma rg i n<a class="headerlink" href="#m-u-lti-ple-noise-sou-rces-ca-n-deg-rade-l-i-n-k-ti-m-i-ng-a-nd-a-m-pl-itude-ma-rg-i-n" title="Permanent link">&para;</a></h2>
+<h2 id="noise-sou-rce-overview">Noise Sou rce Overview<a class="headerlink" href="#noise-sou-rce-overview" title="Permanent link">&para;</a></h2>
+<h2 id="com-mon-noise-sou-rces">• Com mon “ noise” sou rces<a class="headerlink" href="#com-mon-noise-sou-rces" title="Permanent link">&para;</a></h2>
+<p>Power su pply noise</p>
+<p>Receiver offset</p>
+<p>• Crossta l k</p>
+<p>I nter-sym bol i nterference</p>
+<p>• Ra ndom noise</p>
+<h2 id="power-su-pply-noise">• Power su pply noise<a class="headerlink" href="#power-su-pply-noise" title="Permanent link">&para;</a></h2>
+<p>• Switch i ng cu rrent th roug h fi n ite su pply i m peda nce ca uses su pply voltage d rops th at va ry with ti m e a n d physica l location</p>
+<h2 id="receive-r-offset">• Receive r offset<a class="headerlink" href="#receive-r-offset" title="Permanent link">&para;</a></h2>
+<p>• Ca used by ra ndom device m ismatches</p>
+<h2 id="crossta-l-k">• Crossta l k<a class="headerlink" href="#crossta-l-k" title="Permanent link">&para;</a></h2>
+<p>• O ne sig na l (agg ressor) i nte rfe ri n g with a n oth e r s i g n a l (vi cti m )</p>
+<p>On -ch i p cou pl i ng (ca pacitive)</p>
+<p>Off-c h i p co u p l i n g (t- l i n e)</p>
+<p>• Nea r-end</p>
+<p>Fa r-end</p>
+<h2 id="i-nter-sym-bol-i-nterference">I nter-sym bol i nterference<a class="headerlink" href="#i-nter-sym-bol-i-nterference" title="Permanent link">&para;</a></h2>
+<p>• Sig na l d ispersion ca u ses s i g n a l to i nte rfe re with itse l f</p>
+<h2 id="ra-ndom-noise">• Ra ndom noise<a class="headerlink" href="#ra-ndom-noise" title="Permanent link">&para;</a></h2>
+<p>Therma l &amp; shot noise</p>
+<p>Clock j itter com ponents</p>
+<h2 id="bou-nded-a-nd-statistica-l-noise-sou-rces">Bou nded a nd Statistica l Noise Sou rces<a class="headerlink" href="#bou-nded-a-nd-statistica-l-noise-sou-rces" title="Permanent link">&para;</a></h2>
+<h2 id="bou-nded-or-deterministic-noise-sou-rces">• Bou nded or deterministic noise sou rces<a class="headerlink" href="#bou-nded-or-deterministic-noise-sou-rces" title="Permanent link">&para;</a></h2>
+<p>• Have theoretica l ly pred icta ble va l ues with defi ned worst-case bou nds</p>
+<p>• Al l ows fo r s i m p l e ( b ut pessi m istic) worst-case a na lysis</p>
+<p>• Exa m ples</p>
+<p>• Crossta l k to sma l l cha n nel cou nt</p>
+<p>• I S I</p>
+<p>• Rece ive r offset</p>
+<h2 id="statistica-l-or-random-noise-sou-rces">Statistica l or random noise sou rces<a class="headerlink" href="#statistica-l-or-random-noise-sou-rces" title="Permanent link">&para;</a></h2>
+<p>Treat noise as a ra ndom process • Sou rce may be psuedo- ra ndom</p>
+<p>Often cha racterized w/ Ga u ssia n stats</p>
+<p>RM S va l ue</p>
+<p>Proba bi l ity density fu nction ( PD F)</p>
+<p>• Exa m ples</p>
+<p>- Therma l noise</p>
+<p>Clock j itter com ponents</p>
+<p>• Crossta l k to la rge cha n nel cou nt</p>
+<h2 id="u-ndersta-nd-i-ng-whether-noise-sou-rce-is-bou-nded-or-ra-ndom-is-critica-l-to-accu-rate-l-i-n-k-performa-nce-esti-mation">• U ndersta nd i ng whether noise sou rce is bou nded or ra ndom is critica l to accu rate l i n k performa nce esti mation<a class="headerlink" href="#u-ndersta-nd-i-ng-whether-noise-sou-rce-is-bou-nded-or-ra-ndom-is-critica-l-to-accu-rate-l-i-n-k-performa-nce-esti-mation" title="Permanent link">&para;</a></h2>
+<h2 id="proportiona-l-a-nd-i-ndependent-noise-sou-rces">Proportiona l a nd I ndependent Noise Sou rces<a class="headerlink" href="#proportiona-l-a-nd-i-ndependent-noise-sou-rces" title="Permanent link">&para;</a></h2>
+<h2 id="some-noise-is-proportional-to-sig-na-l-swi-ng">• Some noise is proportional to sig na l swi ng<a class="headerlink" href="#some-noise-is-proportional-to-sig-na-l-swi-ng" title="Permanent link">&para;</a></h2>
+<p>• Crossta l k</p>
+<p>• Si m u lta neous switch i ng power su pply noise</p>
+<p>• I SI</p>
+<p>• Some noise is independent to sig na l swi ng</p>
+<p>RX offset</p>
+<p>Non-IO power su pply noise</p>
+<p>• Ca n overpower th is noise</p>
+<h2 id="ca-n-t-overpower-th-is-noise">• Ca n ’t overpower th is noise<a class="headerlink" href="#ca-n-t-overpower-th-is-noise" title="Permanent link">&para;</a></h2>
+<p>La rger sig na l = more noise</p>
+<p>$$
+\underset { \ b { \mathscr { n } } } { V } = \underset { \ b { \mathscr { n } } } { K } \underset { \ b { \mathscr { n } } } { V } + \underset { \ b { N } } { V } ,
+$$</p>
+<p>Tota l noise</p>
+<p>Proportiona l noise consta nt</p>
+<p>Independent noise</p>
+<p>Sig na l swi ng</p>
+<h2 id="com-mon-noise-sou-rces_1">Com mon Noise Sou rces<a class="headerlink" href="#com-mon-noise-sou-rces_1" title="Permanent link">&para;</a></h2>
+<p>• Power su pply noise</p>
+<p>Receiver offset</p>
+<p>• Crossta l k</p>
+<p>• I nter-sym bol i nterference</p>
+<p>• Ra ndom noise</p>
+<h2 id="power-su-pply-noise_1">Power Su pply Noise<a class="headerlink" href="#power-su-pply-noise_1" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/4f3966f8897af697aa391a851b9fae0562373868f117ba2bdb1e233c2484c9cb.jpg" /><br />
+[Hodges ]</p>
+<p>• Ci rcu its d raw cu rrent from the VD D su pply nets a nd retu rn cu rre nt to th e G N D n ets</p>
+<p>• Su pply networks have fi n ite i m peda nce</p>
+<p>• Ti me-va ryi ng (switch i ng) cu rrents i nd uce va riations on the su pply voltage</p>
+<p>• Su pply noise a ci rcu it sees depend s on its location i n su pply d istri bution network</p>
+<h2 id="power-routi-ng">Power Routi ng<a class="headerlink" href="#power-routi-ng" title="Permanent link">&para;</a></h2>
+<p>Bad – Block B wi l l experience excessive su pply noise</p>
+<p><img alt="" src="images/c8fe97029a48f0f742109114ac5c7ce3db2cc5acc15d61451f5bc373fe9403a7.jpg" /><br />
+Even Better – Block A &amp; B wi l l expe ri e n ce s i m i l a r su pply noise</p>
+<p><img alt="" src="images/1e7ebbfcc57a037b5f8ae36d138940425cb49ebea5474336d71917810f25ac99.jpg" /></p>
+<p>Bette r – B l ock B wi l l expe rie n ce 1/2 su pply noise, but at the cost of dou ble the power routi ng th roug h blocks</p>
+<p><img alt="" src="images/f57c2e3df299ca5aa9c2ce1208d5b19e1e9215522ef21c38afb8f84315d5874c.jpg" /><br />
+Best – Block A &amp; B a re more isolated</p>
+<p><img alt="" src="images/7d30d98b717e05486e3a04e4e602eb9165134df76285ae5f2f50173bc2ffa629.jpg" /></p>
+<h2 id="su-pply-i-nd-uced-delay-va-riation">Su pply I nd uced Delay Va riation<a class="headerlink" href="#su-pply-i-nd-uced-delay-va-riation" title="Permanent link">&para;</a></h2>
+<p>• Su pply noise ca n i nd uce va riations i n ci rcu it delay</p>
+<p>Resu lts i n determ i n istic j itter on clocks $\&amp;$ data sig na l s</p>
+<p><img alt="" src="images/3712cfd87d81f8bd77f36326f04087d42b767957879f4630c1e371d21f1e0de3.jpg" /></p>
+<p>$$
+t _ { _ { P H L } } = \frac { C _ { L } \left( V D D / 2 \right) } { I _ { D S A T N } } = \frac { C _ { L } \left( V D D / 2 \right) } { \left( \frac { W _ { N } \nu _ { s a t } C _ { o x } \left( V D D - V _ { _ { T N } } \right) ^ { 2 } } { V D D - V _ { _ { T N } } + E _ { c N } L _ { _ { N } } } \right) ^ { \approx } } \frac { C _ { L } V D D } { 2 W _ { N } \nu _ { s a t } C _ { o x } \left( V D D - V _ { _ { T N } } \right) }
+$$</p>
+<p>$$
+\mathbf { D e l a y } \propto { \frac { V D D } { { V D D } - V _ { _ { T N } } } } \approx \propto V D D
+$$</p>
+<p>• CMOS delay is a pproxi mately d i rectly proportiona l to VDD</p>
+<p>M o re d e l ay res u lts i n m o re d ete rm i n i sti c j itte r</p>
+<h2 id="si-m-u-lta-neous-switch-i-ng-noise">Si m u lta neous Switch i ng Noise<a class="headerlink" href="#si-m-u-lta-neous-switch-i-ng-noise" title="Permanent link">&para;</a></h2>
+<p>• Fi n ite su pply i m peda nce ca u ses sig n ifica nt Si m u lta neous Switch i ng Output (SSO) noise (xta l k)</p>
+<p>• SSO noise is proportiona l to n u m ber of outputs switch i n g , n , a n d i nve rse ly p ro po rti o n a l to s i g n a l tra n s iti o n ti m e, $\mathfrak { t } _ { \mathfrak { r } }$</p>
+<p>$$
+V _ { _ { N } } = L { \frac { i } { t _ { r } } } { = } n { \frac { L V _ { s } } { Z _ { 0 } t _ { r } } }
+$$</p>
+<p><img alt="" src="images/0e431c14c327cddf055d25c9afc376970f041188caff19f2be7a28a94ecb5232.jpg" /></p>
+<h2 id="com-mon-noise-sou-rces_2">Com mon Noise Sou rces<a class="headerlink" href="#com-mon-noise-sou-rces_2" title="Permanent link">&para;</a></h2>
+<p>• Power su pply noise</p>
+<p>• Receiver offset</p>
+<p>• Crossta l k</p>
+<p>• I nter-sym bol i nterference</p>
+<p>• Ra ndom noise</p>
+<h2 id="receiver-i-n-put-referred-offset">Receiver I n put Referred Offset<a class="headerlink" href="#receiver-i-n-put-referred-offset" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/63a93ada54d9a773d13cb041c9d2d1e1076caea43c8b7446a089b8d8b9176384.jpg" /></p>
+<p>• Th e i n p ut refe rred offset i s p ri m a ri ly a fu n cti o n of $\mathsf { V } _ { \mathtt { t h } }$ m ismatch a nd a wea ker fu nction of   (mobi l ity) m ismatch</p>
+<p>$$
+\sigma _ { { } _ { V _ { t } } } = { \frac { A _ { { } _ { V _ { t } } } } { \sqrt { W L } } } , \quad \sigma _ { { } _ { \Delta \beta / \beta } } = { \frac { A _ { \beta } } { \sqrt { W L } } }
+$$</p>
+<h2 id="receiver-i-n-put-referred-offset_1">Receiver I n put Referred Offset<a class="headerlink" href="#receiver-i-n-put-referred-offset_1" title="Permanent link">&para;</a></h2>
+<p>$$
+\sigma _ { { } _ { V _ { t } } } = { \frac { A _ { { } _ { V _ { t } } } } { \sqrt { W L } } } , \quad \sigma _ { { } _ { \Delta \beta / \beta } } = { \frac { A _ { \beta } } { \sqrt { W L } } }
+$$</p>
+<p>• To red uce i n put offset $2 \times ,$ we need to i ncrease a rea 4x</p>
+<p>Not practica l d ue to excessive a rea a nd power consu m ption</p>
+<p>• Offset correction necessa ry to efficiently ach ieve good sensitivity</p>
+<p>• Idea l ly the offset “A” coefficients a re g iven by the desig n kit a nd M onte Ca rlo is performed to extract offset sig ma</p>
+<p>If not, here a re some com mon va l ues :</p>
+<p>• $\mathsf { A } _ { \mathsf { V } \mathrm { t } } = 1 \mathsf { m } \mathsf { V } \mu \mathsf { m }$ per n m of $\mathfrak { t } _ { \mathfrak { o x } }$</p>
+<p>• For ou r defa u lt 90n m tech nology, $\mathsf { t } _ { \mathsf { o x } } { = } 2 . 8 \mathsf { n m } \to \mathsf { A } _ { \mathsf { v t } } { \sim } 2 . 8 \mathsf { m V } \mathsf { \mu m }$</p>
+<p>• $\mathsf { \pmb { A } } _ { \beta }$ is genera l ly nea r $2 \% \mu \mathrm { m }$</p>
+<h2 id="com-mon-noise-sou-rces_3">Com mon Noise Sou rces<a class="headerlink" href="#com-mon-noise-sou-rces_3" title="Permanent link">&para;</a></h2>
+<p>• Power su pply noise</p>
+<p>• Receiver offset</p>
+<p>• Crossta l k</p>
+<p>• I nter-sym bol i nterference</p>
+<p>Ra ndom noise</p>
+<h2 id="crossta-l-k_1">Crossta l k<a class="headerlink" href="#crossta-l-k_1" title="Permanent link">&para;</a></h2>
+<p>• Crossta l k is noise i nd uced by one sig na l (agg ressor) that i nte rfe res with a n oth e r s i g n a l (vi cti m )</p>
+<h2 id="m-a-i-n-crossta-l-k-sou-rces">• M a i n crossta l k sou rces<a class="headerlink" href="#m-a-i-n-crossta-l-k-sou-rces" title="Permanent link">&para;</a></h2>
+<p>• Cou pl i ng between on-ch i p (ca pacitive) wi res</p>
+<p>Cou pl i ng between off-ch i p (t- l i ne/cha n nel ) wi res</p>
+<p>Sig na l retu rn cou pl i ng</p>
+<h2 id="crossta-l-k-is-a-proportiona-l-noise-sou-rce">• Crossta l k is a proportiona l noise sou rce<a class="headerlink" href="#crossta-l-k-is-a-proportiona-l-noise-sou-rce" title="Permanent link">&para;</a></h2>
+<p>• Ca n not be red uced by sca l i ng sig na l levels</p>
+<p>• Add ressed by usi ng proper sig na l conventions, i m provi ng cha n nel a nd su pply network, a nd usi ng good ci rcu it desig n a nd layout tech n iq ues</p>
+<h2 id="crossta-l-k-to-ca-pacitive-li-nes">Crossta l k to Ca pacitive Li nes<a class="headerlink" href="#crossta-l-k-to-ca-pacitive-li-nes" title="Permanent link">&para;</a></h2>
+<p>On -ch i p wi res have sig n ifica nt ca pacita nce to adjacent wi res both on sa me meta l layer a nd adjacent vertica l layers</p>
+<p>• Fl oati n g vi cti m</p>
+<p>Exa m ples : Sa m ple- nodes, dom i no log ic</p>
+<p>When agg ressor switches</p>
+<p>• Sig na l gets cou pled to victi m via a ca pacitive voltage d ivider</p>
+<p>• S i g n a l i s n ot resto red</p>
+<p>$$
+\Delta V _ { _ B } = k _ { c } \Delta V _ { _ A }
+$$</p>
+<p>$$
+k _ { c } = \frac { C _ { C } } { C _ { C } + C _ { O } }
+$$</p>
+<p>[ Da l l y ]</p>
+<h2 id="crossta-l-k-to-driven-ca-pacitive-li-nes">Crossta l k to Driven Ca pacitive Li nes<a class="headerlink" href="#crossta-l-k-to-driven-ca-pacitive-li-nes" title="Permanent link">&para;</a></h2>
+<p>• Crossta l k to a d rive n l i ne wi l l decay away with a ti m e-co n sta nt</p>
+<p>$$
+\tau _ { x c } = R _ { o } \big ( C _ { c } + C _ { o } \big )
+$$</p>
+<p>• Pea k crossta l k is i nversely proportiona l to agg ressor tra nsition ti m es, $\sf { t } _ { r } ,$ a nd d rive strength $( 1 / \mathsf { R } _ { 0 } )$</p>
+<p><img alt="" src="images/544d1e32e0a06e357cc94e39f65cf15ce6c914026d1ce8d71a782f35871f2ada.jpg" /></p>
+<p><img alt="" src="images/47cd7e45884dbd361772c1b5e73c07f61e6099f092735ed97716b7f8412cccea.jpg" /></p>
+<p>Ideal Unit Step :</p>
+<p>$$
+\Delta V _ { _ { B } } ( t ) = k _ { c } \exp \biggl ( - \frac { t } { \tau _ { _ { x c } } } \biggr )
+$$</p>
+<p>Step with Finite Rise Time, $t _ { r }$ :</p>
+<p>$$
+\Delta V _ { _ { B } } ( t ) = \left{ \begin{array} { c c } { \displaystyle k _ { c } \left( \frac { \tau _ { _ { x c } } } { t _ { r } } \right) \left[ 1 - \exp \left( - \frac { t } { \tau _ { _ { x c } } } \right) \right] } &amp; { \mathrm { i f ~ } t &lt; t _ { r } } \ { \displaystyle k _ { c } \left( \frac { \tau _ { _ { x c } } } { t _ { r } } \right) \left[ \exp \left( - \frac { t - t _ { r } } { \tau _ { _ { x c } } } \right) - \exp \left( - \frac { t } { \tau _ { _ { x c } } } \right) \right] } &amp; { \mathrm { i f ~ } t \geq t _ { r } } \end{array} \right.
+$$</p>
+<h2 id="ca-pacitive-crossta-l-k-delay-i-m-pact">Ca pacitive Crossta l k Delay I m pact<a class="headerlink" href="#ca-pacitive-crossta-l-k-delay-i-m-pact" title="Permanent link">&para;</a></h2>
+<p>• Agg ressor tra nsition i ng nea r victi m tra nsition ca n mod u late the victi m ’s effective load ca pacita nce</p>
+<p>• Th is mod u lates the victi m sig na l ’s delay, resu lti ng i n d ete rm i n i sti c j itte r</p>
+<p><img alt="" src="images/cdb31030c77834c14db5791e5472cd68dbb51a3d67d716dc5653e6e156cd08e1.jpg" /></p>
+<p>Aggressor Static : $C _ { L } = C _ { g n d } + C _ { C }$</p>
+<p>Aggressor Switching Same Way : $C _ { L } = C _ { g n d }$</p>
+<p>Aggressor Switching Opposite Way : $C _ { L } = C _ { g n d } + 2 C _ { C }$</p>
+<h2 id="m-itigati-ng-ca-pacitive-o-n-ch-i-p-crossta-l-k">M itigati ng Ca pacitive (O n -Ch i p) Crossta l k<a class="headerlink" href="#m-itigati-ng-ca-pacitive-o-n-ch-i-p-crossta-l-k" title="Permanent link">&para;</a></h2>
+<p>• Adjacent vertica l meta l layers shou ld be routed perpend icu la r ( Ma n hatta n routi ng)</p>
+<p>• Li m it maxi m u m pa ra l lel routi ng d ista nce</p>
+<p>• Avoid floati ng sig na l s a nd u se keeper tra nsistors with dyna m ic log ic</p>
+<p>• M axi m ize sig na l tra n sitio n ti m e</p>
+<p>Tra d e-off with j itte r se n s itivity</p>
+<p>• Fo r d iffe re ntia l si g n a l s, pe riod i ca l ly “twi st” ro uti n g to m a ke cross-ta l k com mon - mode</p>
+<p>• Sepa rate sensitive sig na l s</p>
+<p>• Use sh ield wi res</p>
+<p>• Cou ple DC sig na ls to a ppropriate su pply</p>
+<h2 id="tra-nsm-ission-li-ne-crossta-l-k">Tra nsm ission Li ne Crossta l k<a class="headerlink" href="#tra-nsm-ission-li-ne-crossta-l-k" title="Permanent link">&para;</a></h2>
+<p>• 2 cou pled l i nes :</p>
+<p><img alt="" src="images/63bbc16b29c27b25f19cbaedd2a3b1abc6a48bb27362b0a28c8a14c2cf27cc4b.jpg" /></p>
+<p>• Tra nsient voltage sig na l on A is cou pled to B ca pacitively</p>
+<p>$$
+{ \frac { d V _ { _ { B } } ( x , t ) } { d t } } = k _ { _ { c x } } { \frac { d V _ { _ { A } } ( x , t ) } { d t } } \quad { \mathrm { ~ w h e r e ~ } } \quad \left[ k _ { _ { c x } } = { \frac { C _ { c } } { C _ { s } + C _ { c } } } \right]
+$$</p>
+<p>• Ca pacitive cou pl i ng sends ha lf the cou pled energy i n each d i rection with eq u a l po l a rity</p>
+<h2 id="tra-nsm-ission-li-ne-crossta-l-k_1">Tra nsm ission Li ne Crossta l k<a class="headerlink" href="#tra-nsm-ission-li-ne-crossta-l-k_1" title="Permanent link">&para;</a></h2>
+<p>• 2 cou pled l i nes :</p>
+<p><img alt="" src="images/8f97381de2346cbb0f05a4983f447bce75b3f7b12dc621b913421a9a1d20c366.jpg" /></p>
+<p>• Tra nsient cu rrent sig na l on A is cou pled to B th roug h m utua l i nd ucta nce</p>
+<p>$$
+\begin{array} { c } { \displaystyle \frac { \partial I _ { _ { A } } ( { \boldsymbol { x } } , t ) } { \partial t } = - \frac { \partial V _ { _ { A } } ( { \boldsymbol { x } } , t ) } { L \partial { \boldsymbol x } } } \ { \displaystyle \frac { d V _ { _ { B } } ( { \boldsymbol { x } } , t ) } { d x } = - M \frac { d I _ { _ { A } } ( { \boldsymbol { x } } , t ) } { d t } = \frac { M } { L } \bigg [ \frac { d V _ { _ { A } } ( { \boldsymbol { x } } , t ) } { d x } \bigg ] = k _ { l x } \frac { d V _ { _ { A } } ( { \boldsymbol { x } } , t ) } { d x } ~ \mathrm { w h e r e } ~ \left[ k _ { l x } = \frac { M } { L } \right] } \end{array}
+$$</p>
+<p>• I nd uctive cou pl i ng sends ha lf the cou pled energy i n each d i rection with a negative forwa rd travel i ng wave a nd a positive reverse travel i ng wave</p>
+<h2 id="nea-r-a-nd-fa-r-end-crossta-l-k">Nea r- a nd Fa r- End Crossta l k<a class="headerlink" href="#nea-r-a-nd-fa-r-end-crossta-l-k" title="Permanent link">&para;</a></h2>
+<h2 id="h-a-l-l">[ H a l l ]<a class="headerlink" href="#h-a-l-l" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/d7202d6016acc1e3953ddf5bb4e6e0a920204699a2e6375478357da95e2d3b00.jpg" /></p>
+<p><img alt="" src="images/8e3c7b66cdcad807181c42ddf064472b24d21c3d39b7038de960c6c8c8226a8e.jpg" /></p>
+<p>(b)<br />
+<img alt="" src="images/189388d440a19539c6e6d343bae27bc9e66fbb71d0a64e6b98e5f2ad93db89eb.jpg" /></p>
+<p><img alt="" src="images/2637462256713c3527f1caf89e8926b9cdf25b7630895b2738b1a401d53bd143.jpg" /><br />
+Figure 4-22 Summary of propagation of forward- and backward-coupled noise: (a) ini- ) imi-tinl wave launch; (b) halfway down the line; (c) one full trip down the line; (d) round ound trip.</p>
+<p><img alt="" src="images/7ca916ffaeee7010e04ac0144f561d85e3b7d36788554513395536dafa493086.jpg" /></p>
+<p>• N ea r-end crossta l k ( N EXT) is i m med iately observed sta rti ng at the agg ressor tra nsition ti me a nd conti n u i ng for a rou nd -tri p delay</p>
+<p>• Due to the ca pacitive a nd i nd uctive cou pl i ng terms havi ng the sa me pola rity, the N EXT sig na l wi l l have the sa me pola rity as the agg ressor</p>
+<p>• Fa r-end crossta l k ( FEXT) propagates a long the victi m cha n nel with the i ncident sig na l a nd is on ly observed once</p>
+<p>• Due to the ca pacitive a nd i nd uctive cou pl i ng terms havi ng the opposite pola rity, the FEXT sig na l ca n have either pola rity, a nd i n a homogeneous med i u m (stri pl i ne) ca ncel out</p>
+<h2 id="nea-r-a-nd-fa-r-end-crossta-l-k_1">Nea r- a nd Fa r- End Crossta l k<a class="headerlink" href="#nea-r-a-nd-fa-r-end-crossta-l-k_1" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/d1f98bc7d13c448ab43084fe75dd3770a02a76d034541e3d70eb999e23a834a8.jpg" /></p>
+<p>Reverse Cou pl i ng Coefficient ${ \sf k } _ { \sf r x }$ ( N EXT)</p>
+<p>Forwa rd Cou pl i ng Coefficient $\mathsf { k } _ { \mathsf { f x } }$ ( FEXT)</p>
+<p>$$
+\begin{array} { c } { \boxed { k _ { r x } = \frac { \left( k _ { c x } + k _ { l x } \right) } { 4 } } } \ { k _ { f x } = \frac { \left( k _ { c x } - k _ { l x } \right) } { 2 } } \end{array}
+$$</p>
+<p>For derivation of ${ \sf k } _ { \sf r x }$ a nd ${ \sf k } _ { \sf f x } ,$ see D a l l y 6 . 3 . 2 . 3</p>
+<h2 id="off-ch-i-p-crossta-l-k">Off-Ch i p Crossta l k<a class="headerlink" href="#off-ch-i-p-crossta-l-k" title="Permanent link">&para;</a></h2>
+<p> Occu rs mostly i n package a nd boa rd - to- boa rd con nectors</p>
+<p> FEXT is atten uated by cha n nel response a nd has ba nd - pass cha racteristic</p>
+<p> N EXT d i rectly cou ples i nto vi cti m a n d h a s h ig h - pass cha racteristic</p>
+<p><img alt="" src="images/1431f3f938463582aec81188af9b801834f229e777910ef476f9bb0bdbc648ba.jpg" /></p>
+<p><img alt="" src="images/b22cb2d300b147f75c085fead3632972d195df2fe49f7592132bd535684439e7.jpg" /></p>
+<h2 id="sig-na-l-retu-rn-crossta-l-k">Sig na l Retu rn Crossta l k<a class="headerlink" href="#sig-na-l-retu-rn-crossta-l-k" title="Permanent link">&para;</a></h2>
+<p>• Sha red retu rn path with fi n ite i m peda nce</p>
+<p>• Retu rn cu rrents i nd uce crossta l k occu rs a mong sig na l s</p>
+<p><img alt="" src="images/06bee899f791f31651f40c3c6c5bb4a9a71971187b7b9b2ddfdf4e64567b8476.jpg" /></p>
+<p><img alt="" src="images/983ed82a2c30725effae440661f592cab77c6c9ba56cc062f1efcacbdf094d59.jpg" /></p>
+<p>Return Cro s stalk Voltage : $V _ { x r } = \Delta V \frac { Z _ { R } } { Z _ { 0 } } = k _ { x r } \Delta V$</p>
+<h2 id="com-mon-noise-sou-rces_4">Com mon Noise Sou rces<a class="headerlink" href="#com-mon-noise-sou-rces_4" title="Permanent link">&para;</a></h2>
+<p>• Power su pply noise</p>
+<p>• Receiver offset</p>
+<p>• Crossta l k</p>
+<p>• I nte r-sym bo l i nte rfe re n ce</p>
+<p>Ra ndom noise</p>
+<h2 id="i-nte-r-sym-bo-l-i-nte-rfe-re-n-ce-i-si">I nte r- Sym bo l I nte rfe re n ce ( I SI )<a class="headerlink" href="#i-nte-r-sym-bo-l-i-nte-rfe-re-n-ce-i-si" title="Permanent link">&para;</a></h2>
+<p>• Previou s bits resid ua l state ca n d i sto rt th e cu rre nt b it, res u lti n g i n i nte r-sym bo l i nte rfe re n ce (ISI)</p>
+<p>$$
+y ^ { ( d _ { k } ) } ( t ) = c ^ { ( d _ { k } ) } ( t ) * h ( t )
+$$</p>
+<p>$$
+\mathsf { y } ^ { ( 1 ) } ( \mathsf { t } )
+$$</p>
+<p><img alt="" src="images/22d7882dedd72ad4a29da012f3346cbe5156f7d41ae7c2949e47cfd27f87fc61.jpg" /></p>
+<p>$$
+\mathsf { y } ^ { ( 0 ) } ( \mathsf { t } ) = - \mathsf { 1 } ^ { \ast } \mathsf { y } ^ { ( 1 ) } ( \mathsf { t } )
+$$</p>
+<h2 id="pea-k-distortion-ana-lysis-exa-m-ple">Pea k Distortion Ana lysis Exa m ple<a class="headerlink" href="#pea-k-distortion-ana-lysis-exa-m-ple" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/1ad93f77c5dd1785f56304ba4ebf632ce51e2bef0f6e7f8da717b8350c32175f.jpg" /></p>
+<p>$$
+\begin{array} { c } { { y _ { 0 } ^ { ( 1 ) } ( t ) = 0 . 5 4 0 } } \ { { \displaystyle \sum _ { k = - \infty } ^ { \infty } y ^ { ( 1 ) } \big ( t - k T \big ) _ { | y ( t - k T ) \times 0 } = - 0 . 0 0 7 } } \ { { \displaystyle \sum _ { k = - \infty } ^ { \infty } y ^ { ( 1 ) } \big ( t - k T \big ) _ { | y ( t - k T ) \times 0 } = 0 . 3 8 9 } } \ { { \displaystyle k \approx 0 } } \ { { s ( t ) = 2 \big ( 0 . 5 4 0 - 0 . 0 0 7 - 0 . 3 8 9 \big ) = 0 . 2 8 8 } } \end{array}
+$$</p>
+<p><img alt="" src="images/2fbc2521511ebabaac3d741c9c69c57c9724feca3e037b41adc51c65165d1862.jpg" /></p>
+<p><img alt="" src="images/759cdbd7688ad6c9fd941900257b1c80e3e5209e52764f9f454ea12a7de09325.jpg" /></p>
+<h2 id="worst-case-eye-vs-ra-ndom-data-eye">Worst-Case Eye vs Ra ndom Data Eye<a class="headerlink" href="#worst-case-eye-vs-ra-ndom-data-eye" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/185bad70d7df9c490ca45ba3bf6825649c9622337d141ef7be35ec33623c87e1.jpg" /><br />
+• Worst-case data pattern ca n occu r at very low proba bi l ity !</p>
+<p>• Consideri ng worst-case is too pessi m istic</p>
+<h2 id="constructi-ng-isi-proba-bi-l-ity-density-fu-nction-pdf">Constructi ng ISI Proba bi l ity Density Fu nction ( PDF)<a class="headerlink" href="#constructi-ng-isi-proba-bi-l-ity-density-fu-nction-pdf" title="Permanent link">&para;</a></h2>
+<p>• Usi ng ISI proba bi l ity density fu nction wi l l yield a more accu rate BER performa nce esti mate</p>
+<p>• I n order to construct the tota l ISI PDF, need to convolve a l l of the i nd ivid ua l ISI term PD Fs together • 50% proba bi l ity of “ 1 ” sym bol ISI a nd “ - 1 ” sym bo l ISI</p>
+<p><img alt="" src="images/3623001e03be6d4429ab970f785e325b6d4f7cc6021e567679d05d67024e142c.jpg" /></p>
+<p><img alt="" src="images/3b364403f5b14476a7b473e1400681efc37a57bf9f655628420abf6be7728b48.jpg" /></p>
+<p><img alt="" src="images/c8a447f0f5327d2b3b3859dd795847f314ed966954a05125a1e652c08822cdd6.jpg" /></p>
+<p><img alt="" src="images/ca68f15e3034902a56280d7d099ca2e597e73646627beaa41662b4666b2ce5cc.jpg" /></p>
+<h2 id="convolvi-ng-i-nd-ivid-ua-l-isi-pdfs-together">Convolvi ng I nd ivid ua l ISI PDFs Together<a class="headerlink" href="#convolvi-ng-i-nd-ivid-ua-l-isi-pdfs-together" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/46996814dba4297955cd41af18e40b6162bedb2b64fe70d521f5b214df773091.jpg" /></p>
+<p><img alt="" src="images/0c2d9f1a308771f21d82050bdead0b5d825cfc845cb8d8542a7e1723d206b2f2.jpg" /></p>
+<p><img alt="" src="images/bcf6fad0981cc70acc2c2b1a9f38a61dafac05cfc6bd805b5828a080709974fe.jpg" /></p>
+<p><img alt="" src="images/604dd74698f12c84645e07d683c04cb7234d5c8f0a07207a45f5698d4474a71f.jpg" /></p>
+<p><img alt="" src="images/b71e8a9248b4043d8a653a58784b77912ba2ec86987a81b650c5a142bd7cd397.jpg" /></p>
+<p><img alt="" src="images/01f4a15ac24df4fa206e6fbb9e2bfca211ebaa21b3405257c21a9e5474aa79f7.jpg" /><br />
+Keep goi ng u nti l a l l i nd ivid ua l PDFs convolved together</p>
+<h2 id="com-plete-isi-pdf">Com plete ISI PDF<a class="headerlink" href="#com-plete-isi-pdf" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/7fbf55171a9d2dbd8a5cd94e9c749de9c75a131316baed937870520d42f335b0.jpg" /></p>
+<h2 id="cu-rsor-pd-f-data-1">Cu rsor PD F – Data 1<a class="headerlink" href="#cu-rsor-pd-f-data-1" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/c27ac65de2ec63d1243237e342ad2db458cfcebf4279744ef358864c6a4a3f87.jpg" /></p>
+<p><img alt="" src="images/86cdea662a2ab156a2a636c48d3739e450b8b53331050bc418da8c97ebf1e414.jpg" /></p>
+<p><img alt="" src="images/70dabdddb66b243abd747955fca9773bcde42deeea9e6a591da5f540d8ceaf16.jpg" /></p>
+<h2 id="data-1-pd-f-is-centered-a-bout-the-cu-rsor-va-l-ue-a-nd-va-ries-from-a-maxi-m-u-m-positive-va-l-ue-to-the-worst-case-va-l-ue-pred-icted-by-pda">• Data 1 PD F is centered a bout the cu rsor va l ue a nd va ries from a maxi m u m positive va l ue to the worst-case va l ue pred icted by PDA<a class="headerlink" href="#data-1-pd-f-is-centered-a-bout-the-cu-rsor-va-l-ue-a-nd-va-ries-from-a-maxi-m-u-m-positive-va-l-ue-to-the-worst-case-va-l-ue-pred-icted-by-pda" title="Permanent link">&para;</a></h2>
+<p>• Th is worst-case va l ue occu rs at a low proba bi l ity !</p>
+<h2 id="cu-rsor-cu-m-u-lative-distri-bution-fu-nction-cd-f">Cu rsor Cu m u lative Distri bution Fu nction (CD F)<a class="headerlink" href="#cu-rsor-cu-m-u-lative-distri-bution-fu-nction-cd-f" title="Permanent link">&para;</a></h2>
+<p>• Fo r a g ive n offset, wh at i s th e p ro ba b i l ity of a Data 1 error?</p>
+<p>• Data 1 e rro r p ro ba b i l ity fo r a g ive n offset i s eq u a l to the Data 1 CDF</p>
+<p>$$
+B E R ( X ) = \int _ { - \infty } ^ { X } ( P D F ) d x
+$$</p>
+<p><img alt="" src="images/12a0e6252c575434a0b84cf80b4bad6997775d2e769aefb2b750563490c08c07.jpg" /></p>
+<p><img alt="" src="images/7b5485923f47055d647eedcff5b66cc32b65bdf2fbaf4fcf9abf4c740f6f286b.jpg" /></p>
+<h2 id="com-bi-n-i-ng-cu-rsor-cdfs">Com bi n i ng Cu rsor CDFs<a class="headerlink" href="#com-bi-n-i-ng-cu-rsor-cdfs" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/480271f7db666320f7decc829d02e0b3d3e2c513ef198c7bb6c88e50433996f2.jpg" /></p>
+<p><img alt="" src="images/a4a8da9b0bfcfe6eb8f1bdbd9a5eb2d561c2cee522c0df5f470f256b7ac2fa27.jpg" /></p>
+<p><img alt="" src="images/2b55271079cc7b91b4ca850276fb0aa42da91533809e162a3c135259fa05a35a.jpg" /></p>
+<h2 id="b-it-e-rro-r-rate-b-e-r-d-i-stri-b-uti-o-n-eye">B it- E rro r- Rate ( B E R) D i stri b uti o n Eye<a class="headerlink" href="#b-it-e-rro-r-rate-b-e-r-d-i-stri-b-uti-o-n-eye" title="Permanent link">&para;</a></h2>
+<p>• Statistica l BE R a na lysis tool s u se th is tech n iq ue to accou nt for ISI d istri bution a nd a l so other noise sou rces</p>
+<p>Exa m ple from Stateye</p>
+<p>Note : Different cha n nel &amp; data rate from previou s sl ides</p>
+<p><img alt="" src="images/131aaa8be69140dca1eb5992c9f1d44b90e4814b867e0c0b869cde8222f8e6a7.jpg" /></p>
+<h2 id="com-mon-noise-sou-rces_5">Com mon Noise Sou rces<a class="headerlink" href="#com-mon-noise-sou-rces_5" title="Permanent link">&para;</a></h2>
+<p>• Power su pply noise</p>
+<p>• Receiver offset</p>
+<p>• Crossta l k</p>
+<p>• I nter-sym bol i nterference</p>
+<p>• Ra ndom noise</p>
+<h2 id="ra-ndom-noise_1">Ra ndom Noise<a class="headerlink" href="#ra-ndom-noise_1" title="Permanent link">&para;</a></h2>
+<p>• Ra ndom noise is u n bou nded a nd modeled stati sti ca l ly</p>
+<p>Exa m ple : Ci rcu it therma l a nd shot noise</p>
+<p>• Modeled as a conti n uous ra ndom va ria ble descri bed by</p>
+<p>• Proba bi l ity density fu nction ( PD F)</p>
+<p>• M ea n , </p>
+<p>Sta nda rd deviation, </p>
+<p>$$
+P D F = P _ { n } ( x ) , \mu _ { n } = \intop _ { - \infty } ^ { \infty } x P _ { n } ( x ) d x , \sigma _ { n } ^ { 2 } = \intop _ { - \infty } ^ { \infty } ( x - \mu _ { n } ) ^ { 2 } P _ { n } ( x ) d x
+$$</p>
+<h2 id="ga-u-ssia-n-distri-bution">Ga u ssia n Distri bution<a class="headerlink" href="#ga-u-ssia-n-distri-bution" title="Permanent link">&para;</a></h2>
+<p>• Ga u ssia n d istri bution is norma l ly assu med for ra ndom noise La rger sig ma va l ue resu lts i n i ncreased d istri bution spread</p>
+<p>$$
+P _ { n } ( x ) = { \frac { 1 } { \sqrt { 2 \pi } \sigma } } e ^ { - { \frac { ( x - \mu _ { n } ) ^ { 2 } } { 2 \sigma ^ { 2 } } } }
+$$</p>
+<p><img alt="" src="images/524b6e09eeeb2695e091750f202171fa70ae77cda63ea82e4fbea44293e1c6c9.jpg" /></p>
+<p>Gaussian PDFs<br />
+<img alt="" src="images/2c4ce05becbeac5dfbd88b44045b47c0570a85970deecdcfb0cee384b703538e.jpg" /></p>
+<h2 id="sig-na-l-with-added-ga-ussia-n-noise">Sig na l with Added Ga ussia n Noise<a class="headerlink" href="#sig-na-l-with-added-ga-ussia-n-noise" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="images/4eb47ef5e1d4a920efd37bf662886e37a5a9cb8d002c3d9e5ab33c31e2d794af.jpg" /></p>
+<p><img alt="" src="images/95a12693f7f9d7c15aa25ea8366aeaaebe54b938b68a00d0958198ed52666cab.jpg" /></p>
+<h2 id="fi-n-ite-proba-bi-l-ity-of-noise-pu-sh-i-ng-sig-na-l-pa-st-th-resh-o-l-d-to-yi-e-l-d-a-n-e-rro-r">• Fi n ite proba bi l ity of noise pu sh i ng sig na l pa st th resh o l d to yi e l d a n e rro r<a class="headerlink" href="#fi-n-ite-proba-bi-l-ity-of-noise-pu-sh-i-ng-sig-na-l-pa-st-th-resh-o-l-d-to-yi-e-l-d-a-n-e-rro-r" title="Permanent link">&para;</a></h2>
+<h2 id="cu-m-u-lative-distri-bution-fu-nction-cdf">Cu m u lative Distri bution Fu nction (CDF)<a class="headerlink" href="#cu-m-u-lative-distri-bution-fu-nction-cdf" title="Permanent link">&para;</a></h2>
+<p>• The CDF tel ls what i s th e p ro ba b i l ity that the noise sig na l is less tha n or eq ua l to a certa i n va l ue</p>
+<p><img alt="" src="images/5dea58c913f86a47d07d46c2cb09ff8d7fa65e8575579620644dcdfd02fd5e99.jpg" /></p>
+<p>$$
+\Phi _ { n } ( x ) = \int _ { u = - \infty } ^ { x } P _ { n } ( u ) d u = \int _ { u = - \infty } ^ { x } \frac { 1 } { \sqrt { 2 \pi } \sigma } e ^ { - \frac { ( u - \mu _ { n } ) ^ { 2 } } { 2 \sigma ^ { 2 } } } d u
+$$</p>
+<h2 id="error-a-nd-com-pl-i-menta-ry-error-fu-nctions">Error a nd Com pl i menta ry Error Fu nctions<a class="headerlink" href="#error-a-nd-com-pl-i-menta-ry-error-fu-nctions" title="Permanent link">&para;</a></h2>
+<p>• E rro r Fu n cti o n :</p>
+<p>$$
+e r f ( x ) = \frac { 2 } { \sqrt { \pi } } \int _ { u = 0 } ^ { x } \exp { \left( - u ^ { 2 } \right) } d u
+$$</p>
+<p>• Relationsh i p between norma l           212 1 xx e rf C D F (0, 1 ) a n d E rro r Fu n cti o n :</p>
+<p>• The com plementa ry error $\begin{array} { c } { { Q ( x ) { = } 1 { - } \Phi ( x ) { = } \displaystyle \frac { 1 } { 2 } \Biggl [ 1 { - } e r f \Biggl ( \displaystyle \frac { x } { { \sqrt 2 } } \Biggr ) \Biggr ] } } \ { { { } } } \ { { { } = \displaystyle \frac { 1 } { 2 } e r f c \Biggl ( \displaystyle \frac { x } { \sqrt 2 } \Biggr ) } } \end{array}$ <br />
+fu nction g ives the proba bi l ity <br />
+that the noise wi l l exceed a <br />
+g iven va l ue</p>
+<p>$$
+Q _ { \mu \sigma } ( x ) { = } { = } { \frac { 1 } { 2 } } e r f c { \left( { \frac { x - \mu } { \sigma { \sqrt { 2 } } } } \right) }
+$$</p>
+<h2 id="b-it-e-rro-r-rate-b-e-r">B it E rro r Rate ( B E R)<a class="headerlink" href="#b-it-e-rro-r-rate-b-e-r" title="Permanent link">&para;</a></h2>
+<p>• U si n g e rfc to p red ict B E R :</p>
+<p><img alt="" src="images/77979f0de26d09474e029e42432971c69fee061f927a7ba5866443465df90bd2.jpg" /></p>
+<p>• Need a sym bol of a bout $7 \sigma$ fo r B E R= 1 0- 1 2</p>
+<p>• Pea k-to- pea k va l ue wi l l be $2 { \tt x }$ th i s</p>
+<h2 id="n-oise-sou-rce-classifications">N oise Sou rce Classifications<a class="headerlink" href="#n-oise-sou-rce-classifications" title="Permanent link">&para;</a></h2>
+<p>• Determ i n i ng whether noise sou rce is</p>
+<p>Proportiona l vs I ndependent</p>
+<p>• Bou nded vs Statistica l</p>
+<p>• is i m porta nt i n noise budgeti ng</p>
+<p>Proportional Independent</p>
+<table><tr><td rowspan=2 colspan=1>papunog</td><td rowspan=1 colspan=1>Residual ISICrosstalk</td><td rowspan=1 colspan=1>RX OffsetRX SensitivityPower SupplyNoise</td></tr><tr><td rowspan=1 colspan=1>Large-ChannelCrosstalk</td><td rowspan=1 colspan=1>Random Noise</td></tr></table>
+
+<h2 id="noise-budget-exa-m-ple">Noise Budget Exa m ple<a class="headerlink" href="#noise-budget-exa-m-ple" title="Permanent link">&para;</a></h2>
+<p>• Pea k TX d ifferentia l swi ng of $4 0 0 \mathrm { \textmu m V _ { p p d } }$ eq ua l ized down 1 0d B • $\pm 2 0 0 \mathrm { m V }  \pm 6 3 \mathrm { m V }$</p>
+<table><tr><td rowspan=1 colspan=1>Parameter</td><td rowspan=1 colspan=1> $\kappa _ { \mathfrak { n } }$ </td><td rowspan=1 colspan=1>RMS</td><td rowspan=1 colspan=1>Value $( \mathsf { B E R } { = } \mathbf { 1 0 } ^ { - 1 2 } )$ </td></tr><tr><td rowspan=1 colspan=1>Peak DifferentialSwing</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>0.4V</td></tr><tr><td rowspan=1 colspan=1>RX Offset +Sensitivity</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>5mV</td></tr><tr><td rowspan=1 colspan=1>Power SupplyNoise</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>5mV</td></tr><tr><td rowspan=1 colspan=1>Residual ISI</td><td rowspan=1 colspan=1>0.05</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>20mV</td></tr><tr><td rowspan=1 colspan=1>Crosstalk</td><td rowspan=1 colspan=1>0.05</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>20mV</td></tr><tr><td rowspan=1 colspan=1>Random Noise</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>1mV</td><td rowspan=1 colspan=1>14mV</td></tr><tr><td rowspan=1 colspan=1>Attenuation</td><td rowspan=1 colspan=1> $1 0 \mathsf { d } \mathsf { B } = 0 . 6 8 4$ </td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>0.274V</td></tr><tr><td rowspan=1 colspan=1>Total Noise</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>0.338V</td></tr><tr><td rowspan=1 colspan=1>Differential EyeHeight Margin</td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1></td><td rowspan=1 colspan=1>62mV</td></tr></table>
+
+<p><img alt="" src="images/caf668aece016d3361306f5cddbe0f46d7bbcc9240396c70f17951792a6daa21.jpg" /></p>
+<p>• Conservative a na lysis</p>
+<p>• Assu mes a l l d istri butions com bi ne at worst-case</p>
+<p>• Better tech n iq ue is to u se statistica l BE R l i n k si m u lators</p>
+<h2 id="next-ti-me">Next Ti me<a class="headerlink" href="#next-ti-me" title="Permanent link">&para;</a></h2>
+<p>• Ti m i ng Noise</p>
+<p>• BER Ana lysis Tech n iq ues</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul>
+<li><a href="#ecen-720-h-ig-h-speed-li-n-ks-ci-rcu-its-a-nd-systems-spri-ng-2023">ECEN 720 : H ig h-Speed Li n ks Ci rcu its a nd Systems Spri ng 2023</a><ul>
+<li><a href="#an-nou-ncements">An nou ncements</a></li>
+<li><a href="#noise-i-n-h-ig-h-speed-li-n-k-systems">Noise i n H ig h-Speed Li n k Systems</a></li>
+<li><a href="#m-u-lti-ple-noise-sou-rces-ca-n-deg-rade-l-i-n-k-ti-m-i-ng-a-nd-a-m-pl-itude-ma-rg-i-n">• M u lti ple noise sou rces ca n deg rade l i n k ti m i ng a nd a m pl itude ma rg i n</a></li>
+<li><a href="#noise-sou-rce-overview">Noise Sou rce Overview</a></li>
+<li><a href="#com-mon-noise-sou-rces">• Com mon “ noise” sou rces</a></li>
+<li><a href="#power-su-pply-noise">• Power su pply noise</a></li>
+<li><a href="#receive-r-offset">• Receive r offset</a></li>
+<li><a href="#crossta-l-k">• Crossta l k</a></li>
+<li><a href="#i-nter-sym-bol-i-nterference">I nter-sym bol i nterference</a></li>
+<li><a href="#ra-ndom-noise">• Ra ndom noise</a></li>
+<li><a href="#bou-nded-a-nd-statistica-l-noise-sou-rces">Bou nded a nd Statistica l Noise Sou rces</a></li>
+<li><a href="#bou-nded-or-deterministic-noise-sou-rces">• Bou nded or deterministic noise sou rces</a></li>
+<li><a href="#statistica-l-or-random-noise-sou-rces">Statistica l or random noise sou rces</a></li>
+<li><a href="#u-ndersta-nd-i-ng-whether-noise-sou-rce-is-bou-nded-or-ra-ndom-is-critica-l-to-accu-rate-l-i-n-k-performa-nce-esti-mation">• U ndersta nd i ng whether noise sou rce is bou nded or ra ndom is critica l to accu rate l i n k performa nce esti mation</a></li>
+<li><a href="#proportiona-l-a-nd-i-ndependent-noise-sou-rces">Proportiona l a nd I ndependent Noise Sou rces</a></li>
+<li><a href="#some-noise-is-proportional-to-sig-na-l-swi-ng">• Some noise is proportional to sig na l swi ng</a></li>
+<li><a href="#ca-n-t-overpower-th-is-noise">• Ca n ’t overpower th is noise</a></li>
+<li><a href="#com-mon-noise-sou-rces_1">Com mon Noise Sou rces</a></li>
+<li><a href="#power-su-pply-noise_1">Power Su pply Noise</a></li>
+<li><a href="#power-routi-ng">Power Routi ng</a></li>
+<li><a href="#su-pply-i-nd-uced-delay-va-riation">Su pply I nd uced Delay Va riation</a></li>
+<li><a href="#si-m-u-lta-neous-switch-i-ng-noise">Si m u lta neous Switch i ng Noise</a></li>
+<li><a href="#com-mon-noise-sou-rces_2">Com mon Noise Sou rces</a></li>
+<li><a href="#receiver-i-n-put-referred-offset">Receiver I n put Referred Offset</a></li>
+<li><a href="#receiver-i-n-put-referred-offset_1">Receiver I n put Referred Offset</a></li>
+<li><a href="#com-mon-noise-sou-rces_3">Com mon Noise Sou rces</a></li>
+<li><a href="#crossta-l-k_1">Crossta l k</a></li>
+<li><a href="#m-a-i-n-crossta-l-k-sou-rces">• M a i n crossta l k sou rces</a></li>
+<li><a href="#crossta-l-k-is-a-proportiona-l-noise-sou-rce">• Crossta l k is a proportiona l noise sou rce</a></li>
+<li><a href="#crossta-l-k-to-ca-pacitive-li-nes">Crossta l k to Ca pacitive Li nes</a></li>
+<li><a href="#crossta-l-k-to-driven-ca-pacitive-li-nes">Crossta l k to Driven Ca pacitive Li nes</a></li>
+<li><a href="#ca-pacitive-crossta-l-k-delay-i-m-pact">Ca pacitive Crossta l k Delay I m pact</a></li>
+<li><a href="#m-itigati-ng-ca-pacitive-o-n-ch-i-p-crossta-l-k">M itigati ng Ca pacitive (O n -Ch i p) Crossta l k</a></li>
+<li><a href="#tra-nsm-ission-li-ne-crossta-l-k">Tra nsm ission Li ne Crossta l k</a></li>
+<li><a href="#tra-nsm-ission-li-ne-crossta-l-k_1">Tra nsm ission Li ne Crossta l k</a></li>
+<li><a href="#nea-r-a-nd-fa-r-end-crossta-l-k">Nea r- a nd Fa r- End Crossta l k</a></li>
+<li><a href="#h-a-l-l">[ H a l l ]</a></li>
+<li><a href="#nea-r-a-nd-fa-r-end-crossta-l-k_1">Nea r- a nd Fa r- End Crossta l k</a></li>
+<li><a href="#off-ch-i-p-crossta-l-k">Off-Ch i p Crossta l k</a></li>
+<li><a href="#sig-na-l-retu-rn-crossta-l-k">Sig na l Retu rn Crossta l k</a></li>
+<li><a href="#com-mon-noise-sou-rces_4">Com mon Noise Sou rces</a></li>
+<li><a href="#i-nte-r-sym-bo-l-i-nte-rfe-re-n-ce-i-si">I nte r- Sym bo l I nte rfe re n ce ( I SI )</a></li>
+<li><a href="#pea-k-distortion-ana-lysis-exa-m-ple">Pea k Distortion Ana lysis Exa m ple</a></li>
+<li><a href="#worst-case-eye-vs-ra-ndom-data-eye">Worst-Case Eye vs Ra ndom Data Eye</a></li>
+<li><a href="#constructi-ng-isi-proba-bi-l-ity-density-fu-nction-pdf">Constructi ng ISI Proba bi l ity Density Fu nction ( PDF)</a></li>
+<li><a href="#convolvi-ng-i-nd-ivid-ua-l-isi-pdfs-together">Convolvi ng I nd ivid ua l ISI PDFs Together</a></li>
+<li><a href="#com-plete-isi-pdf">Com plete ISI PDF</a></li>
+<li><a href="#cu-rsor-pd-f-data-1">Cu rsor PD F – Data 1</a></li>
+<li><a href="#data-1-pd-f-is-centered-a-bout-the-cu-rsor-va-l-ue-a-nd-va-ries-from-a-maxi-m-u-m-positive-va-l-ue-to-the-worst-case-va-l-ue-pred-icted-by-pda">• Data 1 PD F is centered a bout the cu rsor va l ue a nd va ries from a maxi m u m positive va l ue to the worst-case va l ue pred icted by PDA</a></li>
+<li><a href="#cu-rsor-cu-m-u-lative-distri-bution-fu-nction-cd-f">Cu rsor Cu m u lative Distri bution Fu nction (CD F)</a></li>
+<li><a href="#com-bi-n-i-ng-cu-rsor-cdfs">Com bi n i ng Cu rsor CDFs</a></li>
+<li><a href="#b-it-e-rro-r-rate-b-e-r-d-i-stri-b-uti-o-n-eye">B it- E rro r- Rate ( B E R) D i stri b uti o n Eye</a></li>
+<li><a href="#com-mon-noise-sou-rces_5">Com mon Noise Sou rces</a></li>
+<li><a href="#ra-ndom-noise_1">Ra ndom Noise</a></li>
+<li><a href="#ga-u-ssia-n-distri-bution">Ga u ssia n Distri bution</a></li>
+<li><a href="#sig-na-l-with-added-ga-ussia-n-noise">Sig na l with Added Ga ussia n Noise</a></li>
+<li><a href="#fi-n-ite-proba-bi-l-ity-of-noise-pu-sh-i-ng-sig-na-l-pa-st-th-resh-o-l-d-to-yi-e-l-d-a-n-e-rro-r">• Fi n ite proba bi l ity of noise pu sh i ng sig na l pa st th resh o l d to yi e l d a n e rro r</a></li>
+<li><a href="#cu-m-u-lative-distri-bution-fu-nction-cdf">Cu m u lative Distri bution Fu nction (CDF)</a></li>
+<li><a href="#error-a-nd-com-pl-i-menta-ry-error-fu-nctions">Error a nd Com pl i menta ry Error Fu nctions</a></li>
+<li><a href="#b-it-e-rro-r-rate-b-e-r">B it E rro r Rate ( B E R)</a></li>
+<li><a href="#n-oise-sou-rce-classifications">N oise Sou rce Classifications</a></li>
+<li><a href="#noise-budget-exa-m-ple">Noise Budget Exa m ple</a></li>
+<li><a href="#next-ti-me">Next Ti me</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

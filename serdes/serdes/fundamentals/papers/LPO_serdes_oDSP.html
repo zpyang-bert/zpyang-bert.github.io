@@ -1,0 +1,3015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LPO_serdes_oDSP — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md" class="nav-item active">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">LPO_serdes_oDSP</span>
+            <span class="topbar-breadcrumb">serdes / fundamentals / papers / LPO_serdes_oDSP.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <p>Linear Drive enables Green All-Optical
+Connectivity for Datacenters
+Sponsored by IPEC
+March 21, 2023</p>
+<p>2</p>
+<p>Agenda:
+Part 1 (60 minutes):</p>
+<p>Part 2 (60 minutes):</p>
+<p>•</p>
+<p>Welcome message from IPEC</p>
+<p>•</p>
+<p>Macom</p>
+<p>•</p>
+<p>Nvidia</p>
+<p>•</p>
+<p>Ranovus</p>
+<p>•</p>
+<p>Meta</p>
+<p>•</p>
+<p>Nubis Communications</p>
+<p>•</p>
+<p>Huawei</p>
+<p>•</p>
+<p>Arista</p>
+<p>•</p>
+<p>Serialink Systems</p>
+<p>•</p>
+<p>Source Photonics</p>
+<p>•</p>
+<p>Q&amp;A and Discussion – 10 min</p>
+<p>•</p>
+<p>Q&amp;A and Discussion - 20 min</p>
+<p>QUARTERLY MARKET UPDATE | DECEMBER 18, 2019</p>
+<p>LINEAR DRIVE WEBINAR l MARCH 2023</p>
+<p>Open ·Unified ·Equality ·Innovation</p>
+<p>Dr. Zhang Hua</p>
+<p>Chair, IPEC Marketing &amp; Education Committee</p>
+<p>Who we are …
+Our Members</p>
+<p>41 members including the network operators, Internet service providers, system</p>
+<p>IPEC
+International</p>
+<p>manufacturers, chip/module/component vendors, and research institutes, etc.</p>
+<p>Our Mission
+Open</p>
+<p>Unify</p>
+<p>Photonics &amp;
+Electronics</p>
+<p>Committee</p>
+<p>Equality</p>
+<p>Innovation</p>
+<p>Key Projects and Progresses</p>
+<p>2020.10
+• Initiated the 800G 500 m
+and 2 km project</p>
+<p>2021.12</p>
+<p>2022.12</p>
+<p>• Initiated the Mobile Fronthaul 50G
+(MFH50) project</p>
+<p>• Initiated the 800G interoperability
+standards project</p>
+<p>• Determined the objectives of the
+800G Gen1 10 km project</p>
+<p>2022.6</p>
+<p>2021.8</p>
+<p>• Initiated the optical network
+intelligent O&amp;M project</p>
+<p>• Initiated the 100T+ OIO
+research project</p>
+<p>2022.4</p>
+<p>Linear Drive
+Technologies</p>
+<p>• Initiated the OIO PELS project</p>
+<p>2021.4
+2022.1</p>
+<p>• Initiated the 400G interoperability
+standards project</p>
+<p>2020</p>
+<p>2023</p>
+<p>2021</p>
+<p>• Initiated the 100 Gbit/s BIDI project</p>
+<p>2022</p>
+<p>2023
+Coming Soon …</p>
+<p>400GE Interoperability Test SPEC</p>
+<p>800GE IA Draft 2.0</p>
+<p>September 2022, Released</p>
+<p>December 2022，Released</p>
+<p>MFH50 White Paper
+OIO White Paper
+800G Test SPEC.</p>
+<p>……</p>
+<p>Linear Drive Technology
+Linear drive technology , as a new topic that has attracted wide attention in the industry.</p>
+<p>Will linear drive technology be an effective method for reducing system power consumption?</p>
+<p>Digital Signal Evolution
+Host</p>
+<p>CDR</p>
+<p>oDSP
+O/E</p>
+<p>energy efficiency.</p>
+<p>✓ CDR/DSP-based architectures still face
+thermal issues.</p>
+<p>oDSP
+O/E</p>
+<ol>
+<li>Bring optical components closer to ASIC chips</li>
+<li>Significantly reduce per-bit costs and improving</li>
+</ol>
+<p>Pluggable Optics
+VSR</p>
+<p>VSR</p>
+<p>ASIC</p>
+<p>XSR+</p>
+<p>Host</p>
+<p>ASIC</p>
+<p>XSR+</p>
+<p>Nowadays</p>
+<p>OIO (OBO/NPO/CPO) OE</p>
+<p>✓ Evolution from Pluggable to Optical
+Input/Output (OIO)</p>
+<p>Analogue Signal Evolution
+Host</p>
+<p>Linear Transceiver</p>
+<p>✓ Introduction of the Linear Transceiver
+technology for applying pluggable optics
+and OIO optics.
+1. Lower power consumption</p>
+<p>ASIC oDSP</p>
+<p>O/E</p>
+<ol>
+<li>
+<p>Lower latency</p>
+</li>
+<li>
+<p>Lower costs`</p>
+</li>
+</ol>
+<p>Build a Booming Optoelectronic Ecosystem
+03/2023
+Linear Drive Enables Green All-Optical Connectivity for DCs
+07/2022
+Together with LightCounting
+Next-Generation Fronthaul Optical Technical Directions</p>
+<p>02/2022
+Together with CIOE and EPIC
+Research on the 100T+ CPO/OIO technology</p>
+<p>09/2021
+Shenzhen World Exhibition &amp; Convention Center
+International Standards and Industry Development Summit</p>
+<p>06/2021
+Together with CIOE and EPIC
+Hosted a global academic webinar in the
+photoelectron field</p>
+<p>Thanks</p>
+<p>WHY IS LINEAR DRIVE IMPORTANT?
+CRAIG THOMPSON, NVIDIA
+MARCH 21ST 2023</p>
+<p>Challenges from System Perspective
+Growing gap between memory demand and supply</p>
+<p> A Supply &amp; Demand problem
+ Scale-Out as we Scale-Up
+ Create larger native GPU
+Domains (hundreds to
+thousands)
+ Cluster sizes growing from
+10’s racks to 100’s racks
+ -&gt; 10’s meters to 100’s
+meters</p>
+<p> Provide ‘enough’ bandwidth
+between all GPUs to keep
+them fully utilized</p>
+<p>Challenges from System Perspective
+Growing gap between FLOPS demand and supply</p>
+<p>DATA CENTER NETWORK</p>
+<p>Emerging AI/ML Clusters</p>
+<p>MoR and EoR Switches
+All-to-All connectivity
+Placed further away if
+rack-power limited</p>
+<p>NDR IB or 400GbE
+•Up to 4Tb/s per server
+•100’s meters</p>
+<p>H100 Server
+8x H100 GPUs
+24TB/s memory BW</p>
+<p>GPU-GPU FABRIC</p>
+<p>3.6Tb/s per GPU
+28.8Tb/s for 8x GPUs
+256 GPUs per cluster
+10’s meters (cluster scaling)</p>
+<p>WHY IS LINEAR DRIVE IMPORTANT?
+4Tb/s
+100s meters
+1000s GPUs</p>
+<p>28.8Tb/s
+10s meters
+256 GPUs</p>
+<p>WHY IS LINEAR DRIVE IMPORTANT?
+4Tb/s
+100s meters
+1000s GPUs</p>
+<p>GPU SERVER POWER
+ 4.0Tb/s per GPU = 40W per GPU for retimers
+ x32 GPUs per rack = 1,280W
+ Allocate power to GPUs = 10-15% cluster
+performance benefit
+ or power savings where rack-power limited</p>
+<p> PCIe card also limits module power to ~10W
+ Goal is &lt;4W multimode, &lt;8W singlemode for
+800G interface</p>
+<p>28.8Tb/s
+10s meters
+256 GPUs</p>
+<p>WHY IS LINEAR DRIVE IMPORTANT?
+4Tb/s
+100s meters
+1000s GPUs</p>
+<p>GPU SERVER POWER
+LATENCY ON GPU-GPU FABRIC
+ 28.8Tb/s across 8 GPUs
+ Latency limits reach or throughput
+ Extend to switch next
+ Pluggable when we can; CPO when we must</p>
+<p>28.8Tb/s
+10s meters
+256 GPUs</p>
+<p>DEMONSTRATION OF NVIDIA 100G SERDES AND LINEAR, NON-RETIMED OPTICS</p>
+<p>Summary:
+• AI/ML clusters are driving new applications of optical
+interconnect
+• Interconnect power, power density and latency are limiting
+factors in AI/ML performance scaling
+• NVIDIA is investing in linear, non-retimed technology to
+alleviate these limitations
+• Initial testing and demonstrations of the technology show
+that it is feasible with DSP-based SERDES</p>
+<p>Perspective on Linear Direct Drive Pluggable Optics</p>
+<p>Janet Chen, Ph.D.
+Technical Sourcing</p>
+<p>Growing Power Allocation for Networking
+DC Power Utilization</p>
+<p>Network Traffic</p>
+<p>~10X</p>
+<p>&amp; Cost/BW</p>
+<p>Network</p>
+<p>Other</p>
+<p>IT</p>
+<p>IT Other</p>
+<p>Machine-to-User
+Machine-to-Machine</p>
+<p>• Networking is consuming a higher proportion of the data center power budget
+• Technology innovation to enable a downward shift of the curve</p>
+<p>Interconnect solutions for DC networks
+Optics in Meta DC</p>
+<p>Power
+(pJ/bit)</p>
+<p>Switch
+Capacity</p>
+<p>Host
+Interface</p>
+<p>Fabric PMD</p>
+<p>12.8T</p>
+<p>25G
+NRZ</p>
+<p>100G CWDM4</p>
+<p>25.6T</p>
+<p>50G
+PAM4</p>
+<p>200G FR4</p>
+<p>51.2T</p>
+<p>100G
+PAM4</p>
+<p>400G FR4</p>
+<p>102.4T</p>
+<p>200G
+PAM4</p>
+<p>800G FR4*</p>
+<p>CPO</p>
+<p>DSP-based FR4
+DSP-based FR4 Lite</p>
+<p>E.g. Link budget
+relax for 500m
+Linear Drive
+(DSP-free)
+Linear FR4 Lite</p>
+<p>POR today</p>
+<p>Pluggable</p>
+<p>Tighter E/O
+integration</p>
+<p>&lt; 2m (intra rack)
+&lt; 500m (intra DC fabric)
+&lt; 3km (intra DC region)</p>
+<p>DAC</p>
+<p>Cost ($/Gbps)</p>
+<p>Challenges &amp; Opportunities
+Retimed Pluggable
+Power
+Cost
+Latency
+Product Maturity
+Serviceability
+Late Binding Commitment
+Link Performance
+Link Accountability
+Interoperable Ecosystem</p>
+<p>Linear-Drive Pluggable</p>
+<p>Linear-Drive CPO</p>
+<p>Perspective on Linear Drive Pluggable Optics
+Opportunities</p>
+<p>●
+●
+●</p>
+<p>Power and cost
+Staying pluggable: serviceability, flexibility, and can leverage proven
+optics technology and manufacturing process
+Pave the way for non-retimed CPO</p>
+<p>Challenges
+●
+●
+●</p>
+<p>Robustness and Interoperability: TBD
+Reduced link performance accountability
+Scalability:
+○ Standardization of TP1a &amp; TP4 spec and testing methodology
+○ Ecosystem and avoid vendor lock-in
+○ Backward compatibility
+○ 200G/lane?</p>
+<p>Summary
+●</p>
+<p>Ever growing network demand calls for accelerating improvements in power and cost
+efficiencies</p>
+<p>●</p>
+<p>Linear drive pluggable optics potentially strikes the balance between benefits and risks
+○
+○</p>
+<p>●</p>
+<p>Clear values in reducing power, cost and staying pluggable form factor
+Challenges on robustness, interoperability, and scalability are yet to be addressed</p>
+<p>Requires industry-wide efforts to achieve the needed robustness and scaling
+○ We need a broad and robust solution to apply it widely at scale
+○ Collaborate to build the ecosystem - time is of the essence!</p>
+<p>Thank you</p>
+<p>System Modeling of Linear Transceivers:
+Challenges and Opportunities for
+Link Performance Analysis</p>
+<p>Aleksey Tyshchenko, Ph.D.
+22 March 2023
+1</p>
+<p>Outline
+• Historical perspective: how did we get here?
+• Challenges of linear drive (non-retimed) link modeling
+• Path towards simulation-based standard definition</p>
+<p>2</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host</p>
+<p>• Two hosts in a data center (DC) need to communicate over a reliable link at high data rates
+• Both hosts process information in electrical domain</p>
+<p>3</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Two hosts in a data center (DC) need to communicate over a reliable link at high data rates
+• Both hosts process information in electrical domain
+• Add a transmitter (TX) and a receiver (RX) to the hosts</p>
+<p>4</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Electrical Channel</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Two hosts in a data center (DC) need to communicate over a reliable link at high data rates
+• Both hosts process information in electrical domain
+• Add a transmitter (TX) and a receiver (RX) to the hosts
+• Connect the hosts over an electrical channel
+• However…</p>
+<p>5</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Electrical Channel</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Two hosts in a data center (DC) need to communicate over a reliable link at high data rates
+• Both hosts process information in electrical domain
+• Add a transmitter (TX) and a receiver (RX) to the hosts
+• Connect the hosts over an electrical channel
+• However, with growing data rate demands, electrical channels cannot scale efficiently
+• What is the next best alternative?</p>
+<p>6</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Optical Fiber</p>
+<p>Host</p>
+<p>Host
+TX</p>
+<p>Host
+RX</p>
+<p>• Use low-loss high-bandwidth optical fiber to transmit data over required distances
+• However…</p>
+<p>7</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Electro-Optical Module</p>
+<p>Optical Fiber</p>
+<p>Opto-Electrical Module</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Use low-loss high-bandwidth optical fiber to transmit data over required distances
+• However, electrical signals need to be converted to optical, and then back to electrical
+• Electro-optical (EO) and opto-electrical (OE) modules take care of this conversion</p>
+<p>8</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Electro-Optical Module</p>
+<p>Module
+RX</p>
+<p>Optical Fiber</p>
+<p>Opto-Electrical Module</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Use low-loss high-bandwidth optical fiber to transmit data over required distances
+• However, electrical signals need to be converted to optical, and then back to electrical
+• Electro-optical (EO) and opto-electrical (OE) modules take care of this conversion
+• First, host transfers data to EO module over electrical link, and the module restores this data</p>
+<p>9</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Electro-Optical Module</p>
+<p>Module
+RX</p>
+<p>DRV
+E to O</p>
+<p>Optical Fiber</p>
+<p>Opto-Electrical Module</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Use low-loss high-bandwidth optical fiber to transmit data over required distances
+• However, electrical signals need to be converted to optical, and then back to electrical
+• Electro-optical (EO) and opto-electrical (OE) modules take care of this conversion
+• First, host transfers data to EO module over electrical link, and the module restores this data
+• Next, EO module uses restored data to drive electro-optical converter and to send the data</p>
+<p>10</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Electro-Optical Module</p>
+<p>Module
+RX</p>
+<p>Optical Fiber</p>
+<p>Opto-Electrical Module</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Use low-loss high-bandwidth optical fiber to transmit data over required distances
+• However, electrical signals need to be converted to optical, and then back to electrical
+• Electro-optical (EO) and opto-electrical (OE) modules take care of this conversion
+• First, host transfers data to EO module over electrical link, and the module restores this data
+• Next, EO module uses restored data to drive electro-optical converter and to send the data
+• Then, OE module converts received optical signal to electrical, prepares it for data recovery</p>
+<p>11</p>
+<p>Historical Perspective: How Did We Get Here?
+Host</p>
+<p>Host
+TX</p>
+<p>Electro-Optical Module</p>
+<p>Module
+RX</p>
+<p>Optical Fiber</p>
+<p>Opto-Electrical Module</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>Module
+TX</p>
+<p>Host</p>
+<p>Host
+RX</p>
+<p>• Use low-loss high-bandwidth optical fiber to transmit data over required distances
+• However, electrical signals need to be converted to optical, and then back to electrical
+• Electro-optical (EO) and opto-electrical (OE) modules take care of this conversion
+• First, host transfers data to EO module over electrical link, and the module restores this data
+• Next, EO module uses restored data to drive electro-optical converter and to send the data
+• Then, OE module converts received optical signal to electrical, prepares it for data recovery
+• Finally, OE module restores digital data, and sends it to far end host over an electrical link
+12</p>
+<p>Electrical and Optical Domains of a Serial Link
+Electrical Domain</p>
+<p>Host
+TX</p>
+<p>Module
+RX</p>
+<p>Optical Domain</p>
+<p>Electrical Domain</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>Module
+TX</p>
+<p>Host
+RX</p>
+<p>• This topology breaks the serial link system into three domains
+• Near-end electrical domain to bring data from source host TX to E-to-O converter
+• Optical domain to facilitate long-range low-loss data transfer
+• Far-end electrical domain to bring data from O-to-E converter to destination host</p>
+<p>13</p>
+<p>Electrical and Optical Standard Components
+Electrical Standard</p>
+<p>Host
+TX</p>
+<p>Module
+RX</p>
+<p>Optical Standard</p>
+<p>DRV</p>
+<p>Electrical Standard</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>Module
+TX</p>
+<p>Host
+RX</p>
+<p>• This also facilitates a convenient standard partitioning to electrical and optical parts
+• Electrical standards define “chip-to-module” interfaces
+• Optical standards define “optical links”
+• Internal parts of EO and OE modules are not exposed, and therefore are not standardized
+• Different tools are used to define electrical and optical standards</p>
+<p>14</p>
+<p>Is This Approach Scalable?
+High Power Penalty</p>
+<p>Host
+TX</p>
+<p>Module
+RX</p>
+<p>High Power Penalty</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>Module
+TX</p>
+<p>Host
+RX</p>
+<p>• Data recovery (re-timing) inside module RX &amp; module TX comes at high power penalty
+• Modules do not consume digital data, they only transduce data
+• Data recovery (re-timing) facilitates data transfer between electrical and optical domains
+• Re-timing is a non-linear operation: samplers that recover data symbols are non-linear
+• With explosive growth of the number of ports in DC’s, every bit of power matters
+• Is this approach sustainable? Is it sufficiently “green”?
+• Can we do better?
+15</p>
+<p>Do We Really Need to Re-Time and Restore Digital Data?
+Lower Power</p>
+<p>Host
+TX</p>
+<p>EQ</p>
+<p>Lower Power</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>DRV</p>
+<p>Host
+RX</p>
+<p>• If modules do not consume data, why do we need to restore digital data?
+• Can we support EO and OE conversion without restoring digital data?
+• Let’s keep only the essential functionality: equalization and electrical driver
+• This eliminates non-linear digital data recovery!
+• Simpler functionality leads to lower power consumption
+• Since we removed non-linear data recovery, let’s call this topology “linear” or “linear drive”
+• Unfortunately, this is a very misleading link name…
+16</p>
+<p>Linear Drive (Non-Retimed) EOE Link Challenges
+Host</p>
+<p>Host
+TX</p>
+<p>Module</p>
+<p>EQ</p>
+<p>Optical Fiber</p>
+<p>Module</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>Host</p>
+<p>DRV</p>
+<p>O to E</p>
+<p>Host
+RX</p>
+<p>• Good news: from data centers’ point of views, the link topology remains unchanged
+• Hosts interact with modules, while modules enable data transfer over optical fiber</p>
+<p>17</p>
+<p>Linear Drive (Non-Retimed) EOE Link Challenges
+Electrical Domain</p>
+<p>Host
+TX</p>
+<p>EQ</p>
+<p>Optical Domain</p>
+<p>Electrical Domain</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>DRV</p>
+<p>O to E</p>
+<p>Host
+RX</p>
+<p>• Good news: from data centers’ point of views, the link topology remains unchanged
+• Hosts interact with modules, while modules enable data transfer over optical fiber
+• We still have three well-defined link domains: electrical, optical, and electrical
+• However…</p>
+<p>18</p>
+<p>Linear Drive (Non-Retimed) EOE Link Challenges
+Electrical Impairments</p>
+<p>Host
+TX</p>
+<p>EQ</p>
+<p>+</p>
+<p>Optical Impairments</p>
+<p>DRV</p>
+<p>+</p>
+<p>TIA
+E to O</p>
+<p>Electrical Impairments</p>
+<p>DRV</p>
+<p>O to E</p>
+<p>Host
+RX</p>
+<p>• Good news: from data centers’ point of views, the link topology remains unchanged
+• Hosts interact with modules, while modules enable data transfer over optical fiber
+• We still have three well-defined link domains: electrical, optical, and electrical
+• However, lack of re-timers leads to compounding of E, O, E impairments
+• Neither electrical, nor optical standard definition approaches are practical here</p>
+<p>19</p>
+<p>Linear Drive (Non-Retimed) EOE Link Challenges
+Single End-to-End Opto-Electrical Standard</p>
+<p>Host
+TX</p>
+<p>EQ</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>DRV</p>
+<p>Host
+RX</p>
+<p>• Good news: from data centers’ point of views, the link topology remains unchanged
+• Hosts interact with modules, while modules enable data transfer over optical fiber
+• We still have three well-defined link domains: electrical, optical, and electrical
+• However, lack of re-timers leads to compounding of E, O, E impairments
+• Neither electrical, nor optical standard definition approaches are practical here
+• A single, end-to-end, opto-electrical link standard is required
+• How can we define this standard if optical components add non-linear impairments?
+20</p>
+<p>Linear Drive (Non-Retimed) EOE Link Challenges
+How do we model end-to-end link to drive the standard development?</p>
+<p>Host
+TX</p>
+<p>EQ</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>DRV</p>
+<p>Host
+RX</p>
+<p>• Simulation-based definition is essential for a successful standard
+• This topology mixes mostly linear electrical and non-linear optical modeling methodologies
+• Neither electrical, nor optical methodologies are sufficient by themselves
+• What can we do to help define linear drive (non-retimed) serial link standards?</p>
+<p>21</p>
+<p>End-to-End Linear Drive (Non-Retimed) Link Modeling
+SeriaLink</p>
+<p>Host
+TX</p>
+<p>EQ</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>DRV</p>
+<p>Host
+RX</p>
+<p>• SeriaLink Systems has a parametric TX model: reflects non-linear effects in time domain</p>
+<p>22</p>
+<p>Parametric TX Model
+Data Source</p>
+<p>FFE</p>
+<p>DAC</p>
+<p>Pulse Shaping</p>
+<p>Non-linearity</p>
+<p>Launch Amp
+A</p>
+<p>tr</p>
+<p>Clock Source</p>
+<p>R_LM</p>
+<p>SNR_TX</p>
+<p>Noise Source</p>
+<p>• We can enable/disable impairments
+• Our starting point is 112 Gb/s long reach (LR) reference transmitter
+• The model generates a representative transient TX waveform
+23</p>
+<p>End-to-End Linear Drive (Non-Retimed) Link Modeling
+SeriaLink</p>
+<p>Host
+TX</p>
+<p>SeriaLink</p>
+<p>EQ</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>DRV</p>
+<p>Host
+RX</p>
+<p>• SeriaLink Systems has a parametric TX model: reflects non-linear effects in time domain
+• SeriaLink Systems has three flavors of parametric RX models
+• Analog-centric RX
+• ADC-based RX
+• ADC-based RX with MLSE</p>
+<p>24</p>
+<p>Analog-Centric
+(Sampler
+Based,
+Analog)
+RX
+channel IBIS
+AMI
+term</p>
+<p>CTLE</p>
+<p>1:64</p>
+<p>DFE</p>
+<p>FFE</p>
+<p>VCO
+off die</p>
+<p>custom design</p>
+<p>CDR</p>
+<p>Legend
+DREC</p>
+<p>analog
+analog/digital
+digital
+decision point</p>
+<p>• This RX flavor would be the most abstract modeling approach
+• We can use both FFE or DFE to equalize the signal
+• However, this would not be representative of actual architectures
+• Also, exploring MLSE impact with this approach would be misleading</p>
+<p>25</p>
+<p>ADC-Based RX
+channel</p>
+<p>IBIS</p>
+<p>AMI</p>
+<p>CTLE</p>
+<p>ADC
+CKREC</p>
+<p>term</p>
+<p>VCO
+off die</p>
+<p>4:64</p>
+<p>S-param</p>
+<p>÷ 16</p>
+<p>DREC</p>
+<p>DFE</p>
+<p>CDR</p>
+<p>CTRL</p>
+<p>custom design</p>
+<p>112 Gbit/s PAM4
+56 GBaud/s
+fN = 28 GHz</p>
+<p>FFE</p>
+<p>synthesized RTL
+4 x 14 GS/s
+5 bits/S
+fCK = 14 GHz</p>
+<p>Legend
+analog
+ADC
+digital
+decision point</p>
+<p>64 samples in parallel
+5 bits/S
+fCK = 875 MHz</p>
+<p>• This RX architecture would be the most adequate for this work</p>
+<p>26</p>
+<p>ADC-Based RX with MLSE</p>
+<p>CTLE</p>
+<p>ADC
+CKREC</p>
+<p>term</p>
+<p>VCO
+off die</p>
+<p>4:64</p>
+<p>S-param</p>
+<p>÷ 16</p>
+<p>MLSE</p>
+<p>DREC</p>
+<p>CDR</p>
+<p>CTRL</p>
+<p>custom design</p>
+<p>112 Gbit/s PAM4
+56 GBaud/s
+fN = 28 GHz</p>
+<p>FFE</p>
+<p>synthesized RTL
+4 x 14 GS/s
+5 bits/S
+fCK = 14 GHz</p>
+<p>Legend
+analog
+ADC
+digital</p>
+<p>64 samples in parallel
+5 bits/S
+fCK = 875 MHz</p>
+<p>• This RX architecture allows us to evaluate the MLSE trade-offs
+• MLSE replaces DFE, clock recovery taps off before MLSE
+27</p>
+<p>End-to-End Linear Drive (Non-Retimed) Link Modeling
+SeriaLink</p>
+<p>Host
+TX</p>
+<p>S-Params</p>
+<p>S-Params</p>
+<p>EQ</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>DRV</p>
+<p>SeriaLink</p>
+<p>Host
+RX</p>
+<p>• SeriaLink Systems has a parametric TX model: reflects non-linear effects in time domain
+• SeriaLink Systems has three flavors of parametric RX models
+• Analog-centric RX
+• ADC-based RX
+• ADC-based RX with MLSE</p>
+<p>• Electrical channel is a passive, linear system captured in the form of S-parameter network</p>
+<p>28</p>
+<p>End-to-End Linear Drive (Non-Retimed) Link Modeling
+SeriaLink</p>
+<p>Host
+TX</p>
+<p>S-Params</p>
+<p>Partner 1</p>
+<p>EQ</p>
+<p>DRV</p>
+<p>S-Params</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>DRV</p>
+<p>SeriaLink</p>
+<p>Host
+RX</p>
+<p>• SeriaLink Systems has a parametric TX model: reflects non-linear effects in time domain
+• SeriaLink Systems has three flavors of parametric RX models
+• Analog-centric RX
+• ADC-based RX
+• ADC-based RX with MLSE</p>
+<p>• Electrical channel is a passive, linear system captured in the form of S-parameter network
+• Working with Partner 1 to reflect time domain, parametric, behavioral optical link model</p>
+<p>29</p>
+<p>End-to-End Linear Drive (Non-Retimed) Link Modeling
+SeriaLink</p>
+<p>Host
+TX</p>
+<p>S-Params</p>
+<p>Partner 2</p>
+<p>EQ</p>
+<p>Partner 1</p>
+<p>DRV</p>
+<p>TIA
+E to O</p>
+<p>O to E</p>
+<p>Partner 2 S-Params</p>
+<p>SeriaLink</p>
+<p>DRV</p>
+<p>Host
+RX</p>
+<p>• SeriaLink Systems has a parametric TX model: reflects non-linear effects in time domain
+• SeriaLink Systems has three flavors of parametric RX models
+• Analog-centric RX
+• ADC-based RX
+• ADC-based RX with MLSE</p>
+<p>• Electrical channel is a passive, linear system captured in the form of S-parameter network
+• Working with Partner 1 to reflect time domain, parametric, behavioral optical link model
+• Working with Partner 2 to reflect behavioral models of EQ and DRV components
+• This completes a parametric, time domain, behavioral model of the end-to-end link!
+30</p>
+<p>Performance Analysis
+• SNR, BER at host RX
+• Sample distributions though ADC-based host RX
+• Eye diagrams where applicable
+• We leverage simulated SNR to estimate link performance
+• Once we get the whole link model working, we can explore system sensitivities
+• We intend to use this link model to drive standard definition
+• We are open to working with other partners on optical components</p>
+<p>31</p>
+<p>Linear Drive Enables Green All-Optical
+Connectivity for Datacenters
+Ryan Latchman
+MACOM</p>
+<p>Agenda</p>
+<blockquote>
+<p>Today’s Revolution</p>
+<p>Historical Evolutions when electrical interface
+matches optical interface
+Host Interface Comparison &amp; IEEE context
+Going Green in the Data Center</p>
+</blockquote>
+<p>2</p>
+<p>Today’s Revolution
+(2023)
+Source: Sunil Priyadarshi (Intel)</p>
+<p>OSFP 800G Module</p>
+<p>Electrical Interface</p>
+<p>Other
+TIA 5%
+0%
+10%</p>
+<p>Driver
+18%</p>
+<p>DSP
+49%</p>
+<p>Retimed (DSP)</p>
+<p>DSP Functionality consumes
+~50% of SMF Modules</p>
+<p>Laser
+18%</p>
+<p>OSFP 800G Module
+Other
+TIA 5%
+0%
+10%
+Driver
+18%
+Laser
+18%</p>
+<p>DSP
+49%</p>
+<p>Linear</p>
+<p>Material Power Savings
+from removing DSP
+(~50% reduction of power
+for SMF modules)</p>
+<p>3</p>
+<p>A Historical View of Transceiver Evolution
+(~2007)</p>
+<p>XFP 10G Module</p>
+<p>Electrical Interface</p>
+<p>Retimed</p>
+<p>SFP+ 10G Module
+Limiting
+(and smaller form factor)</p>
+<p>PMD Interfaces
+Maintained</p>
+<p>4</p>
+<p>53GBAUD Host Electrical Interfaces:
+I/O Relative Power</p>
+<p>~16dB</p>
+<p>LR
+Tx</p>
+<p>ASIC</p>
+<p>DSP</p>
+<p>DR</p>
+<p>VSR I/O+
+LR I/O</p>
+<p>TIA</p>
+<p>LR
+Rx</p>
+<p>Optical
+Module</p>
+<p>100%
+I/O Power = 2<em>(LR I/O) + 1</em> VSR I/O
+=~12pJ/bit</p>
+<p>~10dB
+ASIC</p>
+<p>Optical Interface requires LR I/O for
+signal recovery
+Pluggable modules leverage VSR
+electrical Interfaces</p>
+<p>Traditional Pluggable</p>
+<p>LR
+Tx</p>
+<p>ASIC Power Consumption similar
+across architectures (ASIC support
+multiple configurations including
+Passive Copper e.g. LR I/O)</p>
+<p>DSP</p>
+<p>DR</p>
+<p>XSR I/O +
+LR I/O</p>
+<p>TIA</p>
+<p>Optical
+Chiplet</p>
+<p>~80%
+I/O Power = 2<em>(LR I/O) + 1</em> XSR I/O
+=~10pJ/bit</p>
+<p>LR
+Rx</p>
+<p>DSP requirements for Optical Interface
+remain LR I/O, XSR interface saves
+power in CPO chiplet at the expense of
+channel loss support
+ASIC remains LR I/O capable due to
+multi-configuration use</p>
+<p>Retimed CPO/NPO
+LR
+Tx</p>
+<p>ASIC</p>
+<p>~11dB</p>
+<p>DR
+Linear
+TIA
+Linear</p>
+<p>LR
+Rx</p>
+<p>Linear Drive Pluggable / Linear CPO</p>
+<p>Optical
+Module</p>
+<p>~45%
+I/O Power = 1<em>(LR I/O) + 1</em> Linear I/O
+=~5pJ/bit</p>
+<p>Removal of DSP from module saves
+material power consumption, latency,
+and cost
+Linear TIA/Driver functionality common
+and therefore does not materially add
+to power consumption when leveraging
+Linear Interface
+CEI-112G-Linear channel loss support
+in alignment with passive copper5</p>
+<p>ASIC Integration as seen at OFC’23</p>
+<blockquote>
+<p>Both Pluggable &amp; recent CPO architectures are integrating DSP functionality in ASICs as a
+primary power savings path***
+• Revolution is well underway</p>
+<p>Pluggable Linear Drive supports historical benefits of pluggable while enabling power, cost,
+and latency reductions
+• Multiple Pluggable PMD types including SMF, MMF, Active Copper, Passive Copper</p>
+</blockquote>
+<p>• Field Serviceability
+• Traditional supply chain / manufacturing techniques
+• At least 4 different module vendors had linear pluggable modules on the OFC’23 show floor</p>
+<hr />
+<p>https://www.macom.com/updates/news/2023/macom-to-demonstrate-100g-lane-high-speed-optical-link-with-line
+https://www.arista.com/en/company/news/press-release/17020-pr-20230228
+https://www.broadcom.com/blog/broadcoms-persistent-cadence-copackaged-optics-innovation
+https://blogs.cisco.com/sp/cisco-demonstrates-co-packaged-optics-cpo-system-at-ofc-2023
+6</p>
+<p>Optical Linear Drive in IEEE Context</p>
+<blockquote>
+<p>Linear Drive -&gt; PMD Service Interface
+Often optical evaluation starts &amp; ends electrically</p>
+</blockquote>
+<p>7</p>
+<p>MACOM PURE DRIVE™ Example</p>
+<blockquote>
+<p>MACOM offers Linear TIAs and Drivers supporting Linear Drive Optical applications
+• SMF and MMF
+• ACC linear copper equalizers as well</p>
+</blockquote>
+<p>8</p>
+<p>Going Green in the Datacenter</p>
+<p>Green Optical
+Connectivity
+For Data
+Centers</p>
+<p>Reducing
+Power
+Consumption</p>
+<p>Multiple PMDs
+&amp; Optimal
+Partitioning of
+Functionality</p>
+<p>Pluggable
+Linear Drive</p>
+<p>9</p>
+<p>23-11.3a A framework for developing non-retimed optical links
+Jeff Hutchins / Ranovus
+21 March 2023
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>1</p>
+<p>A framework for developing non-retimed optical links
+q Motivation
+q Types of non-retimed links
+q Non-retimed applications
+q Compliance requirements for non-retimed links
+q Modeling performance of non-retimed optical links
+q What is achievable with non-retimed links
+q Summary
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>2</p>
+<p>Motivation
+There has been significant interest in links with non-retimed interfaces for a variety of reasons:
+q Reduced power consumption</p>
+<p>Non-Retimed Optics Saves Power</p>
+<p>q Improved density for co-packaging applications
+q Reduced latency for latency sensitive applications</p>
+<p>However, there are multiple different applications
+for non-retimed links :
+q Front panel pluggables
+q Near packaged modules
+q Co-packaged engines
+q Die to die electrical links</p>
+<p>We will examine the various applications and types of non-retimed links
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>OFC2023 Panel - Optics in Future AI Systems:
+Interconnects, Switching and Processing</p>
+<p>3</p>
+<p>A framework for developing non-retimed optical links
+q Motivation
+q Types of non-retimed links
+q Non-retimed applications
+q Compliance requirements for non-retimed links
+q Modeling performance of non-retimed optical links
+q What is achievable with non-retimed links
+q Summary
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>4</p>
+<p>What is a Non-retimed interface?
+Retimed pluggable</p>
+<p>Socketed ASIC
+ASIC</p>
+<p>MR/LR SerDes</p>
+<p>Pluggable Optics (retimed)
+Electrical channel to the front panel equalized by the SerDes</p>
+<p>ASIC Substrate / RDL</p>
+<p>RDL</p>
+<p>Host PCB (high performance material)
+Co-packaged ASIC
+ASIC</p>
+<p>XSR SerDes</p>
+<p>Retimed optical engine</p>
+<p>Co-packaged using XSR (retimed)</p>
+<p>E àO
+Engine Substrate</p>
+<p>XSR supports ~50mm (10dB) reach across substrate</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Host PCB
+Co-packaged (non-retimed)
+Co-packaged ASIC
+ASIC</p>
+<p>LR SerDes</p>
+<p>Non-retimed optical engine
+DRV</p>
+<p>E àO</p>
+<p>Electrical channel to the OE equalized by the SerDes</p>
+<p>Engine Substrate</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Host PCB
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>5</p>
+<p>What is a Non-retimed interface?
+Retimed pluggable</p>
+<p>Socketed ASIC
+ASIC</p>
+<p>MR/LR SerDes</p>
+<p>Pluggable Optics (retimed)
+Electrical channel to the front panel equalized by the SerDes</p>
+<p>ASIC Substrate / RDL</p>
+<p>RDL</p>
+<p>Host PCB (high performance material)
+Co-packaged ASIC
+ASIC</p>
+<p>XSR SerDes</p>
+<p>Co-packaged using XSR (retimed)</p>
+<p>Retimed optical engine
+E àO
+Engine Substrate</p>
+<p>XSR supports ~50mm (10dB) reach across substrate</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Host PCB
+SerDes equalizes entire link
+Co-packaged ASIC
+ASIC</p>
+<p>LR SerDes</p>
+<p>Non-retimed optical engine
+DRV</p>
+<p>Co-packaged (non-retimed)
+Non-retimed optical engine</p>
+<p>E àO</p>
+<p>E àO</p>
+<p>Engine Substrate</p>
+<p>Engine Substrate</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Co-packaged ASIC
+LR SerDes</p>
+<p>ASIC</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Host PCB
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>DRV</p>
+<p>Host PCB
+A framework for developing non-retimed optical links</p>
+<p>6</p>
+<p>Some types of non-retimed &amp; partially retimed links
+Retimed*
+MR Rx</p>
+<p>ASIC
+MR Tx</p>
+<p>CDR
+DSP
+CDR</p>
+<p>Non-Retimed – Host Tx Predistortion</p>
+<p>Partially Retimed*
+TIA</p>
+<p>LR Rx</p>
+<p>AGC</p>
+<p>LR Rx</p>
+<p>TIA</p>
+<p>ASIC
+DRV</p>
+<p>XSR Tx</p>
+<p>LR Rx</p>
+<p>AGC</p>
+<p>TIA</p>
+<p>CDR</p>
+<p>LR Tx
+(α, β)</p>
+<p>DRV</p>
+<p>LR Tx</p>
+<p>CTLE</p>
+<p>DRV</p>
+<p>Swing defined by IC technology (~0.8-1.0V)
+Objective: OE independent specification</p>
+<p>LR Tx</p>
+<p>DRV</p>
+<p>Non-Retimed – Engine Tx Predistortion
+LR Rx</p>
+<p>TIA</p>
+<p>ASIC</p>
+<p>ASIC</p>
+<p>CTLE</p>
+<p>Non-linearity compensation in SerDes</p>
+<p>Non-Retimed – Direct Drive*
+LR Rx</p>
+<p>TIA</p>
+<p>ASIC</p>
+<p>OE Tx retiming increases margin
+Non-Retimed – Linearly Amplified Drive*</p>
+<p>AGC</p>
+<p>ASIC
+LR Tx</p>
+<p>DRV</p>
+<p>AGC</p>
+<p>TIA</p>
+<p>CTLE
++Nonlinear</p>
+<p>DRV</p>
+<p>Non-linearity compensation in OE</p>
+<p>Swing defined by modulator technology</p>
+<p>There are a variety of non-retimed alternatives to traditional retimed links
+(*)</p>
+<p>21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>Reference: OIF-Co-Packaging-FD-01.0 – Co-Packaging Framework Document</p>
+<p>7</p>
+<p>A framework for developing non-retimed optical links
+q Motivation
+q Types of non-retimed links
+q Non-retimed applications
+q Compliance requirements for non-retimed links
+q Modeling performance of non-retimed optical links
+q What is achievable with non-retimed links
+q Summary
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>8</p>
+<p>What non-retimed channels should be supported?
+Package ASIC
+ASIC Substrate / RDL</p>
+<p>Electrical Channel</p>
+<p>Electrical Interface Configurations</p>
+<p>Engine Die</p>
+<p>Higher Loss
+RDL</p>
+<p>Host PCB</p>
+<p>• Pluggable / On Board
+ASIC Package + PCB Trace + Engine Attach
+(traditional interface)</p>
+<p>Engine Die</p>
+<p>Packages ASIC
+RDL</p>
+<p>• Near-Packaged Interface
+ASIC Package + Package Trace + Engine Attach
+(reduced loss channel with a packaged ASIC)</p>
+<p>RDL</p>
+<p>HDI</p>
+<p>Host PCB
+Engine Die</p>
+<p>Package
+ASIC</p>
+<p>RDL</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Host PCB</p>
+<p>socketed or
+soldered</p>
+<p>• Co-Packaged Interface
+ASIC bump + Package Trace + Engine Attach
+(short low loss channel with a flipped ASIC)
+Lower Loss</p>
+<p>Non-retimed links can be used in a wide variety of configurations
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>9</p>
+<p>What are the components of possible non-retimed links?
+Data Rate
+100G
+200G
+Wide I/Fs
+Others?</p>
+<p>Non-retimed
+link
+application</p>
+<p>Electrical Channel
+XSR: 10dB + link + 10dB
+Front Panel Pluggable
+Others?</p>
+<p>Is a Standard possible?
+Or must be designed as a
+system?</p>
+<p>Traffic Characteristics
+Ethernet (w/FEC)
+Low latency (e.g. PCIe)
+Others?</p>
+<p>Interoperability
+Full (IMDD, coherent),
+limited, or single vendor</p>
+<p>The application space for non-retimed links consists of a large number of factors
+Targeting specific applications will enable a well optimized solution
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>10</p>
+<p>A framework for developing non-retimed optical links
+q Motivation
+q Types of non-retimed links
+q Non-retimed applications
+q Compliance requirements for non-retimed links
+q Modeling performance of non-retimed optical links
+q What is achievable with non-retimed links
+q Summary
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>11</p>
+<p>Compliance requirements for non-retimed links
+Channel</p>
+<p>Linear Amp
+TP1</p>
+<p>Non-linear
+EàO</p>
+<p>Link
+TP2</p>
+<p>OàE</p>
+<p>Linear Amp</p>
+<p>Compliance test points should be defined to ensure interoperability
+q Between host and non-retimed module (TP1, TP4)
+q Between various vendors and non-retimed EàO technologies (TP1-TP2, TP3-TP4)
+Various EàO technologies have differing characteristics
+q Consider the impact of non-linearity differences between EMLs, MZMs, VCSELs, etc.
+q Consider the impact of packaging on IL (discrete, hybrid integration, monolithic integration)
+q Consider the impact of IL from different placements (CPO, NPO, close proximity, front panel)
+q Consider the impact of different non-retimed configurations (linearly amplified vs predistortion)
+Increased margin is required to support interoperability as more technologies and
+configurations are included</p>
+<p>Compliance test points need to be defined to enable
+interoperability for various technologies and packaging
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>Channel</p>
+<p>TP3</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>Host Rx</p>
+<p>TP4
+Applications
+Defined Electrical Channels</p>
+<p>Host Tx</p>
+<p>CPO</p>
+<p>10dB</p>
+<p>NPO</p>
+<p>13dB</p>
+<p>Front
+Panel
+Full
+Half
+Nonretimed retimed
+retimed
+Retiming Implementation</p>
+<p>12</p>
+<p>A framework for developing non-retimed optical links
+q Motivation
+q Types of non-retimed links
+q Non-retimed applications
+q Compliance requirements for non-retimed links
+q Modeling performance of non-retimed optical links
+q What is achievable with non-retimed links
+q Summary
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>13</p>
+<p>Broadly, there are two common questions
+Can a particular non-retimed link work with a standard SerDes feature set (say LR)?</p>
+<p>Can a particular non-retimed link work with a reduced power SerDes?
+That is, what features need to be added or removed from a SerDes to enable a particular non-retimed link</p>
+<p>21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>14</p>
+<p>Accurate modeling of a non-retimed end-to-end link
+Co-packaged (non-retimed)
+Analog Optical Engine
+MR/LR SerDes</p>
+<p>Analog Optical Engine
+MR/LR SerDes</p>
+<p>Substrate</p>
+<p>ASIC</p>
+<p>Substrate</p>
+<p>≤ 2km</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>ASIC</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Host PCB</p>
+<p>q
+q
+q</p>
+<p>Host PCB</p>
+<p>Tx SerDes (bare die)
+Electrical Channel + LGA
+Optical Engine Tx</p>
+<p>q
+q
+q</p>
+<p>q</p>
+<p>Rx SerDes (bare die)
+Electrical Channel + LGA
+Optical Engine Rx</p>
+<p>Fiber Model</p>
+<p>Full end-to-end model including fiber should include all non-linearities and noise sources
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>15</p>
+<p>Dealing with inherent non-linearities of EàO conversion
+Rx Non-linear Slicer Level Adjustment</p>
+<p>Tx Non-linear Predistortion</p>
+<p>+1+β</p>
+<p>Rx Slicer Threshold</p>
+<p>+3</p>
+<p>β</p>
+<p>+1
+-1+α
+-1</p>
+<p>α</p>
+<p>-3</p>
+<p>Rx OMA</p>
+<p>Tx FIR optimization coupled with adjusting levels for predistortion to improve the Tx optical eye linearity with parameters
+(α, β)</p>
+<p>Rx runs in adaptive mode for CTLE/AGC, FFE, and DFE</p>
+<p>Non-linear predistortion can compensate for EàO non-linearities (EML, VCSEL, MZM, MRM, etc.)
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>16</p>
+<p>Impact of Tx Non-linear Predistortion</p>
+<p>§ Impact on the end-to-end link performance
+o</p>
+<p>VS.</p>
+<p>The “worst” PAM4 eye would dominate the
+BER performance.</p>
+<p>o</p>
+<p>A more balanced PAM4 eye can reduce the
+overall BER by a factor of 10.</p>
+<p>The improved eye linearity has a
+marked impact on BER</p>
+<p>21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>17</p>
+<p>An End-to-End optical link analysis
+Analysis Example</p>
+<p>SerDes
+ASIC</p>
+<p>ASIC Substrate / RDL</p>
+<p>Optimizing a SerDes feature for a particular non-retimed link
+q</p>
+<p>3 tap Tx FFE, Rx CTLE, 1 tap DFE, 32 tap FFE</p>
+<p>PCB C2C Trace (on Tx side and on Rx side)</p>
+<p>Samtec 12dB IL channel (IEEE802.3 contribution)
+“Channel Models for 100 Gb/s, 200Gb/s, 400 Gb/s C2C AUI”
+(https://www.ieee802.org/3/ck/public/tools/index.html)</p>
+<p>q</p>
+<p>Engine</p>
+<p>Engine
+RDL</p>
+<p>ASIC</p>
+<p>ASIC Substrate / RDL</p>
+<p>RDL</p>
+<p>Host PCB</p>
+<p>Host PCB</p>
+<p>BER for Selected SerDes Features</p>
+<p>LR SerDes used in a non-retimed link
+•</p>
+<p>q</p>
+<p>End to End Link Channel</p>
+<p>End to End simulation performed</p>
+<p>Includes O-E, fiber, and E-O characteristics
+Channel: 12dB + link + 12dB
+Includes all effects such as non-linearities and noise sources</p>
+<p>End-to-end simulation highlights the utility of various
+SerDes features enabling optimization
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>LR SerDes</p>
+<p>2e-8</p>
+<p>LR SerDes+ Tx
+non-linear
+predistortion</p>
+<p>2.9e-9</p>
+<p>LR SerDes with
+Rx DFE Disabled</p>
+<p>6.3e-8</p>
+<p>LR SerDes with
+Rx CTLE Disabled</p>
+<p>1.3e-7</p>
+<p>LR SerDes with
+Rx FFE Disabled</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>1.5e-2
+18</p>
+<p>A framework for developing non-retimed optical links
+q Motivation
+q Types of non-retimed links
+q Non-retimed applications
+q Compliance requirements for non-retimed links
+q Modeling performance of non-retimed optical links
+q What is achievable with non-retimed links
+q Summary
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>19</p>
+<p>What can be achieved with non-retimed implementations?
+Retimed pluggable</p>
+<p>Socketed ASIC
+ASIC</p>
+<p>Pluggable Optics (retimed)</p>
+<p>15 pJ/b</p>
+<p>MR/LR SerDes</p>
+<p>ASIC Substrate / RDL</p>
+<p>RDL</p>
+<p>Host PCB (high performance material)</p>
+<p>CDR
+DSP</p>
+<p>TIA</p>
+<p>CDR</p>
+<p>DRV</p>
+<p>100G-DR8</p>
+<p>Co-packaged (non-retimed)
+Co-packaged ASIC
+ASIC</p>
+<p>LR SerDes</p>
+<p>5 pJ/b</p>
+<p>Non-retimed optical engine
+DRV</p>
+<p>E àO</p>
+<p>Engine Substrate
+AGC</p>
+<p>TIA</p>
+<p>Co-Packaged Assembly Substrate</p>
+<p>Host PCB</p>
+<p>DRV</p>
+<p>A non-retimed solution offers significant power savings
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>100G-DR8
+20</p>
+<p>Summary
+There has been significant interest in links with non-retimed interfaces for a variety of reasons:
+Reduced power consumption
+q Improved density for co-packaging applications
+q Reduced latency for latency sensitive applications
+q</p>
+<p>However, there are multiple different applications for non-retimed links and different configurations
+For example, linearly amplified drive vs non-linear drive, pluggable optics vs co-packaging, non-retimed vs partially retimed
+q Important to clearly define the specific configurations of interest
+q</p>
+<p>Compliance test points need to be defined to enable interoperability for various technologies and packaging
+q</p>
+<p>For example, the degree of interoperability: single vendor vs multi-vendor, single vs multiple technologies, packaging and IL differences</p>
+<p>An opportunity exists to improving the performance of non-retimed links by optimizing the components
+q</p>
+<p>Tuning SerDes or optical engine elements to maximize power savings and maximize margins</p>
+<p>Non-retimed links provide many advantages such as reducing power, but the specific configurations must be clearly defined
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>21</p>
+<p>Thank You!
+RANOVUS Odin™</p>
+<p>Multi Terabit platform for optical interconnect
+21 March 2023
+2023 LightCounting Linear Drive Webinar</p>
+<p>A framework for developing non-retimed optical links</p>
+<p>22</p>
+<p>Linear Pluggable Optics
+For 100G and 200G
+Peter Winzer
+Laurent Alloin, Son Le, and Pete Pupalaikis
+March 21, 2023</p>
+<p>Why Linear Pluggable Optics (LPOs)
+Compute/Switch Box</p>
+<p>Host
+ASIC</p>
+<p>LR
+SerDes</p>
+<p>MR SerDes O-DSP</p>
+<p>Laser</p>
+<p>Laser</p>
+<p>Direct-Attach Cable (DAC)</p>
+<p>0 W, 1 m</p>
+<p>OE</p>
+<p>Retimed Pluggable Optics</p>
+<p>15 W, 2 km</p>
+<p>OE</p>
+<p>Linear Pluggable Optics</p>
+<p>6 W, 2 km
+*powers are for 800G</p>
+<p>Advanced ASICs embed powerful SerDes to drive Direct-Attach Cables (DACs)
+• Not much power savings by “powering down” LR SerDes to MR/VSR</p>
+<p>Advanced Optical Engines (OEs) that “look like copper” can be driven by LR SerDes
+è Halves pluggable optics power consumption
+© Nubis Communications, 2023</p>
+<p>2</p>
+<p>Making Optics Look Like Copper
+Copper</p>
+<p>Optical</p>
+<p>Electrical trace</p>
+<p>Modulator, Driver, TIA</p>
+<p>Electrical connectors</p>
+<p>Opto-electronic components</p>
+<p>Quantization, Jitter, Thermal</p>
+<p>Thermal, Shot, RIN</p>
+<p>Amplitude nonlinearities</p>
+<p>–</p>
+<p>Modulator, Driver, TIA</p>
+<p>Time nonlinearities</p>
+<p>–</p>
+<p>Modulator</p>
+<p>Nonlinear fiber impairments</p>
+<p>–</p>
+<p>CD, MPI, FWM</p>
+<p>Bandwidth limitations
+RF reflections
+Noise</p>
+<p>Linear
+optics
+minimiz
+es these
+issues</p>
+<p>Unequal</p>
+<p>Skew
+Equal</p>
+<p>Sampling point
+mazzini_3bs_01_0914
+© Nubis Communications, 2023</p>
+<p>lyubomirsky_3db_01_1020</p>
+<p>Sampling point
+Nubis XT1600TM, measured at 106 Gbps
+3</p>
+<p>Making Optics Look Like Copper
+•
+•
+•
+•</p>
+<p>Low-swing linear drivers and linear optical modulators
+Linear optical receivers
+Single-wavelength better than WDM
+Very careful co-design of optics and electronics
+NubisSim™ : End-to-End Design and Sign-off Tool
+•
+•</p>
+<p>Accurately simulates full E-O-E channel
+Sophisticated linear &amp; nonlinear component models</p>
+<p>Inputs
+Actual device perf, layouts, channel models</p>
+<p>© Nubis Communications, 2023</p>
+<p>Outputs
+waveforms, link budgets, error-rates</p>
+<p>4</p>
+<p>9” PCB Chip-to-Module Channel @ 100G
+Compute/Switch Box</p>
+<p>Host
+ASIC</p>
+<p>Compute/Switch Box</p>
+<p>LR
+SerDes
+100G</p>
+<p>LR
+SerDes
+100G</p>
+<p>8 dB</p>
+<p>2.5 dB
+Laser</p>
+<p>4 dB</p>
+<p>1.5 dB</p>
+<p>16 dB</p>
+<p>(C2M, IEEE 802.3ck)</p>
+<p>OE</p>
+<p>2 km
+DR+</p>
+<p>OE</p>
+<p>Host
+ASIC</p>
+<p>8 dB</p>
+<p>2.5 dB
+Laser</p>
+<p>1.5 dB</p>
+<p>4 dB</p>
+<p>16 dB</p>
+<p>(C2M, IEEE 802.3ck)</p>
+<p>è Use 20 dB channel loss for margin
+© Nubis Communications, 2023</p>
+<p>5</p>
+<p>Simulations With 20-dB Channel Loss @ 100G
+20 dB
+LR
+SerDes
+Tx IBISAMI</p>
+<p>Customer
+Channel</p>
+<p>Connector +
+Module
+Snp
+Termination</p>
+<p>Driver
+Snp</p>
+<p>Driver
+NL</p>
+<p>Modulator
+snp</p>
+<p>Mod
+NL</p>
+<p>Fiber
+CD, DGD, att,…</p>
+<p>LR
+Serdes
+Rx IBISAMI</p>
+<p>Customer
+Channel</p>
+<p>Connector +
+Module
+Snp
+Termination</p>
+<p>TIA
+NL</p>
+<p>TIA
+snp</p>
+<p>PD</p>
+<p>20 dB
+© Nubis Communications, 2023</p>
+<p>6</p>
+<p>Simulations With 20-dB Channel Loss @ 100G: TX
+20 dB
+LR
+SerDes
+Tx IBISAMI</p>
+<p>Customer
+Channel</p>
+<p>Connector +
+Module
+Snp
+Termination</p>
+<p>Driver
+Snp</p>
+<p>Driver
+NL</p>
+<p>Modulator
+snp</p>
+<p>Mod
+NL</p>
+<p>ER = 3.9 dB, TDECQ 2.35
+dB
+© Nubis Communications, 2023</p>
+<p>7</p>
+<p>Simulations With 20-dB Channel Loss @ 100G: RX</p>
+<p>BER = 3e-6</p>
+<p>LR
+Serdes
+Rx IBISAMI</p>
+<p>OMA = -3.3 dBm</p>
+<p>Customer
+Channel</p>
+<p>Connector +
+Module
+Snp
+Termination</p>
+<p>TIA
+NL</p>
+<p>TIA
+snp</p>
+<p>PD</p>
+<p>20 dB
+© Nubis Communications, 2023</p>
+<p>8</p>
+<p>Linear Pluggable Optics: Scaling to 200G
+Compute/Switch Box</p>
+<p>Host
+ASIC</p>
+<p>LR
+SerDes
+200G</p>
+<p>9 dB</p>
+<p>4.0 dB
+Laser</p>
+<p>9.5 dB</p>
+<p>2.0 dB</p>
+<p>OE</p>
+<p>è 40 – 50 dB SerDes reqmt for LPO
+(w/o margin)
+è Very challenging w/ existing
+box arch.
+(resolved by VLC, next slide)</p>
+<p>25 dB (PCB)
+20 dB (Twinax)
+Loss numbers after https://www.ieee802.org/3/B400G/public/21_08/kocsis_b400g_01a_210826.pdf
+Loss numbers after http://parallaxgroup.com/media/bg/2/designcon2013.pdf
+© Nubis Communications, 2023</p>
+<p>9</p>
+<p>Vertical Line Card (VLC) Scales LPO to 200G
+Switch</p>
+<p>Pluggables</p>
+<p>VLC (w/ PCB)</p>
+<p>SerDes for LPO</p>
+<p>100 Tbps</p>
+<p>8 x 200G (OSFP) (x64)
+16 x 200G (OSFP-XD) (x32)
+16 x 200G (LPO Plugs) (x32)</p>
+<p>20 dB
+18 dB
+14 dB</p>
+<p>40 dB
+36 dB
+28 dB</p>
+<p>200 Tbps</p>
+<p>16 x 200G (LPO Plugs) (x64)</p>
+<p>15 dB</p>
+<p>30 dB</p>
+<p>100T à 64 x OSFP</p>
+<p>VLC à
+© Nubis Communications, 2023</p>
+<p>100T à 32 x OSFP-XD</p>
+<p>•
+•
+•
+•</p>
+<p>100T à 32 x LPO Plug</p>
+<p>200T à 64 x LPO Plug</p>
+<p>Shorter PCB traces (9” à 2” – 5”)
+Lower-loss connectors (2 dB, 4 dB à 1 dB)
+Lower losses inside module (4 dB à 2 dB)
+Enables LPO paradigm scaling 50T à 100T à 200T
+10</p>
+<p>Conclusions
+• Linear Pluggable Optics save 50% of I/O power
+• Feasible at 100G/lane using today’s SerDes and box arch
+− Standardization, interoperability, link training open issues</p>
+<p>• LPOs extend to 200G/lane using Vertical Line Card systems
+− LPO-optimized pluggable form factors bring further benefits</p>
+<p>© Nubis Communications, 2023</p>
+<p>11</p>
+<p>Thank You</p>
+<p>Linear Drive Pluggable Optics (LPO)
+Andreas Bechtolsheim
+Arista Networks</p>
+<p>Linear Drive Pluggable Optics Modules
+1. Linear Drive means no DSP or CDR in Module
+Just a linear driver to drive electro-optical modulator</p>
+<ol>
+<li>
+<p>Requires high-performance switch SERDES
+And careful motherboard signal integrity design</p>
+</li>
+<li>
+<p>Achieves same power ef ciency as direct drive CPO
+While retaining the many advantages of pluggable optics modules</p>
+</li>
+</ol>
+<p>fi</p>
+<p>Compared to the latest DSP Optics, Linear Drive Optics
+reduce optics power by up to 50%, switch power by 25%</p>
+<p>Why Now? Three Key Ingredients
+1. Digital DSP based Switch SERDES
+Capable of dealing with both electrical and optical channel</p>
+<ol>
+<li>
+<p>100G SERDES speed matches 100G Optical Lambda
+Optics with di erent Serdes/Lambda speeds requires gearbox</p>
+</li>
+<li>
+<p>High Bandwidth Linear Drives and TIAs
+High bandwidth is key to deliver the lowest BER</p>
+</li>
+</ol>
+<p>ff</p>
+<p>Linear Drive works only with high-performance SerDes
+and a high-quality electrical and optical channel design</p>
+<p>DSP or Linear Drive
+Optics</p>
+<p>Electrical</p>
+<p>Lambda</p>
+<p>Implementation</p>
+<p>400G</p>
+<p>8x50G</p>
+<p>4x100G</p>
+<p>DSP/Gearbox</p>
+<p>800G</p>
+<p>8x100G</p>
+<p>8x100G</p>
+<p>LD or DSP</p>
+<p>800G</p>
+<p>8x100G</p>
+<p>4x200G</p>
+<p>DSP/Gearbox</p>
+<p>1600G</p>
+<p>8x200G</p>
+<p>8x200G</p>
+<p>LD or DSP</p>
+<p>Linear Drive is not applicable to 400G optics (8x50G) with
+100G Lambda, or 800G optics (8x100G) with 200G Lambda</p>
+<p>Linear Drive Optics Modules
+TFLN
+SiPh
+VCSEL
+Modules provided by Eoptolink</p>
+<p>Linear Drive works with any type of optics technology</p>
+<p>Pre-FEC BER with Ethernet Traf c</p>
+<p>fi</p>
+<p>Measurements with Silicon Photonics Module</p>
+<p>800G Pluggable Optics Power Evolution
+12</p>
+<p>15 pJ/Bit</p>
+<p>SiPh</p>
+<p>TFLN</p>
+<p>VCSEL</p>
+<p>12 pJ/Bit
+9</p>
+<p>Power measured with
+Pluggable Optics Modules</p>
+<p>10 pJ/Bit
+pJ/Bit Calculated at 100G
+All Power is typical at 3.3V</p>
+<p>8 pJ/Bit
+6</p>
+<p>6.3 pJ/Bit
+5 pJ/Bit</p>
+<p>3</p>
+<p>0
+100G 5nm DSP</p>
+<p>100G LD</p>
+<p>Switch Power Savings with LD SiPh Optics
+Switch</p>
+<p>Switch</p>
+<p>Fans+CPU</p>
+<p>Optics</p>
+<p>51.2T</p>
+<p>-25%</p>
+<p>51.2T-LD</p>
+<p>102.4T</p>
+<p>-25%</p>
+<p>102.4T-LD
+0</p>
+<p>500</p>
+<p>1000</p>
+<p>1500</p>
+<p>2000</p>
+<p>2500 [W]</p>
+<p>51.2T Power measured, 102.4T power projected
+8</p>
+<p>LPO and Direct Drive CPO Comparison
+Form Factor</p>
+<p>LPO</p>
+<p>CPO</p>
+<p>CPO Delta</p>
+<p>DSP</p>
+<p>N/A</p>
+<p>N/A</p>
+<p>Same</p>
+<p>Linear Driver</p>
+<p>Required</p>
+<p>N/A</p>
+<p>Lower Power</p>
+<p>External Laser</p>
+<p>N/A</p>
+<p>Required</p>
+<p>Higher Power</p>
+<p>New EOM Tech</p>
+<p>Supported</p>
+<p>Not POR</p>
+<p>Higher Power</p>
+<p>Voltage Rail</p>
+<p>3.3V</p>
+<p>Device Voltage</p>
+<p>Adjust for voltage</p>
+<p>Projected Power</p>
+<p>8 pJ/Bit SiPh
+5 pJ/Bit VCSEL</p>
+<p>7 pJ/Bit SiPh @ 0.8V
+VCSEL N/A</p>
+<p>Basically Same
+for SiPh
+9</p>
+<p>The Problems Pluggable Optics Solve
+1. Support any Type of Optics, Mix and Match
+SR, DR, FR, ZR, AOC, Copper Cables</p>
+<ol>
+<li>
+<p>Support Multiple Optics Technologies
+DML, EML, Silicon Photonics, VCSEL, TFLN, etc.</p>
+</li>
+<li>
+<p>Enable Large Multi-vendor Ecosystem
+All existing high-speed optics module vendors</p>
+</li>
+<li>
+<p>Easy Serviceability in Case of Failure
+Each module can be individually hot-swapped</p>
+</li>
+<li>
+<p>Disaggregated Business Model
+No margin stacking on optics</p>
+</li>
+</ol>
+<p>✓
+✓
+✓
+✓
+✓</p>
+<p>Linear Drive Pluggable Summary
+1. Same power as CPO in a Pluggable Form Factor
+While retaining all the advantages of Pluggable Modules</p>
+<ol>
+<li>
+<p>Signi cant cost reduction compared to DSP Optics
+DSP is the most expensive part in an optics module</p>
+</li>
+<li>
+<p>Requires careful system design to achieve low BER
+SerDes performance and electrical signal integrity is key</p>
+</li>
+</ol>
+<p>fi</p>
+<p>LPO is the lowest risk way to reduce optics power and cost
+while retaining all advantages of pluggable optics modules</p>
+<p>Thank You</p>
+<p>The Perspectives of Linear Optical
+Pluggables for AI/ML Clusters
+Frank Chang, Ph.D
+Source Photonics
+March 23, 2023
+IPEC Webinar, “Linear Enable Green All-Optical Connectivity for Datacenters”, 2023.3.23
+On behalf of Source Photonics and IPEC</p>
+<p>Key Linear Drive discussion points
+From Module Vendor Perspective
+1</p>
+<p>What drives the demand?</p>
+<p>2</p>
+<p>How linear play over CPO/NPO?</p>
+<p>3</p>
+<p>How to make “DSP free” happen?</p>
+<p>4</p>
+<p>How linear optics will be applied?</p>
+<p>5</p>
+<p>How to handle multi-vendor interop?</p>
+<p>6</p>
+<p>Upcoming Optics – 200G/Lambda</p>
+<p>Slide no. 1</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Facebook</p>
+<p>Power Efficient is Key for Al Clusters
+Major OFC/OCP Take-aways
+► Al/ML clusters - a big driver for network bandwidth
+► Today’s GPU drive 2x400G, later upgradable to 2x800G.</p>
+<p>► Data center switching power comes increasingly from optical interconnects
+► Linear drive can promise &gt;25% total system power savings.</p>
+<p>51.2T Power measured
+102.4T power projected</p>
+<p>Source: OFC’23 plenary
+(with updates by Andy)
+Slide no. 2</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Why STOP using CPO/NPO for saving power?
+CPO claim to reduce switch power by 30-40%</p>
+<p>CPO</p>
+<p>Pluggables</p>
+<p>►</p>
+<p>Lower power</p>
+<p>►</p>
+<p>Reliability</p>
+<p>►</p>
+<p>Lower latency</p>
+<p>►</p>
+<p>Manufacturability</p>
+<p>►</p>
+<p>High integration</p>
+<p>►</p>
+<p>Serviceability</p>
+<p>►</p>
+<p>Sipho focus</p>
+<p>►</p>
+<p>Leverage high BW optics</p>
+<p>Lower cost
+Linear Optical Pluggables
+Source: OIF
+Slide no. 3</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Transceiver Power Consumptions (400 vs 800G)
+400G &amp; 800G optics modules with 100 Gb/s electrical lane ecosystem
+400G DR4/FR4 at ~8W
+HT (70℃) Power Consumption Composition Breakdown
+1.0%</p>
+<p>8.0%</p>
+<p>800G DR8/FR8 at &lt;13-14W
+HT (70℃) Power Consumption Composition Breakdown</p>
+<p>1.0%</p>
+<p>1.0%</p>
+<p>15.0%</p>
+<p>2.0%
+10.0%</p>
+<p>10.0%</p>
+<p>12.0%</p>
+<p>15.0%</p>
+<p>60.0%
+65.0%</p>
+<p>8x100G QSFP-DD800</p>
+<p>4x100G QSFP56-DD
+TEC</p>
+<p>Laser</p>
+<p>DSP</p>
+<p>TIA</p>
+<p>MCU</p>
+<p>Other</p>
+<p>Rough estimation with 7nm DSP
+Slide no. 4</p>
+<p>TEC</p>
+<p>Laser</p>
+<p>DSP</p>
+<p>TIA</p>
+<p>MCU</p>
+<p>Other</p>
+<p>Rough estimation with 5nm DSP</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Transceiver Power Consumptions (800G vs. 1.6T)
+Next 800G &amp; 1.6T optics with the 200 Gb/s electrical/optical lane ecosystem
+800G DR4/FR4 at ~11~12W</p>
+<p>1.6T (8x200G) DR8/2xFR4 at &lt;22W</p>
+<p>Power Consumption Composition Breakdown HT
+(70℃)</p>
+<p>Power Consumption Composition Breakdown HT
+(70℃)</p>
+<p>1.0%</p>
+<p>3.0%</p>
+<p>7.0%</p>
+<p>9.0%
+10.0%</p>
+<p>9.2%</p>
+<p>12.8%</p>
+<p>0.9%</p>
+<p>8.9%
+8.6%</p>
+<p>800G scalable to 1.6T
+200G/  Gen1 DSP
+70.0%</p>
+<p>59.6%</p>
+<p>200G/  Gen2 DSP</p>
+<p>4x200G QSFP-DD800</p>
+<p>8x200G OSFP1600/QSFP-DD
+TEC</p>
+<p>Laser</p>
+<p>DSP</p>
+<p>TIA</p>
+<p>MCU</p>
+<p>Other</p>
+<p>TEC</p>
+<p>Rough estimation with 5nm DSP
+Slide no. 5</p>
+<p>Laser</p>
+<p>DSP</p>
+<p>TIA</p>
+<p>MCU</p>
+<p>Rough estimation with 3nm DSP
+SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Other</p>
+<p>How “DSP free” work?
+Retimed Interface
+400G QSFP112</p>
+<p>10G XFP
+4X
+CDR
+(EQ)</p>
+<p>Driver TOSA
+TIA</p>
+<p>800G OSFP/QSFP-DD</p>
+<p>ROSA</p>
+<p>Driver
+DSP/ (4:4) TOSA
+4X100G
+CDR
+TIA
+(4:4) (4:4) ROSA</p>
+<p>Linear Drive Interface (eliminate DSP/CDR power and cost)
+400G QSFP112
+10G SFP+</p>
+<p>Slide no. 6</p>
+<p>4X</p>
+<p>Driver TOSA</p>
+<p>Driver/EQ
+TOSA
+(4:4)</p>
+<p>TIA/LA ROSA</p>
+<p>TIA/EQ
+(4:4)</p>
+<p>DSP/
+CDR
+(8:8)</p>
+<p>Driver
+(8:8) TOSA
+8X100G
+TIA
+(8:8)</p>
+<p>800G OSFP/QSFP-DD
+Driver /EQ
+(8:8)</p>
+<p>4X100G
+ROSA</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>ROSA</p>
+<p>TOSA
+8X100G</p>
+<p>TIA/EQ
+(8:8)</p>
+<p>ROSA</p>
+<p>High–speed 224Gb/s PAM4 EMLs</p>
+<p>DC &amp; RF probing station</p>
+<p>RF testing PNA</p>
+<p>f3dB ~65 GHz</p>
+<p>Plus other high BW new materials:
+- TFLN, BTO, Polymer MZM etc
+- VCSELs</p>
+<p>Slide no. 7</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Explore linear module Line/Host I/O
+Electrical input</p>
+<p>TP2 Optical Eye</p>
+<p>TECQ 3.6dB</p>
+<p>TP1</p>
+<p>TP4</p>
+<p>TP4 Elec. Eye after O/E
+TP3 stressed optical signal</p>
+<p>Slide no. 8</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Explore Linear Module Link Performance</p>
+<p>TECQ 3.6dB</p>
+<p>Slide no. 9</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>Channel model simulation</p>
+<p>TECQ 3.6dB</p>
+<p>Insertion Loss
+Impulse after FFE</p>
+<p>Impulse</p>
+<p>RL incls PCB loss
+Slide no. 10</p>
+<p>SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>OIF CEI Linear Interop Demo – It Works!</p>
+<p>This interoperability demo consists of a 112G Linear test board receiving and converting an optical signal across single mode fiber being
+transmitted by a remote-laser-source-driven optical engine to an electrical signal via PD+TIA. The electrical signal is then sent to a BERT which
+integrates receive FFE functionality and achieves a link BER exceeding standard requirements. There is no discrete DSP in the Rx path before the
+BERT, saving module power and cost.
+SourceConfidential
+Photonics Confidential
+and Proprietary
+Source Photonics
+and Proprietary</p>
+<p>THANK YOU!</p>
+<p>Office locations
+West Hills, CA</p>
+<p>San Jose</p>
+<p>Taiwan</p>
+<p>8521 Fallbrook Avenue, Suite 200,</p>
+<p>1731 Technology Drive, Suite 530</p>
+<p>9F, No 81, Shui Lee Rd.</p>
+<p>West Hills, CA 91304</p>
+<p>San Jose, CA 95110</p>
+<p>Hsinchu, Taiwan, R.O.C.</p>
+<p>Tel: +1 (818) 773-9044</p>
+<p>Tel: +1 (818) 773-9044</p>
+<p>Tel: 886-3-5169222
+Fax: 886-3-5169213</p>
+<p>Fax: +1 (818) 773-0261</p>
+<p>Shenzhen</p>
+<p>Chengdu</p>
+<p>Jintan</p>
+<p>Building #2 &amp; 5, West Export</p>
+<h1 id="6-building-no-1036-chenfeng-road">6 Building, No. 1036 Chenfeng Road,<a class="headerlink" href="#6-building-no-1036-chenfeng-road" title="Permanent link">&para;</a></h1>
+<p>2/F, EYANG Building, No.3 of Qimin Rd,</p>
+<p>Processing Zone, No. 8 Kexin Road,</p>
+<p>Jintan Development Zone,</p>
+<p>Langshan 2nd Street, Hi-Tech Industrial</p>
+<p>Hi-Tech Zone, Chengdu, 611731, China</p>
+<p>Changzhou City, Jiangsu Province,</p>
+<p>Park North, Nanshan District, Shenzhen,</p>
+<p>Tel : (86) 28-87958788</p>
+<p>China</p>
+<p>518057, China</p>
+<p>Fax: (86) 28-87958787</p>
+<p>Tel : (86) 519-82999666</p>
+<p>Tel : (86) 755-86139096
+Fax: (86) 755-86139080</p>
+<p>Wuhan
+Room 902, Huigu Space-time Building,
+No. 8 Senlin Road. East Lake High-tech
+Development Zone, Wuhan, Hubei
+Province, China
+Tel : (86) 27-87592132</p>
+<p>India</p>
+<h1 id="54-3rd-floor-13th-main-17th-cross">54, 3rd Floor, 13th Main, 17th Cross,<a class="headerlink" href="#54-3rd-floor-13th-main-17th-cross" title="Permanent link">&para;</a></h1>
+<p>Macau
+2/A1, No. 369 Avenue</p>
+<p>Section 6, HSR Layout,</p>
+<p>Keng Ou, Commercial Building</p>
+<p>Bangalore 560 101, India</p>
+<p>2nd Floor, A1 Macau, China</p>
+<p>Tel: +91-97400-12929</p>
+<p>www.sourcephotonics.com</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul>
+<li><a href="#6-building-no-1036-chenfeng-road">6 Building, No. 1036 Chenfeng Road,</a></li>
+<li><a href="#54-3rd-floor-13th-main-17th-cross">54, 3rd Floor, 13th Main, 17th Cross,</a></li>
+</ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lecture11_ee720_clocking_arch_plls — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md" class="nav-item active">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">lecture11_ee720_clocking_arch_plls</span>
+            <span class="topbar-breadcrumb">serdes / fundamentals / lectures / lecture11_ee720_clocking_arch_plls_深度学习报告 / lecture11_ee720_clocking_arch_plls.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <p>ECEN720: High-Speed Links
+      Circuits and Systems
+          Spring 2023</p>
+<p>Lecture 11: Clocking Architectures &amp; PLLs</p>
+<pre><code>            Sam Palermo
+    Analog &amp; Mixed-Signal Center
+        Texas A&amp;M University
+</code></pre>
+<p>Announcements
+• Project Preliminary Report due Apr 18
+• Project Final Report due May 2</p>
+<pre><code>                                      2
+</code></pre>
+<p>Agenda
+• Clocking Architectures</p>
+<p>• PLLs
+  • Modeling
+  • Noise transfer functions</p>
+<pre><code>                           3
+</code></pre>
+<p>References
+• High-speed link clocking tutorial paper, PLL
+  analysis paper, and PLL thesis posted on
+  website
+• Posted PLL models in project section
+• Website has additional links on PLL and
+  jitter tutorials
+• Majority of today’s PLL material comes
+  from Fischette tutorial and M. Mansuri’s
+  PhD thesis (UCLA)
+                                                 4
+High-Speed Electrical Link System</p>
+<pre><code>                                5
+</code></pre>
+<p>Clocking Terminology
+              Synchronous
+              • Every chip gets same frequency AND phase
+              • Used in low-speed busses
+              Mesochronous
+              • Same frequency, but unknown phase
+              • Requires phase recovery circuitry
+                  • Can do with or without full CDR
+              • Used in fast memories, internal system interfaces,
+                MAC/Packet interfaces
+              Plesiochronous
+              • Almost the same frequency, resulting in slowly
+                drifting phase
+              • Requires CDR
+              • Widely used in high-speed links
+              Asynchronous
+              • No clocks at all
+              • Request/acknowledge handshake procedure
+              • Used in embeddded systems, Unix, Linux
+  [Poulton]                                                          6
+I/O Clocking Architectures
+• Three basic I/O architectures
+   • Common Clock (Synchronous)
+   • Forward Clock (Source Synchronous)
+   • Embedded Clock (Clock Recovery)</p>
+<p>• These I/O architectures are used for varying applications
+  that require different levels of I/O bandwidth</p>
+<p>• A processor may have one or all of these I/O types</p>
+<p>• Often the same circuitry can be used to emulate different
+  I/O schemes for design reuse</p>
+<pre><code>                                                          7
+</code></pre>
+<p>Common Clock I/O Architecture</p>
+<p>[Krauter]</p>
+<p>• Common in original computer systems
+• Synchronous system by design (no active deskew)
+• Common bus clock controls chip-to-chip transfers
+• Requires equal length routes to chips to minimize clock skew
+• Data rates typically limited to ~100Mb/s                   8
+Common Clock I/O Cycle Time</p>
+<p>[Krauter]</p>
+<pre><code>                          9
+</code></pre>
+<p>Common Clock I/O Limitations
+• Difficult to control clock skew and propagation delay
+• Need to have tight control of absolute delay to meet a given
+  cycle time
+• Sensitive to delay variations in on-chip circuits and board
+  routes
+• Hard to compensate for delay variations due to low
+  correlation between on-chip and off-chip delays
+• While commonly used in on-chip communication, offers
+  limited speed in I/O applications</p>
+<pre><code>                                                            10
+</code></pre>
+<p>Forward Clock I/O Architecture
+                  • Common high-speed reference
+                    clock is forwarded from TX chip
+                    to RX chip
+                      • Mesochronous system
+                  • Used in processor-memory
+                    interfaces and multi-processor
+                    communication
+                      • Intel QPI
+                      • Hypertransport
+                  • Requires one extra clock
+                    channel
+                  • “Coherent” clocking allows low-
+                    to-high frequency jitter tracking
+                  • Need good clock receive
+                    amplifier as the forwarded clock
+                    is attenuated by the channel
+                                                     11
+Forward Clock I/O Limitations
+                  • Clock skew can limited forward
+                    clock I/O performance
+                     • Driver strength and loading
+                       mismatches
+                     • Interconnect length
+                       mismatches</p>
+<pre><code>              • Low pass channel causes jitter
+                amplification
+
+              • Duty-Cycle variations of
+                forwarded clock
+
+
+
+
+                                                 12
+</code></pre>
+<p>Forward Clock I/O De-Skew
+                 • Per-channel de-skew allows for
+                   significant data rate increases</p>
+<pre><code>             • Sample clock adjusted to center
+               clock on the incoming data eye
+
+             • Implementations
+                • Delay-Locked Loop and Phase
+                  Interpolators
+                • Injection-Locked Oscillators
+
+             • Phase Acquisition can be
+                • BER based – no additional
+                  input phase samplers
+                • Phase detector based
+                  implemented with additional
+                  input phase samplers
+                  periodically powered on
+                                                13
+</code></pre>
+<p>Forward Clock I/O Circuits
+                  • TX PLL
+                  • TX Clock Distribution
+                  • Replica TX Clock Driver
+                  • Channel
+                  • Forward Clock Amplifier
+                  • RX Clock Distribution
+                  • De-Skew Circuit
+                     • DLL/PI
+                     • Injection-Locked Oscillator</p>
+<pre><code>                                                 14
+</code></pre>
+<p>Embedded Clock I/O Architecture
+                 • Can be used in mesochronous
+                   or plesiochronous systems</p>
+<pre><code>             • Clock frequency and optimum
+               phase position are extracted
+               from incoming data stream
+
+             • Phase detection continuously
+               running
+
+             • CDR Implementations
+                • Per-channel PLL-based
+                • Dual-loop w/ Global PLL &amp;
+                   • Local DLL/PI
+                   • Local Phase-Rotator PLLs
+                                                15
+</code></pre>
+<p>Embedded Clock I/O Limitations
+                 • Jitter tracking limited by
+                   CDR bandwidth
+                    • Technology scaling allows
+                      CDRs with higher
+                      bandwidths which can
+                      achieve higher frequency
+                      jitter tracking</p>
+<pre><code>             • Generally more hardware
+               than forward clock
+               implementations
+                • Extra input phase samplers
+
+
+
+                                              16
+</code></pre>
+<p>Embedded Clock I/O Circuits
+                 • TX PLL</p>
+<pre><code>             • TX Clock Distribution
+
+             • CDR
+                • Per-channel PLL-based
+                • Dual-loop w/ Global PLL &amp;
+                   • Local DLL/PI
+                   • Local Phase-Rotator PLLs
+                   • Global PLL requires RX
+                      clock distribution to
+                      individual channels
+
+
+
+                                                17
+</code></pre>
+<p>Xilinx 0.5-32Gb/s Transceiver Clocking
+                          Channels 1-4
+ Frac-N LC PLL1, 2                                      Technology                CMOS 16nm FinFET
+                                              Power Supply (Vavcc, Vavtt, Vaux)     0.9 V, 1. 2V, 1.8 V
+      ∑                      Transmitter              Frequency range             500 Mb/s – 32.75 Gb/s
+                                DCC                Transceiver Quad area          2.625 mm × 2.218 mm
+    VCOLB                                              LC PLL range                   8-16.375 GHz
+                              Receiver                Ring PLL range                    2-6.25 GHz
+    VCOHB
+                                               TX PRBS7 jitter at 32.75Gb/s       TJ: 5.39 ps, RJ: 190 fs
+                             PI (D,X,S)       32.75Gb/s RX JTOL @ 30MHz                   0.45 UI
+  PPF     2                    IQ CAL                               @ 100MHz              0.6 UI
+                                                 Channel loss at 32.75Gb/s                 30 dB
+                                DCC
+                                                Measured BER at 32.75Gb/s                 &lt; 10-15
+                              Ring PLL         Power at 32.75Gb/s with DFE        577mW/ch (17.6pJ/b)</p>
+<pre><code>      I/Q1, I/Q2
+</code></pre>
+<p>Active Inductor based Clock Distribution
+                                                               [Upadhyaya VLSI 2016]</p>
+<p>• LC-PLL with 2 LC-VCOs used to cover high data rates
+  (8-32Gb/s)
+• Ring-PLL used for lower data rates
+• CML clock distribution with active inductive loads used
+  for low jitter
+                                                                                                       18
+PLLs
+• PLL modeling</p>
+<p>• PLL noise transfer functions</p>
+<pre><code>                             19
+</code></pre>
+<p>PLL Block Diagram</p>
+<pre><code>                                                [Perrott]
+</code></pre>
+<p>• A phase-locked loop (PLL) is a negative feedback system
+  where an oscillator-generated signal is phase AND
+  frequency locked to a reference signal</p>
+<pre><code>                                                        20
+</code></pre>
+<p>PLL Applications
+• PLLs applications
+  • Frequency synthesis
+    • Multiplying a 100MHz reference clock to 10GHz
+  • Skew cancellation
+    • Phase aligning an internal clock to an I/O clock
+  • Clock recovery
+    • Extract from incoming data stream the clock frequency and
+      optimum phase of high-speed sampling clocks
+  • Modulation/De-modulation
+    • Wireless systems
+    • Spread-spectrum clocking</p>
+<pre><code>                                                              21
+</code></pre>
+<p>Forward Clock I/O Circuits
+                  • TX PLL
+                  • TX Clock Distribution
+                  • Replica TX Clock Driver
+                  • Channel
+                  • Forward Clock Amplifier
+                  • RX Clock Distribution
+                  • De-Skew Circuit
+                     • DLL/PI
+                     • Injection-Locked Oscillator</p>
+<pre><code>                                                 22
+</code></pre>
+<p>Embedded Clock I/O Circuits
+                 • TX PLL</p>
+<pre><code>             • TX Clock Distribution
+
+             • CDR
+                • Per-channel PLL-based
+                • Dual-loop w/ Global PLL &amp;
+                   • Local DLL/PI
+                   • Local Phase-Rotator PLLs
+                   • Global PLL requires RX
+                      clock distribution to
+                      individual channels
+
+
+
+                                                23
+</code></pre>
+<p>PLL Design Challenges
+ • Board-level reference clock frequencies don’t scale often
+    • 156MHz is a common frequency
+ • RX CDR bandwidth is hard to scale with PAM4 signaling and
+   ADC-based front-ends
+    • Typically 2-4MHz
+ • PLL bandwidth must be kept less than 10MHz for stability
+   and to filter reference jitter
+ • VCO phase noise at low-frequency offsets due to flicker
+   noise must be suppressed
+                     32.75Gbps Transceiver PLL Simulated Jitter Numbers
+    Receiver Type         PLL PN @1MHz      CDR BW           RJ           RJ in UI
+   Analog based RX          -92.4dBc/Hz     12.7MHz        160.7fs        5.26mUI
+    ADC based RX            -92.4dBc/Hz      2MHz           407fs         13.3mUI</p>
+<p>[Turker ISSCC 2019]                                                                  24
+Charge Pump PLL
+                           PFD
+         Fin           D           UP        ICP                       Fout = N*Fin
+                               Q
+               in(t)       R
+                                                    Vctrl
+                                                                 VCO       out(t)
+               fb(t)       R       DN
+                               Q                   R        C2
+                       D
+                                             ICP
+                                                   C1</p>
+<pre><code>                                    Divider
+
+                                     1/N
+</code></pre>
+<p>• Charge pump PLL is a common implementation
+• Type-2 (2 integrators) allows for ideally zero phase error between
+  the input and feedback phase
+• Requires a stabilizing zero that is realized with the filter resistor
+• A secondary capacitor C2 is often added for additional filtering to
+  reduce reference spurs
+• Modeled as a third-order system
+                                                                                      25
+Linear PLL Model
+           Phase Detector      Loop Filter            VCO</p>
+<pre><code>                e                       Vctrl    KVCO
+in                 KPD       F(s)                                out
+                                                   s
+
+      fb
+                                1
+                                N
+                             Divider
+</code></pre>
+<p>• Phase is the key variable of interest
+   • Output phase response to a stimulus injected at a given point in the loop
+   • Phase error response is also informative
+• Linear “small-signal” analysis is useful for understand PLL dynamics if
+   • PLL is locked (or near lock)
+   • Input phase deviation amplitude is small enough to maintain operation in
+     lock range
+                                                                                 26
+Understanding PLL Frequency Response
+       Input phase response         VCO output phase response
+out                              out
+in                               vco</p>
+<pre><code>                          f                                 f
+</code></pre>
+<p>• Frequency domain analysis can tell us how well the PLL
+  tracks the input phase as it changes at a certain frequency</p>
+<p>• PLL transfer function is different depending on which point
+  in the loop the output is responding to
+                                                                27
+Linear PLL Model
+             Phase Detector                    Loop Filter                  VCO</p>
+<pre><code>                  e                                      Vctrl         KVCO
+  in                     KPD                F(s)                                     out
+                                                                         s
+
+        fb
+                                                 1
+                                                 N
+                                            Divider
+
+                                                     𝐼
+</code></pre>
+<p>For Charge Pump PLL:                             𝐾
+                                                         2𝜋
+                                                     1       1
+                                                          𝑠
+                                                     𝐶      𝑅𝐶
+                                         𝐹 𝑠
+                                                          𝐶  𝐶
+                                                  𝑠 𝑠
+                                                          𝑅𝐶 𝐶
+                                                    𝐾 𝐾                    1
+                           𝜙    𝑠                                      𝑠
+                                                      𝐶                   𝑅𝐶
+            𝐻 𝑠
+                           𝜙   𝑠               𝐶  𝐶                   𝐾 𝐾          𝐾 𝐾
+                                     𝑠               𝑠                       𝑠
+                                               𝑅𝐶 𝐶                    𝑁𝐶          𝑁𝑅𝐶 𝐶
+                                                                                                  28
+14GHz PLL Closed-Loop Transfer Function
+  Parameter
+    Fref            156.25MHz
+      N                90
+    Fvco             14GHz
+      fu              2MHz
+     m                60°
+     f3dB            3.1MHz
+    Kvco            2π*1GHz/V
+      R               4k
+     C1               74pF
+     C2               5.8pF
+     Icp             310uA</p>
+<pre><code>                                        𝐾 𝐾        1
+                  𝜙        𝑠                   𝑠
+                                          𝐶       𝑅𝐶
+          𝐻 𝑠
+                  𝜙       𝑠        𝐶  𝐶       𝐾 𝐾        𝐾 𝐾
+                               𝑠         𝑠           𝑠
+                                   𝑅𝐶 𝐶        𝑁𝐶        𝑁𝑅𝐶 𝐶
+                                                                 29
+</code></pre>
+<p>Common PLL Noise Sources
+              Phase Detector
+      Sin                                    SiCP Loop Filter                SvR   VCO    SVCO
+                       e                                             Vctrl         KVCO
+in                           KPD                       F(s)                                  out
+                                                                                     s</p>
+<pre><code>         fb
+                                                        1
+                                                        N
+                                                    Divider
+
+                                  𝑆            𝑆       𝑁𝑇𝐹        𝑠
+
+                                  𝑆            𝑆       𝑁𝑇𝐹        𝑠
+
+                                  𝑆             𝑆      𝑁𝑇𝐹 𝑠
+
+                              𝑆             𝑆          𝑁𝑇𝐹            𝑠
+
+                        𝑆             𝑆            𝑆          𝑆           𝑆
+                                                                                                      30
+</code></pre>
+<p>Noise Transfer Functions
+                𝜙         𝑠       𝑁 𝐿𝐺 𝑠
+  𝑁𝑇𝐹       𝑠
+                𝜙        𝑠       1 𝐿𝐺 𝑠
+                                  𝑁
+                𝜙        𝑠          𝐿𝐺 𝑠
+                                 𝐾
+ 𝑁𝑇𝐹    𝑠
+                𝑖       𝑠        1 𝐿𝐺 𝑠
+                                     𝐾
+                𝜙   𝑠                    𝑠
+  𝑁𝑇𝐹 𝑠
+                 𝑣 𝑠             1       𝐿𝐺 𝑠
+                    𝜙        𝑠            1
+ 𝑁𝑇𝐹        𝑠
+                    𝜙        𝑠       1    𝐿𝐺 𝑠</p>
+<p>• Input reference and charge pump noise is low-pass filtered
+• Loop filter noise (VCO input noise) is band-pass filtered
+• VCO output phase noise is high-pass filtered
+                                                           31
+PLL Phase Noise &amp; Jitter                                    [Turker ISSCC 2018]</p>
+<p>• PLL time-domain jitter is obtained by        • We can model an individual
+  integrating the output phase noise             noise source’s contribution
+             2                                     2
+     𝜎,              𝑆     𝑓 𝑑𝑓            𝜎,                𝑆 𝑓 𝑁𝑇𝐹 𝑓   𝑑𝑓
+             𝜔                                     𝜔</p>
+<pre><code>                                                   𝜎,          𝜎,
+
+                     RMS Jitter 𝜎     𝜎,
+                                                                          32
+</code></pre>
+<p>Wireline Transceiver Jitter Modeling</p>
+<pre><code>    [Richmond SiLabs]
+</code></pre>
+<p>• Relative jitter (dynamic phase error) between the RX CDR-generated
+  sampling clock and input data sets the system timing margin
+• This CDR high-pass response provides additional filtering
+• Modeled as a 4MHz 1st-order response (IEEE 802.3 &amp; OIF-CEI)
+                        2
+                𝜎   ,        𝑆 𝑓 𝑁𝑇𝐹 𝑓     𝐶𝐷𝑅 𝑓   𝑑𝑓
+                        𝜔                                              33
+Input Reference Noise
+                            Phase Noise at 156.26MHz
+Silicon Labs Ultra Low
+Jitter Crystal Oscillator</p>
+<p>• Reference jitter j,in = 226fsrms (10kHz – 10MHz)
+                                                       34
+Input Reference Noise
+                             𝐾 𝐾        1
+                                    𝑠
+                               𝐶       𝑅𝐶
+          𝑁𝑇𝐹   𝑠
+                        𝐶  𝐶       𝐾 𝐾        𝐾 𝐾
+                    𝑠         𝑠           𝑠
+                        𝑅𝐶 𝐶        𝑁𝐶        𝑁𝑅𝐶 𝐶</p>
+<p>• After PLL: j,in = 217fsrms (10kHz – 10MHz)
+• Including CDR: j,in = 45fsrms (100Hz – 7GHz)
+                                                      35
+ Charge Pump Noise
+                                           Tref
+       MP                                               Trst=40ps, Tref=6.4ns
+ VBP        in,MP
+                              IN
+                              FB
+UP
+                    iCP       UP
+DN
+                              DN
+ VBN        in,MN
+                                    Trst
+       MN                     iCP</p>
+<pre><code>                      𝑇
+        𝑆                       𝑆 ,           𝑆 ,
+                      𝑇
+</code></pre>
+<p>• Charge pump noise current is injected into the loop filter
+  during the PFD reset time
+• Trade-off between charge pump noise contribution and
+  deadzone robustness
+• Transistor flicker noise can contribute significantly to PLL
+  in-band phase noise                                                           36
+Charge Pump Noise
+                               𝐾       1
+                                    𝑠
+                                𝐶     𝑅𝐶
+          𝑁𝑇𝐹   𝑠
+                        𝐶  𝐶        𝐾 𝐾        𝐾 𝐾
+                    𝑠          𝑠           𝑠
+                        𝑅𝐶 𝐶         𝑁𝐶        𝑁𝑅𝐶 𝐶</p>
+<p>• After PLL: j,CP = 205fsrms (10kHz – 10MHz)
+• Including CDR: j,CP = 52fsrms (100Hz – 7GHz)
+                                                       37
+Loop Filter R Noise</p>
+<pre><code>     ICP
+</code></pre>
+<p>UP                                            w/ 4k Resistor
+         Charging
+                            Vctrl
+                                          𝑆    4𝑘𝑇𝑅    162𝑑 𝐵 ⁄𝐻 𝑧
+DN       Discharging   R     C2
+         ICP
+                       C1
+                            F(s)</p>
+<p>• Trade-off between resistor noise, loop filter
+  capacitor size, and charge pump noise
+     • Smaller resistor results in larger capacitors (higher area)
+       and larger charge pump current (higher SiCP)
+                                                                     38
+Loop Filter R Noise
+                                        𝐶   𝐶
+                         𝐾       𝑠 𝑠
+                                         𝑅𝐶 𝐶
+          𝑁𝑇𝐹 𝑠
+                      𝐶  𝐶             𝐾 𝐾        𝐾 𝐾
+                  𝑠          𝑠                𝑠
+                      𝑅𝐶 𝐶              𝑁𝐶        𝑁𝑅𝐶 𝐶</p>
+<p>• After PLL: j,R = 128fsrms (10kHz – 10MHz)
+• Including CDR: j,R = 81fsrms (100Hz – 7GHz)
+                                                          39
+VCO Noise
+             LC-Oscillator
+ w/ Differential Tank &amp; Noise Sources
+                          C1</p>
+<pre><code>                      Rp
+
+
+                      in,Rp
+
+
+                      L1
+                     Vout
+
+
+     in,M1                            in,M2
+                M1            M2
+
+
+
+             Vbias            in,M3
+                     M3
+</code></pre>
+<p>• LC-VCO phase noise sources
+  • Finite tank quality factor
+  • Cross-coupled pair
+  • Tail current source                           40
+VCO Noise
+                                      𝐶    𝐶
+                              𝑠   𝑠
+                                       𝑅𝐶 𝐶
+         𝑁𝑇𝐹   𝑠
+                       𝐶  𝐶           𝐾 𝐾          𝐾 𝐾
+                   𝑠          𝑠                𝑠
+                       𝑅𝐶 𝐶             𝑁𝐶         𝑁𝑅𝐶 𝐶</p>
+<p>• After PLL: j,VCO = 257fsrms (10kHz – 10MHz)
+• Including CDR: j,R = 125fsrms (100Hz – 7GHz)
+                                                           41
+Total Noise
+                                                                          PLL Output
+                                                        VCO     Ref Clk
+                                                                 28%
+                                                        38%</p>
+<pre><code>                                                           Charge Pump
+                                                                25%
+                                                    Loop Filter
+                                                       9%
+
+
+
+
+                                               Jitter
+                                              Variance                Ref Clk
+                                                                        7%
+                                                                      Charge Pump
+                                                                          10%
+
+                                                              VCO       Loop Filter
+                                                              58%          25%
+
+                                                                                After CDR
+</code></pre>
+<p>• After PLL: j,Total = 414fsrms (10kHz – 10MHz)
+   • Reference clock and charge pump noise dominates at low frequency
+   • VCO dominates near loop bandwidth and higher
+• Including CDR: j,Total = 164fsrms (100Hz – 7GHz)
+   • Now VCO noise clearly dominates total
+   • Loop resistor noise is a larger percentage                                             42
+PLL Noise Transfer Function Take-Away Points</p>
+<p>• The way a PLL shapes phase noise depends
+  on where the noise is introduced in the loop
+• Optimizing the loop bandwidth for one noise
+  source may enhance other noise sources
+• Generally, the PLL low-pass shapes input
+  phase noise, band-pass shapes VCO input
+  voltage noise, and high-pass shapes
+  VCO/clock buffer output phase noise</p>
+<pre><code>                                         43
+</code></pre>
+<p>Oscillator Noise
+            Jitter</p>
+<p>[McNeill]            44
+Oscillator Phase Noise Model</p>
+<pre><code>                                                                      [Perrott]
+
+                                Noise Spectral Density 
+                L f   10 log                         dBc/Hz 
+                                   Carrier Power       
+                                2 FkT   1 f  2  f 3  
+</code></pre>
+<p>Leeson’s Model:   Lf   10 log       1    o
+                                                       1  1/ f  
+                                    Psig   2Q f      f  
+                                                                 
+• For improved model see Hajimiri papers
+                                                                                      45
+Open-Loop VCO Jitter
+                                                 [McNeill]</p>
+<pre><code>                       DT
+</code></pre>
+<p>• Measure distribution of clock threshold crossings
+• Plot  as a function of delay T
+                                                             46
+Open-Loop VCO Jitter
+                                         [McNeill]</p>
+<pre><code>                                      T OL  T    T
+</code></pre>
+<p>• Jitter  is proportional to sqrt(T)
+•  is VCO time domain figure of merit
+                                                              47
+ VCO in Closed-Loop PLL Jitter</p>
+<p>[McNeill]</p>
+<p>• PLL limits  for delays longer than loop bandwidth L
+                          L  1 2f L
+                                                          48
+  Ref Clk-Referenced vs Self-Referenced
+ [McNeill]       CDR Example</p>
+<p>Ref Clock for
+Frequency Synthesis PLL</p>
+<p>• Generally, we care about the jitter w.r.t. the ref. clock (x)
+ • However, may be easier to measure w.r.t. delayed version of output clk
+     • Due to noise on both edges, this will be increased by a sqrt(2) factor relative
+       to the reference clock-referred jitter                                       49
+Converting Phase Noise to Jitter
+                                                                                      [Mansuri]</p>
+<pre><code>                                                            8
+</code></pre>
+<p>• RMS jitter for T accumulation                      𝜎
+                                                                𝜔
+                                                                          𝑆 𝑓 𝑠𝑖𝑛 𝜋𝑓Δ𝑇 𝑑𝑓</p>
+<p>• As T goes to ∞               2                     2 
+                       T2          R  0          S       f df
+                               o2                 2
+                                                  o 0
+• Actual integration range depends on application bandwidth
+   • fmin set by assumed CDR tracking bandwidth
+   • fmax set by Nyquist frequency (f0/2)
+                                                       f0
+                                                  2         2                  2
+• Most exact approach                  T2 
+                                               o2
+                                                           S  f  H sys  f  df
+                                                          0
+                                               2
+                       where H sys  f               is the system jitter transfer function      50
+Time Domain Model
+• Time domain models captures the discrete-time operation
+  of the PLL architectures
+   • Interaction between charge pump and loop filter
+   • Cycle slipping behavior
+• Allows modeling of non-linear control systems
+   • Dynamic loop bandwidth control
+   • Automatic frequency band selection
+• Potential implementation tools
+   • Matlab Simulink
+   • CppSim
+   • Cadence
+                                                            51
+Simulink Model</p>
+<pre><code>  PFD
+             Loop Filter
+
+
+
+
+                           52
+</code></pre>
+<p>Frequency Step w/ Simulink Model
+• VCO control voltage response to input frequency step
+     KVCO=2<em>1GHz/V (LC Osc)              KVCO=2</em>10GHz/V (Ring Osc)</p>
+<p>• Voltage spikes due to charge pump current driving loop filter resistor
+• Cycle slipping occurs during lock acquisition due to large initial
+  frequency difference
+                                                                           53
+CppSim Model                             [Perrott/Meninger]</p>
+<p>• https://cppsim.com/
+• C++ based allows for rapid
+  simulation of advanced architectures
+• Many useful building blocks included</p>
+<pre><code>                                                     54
+</code></pre>
+<p>Cadence Verilog-A Model</p>
+<pre><code>VCO (Square Wave)
+</code></pre>
+<p>Verilog-A Code Snippet</p>
+<pre><code>                        55
+</code></pre>
+<p>Next Time
+• CDRs</p>
+<p>• The following slides provide more details
+  on PLL circuits. This 620 material may
+  useful for the project, but won’t be covered
+  in detail on Exam 2.</p>
+<pre><code>                                             56
+</code></pre>
+<p>PLL Loop Gain
+          Phase Detector
+                                    Loop Filter                   VCO</p>
+<pre><code>               e                             Vctrl           KVCO
+</code></pre>
+<p>in                   KPD          F(s)                                out
+                                                                   s</p>
+<pre><code>     fb
+                                    1
+                                    N
+                                 Divider
+
+
+
+                                                                 1
+                        𝐾 𝐹 𝑠 𝐾            𝐾 𝐾            𝑠
+                                                                𝑅 𝐶
+               𝐿𝐺 𝑠
+                           𝑁𝑠                                 𝐶   𝐶
+                                           𝑁𝐶 𝑠       𝑠
+                                                              𝑅 𝐶𝐶
+
+                     1                                          𝐶  𝐶
+           𝜔            ,   𝜔       𝜔         0,      𝜔
+                    𝑅 𝐶                                         𝑅 𝐶𝐶
+
+                                                                              57
+</code></pre>
+<p>Loop Gain Response
+                        𝐾 𝐾      𝑠       𝜔
+                𝐿𝐺 𝑠                               𝜔       𝜔     0
+|LG|(dB)                𝑁𝐶 𝑠 𝑠       𝜔
+                                                            1
+                                                       𝜔
+                                                           𝑅 𝐶
+                                                           𝐶  𝐶
+           z      u     p3                      𝜔
+      0                                                   𝑅 𝐶𝐶</p>
+<pre><code>LG
+                                               𝜔              𝜔
+                                 Φ       tan           tan
+</code></pre>
+<p>-135°           m                                𝜔              𝜔</p>
+<p>-180°</p>
+<pre><code>                                                                  58
+</code></pre>
+<p>Design Procedure for Max m
+                            𝐾 𝐾      𝑠       𝜔       PLL Specs
+                    𝐿𝐺 𝑠
+ |LG|(dB)                   𝑁𝐶 𝑠 𝑠       𝜔       Parameter
+                                                   Fref      156.25MHz
+                                                    N            90
+                                                   Fvco       14GHz
+               z      u     p3
+       0                                           fu         2MHz
+                                                    m          60°</p>
+<pre><code>                                               Kvco      2π*1GHz/V
+
+ LG                                             R            ??
+                                                C1           ??
+</code></pre>
+<p>-135°              m                             C2           ??
+                                                    Icp          ??</p>
+<p>-180°</p>
+<p>• Design procedure maximizes phase margin for a given fu
+  and m specification [Hanumolu TCAS1 2004]                             59
+Design Procedure for Max m
+1. Set loop filter capacitor ratio based on m
+                  𝐶
+             𝐾            2 𝑡𝑎𝑛 Φ              𝑡𝑎𝑛 Φ          𝑡𝑎𝑛 Φ      1
+                  𝐶
+                               Φ           60° → 𝐾        12.9
+2. Set loop filter values based on u &amp; with R set for low noise
+                                                  𝜔
+                                       𝜔
+                                               1      𝐾
+                                            1             𝐶
+                                   𝐶           , 𝐶
+                                           𝜔 𝑅            𝐾
+                    𝜔         2𝜋 ∗ 2𝑀𝐻𝑧 → 𝜔   2𝜋 ∗ 536𝑘𝐻𝑧
+                  Set 𝑅       4𝑘Ω → 𝐶    74𝑝𝐹 &amp; 𝐶     5.8𝑝𝐹
+3. Set Icp to achieve required loop gain</p>
+<pre><code>          N𝐶 𝜔    𝜔            𝜔
+     𝐼
+           𝐾          𝜔     𝜔             𝜔           2𝜋 ∗ 7.45𝑀𝐻𝑧 → 𝐼   310𝜇𝐴
+                                                                                 60
+</code></pre>
+<p>Simulated Responses
+                                                  𝐾 𝐾        1
+           𝐾 𝐾      𝑠       𝜔   𝜙    𝑠                   𝑠
+                                                    𝐶       𝑅𝐶
+    𝐿𝐺 𝑠                                     𝐶  𝐶       𝐾 𝐾        𝐾 𝐾
+           𝑁𝐶 𝑠 𝑠       𝜔       𝜙   𝑠    𝑠         𝑠           𝑠
+                                             𝑅𝐶 𝐶        𝑁𝐶        𝑁𝑅𝐶 𝐶</p>
+<p>• Design achieves fu=2MHz and m=60°
+• Closed loop response has f3dB=3.1MHz
+                                                                      61
+Charge-Pump PLL Circuits
+• Phase Detector
+• Charge-Pump
+                                  PFD</p>
+<p>• Loop Filter   Fin
+                      in(t)
+                              D
+                                  R
+                                      Q
+                                          UP        ICP</p>
+<pre><code>                                                       Vctrl
+                                                                          Fout = N*Fin
+
+                                                                    VCO       out(t)
+                                      DN
+</code></pre>
+<p>• VCO
+                      fb(t)       R
+                                      Q                   R        C2
+                              D
+                                                    ICP
+                                                          C1</p>
+<p>• Divider                                      Divider</p>
+<pre><code>                                            1/N
+
+
+
+
+                                                                                       62
+</code></pre>
+<p>Phase Detector
+              Phase Detector                                             IN
+                                              Loop Filter
+                                                                         FB
+                      e                 ve                 vctrl
+     in                     KPD                 F(s)                        
+                                                                           avg 𝑣 𝑡      𝐾 Δ𝜙
+            fb
+                                                                                avg{ve(t)}
+• Detects phase difference between feedback clock
+  and reference clock
+• The loop filter will filter the phase detector output,                                     KPD
+  thus to characterize phase detector gain, extract
+                                                                                                   
+  average output voltage
+• The KPD factor can change depending on the
+  specific phase detector circuit
+                      K PD units are V/rad when used with a dimension - less filter</p>
+<pre><code>       K PD units are rad -1 (averaged) or A/rad when combined with the charge - pump
+
+                              when used with a impedance filter                                 63
+</code></pre>
+<p>Analog Multiplier Phase Detector
+           A1 cos 1t
+                                  A1 A2                                     A1 A2
+                                                cos1  2 t                  cos1  2 t   
+                                        2                                       2
+    A2 cos2t   
+                         is mixer gain</p>
+<p>• If 1=2 and filtering out high-frequency term
+                                        A1 A2
+                             y t               cos 
+                                            2
+                                                     A1 A2          
+•   Near  lock region of /2: yt                   2
+                                                              
+                                                                2
+                                                                    
+                                                                      
+                                                                       A1 A2
+                                                            K PD  
+                                                                         2</p>
+<pre><code>                                                                          [Razavi]
+                                                                                                    64
+</code></pre>
+<p>XOR Phase Detector</p>
+<pre><code>                                                             [Razavi]
+</code></pre>
+<p>• Assuming logic 1=“+1” and 0=“-1”, the XOR PD will lock
+  when the average output is 0
+   • Generally, /2 is a stable lock point and -/2 is a metastable point
+• Sensitive to clock duty cycle                                             65
+XOR Phase Detector</p>
+<p>Width is same for both
+leading and lagging
+phase difference!        [Perrott]</p>
+<pre><code>                                 66
+</code></pre>
+<p>Cycle Slipping
+• If there is a frequency difference between the input
+  reference and PLL feedback signals the phase detector can
+  jump between regions of different gain
+   • PLL is no longer acting as a linear system</p>
+<pre><code>                                                                             [Perrott]
+
+
+
+
+             (positive feedback operation)   (negative feedback operation)
+                                                                                         67
+</code></pre>
+<p>Cycle Slipping</p>
+<pre><code>           Cycle Slipping
+
+
+
+
+                                                [Perrott]
+</code></pre>
+<p>• If frequency difference is too large the PLL may not lock
+                                                                68
+  Phase Frequency Detector (PFD)
+                              • Phase Frequency Detector allows for
+                   PFD          wide frequency locking range,
+               D
+ CLKIN             R
+                       Q   UP   potentially entire VCO tuning range
+                              • 3-stage operation w/ UP &amp; DN outputs
+ CLKFB             R          • Rising edge-triggered results in duty
+                       Q   DN
+               D                cycle insensitivity
+                   Tref                              CLKFB           CLKIN
+CLKIN                                 CLKFB                                         CLKIN
+         te                                   UP=0           UP=0            UP=1
+CLKFB                                         DN=1           DN=0            DN=0</p>
+<pre><code>                                             CLKIN                 CLKFB
+</code></pre>
+<p>UP                                                         Delay</p>
+<p>DN
+              Trst                                           RST=1
+   iCP</p>
+<pre><code>                                                                                  69
+</code></pre>
+<p>Averaged PFD Transfer Characteristic
+  UP=1 &amp; DN=-1                     avg{ve(t)}
+          PFD                         1
+      D
+              Q   UP
+in       R</p>
+<pre><code>                   -4   -2
+                                                      in-fb
+</code></pre>
+<p>fb       R
+              Q   DN                      1     2   4
+      D
+                                          2
+                                     -1</p>
+<p>• Constant slope and polarity asymmetry about zero phase
+  allows for wide frequency range operation
+• The averaged PFD gain is 1/(2) with units of rad-1</p>
+<pre><code>                                                            70
+</code></pre>
+<p>Phase Detector</p>
+<pre><code>              fref                fe
+
+
+
+                        ffb
+</code></pre>
+<p>• Detects phase difference between feedback clock and reference clock
+• The loop filter will filter the phase detector output, thus to characterize
+  phase detector gain, extract average output voltage (or current for
+  charge-pump PLLs)
+                                                                            71
+PFD Deadzone
+                                                         Tref
+      D           UP    ICP
+              Q                         CLKIN
+in       R
+                                                 te
+                       iCP              CLKFB
+fb       R
+                              R           UP                              too narrow
+      D
+              Q                    C2
+                  DN    ICP
+                              C1          DN
+                                                      Trst
+                                           iCP</p>
+<p>• If phase error is small, then short                        avg{ve(t)}
+  output pulses are produced by PFD                          (Zoomed)</p>
+<p>• Cannot effectively propagate these
+                                                      Dead
+  pulses to switch charge pump                        Zone
+• Results in phase detector “dead                                            in-fb</p>
+<p>zone” which causes low loop gain
+  and increased jitter
+                                                                                       72
+PFD Operation w/ Reset Delay
+• Solution is to add delay in PFD
+  reset path to force a minimum                              UP
+                                            D                      ICP
+  UP and DN pulse length          in           R
+                                                    Q</p>
+<pre><code>                                                              iCP
+</code></pre>
+<p>• In locked state both UP and
+                                                        Td
+  DN current sources are on for      fb        R
+                                                    Q                    R    C2
+  Trst, but ideally no net current          D
+                                                             DN    ICP
+  is delivered to loop filter                                            C1
+                          Tref
+         CLKIN
+                   te
+        CLKFB</p>
+<pre><code>        UP                       reliable width
+
+
+       DN
+                    Trst
+         iCP
+
+                                                                          73
+</code></pre>
+<p>Problems Near 2
+  • PFD cannot react to input
+    rising edges during reset                                      UP
+                                                  D                      ICP
+  • This can result in the next          in          R
+                                                          Q</p>
+<pre><code>rising edge driving the loop in                                     iCP
+the wrong direction                                       Td
+                                     fb          R
+                                                                           R
+</code></pre>
+<p>• Reset delay can increase                      D
+                                                          Q                         C2
+                                                                   DN    ICP
+    acquisition time and sets a                                                C1
+    max PFD operating frequency
+           Tref     missed edge!
+CLKIN
+           te
+CLKFB
+  UP</p>
+<p>DN
+                      Trst
+   iCP</p>
+<pre><code>                                  wrong direction!
+                                                                                74
+</code></pre>
+<p>PFD Transfer Characteristic w/ Reset Delay
+                                     avg{ve(t)}              Ideal PFD
+                         wrong                               PFD w/ Trst
+                       frequency          1
+                      information!</p>
+<pre><code>            -4         -2
+                                                                    in-fb
+                                                    2        4
+
+                                                             Trst
+                                                  2
+                                                             Tref
+                                   -1
+</code></pre>
+<p>• PFD reset delay generates wrong frequency information
+• If this becomes a large percentage of the reference cycle,
+  then the PFD can fail to acquire frequency lock
+                                              𝑇
+                                  Max 𝑇
+                                                  2
+                                                        1
+                       Max PFD Frequency
+                                                       2𝑇
+                                                                                  75
+Charge-Pump PLL Circuits
+• Phase Detector
+• Charge-Pump
+                                  PFD</p>
+<p>• Loop Filter   Fin
+                      in(t)
+                              D
+                                  R
+                                      Q
+                                          UP        ICP</p>
+<pre><code>                                                       Vctrl
+                                                                          Fout = N*Fin
+
+                                                                    VCO       out(t)
+                                      DN
+</code></pre>
+<p>• VCO
+                      fb(t)       R
+                                      Q                   R        C2
+                              D
+                                                    ICP
+                                                          C1</p>
+<p>• Divider                                      Divider</p>
+<pre><code>                                            1/N
+
+
+
+
+                                                                                       76
+</code></pre>
+<p>Charge Pump
+                                           • Converts PFD output
+     ICP
+                                             signals to charge
+UP   Charging
+                                 Vctrl
+DN   Discharging       R           C2      • Charge is proportional
+     ICP                                     to PFD pulse widths
+                      C1
+                                 F(s)</p>
+<pre><code>         Un - Averaged Charge - Pump Gain  I CP Amps
+                                             I  Amps 
+          Averaged Charge - Pump Gain  CP                
+                                             2  rad 
+                                               I  Amps 
+         Total PFD &amp; Charge - Pump Gain  CP                
+                                               2  rad 
+       This gain can vary if a different phase detector is used
+                                                                  77
+</code></pre>
+<p>Simple Charge Pump
+                                              M2
+                                        VBP
+                                              M4
+                                                    ICP
+                       D           UP    UP
+                               Q
+             CLKIN         R
+                                                   iCP
+                                                                Vctrl
+            CLKFB          R
+                               Q
+                                                          R     C2
+                       D
+                                   DN         M3
+                                                    ICP C
+                                                            1
+                                        VBN
+                                              M1</p>
+<p>• Issues
+   •   Skew between UPB and DN control signals
+   •   Matching of UP/DN current sources
+   •   Clock feedthrough and charge injection from switches onto Vctrl
+   •   Charge sharing between current source drain nodes’ capacitance and Vctrl</p>
+<pre><code>                                                                              78
+</code></pre>
+<p>Simple Charge Pump Skew Compensation
+  T-gate                           M2
+                             VBP                            • Adding a transmission gate in the
+          D           UP      UP M4
+                                         ICP                  DN signal path helps to equalize
+ CLKIN        R
+                  Q
+                                                              the delay with the UPB signal for
+                                        iCP
+                                                      Vctrl   better overlap between the UP
+CLKFB                                          R
+                                                              and DN current sources
+              R
+                  Q                                  C2
+          D
+                      DN      DN M3
+                                         ICP C
+                             VBN
+                                                 1          • Poor matching of UPB and DN
+                                   M1                         edge rates</p>
+<p>3/2 Inverter Path
+                                   M2
+         FODN &gt; FOUP         VBP</p>
+<pre><code>      D           UP   FOUP    M4
+                                     ICP
+                                                        • Utilizing a 3-inverter UP path
+              Q
+</code></pre>
+<p>CLKIN        R
+                                        iCP
+                                                              and a 2-inverter DN path with
+                                                      Vctrl
+                                                              a higher fanout provides good
+CLKFB         R                                R     C2
+          D
+                  Q
+                      DN           M3
+                                                              matching of both delay and
+                           FODN          ICP C
+                                                 1            edge rates
+                             VBN
+                                   M1</p>
+<pre><code>                                                                                           79
+</code></pre>
+<p>Charge Pump Mismatch
+                               Ideal locked condition, Actual locked condition
+                                  but CP mismatch         w/ CP mismatch
+      M2
+                                                                   Tos
+VBP                              UP                     UP
+      M4
+            IUP
+                                DN                    DN
+UP                                                                                                             ∆𝐼
+                                 IUP                    IUP                                        𝐼       𝐼
+           iCP
+                       Vctrl                                                                                   2
+                  R              IDN                    IDN                                                    ∆𝐼
+DN                    C2               Trst                             Trst                  𝐼           𝐼
+      M3                                                                                                       2
+           IDN C                  iCP                    iCP
+                   1
+VBN
+      M1                        Vctrl                  Vctrl
+                                                  t                                            t
+                                                               𝐼         𝑇            ∆𝐼 𝑇
+• PLL will lock with static phase error
+  if there is a charge pump mismatch                                             ∆𝐼 𝑇
+                                                                    𝑇
+• Extra “ripple” on Vctrl                                                                  ∆𝐼
+                                                                                 𝐼
+                                                                                           2
+      • Results in frequency domain spurs
+        at the reference clock frequency                                             ∆𝐼                𝑇
+                                                         𝜙          2𝜋
+        offset from the carrier                                                           ∆𝐼           𝑇
+                                                                             𝐼
+                                                                                          2                    80
+Charge Pump w/ Improved Matching</p>
+<pre><code>                 • Parallel path keeps current
+                   sources always on
+
+                 • Amplifier keeps current source
+                   VDS voltages constant resulting
+                   in reduced transient current
+                   mismatch (charge sharing)
+</code></pre>
+<p>[Young JSSC 1992]</p>
+<pre><code>                                                 81
+</code></pre>
+<p>Digital Leakage Compensation
+                                                   [Fan ISSCC 2019]
+• Charge pump off-state leakage causes PLL
+  to lock with static phase error
+• Compensated by additional digitally-controlled
+  charge pump current pulses
+• TDC detects phase error between input
+  reference clock and feedback clock</p>
+<pre><code>                                                                  82
+</code></pre>
+<p>Charge Pump w/ Reversed Switches
+• Swapping switches
+  reduces charge injection
+   • MOS caps (Md1-4) provide
+     extra clock feedthrough
+     cancellation
+• Helper transistors Mx and
+  My quickly turn-off current
+  sources
+• Dummy branch helps to
+  match PFD loading
+• Helps with charge
+                                [Ingino JSSC 2001]
+  injection, but charge
+  sharing is still an issue
+                                                     83
+Charge-Pump PLL Circuits
+• Phase Detector
+• Charge-Pump
+                                  PFD</p>
+<p>• Loop Filter   Fin
+                      in(t)
+                              D
+                                  R
+                                      Q
+                                          UP        ICP</p>
+<pre><code>                                                       Vctrl
+                                                                          Fout = N*Fin
+
+                                                                    VCO       out(t)
+                                      DN
+</code></pre>
+<p>• VCO
+                      fb(t)       R
+                                      Q                   R        C2
+                              D
+                                                    ICP
+                                                          C1</p>
+<p>• Divider                                      Divider</p>
+<pre><code>                                            1/N
+
+
+
+
+                                                                                       84
+</code></pre>
+<p>Charge Pump PLL Passive PI Loop Filter
+             Single-Ended                   Fully Differential</p>
+<p>• Simple passive filter is most commonly used
+• Integrates low-frequency phase errors onto C1 to set average frequency
+• Resistor (proportional gain) isolates phase correction from frequency
+  correction
+• Primary capacitor C1 affects PLL bandwidth
+• Zero frequency affects PLL stability
+• Resistor adds thermal noise which is band-pass filtered by PLL
+                                                                      85
+Loop Filter Transfer Function
+• Neglecting secondary capacitor, C2</p>
+<pre><code>                                   86
+</code></pre>
+<p>Loop Filter Transfer Function
+• With secondary capacitor, C2</p>
+<pre><code>                             87
+</code></pre>
+<p>Why have C2?
+• Secondary capacitor smoothes control voltage ripple
+• Can’t make too big or loop will go unstable
+   • C2 &lt; C1/10 for stability
+   • C2 &gt; C1/50 for low jitter</p>
+<pre><code>                                     Control Voltage Ripple
+
+
+
+
+                                                              88
+</code></pre>
+<p>Loop Filter Capacitors
+• To minimize area, we would like to use highest density caps
+• Thin oxide MOS cap gate leakage can be an issue
+   • Similar to adding a non-linear parallel resistor to the capacitor
+   • Leakage is voltage and temperature dependent
+   • Will result in excess phase noise and spurs</p>
+<p>• Metal caps or thick oxide caps are a better choice
+   • Trade-off is area</p>
+<p>• Metal cap density can be &lt;1/10 thin oxide caps
+• Filter cap frequency response can be relatively low, as PLL
+  loop bandwidths are typically 1-50MHz</p>
+<pre><code>                                                                     89
+</code></pre>
+<p>Charge-Pump PLL Circuits
+• Phase Detector
+• Charge-Pump
+                                  PFD</p>
+<p>• Loop Filter   Fin
+                      in(t)
+                              D
+                                  R
+                                      Q
+                                          UP        ICP</p>
+<pre><code>                                                       Vctrl
+                                                                          Fout = N*Fin
+
+                                                                    VCO       out(t)
+                                      DN
+</code></pre>
+<p>• VCO
+                      fb(t)       R
+                                      Q                   R        C2
+                              D
+                                                    ICP
+                                                          C1</p>
+<p>• Divider                                      Divider</p>
+<pre><code>                                            1/N
+
+
+
+
+                                                                                       90
+</code></pre>
+<p>Voltage-Controlled Oscillator
+                                                    out</p>
+<pre><code>                                            0                               KVCO
+</code></pre>
+<p>vctrl(t)           VCO              out(t)</p>
+<pre><code>                                                                                         Vctrl
+                                                                      Vctrl0
+                                            𝜔     𝑡      𝜔       Δ𝜔      𝑡     𝜔    𝐾     𝑣      𝑡
+</code></pre>
+<p>• Time-domain phase relationship
+                                                            Laplace Domain Model
+  𝜙        𝑡       Δ𝜔      𝑡 𝑑𝑡      𝐾      𝑣       𝑡 𝑑𝑡</p>
+<pre><code>                               rad
+              KVCO units are                                            KVCO
+                               sV                    vctrl(t)                          out(t)
+           2 1MHz              rad                                    s
+                       2  10 6
+                V                 sV
+                                                                                                 91
+</code></pre>
+<p>Voltage-Controlled Oscillators (VCO)
+• Ring Oscillator
+  • Easy to integrate
+  • Wide tuning range (5x)
+  • Higher phase noise</p>
+<p>• LC Oscillator
+  • Large area
+  • Narrow tuning range (20-30%)
+  • Lower phase noise</p>
+<pre><code>                               92
+</code></pre>
+<p>Barkhausen’s Oscillation Criteria</p>
+<pre><code>                                                        [Sanchez]
+
+
+
+                                     n
+
+
+                                   H  j 
+Closed-loop transfer function:
+                                 1  H  j 
+</code></pre>
+<p>• Sustained oscillation occurs if            H  j   1</p>
+<p>• 2 conditions:
+   • Gain = 1 at oscillation frequency 0
+   • Total phase shift around loop is n360 at oscillation frequency 0
+                                                                          93
+Ring Oscillator Example</p>
+<pre><code>                              𝐴
+                    𝐻 𝑠
+                              𝑠
+                          1
+                              𝜔
+
+
+ Phase Condition: tan         45° → 𝜔       𝜔
+
+
+  Gain Condition:             1→𝐴       2   𝑔   𝑅
+
+                                                    94
+</code></pre>
+<p>LC Oscillator Example
+               • Oscillation phase shift condition
+                 satisfied at the frequency when
+                 the LC (and R) tank load
+                 displays a purely real
+                 impedance, i.e. 0 phase shift</p>
+<pre><code>                      LC tank impedance
+
+                                        RS  L1s
+                    Z eq s  
+                                  1  L1C1s 2  RS C1s
+
+                                            RS2  L12 2
+              Z eq s  j  
+                            2
+
+                                   1  L C    R C 
+                                        1   1
+                                                2 2        2
+                                                           S   1
+                                                                2   2
+</code></pre>
+<p>LC Oscillator Example
+               • Transforming the series loss
+                 resistor of the inductor to an
+                 equivalent parallel resistance</p>
+<pre><code>                           RS2                    L12 2
+              LP  L1 1  2 2 , C P  C1 , RP 
+                        L1                        RS
+                RP
+
+
+
+
+                                     1
+                            1                      [Razavi]
+                                    LP C P
+                                                             96
+</code></pre>
+<p>LC Oscillator Example
+                               Loop Gain
+                                                [Razavi]</p>
+<pre><code>                                                  1
+          • Phase condition satisfied at 1 
+                                                 LP C P
+
+          • Gain condition satisfied when g m RP   1
+                                                   2
+
+
+
+          • Can also view this circuit as a parallel
+            combination of a tank with loss resistance
+            2RP and negative resistance of 2/gm
+          • Oscillation is satisfied when
+                             1
+                                 RP
+                             gm
+                                                          97
+</code></pre>
+<p>Supply-Tuned Ring Oscillator</p>
+<pre><code>                                        [Sidiropoulos VLSI 2000]
+                         2nC stage
+        TVCO  2nTD 
+                         Vc  Vth 
+
+                 fVCO     
+        KVCO          
+                  Vc    2nC stage
+                                                             98
+</code></pre>
+<p>Current-Starved Ring Oscillator</p>
+<pre><code>                              [Sanchez]
+
+
+
+
+                                     99
+</code></pre>
+<p>Capacitive-Tuned Ring Oscillator</p>
+<pre><code>                               100
+</code></pre>
+<p>Symmetric Load Ring Oscillator
+                                      [Maneatis JSSC 1996 &amp; 2003]</p>
+<pre><code>                            2ID
+</code></pre>
+<p>• Symmetric load provides frequency tuning at excellent
+  supply noise rejection
+• See Maneatis papers for self-biased techniques to obtain
+  constant damping factor and loop bandwidth (% of ref clk)
+                                                              101
+LC Oscillator
+• A variable capacitor
+  (varactor) is often used to
+  adjust oscillation frequency</p>
+<p>• Total capacitance includes
+  both tuning capacitance and
+  fixed capacitances which
+  reduce the tuning range
+              1                 1
+    osc           
+             LP C P     LP Ctune  C fixed </p>
+<pre><code>                                            102
+</code></pre>
+<p>Varactors
+• pn junction varactor
+   • Avoid forward bias region to prevent oscillator nonlinearity</p>
+<p>• MOS varactor                                                      [Perrott]</p>
+<p>• Accumulation-mode devices have better Q than inversion-mode</p>
+<p>n-well
+                                                                    [Razavi]
+                                                                           103
+Charge-Pump PLL Circuits
+• Phase Detector
+• Charge-Pump
+                                  PFD</p>
+<p>• Loop Filter   Fin
+                      in(t)
+                              D
+                                  R
+                                      Q
+                                          UP        ICP</p>
+<pre><code>                                                       Vctrl
+                                                                          Fout = N*Fin
+
+                                                                    VCO       out(t)
+                                      DN
+</code></pre>
+<p>• VCO
+                      fb(t)       R
+                                      Q                   R        C2
+                              D
+                                                    ICP
+                                                          C1</p>
+<p>• Divider                                      Divider</p>
+<pre><code>                                            1/N
+
+
+
+
+                                                                                   104
+</code></pre>
+<p>Loop Divider</p>
+<pre><code>                             out(t)     1      fb(t)
+                                         N
+
+                      out(t)
+                       fb(t)
+                                        N=8
+</code></pre>
+<p>• Time-domain model                           • The loop divider is
+                        1                       dimension-less in the PLL
+           fb t       out t 
+                        N                       linear model
+                1              1
+ fb t        out t dt  out t 
+                N              N
+                                                                            105
+Basic Divide-by-2</p>
+<pre><code>                  Latch          Latch
+</code></pre>
+<p>• Divide-by-2 can be realized by a
+  flip-flip in “negative feedback”</p>
+<p>• Divider should operate correctly
+  up to the maximum output clock
+  frequency of interest PLUS
+  some margin</p>
+<pre><code>                                         106
+</code></pre>
+<p>Divide-by-2 with TSPC FF
+True Single Phase Clock Flip-Flop
+                                                   Divider Equivalent Circuit
+                                                   Note: output inverter not in left schematic</p>
+<pre><code>                               Q
+</code></pre>
+<p>• Advantages
+   • Reasonably fast, compact size, and no static power
+   • Requires only one phase of the clock
+• Disadvantages
+   • Signal needs to propagate through three gates per input cycle
+   • Need full swing CMOS inputs
+   • Dynamic flip-flop can fail at low frequency (test mode) due to leakage, as
+     various nodes are floating during different CLK phases &amp; output states
+       • Ex: Q_bar is floating during when CLK is low                                       107
+Divide-by-2 with CML FF</p>
+<pre><code>           D    Q       D     Q
+
+           DB QB        DB   QB
+
+     CLK
+    CLKB
+</code></pre>
+<p>• Advantages
+   • Signal only propagates through two CML gates per input cycle
+   • Accepts CML input levels
+• Disadvantages
+   • Larger size and dissipates static power
+   • Requires differential input
+   • Need tail current biasing
+• Additional speedup (&gt;50%) can be achieved with shunt peaking
+  inductors                                                         108
+  Binary Dividers:
+   Asynchronous vs Synchronous
+ Asynchronous Divider                              • Advantages
+                                                        • Each stage runs at lower frequency,
+                                                          resulting in reduced power
+          D     Q   D        Q   D    Q        CLK/8
+                                                        • Reduced high frequency clock
+               QB        QB          QB
+                                                          loading
+CLK
+                                                   • Disadvantage
+                                                        • Jitter accumulation</p>
+<pre><code>                                               • Advantage
+                                                    • Reduced jitter
+</code></pre>
+<p>Synchronous Divider
+                                                   • Disadvantage
+      D    Q        D    Q            D    Q
+                                                        • All flip-flops work at maximum
+          QB            QB                QB    CLK/8     frequency, resulting in high power
+                                                        • Large loading on high frequency
+CLK
+                                                          clock</p>
+<pre><code>                                                                                      109
+</code></pre>
+<p>Jitter in Asynchronous vs Synchronous Dividers
+  Asynchronous                                       • Jitter accumulates with the
+                                                       clock-to-Q delays through
+          D     Q   D        Q   D    Q        CLK/8   the divider
+               QB        QB          QB
+                                                     • Extra divider delay can also
+CLK                                                    degrade PLL phase margin</p>
+<pre><code>                                                 • Divider output is “sampled”
+</code></pre>
+<p>Synchronous                                          with high frequency clock
+      D    Q        D    Q            D    Q          • Jitter on divider clock is
+          QB            QB                QB    CLK/8   similar to VCO output
+CLK                                                  • Minimal divider delay</p>
+<pre><code>                                                                                 110
+</code></pre>
+<p>Dual Modulus Prescalers
+                                   2/3</p>
+<pre><code>                                                     MC=0  3
+                                                     MC=1  2
+
+
+                             15/16
+</code></pre>
+<p>[Razavi]</p>
+<pre><code>                                                         MC=0  15
+                                                         MC=1  16
+</code></pre>
+<p>Synchronous 3/4                         Asynchronous 4
+• For /15, first prescaler circuit divides by 3 once and 4 three times
+  during the 15 cycles
+                                                                         111
+ Injection-Locked Frequency Dividers
+   LC-oscillator type (/2)            Ring-oscillator type (/3)</p>
+<p>[Verma JSSC 2003, Rategh JSSC 1999]         [Lo CICC 2009]
+• Superharmonic injection-locked oscillators (ILOs) can
+  realize frequency dividers
+• Faster and lower power than flip-flop based dividers
+• Injection locking range can be limited
+                                                                  112
+</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul></ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md" class="nav-item active">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</span>
+            <span class="topbar-breadcrumb">mineru_output / DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p / auto / DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <h1 id="analysis-and-application-of-digital-signal-processing-algorithms-for-intelligent-optical-coherent-transceivers-in-multiband-systems">Analysis and Application of Digital Signal Processing Algorithms for Intelligent Optical Coherent Transceivers in Multiband Systems<a class="headerlink" href="#analysis-and-application-of-digital-signal-processing-algorithms-for-intelligent-optical-coherent-transceivers-in-multiband-systems" title="Permanent link">&para;</a></h1>
+<p>vorgelegt von M. Sc. Matheus Ribeiro Sena</p>
+<p>an der Fakultät IV - Elektrotechnik und Informatik der Technischen Universität Berlin zur Erlangung des akademischen Grades Doktor der Ingenieurwissenschaften -Dr.-Ing.- genehmigte Dissertation</p>
+<p>Promotionsausschuss:</p>
+<p>Vorsitzender: Prof. Dr.-Ing. Lars Zimmermann</p>
+<p>Gutachter: Prof. Dr.-Ing. Ronald Freund</p>
+<p>Gutachter: Prof. Dr.-Ing. Norbert Hanik</p>
+<p>Gutachter: Prof. Sergei K. Turitsyn</p>
+<p>Tag der wissenschaftlichen Aussprache: 17. November 2023</p>
+<p>Berlin 2024</p>
+<h2 id="zusammenfassung">Zusammenfassung<a class="headerlink" href="#zusammenfassung" title="Permanent link">&para;</a></h2>
+<p>Im Laufe der letzten Jahrzehnte hat die Welt eine zunehmende Abhängigkeit vom Internet für Kommunikation, Unterhaltung und E-Commerce erfahren. Mit Milliarden Nutzern weltweit ist die Notwendigkeit verbesserter Netzinfrastrukturen, die in der Lage sind, die stetig wachsenden High-Bandwidth-Dienste zu unterstützen, zu einem wichtigen Faktor geworden, der die Zukunftsfähigkeit des Internets bestimmen wird. Da der Großteil des heutigen Datentrafcs über Glasfaserkabel übertragen wird, ist die Realisierung innovativer Ansätze zur Steigerung der Kapazität von Glasfasernetzwerken ein entscheidender Schritt, um denjenigen Herausforderungen zu begegnen, die die Zukunft des Internets gefährden könnten. Eine Alternative zur Erkundung der Kapazität der bereits verlegten Glasfaserkabel besteht darin, mehrere optische Bänder des Telekom-Spektrums, die sogenannte Multiband (MB)-Technologie, zu nutzen. Dennoch erfordert eine erfolgreiche Implementierung des MB-Ansatzes in Glasfasernetzwerken immer noch die Lösung einer Reihe von Fragestellungen, etwa die Entwicklung von MB-fähigen Geräten, die Schafung von Schätzungs- und Bewältigungsmechanismen bei komponentenabhängigen Wellenlängenverzerrungen sowie die efziente überwachung von MB-Netzwerken.</p>
+<p>Diese Arbeit diskutiert zwei Anwendungen für optische MB-Netzwerke unter Verwendung von optischen kohärenten Transceivern, genauer gesagt auf Grundlage der digitalen Signalverarbeitung (DSP) von Sendern (Tx) und Empfängern (Rx). Moderne kohärente Transceiver sind mit leistungsstarken Tx- und Rx-DSP-Modulen ausgestattet, sodass Algorithmen mit einer Vielzahl von Funktionen implementiert werden können, die für die Realisierung von MB-Systemen entscheidend sind. In diesem Zusammenhang beginnt diese Arbeit mit einer Diskussion über den Einfuss von wellenlängenbasierten komponenteninduzierten Verzerrungen auf die Designspezifkationen für MB-optische Sender, die auf Indiumphosphid (InP)- Technologie basieren, was in der Folge die Entwicklung von Tx-DSP-Algorithmen rechtfertigt. Bei dieser Diskussion liegt ein besonderer Schwerpunkt auf der Modellierung von optischen Dual-Polarisations-(DP) In-Phase-(I)-Quadratur-(Q)-Modulatoren, die aus InP-Multimode-Interferenz-(MMI)-Kopplern aufgebaut sind. Es werden simulative Analysen verwendet, um den Einfuss wellenlängenabhängiger komponenteninduzierter Verzerrungen in optischen kohärenten Sendern zu bemessen. In dieser Studie wird festgestellt, dass die Optimierung des MMI-Designs zu optischen Modulatoren führen kann, die in etwa 95% des optischen Spektrums von 1260-1620 nm (O+E+S+C+L-Band) optische Signal-Rausch-Verhältnis (OSNR)-Strafen unter 0.5 dB (back-to-back) aufweisen.</p>
+<p>Durch den Betrieb im nichtlinearen Bereich kann die Leistung optischer kohärenter Sender mit der Verwendung von Volterra-basierten nichtlinearen digitalen Vorverzerrungs(DPD)- Schemata weiter verbessert werden. Die Gestaltung von DPD-Filtern ist jedoch eine anspruchsvolle Aufgabe, und da von MB-Efekten eine wellenlängenabhängige Abhängigkeit erwartet wird, müssen zusätzliche Funktionen entwickelt werden, um die Anpassungsfähigkeit an das Tx-DSP zu gewährleisten. Dadurch kann das Tx-DSP seinen Betrieb selbstständig auf Verzerrungen in mehreren optischen Bändern abstimmen. In diesem Sinne wird ein Tx-DSP-Ansatz verwendet, der auf der Bayesianischen Optimierung (BO) basiert, um das Design von Volterra-DPD-Filtern zu optimieren. Dieser Ansatz wird in mehreren übertragungsszenarien getestet und verifziert. Bei diesem Ansatz optimiert die BO die Länge der Speichertaps in einer Volterra-Reihe, die zur Synthese von DPD-Filtern verwendet wird. Einer der beobachteten Vorteile nach Verwendung der BO ist die Reduzierung der Konvergenzgeschwindigkeit der Systemidentifkation um 46% im Vergleich zu einem benchmarkgestützten Ansatz. Zusammen mit der Verwendung von Memory-Polynomials-Filtern kann der BO-basierte DPD zu einer Reduzierung der Filterkomplexität um etwa 75% im Vergleich zu Volterra-DPD-Filtern führen, ohne dabei wesentliche Leistungseinbußen in einem optischen Back-to-Back-Setup zu verursachen. Schließlich wird dieses Schema getestet, um die Leistung eines traditionellen C-Band-Senders im S+C+L-Band zu verbessern, wobei die Optimierung der Speichertapverteilung für den DPD-Filter über BO einen Gewinn von etwa 0.4 dB im Q-Faktor über 40 km Einmodenfaser liefert. Diese Anwendung deckt somit den ersten vorgeschlagenen Anwendungsbereich ab, nämlich die Entwicklung von Tx-DSP für MB-Systeme.</p>
+<p>Schließlich wird der zweite vorgeschlagene Anwendungsbereich, nämlich ein Rx-DSP für die MB-optische Kommunikation, durch die Demonstration eines räumlich aufgelösten und wellenlängenweisen überwachungsschemas erreicht, um die MB-Eigenschaften von C+L-Bandoptischen Verstärkern abzuschätzen und Fehler zu identifzieren, die während des MB-Betriebs auftreten können. Bei dieser Analyse wird eine Link-Tomographie, d.h. eine Schätzung der optischen Leistung des Kanals in Abhängigkeit von Entfernung und Wellenlänge, erstellt und in einer umfangreichen experimentellen Untersuchung verwendet, bei der das spektrale Gewinnprofl von optischen Verstärkern, die über 280 km Glasfaser bereitgestellt sind, aus dem Rx-DSP vorhergesagt werden kann. Die in dieser Arbeit aufgezeigten Ergebnisse zeigen, dass sub-dB-Fehler (maximal 0.6 dB) erzielt werden können, wenn der Gewinn aus der Link-Tomographie mit einer Back-to-Back-Charakterisierung verglichen wird, die mit einem optischen Spektrumanalysator durchgeführt wurde. Schließlich wird die Link-Tomographie auf neuartige Weise eingesetzt, um häufg auftretende Verstärkungsanomalien wie Verstärkungskippungen und schmalbandigen Verstärkungskompressionen, die durch den spektralen Lochbrennefekt verursacht werden, darstellen zu können. Dies ergänzt die zweite vorgeschlagene Anwendung für diese Dissertation, die eine praktische Nutzung des Rx-DSP für MB-Systeme darbieten will.</p>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>Over the past decades, the world has experienced an increasing reliance on Internet for communication, entertainment, and e-commerce. And with billions of users spread across the globe, the necessity for enhanced network infrastructures capable to support the ever growing high-bandwidth services has become an important aspect that will determine the survivability of the Internet in the future. As most of today’s data trafc is transferred over optical fber cables, the realization of innovative approaches to increase capacity of optical networks is a vital step to tackle the challenges that may undermine Internet’s future. One alternative to explore the capacity of the already deployed optical fber cables is by means of utilizing Yet, a successful implementation of the MB approach in optical networks still requires thesolution of a series of questions, such as the development of MB-capable devices, the creation of mechanisms that can estimate and cope with component wavelength-dependent distortions,and how to efciently monitor MB networks. This thesis discusses two applications for optical MB networks using optical coherent transceivers, or more specifcally, transmitter (Tx) and receiver (Rx) based digital signal processing (DSP). Since modern coherent transceivers are embedded with powerful Tx- and Rx-DSP modules, algorithms can be implemented such to fulfll a wide range of functions that are crucial for the realization of MB systems. In that context, this work starts debating the infuence of wavelength-based component-induced distortions on the design specifcations for MB optical transmitters based on Indium Phosphide (InP) technology, which later justifes the development of Tx-DSP algorithms. In this discussion, a signifcant focus is given to the modeling of optical dual-polarization (DP) in-phase (I) quadrature (Q) modulators, which are built from InP multi-mode interference (MMI) couplers. Some simulative analysis are utilized to quantify the impact of wavelength-dependent component-induced distortions in optical coherent transmitters. In this study, it is observed that the optimization of MMI design can lead to optical modulators yielding optical signal-to-noise ratio (OSNR) penalties under 0.5 dB (back-to-back) in approximately 95% of the optical spectrum from 1260 - 1620 nm (O+E+S+C+L-band). When operated in nonlinear regime, the performance of optical coherent transmitters can be further improved with the utilization of Volterra-based nonlinear digital pre-distortion (DPD) schemes. Yet, the design of DPD flters is a challenging task and since MB efects are expected to be wavelength-dependent, additional features must be developed such to ofer adaptability to the Tx-DSP. Then, the Tx-DSP can self-tune its operation to account for distortions in multiple optical bands. In this sense, a Tx-DSP approach based on using Bayesian optimization (BO) to optimize the design of Volterra DPD flters is used and verifed in several transmission</p>
+<p>scenarios. In this approach, the BO tunes the length of memory taps in a Volterra series used for the the synthetization of DPD flters. One of the benefts observed after utilizing the BO is the reduction of 46% in the convergence speed of the system identifcation, when this method is compared against a benchmarked approach. Additionally, in conjunction with the use of memory polynomials flters, the BO-based DPD can lead to a flter complexity reduction of approximately 75% in comparison to Volterra DPD flters without any signifcant performance loss in an optical back-to-back setup. Finally, this scheme is tested to improve performance of a traditional C-band transmitter in S+C+L-band, where the optimization of the memory tap distribution for the DPD flter via BO yields a gain of approximately 0.4 dB in Q-factor over 40 km of single mode fber. This application, then, covers the frst proposed scope, which is the development of Tx-DSP for MB systems.</p>
+<p>At last, the second proposed scope, i.e., a Rx-DSP for MB optical communication, is achieved with the demonstration of a spatially-resolved and wavelength-wise monitoring scheme to estimate MB properties of C+L-band optical amplifers and identify faults that may occur in MB operation. In this analysis, a link tomography, i.e., an estimation of the channel’s optical power with respect to distance and wavelength, is constructed and used in an extensive experimental investigation where the spectral gain profle of optical amplifers deployed over 280 km of optical fber can be predicted from the Rx-DSP. The results reported in this work show that sub-dB errors (maximum 0.6 dB) can be achieved when comparing the gain extraction from the link tomography against a back-to-back characterization realized through an optical spectrum analyzer. At last, the link tomography is employed in a novel manner by delivering a visualization of common amplifcation anomalies such as gain tilts and narrowband gain compressions caused by spectral hole burning efect. This complements the second proposed application for this thesis, which intends to ofer a practical use of the Rx-DSP for MB systems.</p>
+<h2 id="acknowledgements">Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permanent link">&para;</a></h2>
+<p>I would like to express my deepest appreciation to Dr.-Ing. Johannes Karl Fischer for providing me the opportunity to work on this captivating topic with a high level of creative freedom and for the valuable advisory support. Over the course of three years, I learned with him how to properly analyze and present my scientifc results in publications and at conferences in the feld of optical communications. I also dedicate many thanks to Dr. Behnam Shariati, who generously shared knowledge and expertise during our daily interactions. Additionally, this endeavor would not have been possible without the supportive assistance of Prof. Dr.-Ing. Ronald Freund, who took time to review this work and my publications, thus suggesting valuable improvements.</p>
+<p>I also extend my thanks to the colleagues I met at Fraunhofer Heinrich Hertz Institute (HHI), including Dr. M. Sezer Ercılınç, Dr.-Ing. Pablo Wilke, Dr.-Ing. Felix Frey, Dr.-Ing. Isaac Sackey, with whom I had productive discussions, either during lunch time, meetings or business trips. In particular, I owe my special thanks to Dipl.-Ing. Robert Emmerich. His assistance and counsels with the laboratory activities helped me to rapidly develop the experimental knowledge necessary for the success of my research.</p>
+<p>In the familiar environment, I am extremely thankful to my parents, Gabriel and Vera, for their love, and encouragement throughout the journey of completing this PhD. Their unwavering belief in me and their willingness to listen to my concerns and fears during this time have been a stable source of strength and motivation. Moreover, their constant support has been very meaningful to me and played a crucial role in my academic and personal growth. I also want to thank my sisters, Rafaela and Gabrielle, my aunts, Gabriela and Tila, and my great friend Pedro Jorge. They have always been there for me, ofering a listening ear and a helping hand whenever I needed it. Your encouragement and advice have been invaluable, and I am grateful to have you present in my life. Finally, I want to thank my wife, Camila, for her love and patience during this long process of concluding the PhD. Her love and patience have strengthened me, and I could not have completed this project without her. From the late-night calls to the most stressful moments with paper submissions, Camila has always been there for me.</p>
+<p>To conclude, I would like to thank Tatiana Kilina, the Fraunhofer HHI, and all others who have been directly or indirectly involved in the coordination and organization of the wideband optical networks (WON) project.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<p>Title Page i <br />
+Zusammenfassung iii <br />
+Abstract v <br />
+List of Figures xiii <br />
+Abbreviations xi1 Introduction1.1 Beyond WDM systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.2 Optical MB systems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.3 Cognitive optical networks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.4 Scope of this thesis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.5 Author’s bibliography . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . List of Tables xvii <br />
+Abbreviations x <br />
+1 Introduction 1 <br />
+1.1 Beyond WDM systems 1 <br />
+1.2 Optical MB systems 2 <br />
+1.3 3 <br />
+4 <br />
+5 <br />
+2 Fundamentals 7 <br />
+2.1 Optical coherent transmission 7 <br />
+2.2 Optical coherent transceivers 8 <br />
+2.2.1 Transceiver specifcations 9 <br />
+2.2.1.1 Packaging . . 9 <br />
+2.2.1.2 DSP embedding 11 <br />
+2.2.2 Transceiver anatomy 11 <br />
+2.2.2.1 Transmitter DSP (Tx-DSP) 11 <br />
+2.2.2.2 Digital-to-analog converter (DAC) 12 <br />
+2.2.2.3 Driver amplifer (DA) 13 <br />
+2.2.2.4 Modulator 14 <br />
+2.2.2.5 Receiver frontend 16 <br />
+2.2.2.6 Analogue-to-digital converter (ADC) 16 <br />
+2.2.2.7 Rx-DSP 17 <br />
+2.3 Conclusion and outlooks 21 <br />
+3 Design of MB Transmitters 23 <br />
+3.0.1 Performance metrics 23 <br />
+3.0.2 Device technology 24 <br />
+3.0.2.1 Lithium Niobate (LiNbO3) 24 <br />
+3.0.2.2 Silicon Photonics . 25 <br />
+3.0.2.3 Indium Phosphide (InP) 25 <br />
+3.1 InP-based multimode interference (MMI) couplers 26 <br />
+3.1.1 Self-imaging principle 27 <br />
+3.1.2 Splitting ratio . 30 <br />
+3.1.3 Insertion loss 32 <br />
+3.1.4 Wavelength dependency of SR and IL 33 <br />
+3.2 System-level performance 35 <br />
+3.3 Conclusion 40 <br />
+4 Digital Predistortion for MB Optical Transmitters 41 <br />
+4.1 Volterra-based system identifcation (SI) 42 <br />
+4.1.1 Mathematical background . 42 <br />
+4.1.2 Kernel coefcient estimation 43 <br />
+4.2 Bayesian optimization . 43 <br />
+4.2.1 Hyperparameter tuning problem 43 <br />
+4.2.2 Surrogate function 44 <br />
+4.2.3 Acquisition function 45 <br />
+orithm 45 <br />
+4.3 47 <br />
+4.4 Digital pre-distortion 49 <br />
+4.5 51 <br />
+51 <br />
+4.5.2 Performance evaluation 52 <br />
+4.5.2.1 Diferent driver amplifer (DA) gains . 53 <br />
+4.5.2.2 Diferent symbol rates . 55 <br />
+4.5.2.3 Diferent modulation formats 55 <br />
+4.5.2.4 Performance with memory polynomial flters 56 <br />
+4.6 Experimental validation II . . 58 <br />
+4.6.1 Linear vs. nonlinear DPD in S-band 59 <br />
+4.6.2 BO for Volterra and MP-based DPD in S+C+L-band 60 <br />
+4.6.3 Conclusion . . 61 <br />
+5 DSP for Link Tomography in MB Systems 63 <br />
+5.1 Rx-based DSP for optical performance monitoring (OPM) 64 <br />
+5.2 Fundamentals of light propagation in optical fbers 65 <br />
+5.2.1 System identifcation of optical fber links 65 <br />
+5.2.2 Digital backpropagation 66 <br />
+5.2.3 Problem formulation 68 <br />
+5.2.4 Implications to the problem formulation 68 <br />
+5.3 In-situ power profle estimator (PPE) for longitudinal power estimation 69 <br />
+5.4 Link tomography . 72 <br />
+5.4.1 Simulative investigations . . 73 <br />
+5.4.2 Experimental validation I 78 <br />
+5.4.2.1 Spectral gain estimation . 78 <br />
+5.4.2.2 Anomaly detection . 83 <br />
+5.4.3 Experimental validation II . 85 <br />
+5.5 Conclusion 87 <br />
+6 Conclusions and Outlook 9 1 <br />
+References 93</p>
+<h2 id="list-of-figures">List of Figures<a class="headerlink" href="#list-of-figures" title="Permanent link">&para;</a></h2>
+<p>1.1 Optical MB spectrum and throughput records in SMF using WDM MB systems. 2 <br />
+2.1 Generic block diagram of a p2p coherent transmission system setup. 8 <br />
+2.2 Diagram of the transceiver form factor evolution. 9 <br />
+2.3 Picture of an Acacia CFP2-DCO transceiver, illustration of a stacked component <br />
+design, generic block diagram of an optical coherent transceiver. 10 <br />
+2.4 Representation of a 3-bit (N = 3) DAC nominal response, and actual nonlinear <br />
+ft curves of the DAC’s response. 13 <br />
+2.5 Schematic of a MZM, and feld transfer function of a MZM. 14 <br />
+2.6 Structure of an IQ modulator. . 15 <br />
+2.7 Block diagram of the adaptive 2x2 MIMO time-domain equalizer. 18 <br />
+3.1 Schematic of a MZM and its functional elements, and light intensity distribution <br />
+for a 2x2 MMI. 27 <br />
+3.2 Two-dimensional representation of a step-index multimode waveguide, and <br />
+example of amplitude-normalized lateral feld profles corresponding to the frst <br />
+9 guided modes in a step-index multimode waveguide. 27 <br />
+3.3 Representation of a multimode waveguide. When the input feld $\Psi ( y , 0 )$ is fed <br />
+to the waveguide, a mirrored single image is replicated at $3 L _ { \pi }$ , a direct single <br />
+image at $2 ( 3 L _ { \pi } )$ , and two-fold images at $\scriptstyle { \frac { 3 L _ { \pi } } { 2 } }$ and $\scriptstyle { \frac { 3 ( 3 L _ { \pi } ) } { 2 } }$ 29 <br />
+3.4 Schematic of a 2x2 MMI. 30 <br />
+3.5 Schematics of a 2x2 MMI with two active input signals and a 1x2 MMI. 32 <br />
+3.6 Simulated splitting ratio of a 2x2 MMI vs. wavelength for four diferent lengths, <br />
+widths and access waveguide widths. . 34 <br />
+3.7 Simulated insertion loss of a 2x2 MMI vs. wavelength for four diferent lengths, <br />
+widths and access waveguide widths. . 34 <br />
+3.8 Simulation setup for the b2b evaluation of the transmitter based on the four <br />
+types of InP MMI designs. . 35 <br />
+3.9 OSNR penalty as a function of the wavelength for four diferent modulator <br />
+designs tested on a 32 GBd DP-4QAM signal. Recovered constellation diagram <br />
+for x-polarization when the modulator design based on the InP MMI 1 is <br />
+evaluated at a) 1.55 µm (C-band), b) 1.40 µm (E-band), and c) 1.30 µm <br />
+(O-band) (OSNR = 12.75 dB). 36 <br />
+3.10 Recovered constellation diagram for x-polarization when the modulator design <br />
+based on the InP MMI 3 is evaluated at a) 1.30 µm (O-band), b) 1.40 µm <br />
+(E-band), c) 1.50 µm (S-band), d) 1.55 µm (C-band), and d) 1.60 µm (L-band) <br />
+(OSNR = 12.75 dB). . 37 <br />
+3.11 Per-band and total spectrum availability as function of the 2x2 MMI design <br />
+and modulation format (DP-4QAM). . . 38 <br />
+3.12 OSNR penalty as a function of the wavelength for four diferent modulator <br />
+designs tested on a 32 GBd DP-16QAM signal. Recovered constellation diagram <br />
+for x-polarization when the modulator design based on the InP MMI 1 is <br />
+evaluated at a) 1.55 µm (C-band), b) 1.40 µm (E-band), and c) 1.30 µm <br />
+(O-band) (OSNR = 19.70 dB). 38 <br />
+3.13 Per-band and total spectrum availability as function of the 2x2 MMI design <br />
+and modulation format (DP-16QAM). 39 <br />
+4.1 Implementation of the BO algorithm for maximization of the objective function f. 46 <br />
+4.2 Initialization of the surrogate model with n = 5 observations. a, c, e, g) Updated <br />
+surrogate function for i = 1, 2, 3, 4, respectively. b, d, f, h) Acquisition function <br />
+for i = 1, 2, 3, 4, respectively. . . 46 <br />
+4.3 <br />
+identifcation error eSI . . 47 <br />
+4.4 <br />
+of a 5th-order synthetic flter. 49 <br />
+4.5 <br />
+approach. . 50 <br />
+4.6 Conceptual block diagram of the DPD, and block diagram of the ILA for <br />
+synthetization of the DPD flter. 50 <br />
+4.7 Experimental setup, and block diagram for validation of the DPD hyperparameters. 51 <br />
+4.8 Identifcation error for diferent DA gains with respect to flter complexity MC <br />
+when Bayesian-based SI is performed. . . 54 <br />
+4.9 BER validation (at fxed OSNR = 44.9 dB) for diferent DA gains $( g _ { 1 } &lt; g _ { 2 } &lt; g _ { 3 } )$ <br />
+as function of the flter complexity MC. 54 <br />
+4.10 BER validation (at fxed OSNR = 44.9 dB) for diferent symbol rates (64 and <br />
+80 GBd) as function of the flter complexity MC. . 55 <br />
+4.11 BER validation (at fxed OSNR = 44.9 dB) for modulation formats (DP-64QAM <br />
+and DP-256QAM) as function of the flter complexity MC. 56 <br />
+4.12 BER curves obtained for DP-64QAM signal at 64 and 80 GBd when Volterra <br />
+and MP DPD flters are benchmarked. . . . . 57 <br />
+4.13 Filter complexity reduction of 75% can be achieved by using MP DPD flters. . 57 <br />
+4.14 Experimental setup investigated in the second validation. 58 <br />
+4.15 BER curves for fxed OSNR = 32.5 dB when Type I and Type II DPD flters <br />
+are used in the S-band. . 60 <br />
+4.16 Q-factor curves for OSNR = 32.5 dB when Type I, III and IV DPD flters are <br />
+investigated in the S+C+L-band. . 60 <br />
+5.1 Setup utilized to explain the concept of the link tomography, and block diagram <br />
+of the in-situ PPE algorithm used in this work. 70 <br />
+5.2 Figure to explain the concept of a networkwide link tomography. 72 <br />
+5.3 Simulative analysis for validation of the in-situ PPE. . 74 <br />
+5.4 Output of the in-situ PPE when the gain of in-line amplifer 2 (highlighted in <br />
+red in the link schematic) is attenuated by 1 and 2 dB (black and red curve, <br />
+respectively). . 75 <br />
+5.5 Output of the in-situ PPE when four launch power regimes, i.e., 0, 4, 8 and 12 <br />
+dBm, are evaluated. 76 <br />
+5.6 Output of the in-situ PPE and spectrum for a C-band single-channel and <br />
+C+L-band multi-channel transmission. . . . . . 77 <br />
+5.7 a) Longitudinal power profle (blue curve) and span-wise linear fts (red curves) <br />
+used to estimate the gain $G _ { i }$ (for a fxed wavelength) of the i-th in-line amplifer, <br />
+scheme to perform the b2b validation of the in-line amplifer gain, and example <br />
+of input and output spectra, when the channel’s central wavelength is 1585 nm. 79 <br />
+5.8 Link tomography for the estimation of the spectral gain profle. . 80 <br />
+5.9 Comparison between gain spectrum obtained from OSA and from link <br />
+tomography for the in-line EDFAs. 81 <br />
+5.10 a) The estimated gain spectrum of the AUT 1 in the operation mode, where no <br />
+link manipulation is performed to maintain constant input power at the input of <br />
+the AUT, a method for detecting anomalies, such as gain tilt and narrowband <br />
+gain compression due to SHB, in the AUT 1, a map that indicates the presence <br />
+and types of faults, such as gain tilt and narrowband gain compression, and a <br />
+comparison of the gain spectra of the AUT 1 under normal conditions and with <br />
+emulated gain tilts. . . 83 <br />
+5.11 Result of the anomaly indicator when a weak and strong tilt are emulated (for <br />
+C-band) on the in-line EDFA 1 by adding a wavelength-dependent attenuation <br />
+profle. . 85 <br />
+5.12 The proposed anomaly detection method is applied to visualize a 5-dB <br />
+narrowband gain compression at 1582.5 nm, simulating the efect of the SHB <br />
+on the L-band. 85 <br />
+5.13 Setup used in the Experiment II, where a multi-channel analysis is performed <br />
+to detect tilt evolution caused by the optical amplifers. 86 <br />
+5.14 Link tomography obtained in Experiment II (multi-channel analysis). 87 <br />
+5.15 Power peak curves obtained from the link tomography obtained at b) input <br />
+of the OLS, and output of the in-line EDFA c) 1, d) 2 and e) 3 link, when <br />
+compared against spectrum from an OSA. 88</p>
+<h2 id="list-of-tables">List of Tables<a class="headerlink" href="#list-of-tables" title="Permanent link">&para;</a></h2>
+<p>5.1 Summary of relevant works concerning Rx-DSP OPM approaches. 65</p>
+<h2 id="abbreviations">Abbreviations<a class="headerlink" href="#abbreviations" title="Permanent link">&para;</a></h2>
+<p>ACO analog coherent optics 11 <br />
+ADC analog-to-digital converter 8 <br />
+ASE amplifed spontaneous emission 75 <br />
+ASIC application specifc integrated circuit 8 <br />
+AUT amplifer under test 79 <br />
+AWG arbitrary waveform generator 52 <br />
+AWGN additive white Gaussian noise 35 <br />
+b2b back-to-back 5 <br />
+BER bit-error ratio 35 <br />
+BO Bayesian optimization 42 <br />
+BPF bandpass flter 86 <br />
+BPS blind phase search 20 <br />
+CD chromatic dispersion 17 <br />
+CDC chromatic dispersion compensator 69 <br />
+CFP C form-factor pluggable 9 <br />
+CMA constant modulus algorithm 19 <br />
+CRF coherent receiver frontend 36 <br />
+CUT channel under test 86 <br />
+CW continuous wave 14 <br />
+DA driver amplifer 7 <br />
+DAC digital-to-analog converter 7 <br />
+DAEQ data-aided equalizer 69 <br />
+DBP digital backpropagation 64 <br />
+DC direct current 26 <br />
+DCO digital coherent optics 11 <br />
+DD-LMS directed-decision least mean-square algo<br />
+rithm 19 <br />
+DFA doped fber amplifer 3 <br />
+DP dual-polarization 5 <br />
+DPD digital pre-distortion 5 <br />
+EDFA Erbium-doped amplifer 53 <br />
+EI expected improvement 45 <br />
+FEC forward-error correction 4 <br />
+FFT fast Fourier transform 20 <br />
+FIR fnite-impulse response 19 <br />
+GBIC gigabit interface converter 9 <br />
+GP Gaussian process 44 <br />
+GVD group velocity dispersion 17 <br />
+HS hypothesis space 44 <br />
+HT hyperparameter tuning 44 <br />
+I in-phase 5 <br />
+IL insertion loss 30 <br />
+ILA indirect learning architecture 50 <br />
+IM/DD intensity modulation / direct detection 9 <br />
+InGaAlAs Indium-Galium-Aluminium-Arsenide 26 <br />
+InP Indium-Phosphide 5 <br />
+ISI intersymbol interference 12 <br />
+LO local oscillator 16 <br />
+LS least-squares 43 <br />
+LSB least signifcant bit 13 <br />
+MB multiband 2 <br />
+MF matched flter 69 <br />
+MIMO multi-input multi-output 1 <br />
+MMI multi-mode interference 5 <br />
+MOS metal-oxide-semiconductor 11 <br />
+MP memory polynomial 56 <br />
+MSA multi-source agreement 9 <br />
+MZM Mach-Zehnder Modulator 14 <br />
+NL nonlinear 70 <br />
+NLPR nonlinear phase rotation 64 <br />
+NLSE nonlinear Schrödinger equation 66 <br />
+NMSE normalized mean squared error 47 <br />
+OLS open line system 69 <br />
+OMFT optical multi-format transmitter 52 <br />
+OPM optical performance monitoring 63 <br />
+OSA optical spectrum analyzer 79 <br />
+OSNR optical signal-to-noise ratio 35 <br />
+OTDR optical time-domain refectometer 64 <br />
+p2p point-to-point 7 <br />
+PIC photonic integrated chips 11 <br />
+PPE power profle estimator 63 <br />
+PSK phase shift-keying 20</p>
+<p>Q Quadrature 5</p>
+<p>QAM quadrature amplitude modulation 5</p>
+<p>QSFP-DD quad small form-factor pluggable - double density 9</p>
+<p>RF radio frequency 11</p>
+<p>RLS recursive least-squares 50</p>
+<p>RRC root-raised cosine 36</p>
+<p>RTO real-time oscilloscope 52</p>
+<p>Rx receiver 8</p>
+<p>SDM spatial-division multiplexing 1</p>
+<p>SFP small form-factor pluggable 9</p>
+<p>SH sample-and-hold 16</p>
+<p>SHB spectral hole burning 64</p>
+<p>SMF single mode fber 2</p>
+<p>SNR signal-to-noise ratio 20</p>
+<p>SOA semiconductor optical amplifer 3</p>
+<p>SPM self-phase modulation 76</p>
+<p>SR splitting ratio 30</p>
+<p>SRS stimulated Raman scattering 2</p>
+<p>SSC spot-size converter 26</p>
+<p>SSFM split-step Fourier method 66</p>
+<p>SUT system under test 43</p>
+<p>Tx transmitter 7</p>
+<p>VHDL very high speed integrated circuit hardware description language 12</p>
+<p>VOA variable optical attenuator 53</p>
+<p>VoD video-on-demand 1</p>
+<p>WDM wavelength-division multiplexing 1</p>
+<p>WSS wavelength selective switch 4</p>
+<p>XPM cross-phase modulation 76</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<h2 id="11-beyond-wdm-systems">1.1 Beyond WDM systems<a class="headerlink" href="#11-beyond-wdm-systems" title="Permanent link">&para;</a></h2>
+<p>As of January 2021, an approximate number of 4.66 billion Internet users has been estimated worldwide (59% of the global population) [1]. In spite of the relatively disseminated Internet penetration across the globe, the increasing demand for data-hungry applications has required enhanced network infrastructures capable to support high-bandwidth services. Online video-ondemand (VoD) platforms for the consumption of movies and series, for example, have sparked a rise in Internet throughput in the past decade to meet the urge of consumers for uninterrupted streams and smooth browsing experiences [2, 3]. Additionally, the recent events related to the 2020 COVID-19 pandemic have just shown how dependent on connectivity the modern society is for work, education, social activities, and entertainment [4]. In this new age of remote interactions, optical networks play a fundamental role in providing reliable Internet operation since 95% of the Internet data trafc is transferred over optical fber cables [5]. Therefore, one of the main concerns for network operators is the realization of innovative approaches that increase the achievable capacity of commercial wavelength-division multiplexing (WDM) systems, while avoiding trafc congestion.</p>
+<p>The success of such innovative solutions highly depends on how efciently the fve physical properties of light (time, quadrature, polarization, space and frequency) are utilized to modulate/multiplex data [6]. For instance, the spatial property, embodied in the light spatial modes, can be used to parallelize transmission via multiple physical propagation media (e.g., multiple cores in a single fber [7]), and scale capacity with respect to single-core transmission [8]. Such an aggregation scheme is technically known as spatial-division multiplexing (SDM) and has been claimed as a promising alternative to override the capacity crunch [9]. Nevertheless, implementation issues, namely, (1) hardware update (e.g., multi-input multi-output (MIMO) digital signal processing (DSP) modules [10], SDM amplifers [11]) and (2) fber deployment costs [12], still stand as major challenges for the successful commerical operation of SDM systems. Bearing in mind the business-limiting aspects imposed by (2), ongoing eforts concentrate on the realization of solutions that can spectrally extend the already existing</p>
+<p>WDM infrastructure towards new optical transmission bands. These multiband (MB) systems provide a cost-efective exploitation of the full transmission window of single-mode fibers (SMF)s, i.e., approximately 40 THz of bandwidth, and can be considered as a near-term solution to cope with the rapid trafc growth [13].</p>
+<h2 id="12-optical-mb-systems">1.2 Optical MB systems<a class="headerlink" href="#12-optical-mb-systems" title="Permanent link">&para;</a></h2>
+<p>In fber-based optical communications, transmission can be mainly performed in the fber low-loss region (1260 - 1625 nm), which has been conventionally named as “low-loss” due to the fact that within this wavelength interval the standard propagation media ofer the minimum attenuation. This region consists of the O- (1260 - 1360 nm), E- (1360 - 1460 nm), S- (1460 - 1530 nm), C- (1530 - 1560) and L-band (1560 - 1625 nm), as depicted in Figure 1.1.a). Yet, despite the broad range of the telecom optical spectrum (∼360 nm), conventional transmission systems are still predominantly carried out over C+L-band. However, nowadays a trend towards the extension of the conventional transmission window (C+L-band) to enable WDM systems for operation in MB regime, i.e., harnessing O-, E-, and/or S-band, is already noticeable. This trend can be better visualized when considering the amount of ongoing eforts to explore these additional bands as means of increasing the capacity (e.g., throughput1) in SMFs. Figure 1.1.b), for instance, summarizes the recent progresses [14, 15, 16, 17, 18, 19, 20] quantifed by record breaks in throughput by using C+L- and S+C+L-band WDM systems as a function of the propagation distance, with the maximum capacity achieving 206.1 Tbit/s in one single fber [14]. One of the main reasons for this growing interest in MB systems is the possibility to maximize the return on investment of already deployed optical infrastructure, which in contrast to other competitive solutions (e.g., SDM), can greatly reduce deployment costs [21]. Obviously, the MB option still presents numerous challenges, as discussed below.</p>
+<p><img alt="" src="images/e216ef4365cf700468ccd1cfc3c4c7eed20d23036450b283bb31a6cc7f7613fa.jpg" /></p>
+<p><img alt="" src="images/4f4ed497c3d89717ac4f9387e4128a4f846e8fbe47d854a999e41ff6f8e87975.jpg" /><br />
+Figure 1.1: a) Optical MB spectrum. b) Throughput records in SMF using WDM MB systems.</p>
+<p>In such a novel MB transmission scenario, fber- and component-induced efects need to be better understood and their impairments adequately addressed. The stimulated Raman scattering (SRS), for example, is an important MB nonlinear process present in optical fbers when high-frequency channels amplify low-frequency channels in the optical spectrum [22]. For transmission over conventional C-band systems, the SRS can be most of the time neglected. Nevertheless, with the progressive rise of commercial C+L-band systems, a demand for accurate channel models [23] that can predict the impact of such nonlinear efects has become a key enabler to improve the management of network resources (e.g., spectrum, route [24]) and properties (e.g., power [25]). Another important aspect to secure a successful migration from today’s C-band based optical networks to a MB scenario heavily relies on the development of novel MB optical devices. Amplifers [16] and flters [26] must be designed such to provide the best performance for each band. In that regard, signifcant progress has been lately achieved in the context of amplifcation technologies, e.g., rare earth components (Erbium-, Thulium-, Neodymium-, Praseodymium-doped fiber amplifers (DFA) [21]), Bismuth-DFA [27], Raman [28] and semiconductor optical amplifers (SOA) [19]. As for transceivers, which is the focus of this work, the three most prominent solutions are based on Lithium Niobate $\left( \mathrm { L i N b O _ { 3 } } \right)$ [29], Silicon Photonics [30] and III-V semiconductor materials (e.g., Indium Phosphide [31]). Despite the multiple benefts that these materials can ofer to the transceiver design, which is later approached in this thesis, wavelength-dependent impairments of linear [32] or non-linear [33] nature can provoke uneven performance across their operational spectrum. In order to mitigate such efects and relax device design specifcations, DSP algorithms play an important role as they are a cheap solution to counter-balance component-induced distortions [34]. This strategy can reduce the cost-per-bit of MB network implementation and help the short-term deployment of MB technologies.</p>
+<p>Besides mitigating transmission efects, DSP algorithms can also serve for monitoring purposes in MB networks. This is possible because fundamental properties of the deployed optical fber and in-line devices can be extracted from the processing of the digitized signal samples [35], i.e., at the transceiver level. Thus, by aggregating the information from multiple transceivers, one can estimate link characteristics in the wavelength domain as well as in the spatial domain and create indicators of the health of network elements across complex networkwide topologies [36]. With these indicators, network operators are able to map unknown portions of the infrastructure and locate faults without need of expensive measurement equipment.</p>
+<p>Enabling DSP algorithms to mitigate and sense component-induced and wavelengthdependent efects of optical coherent systems is a frst step towards the establishment of cognitive optical networks. In these networks, systems will be able to “... perceive current conditions, and then plan, decide, and act...” [37]. To better understand the benefts of cognition in the context of optical communications, the following discussion is provided.</p>
+<h2 id="13-cognitive-optical-networks">1.3 Cognitive optical networks<a class="headerlink" href="#13-cognitive-optical-networks" title="Permanent link">&para;</a></h2>
+<p>The concept of cognitive/autonomous systems was frst described by IBM in 2001 and its essence consists of freeing system administrators from the details of operation and maintenance to provide services that run at optimal performance 24/7 [38]. Particularly, a cognitive network is any network that can confgure, monitor and maintain itself with minimal or no human intervention. These networks have gained importance over the past years because of their self-management capabilities, which means that they can [39]:</p>
+<p>• seamlessly adjust their component confgurations (self-confguration),</p>
+<p>• continually improve their performance (self-optimization),</p>
+<p>• automatically detect and repair problems (self-healing),</p>
+<p>• act to anticipate and prevent system failures (self-protection).</p>
+<p>From a business perspective, cognitive networks are an attractive tool for operators because they yield economic gains in at least three diferent ways.</p>
+<ol>
+<li>
+<p>To avoid loss of revenue from service downtime. Due to network suboptimal management caused by human intervention, resource shortage, especially during “trafc peak hours,” can cause periods of service unavailability (downtime) and directly impact revenue. Self-optimization impedes that cognitive networks reach such a degree of resource depletion and consequently makes operation more robust to failure.</p>
+</li>
+<li>
+<p>To reduce people-related costs. Expenses associated with staf, working facilities and training activities can be drastically minimized, given that typical network teams in charge of planning and provisioning tasks may be at least partially replaced by systems that realize self-confguration.</p>
+</li>
+<li>
+<p>To reduce fault-related costs. By preventing failures (self-protection) and assertively identifying the fault location/reason (self-healing), operators can reduce maintenance routines and minimize costs.</p>
+</li>
+</ol>
+<p>In the feld of optical communications, cognition has been explored because of its key role in efciently handling and jointly optimizing the massive plurality of the underlying physical layer parameters (e.g., modulation format, power level, wavelength) and network layer parameters (e.g., bandwidth, lightpath, latency). This consequently leads to optimal end-to-end confgurations that would be impossible to achieve via manual intervention from a human-based network administration. A few successful examples of cognitive mechanisms in the optical layer are: gain automation in optical amplifers [40]; failure detection and identifcation based on spectrum monitoring for reconfguration of intermediate wavelength selective switches (WSS)s [41]; modulation format [42] and forward-error correction (FEC) scheme adaptation [43].</p>
+<p>When it concerns the enabling of cognitive mechanisms in optical networks, transceivers are key elements. In charge of the generation and reception of the optical signal, transceivers have the capability to adapt transmission parameters, such as modulation formats, FEC coding schemes and spectral aggregation. Additionally, transceivers can behave as monitoring devices, permitting the estimation of network properties and sensing of disrupting events. These features, i.e., adaptability and monitoring open opportunities to incorporate network automation in multiple fronts.</p>
+<h2 id="14-scope-of-this-thesis">1.4 Scope of this thesis<a class="headerlink" href="#14-scope-of-this-thesis" title="Permanent link">&para;</a></h2>
+<p>In this thesis, the previously introduced topics, i.e., optical MB systems and cognitive optical networks, are merged and studied in the design and application of intelligent DSP algorithms.</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul>
+<li><a href="#analysis-and-application-of-digital-signal-processing-algorithms-for-intelligent-optical-coherent-transceivers-in-multiband-systems">Analysis and Application of Digital Signal Processing Algorithms for Intelligent Optical Coherent Transceivers in Multiband Systems</a><ul>
+<li><a href="#zusammenfassung">Zusammenfassung</a></li>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#list-of-figures">List of Figures</a></li>
+<li><a href="#list-of-tables">List of Tables</a></li>
+<li><a href="#abbreviations">Abbreviations</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#11-beyond-wdm-systems">1.1 Beyond WDM systems</a></li>
+<li><a href="#12-optical-mb-systems">1.2 Optical MB systems</a></li>
+<li><a href="#13-cognitive-optical-networks">1.3 Cognitive optical networks</a></li>
+<li><a href="#14-scope-of-this-thesis">1.4 Scope of this thesis</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

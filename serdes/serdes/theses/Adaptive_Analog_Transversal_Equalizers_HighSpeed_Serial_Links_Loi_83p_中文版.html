@@ -1,0 +1,2996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版 — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md" class="nav-item active">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</span>
+            <span class="topbar-breadcrumb">serdes / theses / Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <p>帕维亚大学
+电子工程系</p>
+<p>微电子学博士论文
+第28届</p>
+<p>自适应模拟横向均衡器
+高速串行链路</p>
+<p>指导教授：
+Andrea Mazzanti教授
+协调教授：
+Franco Maloberti教授
+                                                    作者：
+                                                Fabrizio Loi</p>
+<pre><code>                     2015年10月
+</code></pre>
+<p>目录</p>
+<p>目录                                                                           iii</p>
+<p>插图目录                                                                     v</p>
+<p>表格目录                                                                    vii</p>
+<p>引言                                                                           1</p>
+<p>1 高速串行通信                                                                5
+  1.1 二进制序列 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+      1.1.1 伪随机二进制序列性质 . . . . . . . . . . . . . . . . . 5
+      1.1.2 符号间干扰（ISI） . . . . . . . . . . . . . . . . . . . . 7
+      1.1.3 带宽需求 . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+      1.1.4 抖动 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+      1.1.5 信号质量测量 . . . . . . . . . . . . . . . . . . . . . . . 11
+             1.1.5.1 眼图 . . . . . . . . . . . . . . . . . . . . . . 11
+             1.1.5.2 误码率（BER） . . . . . . . . . . . . . . . . 12</p>
+<p>2 高速串行链路                                                               19
+  2.1 信道环境 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      20
+  2.2 均衡器分类 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   27
+      2.2.1 连续时间线性均衡器（CTLE） . . . . . . . . . . . .            30
+      2.2.2 有限脉冲响应滤波器均衡器 . . . . . . . . . . . . . . .       31
+      2.2.3 判决反馈均衡器（DFE） . . . . . . . . . . . . . . . .          33
+  2.3 FIR上的迭代自适应 . . . . . . . . . . . . . . . . . . . . . . .      34</p>
+<p>3 基于28nm LP CMOS高线性度全通延迟线级的25Gb/s FIR均衡器                  39
+  3.1 引言 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+      3.1.1 研究动机 . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+      3.1.2 提出的RX FIR均衡器 . . . . . . . . . . . . . . . . . . 40
+      3.1.3 线性度要求 . . . . . . . . . . . . . . . . . . . . . . . . 42
+  3.2 系统仿真与电路设计 . . . . . . . . . . . . . . . . . . . . . . . . 43
+      3.2.1 FIR滤波器压缩的影响 . . . . . . . . . . . . . . . . . . 43
+      3.2.2 连续时间模拟延迟线 . . . . . . . . . . . . . . . . . . . . 46
+      3.2.3 延迟单元设计 . . . . . . . . . . . . . . . . . . . . . . . . 47</p>
+<pre><code>                                     iii
+</code></pre>
+<p>目录                                                                            iv</p>
+<pre><code>       3.2.4 群延迟贡献 . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+       3.2.5 抽头放大器设计 . . . . . . . . . . . . . . . . . . . . . . . . 53
+</code></pre>
+<p>3.3     实验结果 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54</p>
+<p>4 28nm CMOS中28Gb/s横向连续时间线性均衡器                                 57
+  4.1 引言 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+      4.1.1 研究动机 . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+      4.1.2 提出的RX D-FIR均衡器 . . . . . . . . . . . . . . . . . 60
+      4.1.3 D-FIR均衡器行为 . . . . . . . . . . . . . . . . . . . . . 61
+  4.2 仿真与系统设计 . . . . . . . . . . . . . . . . . . . . . . . . . . . 62
+      4.2.1 导数单元实现 . . . . . . . . . . . . . . . . . . . . . . . . . 62
+      4.2.2 抽头跨导实现 . . . . . . . . . . . . . . . . . . . . . . . . . 66</p>
+<p>结论                                                                          71</p>
+<p>参考文献                                                                      73
+插图目录</p>
+<p>1.1 NRZ信号 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+ 1.2 x(t)信号 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+ 1.3 x(t)的功率谱密度 . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+ 1.4 a)理想NRZ序列：b) 低通滤波对序列的影响 . . . . . . . . . . . 8
+ 1.5 抖动分类图 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+ 1.6 眼图信号表示 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+ 1.7 眼图典型测量 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+ 1.8 垂直和水平眼图直方图 . . . . . . . . . . . . . . . . . . . . . . . 13
+ 1.9 噪声对一般比特序列的影响 . . . . . . . . . . . . . . . . . . . . . 13
+ 1.10 误码率与SNR的关系 . . . . . . . . . . . . . . . . . . . . . . . . . 15
+ 1.11 噪声眼图中的眼图余量 . . . . . . . . . . . . . . . . . . . . . . . . 16
+ 1.12 误码率测试设置 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+ 1.13 浴缸曲线示例 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17</p>
+<p>2.1 高速串行链路框图 . . . . . . . . . . . . . . . . . . . . . . . . . .       19
+ 2.2 背板信道 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       21
+ 2.3 系统横截面 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     21
+ 2.4 信道分布式元件模型 . . . . . . . . . . . . . . . . . . . . . . . . .         22
+ 2.5 趋肤效应中的电流密度 . . . . . . . . . . . . . . . . . . . . . . .      23
+ 2.6 趋肤损耗与介质损耗的交叉 . . . . . . . . . . . . . . . . . . . . .        25
+ 2.7 趋肤和介质脉冲响应 . . . . . . . . . . . . . . . . . . . . . . . . . .       26
+ 2.8 理想均衡器概念 . . . . . . . . . . . . . . . . . . . . . . . . . . . .       27
+ 2.9 均衡器分类 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    28
+ 2.10 离散时间MSE框图 . . . . . . . . . . . . . . . . . . . . . . . . . .        29
+ 2.11 连续时间MSE框图 . . . . . . . . . . . . . . . . . . . . . . . . . .          29
+ 2.12 有限脉冲响应滤波器框图 . . . . . . . . . . . . . . . . . . . . . .       31
+ 2.13 时域FIR框图及相关时域行为 . . . . . . . . . . . . . . . . . . . .       33
+ 2.14 线性前馈均衡器的噪声限制 . . . . . . . . . . . . . . . . . . . . . .       33
+ 2.15 判决反馈均衡器框图 . . . . . . . . . . . . . . . . . . . . . . . . .        34
+ 2.16 FIR上的迭代自适应 . . . . . . . . . . . . . . . . . . . . . . . . .      35
+ 2.17 LMS算法实现 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        36
+ 2.18 作为两个系数函数的误差3D表面示例 . . . . . . . . . . . . .       37</p>
+<p>3.1   提出的FIR均衡器框图 . . . . . . . . . . . . . . . . . . . . . . . . 41</p>
+<pre><code>                                    v
+</code></pre>
+<p>插图目录                                                                      vi</p>
+<p>3.2  评估FIR滤波器压缩影响的仿真设置框图 . . . . . . . . . . . . .    44
+   3.3 眼图开度与输入信号幅度 . . . . . . . . . . . . . . . . . . . . . .         44
+   3.4 仿真眼图 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      45
+   3.5 考虑DFE时评估FIR滤波器压缩影响的仿真设置框图 . . . . . . .         45
+   3.6 眼图开度与输入信号幅度 . . . . . . . . . . . . . . . . . . . . . .         46
+   3.7 仿真眼图 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      46
+   3.8 不同实现的全通滤波器：a) 一阶低通滤波器 b) 一阶高通滤波器 . . .   47
+   3.9 全通滤波器框图 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     49
+   3.10 全通传递函数电路原理图 . . . . . . . . . . . . . . . . . . . . . . .      49
+   3.11 RC并联阻抗 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      50
+   3.12 RL并联阻抗 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      50
+   3.13 1dB压缩点随频率变化比较 . . . . . . . . . . . . . . . . . . .           51
+   3.14 带寄生电容的电路原理图 . . . . . . . . . . . . . . . . . . . . . .       52
+   3.15 图3.14电路的仿真频率响应及不同群延迟贡献 . . . . . . . . . .     52
+   3.16 抽头跨导放大器电路原理图 . . . . . . . . . . . . . . . . . . . .        53
+   3.17 芯片照片 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    54
+   3.18 测量设置 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      55
+   3.19 典型背板信道的频率响应。插图中为脉冲响应 . . . . . . . . . . . .     55
+   3.20 25 Gb/s均衡器输出眼图及测量的浴缸曲线 . . . . . . . . . . . . . .    56</p>
+<p>4.1 导数均衡器框图 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       58
+   4.2 两抽头FIR均衡器 . . . . . . . . . . . . . . . . . . . . . . . . . . . .      59
+   4.3 提出的均衡器详细框图 . . . . . . . . . . . . . . . . . . . . . .          60
+   4.4 理解D-FIR均衡器行为的仿真波形 . . . . . . . . . . . . . . .             61
+   4.5 导数单元电路图 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      62
+   4.6 导数单元频率响应 . . . . . . . . . . . . . . . . . . . . . . . . . . . .      63
+   4.7 带实际电流源的导数单元原理图 . . . . . . . . . . . . . . . . . .        64
+   4.8 单端半电路 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     65
+   4.9 导数单元尺寸设计简图 . . . . . . . . . . . . . . . . . . . . . . . .         66
+   4.10 抽头放大器并联结构 . . . . . . . . . . . . . . . . . . . . . . . . . . . .    66
+   4.11 抽头增益数字字转换 . . . . . . . . . . . . . . . . . . . . . . . . . . .      67
+   4.12 单边抽头放大器详细电路 . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+   4.13 无负载时抽头直流特性 . . . . . . . . . . . . . . . . . . . . . . . . .       68
+   4.14 带电阻负载时抽头直流特性 . . . . . . . . . . . . . . . . . . . . . .      69
+表格目录</p>
+<p>1.1   BER与SNR的关系 . . . . . . . . . . . . . . . . . . . . . . . . . . 15</p>
+<p>2.1   介质材料 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25</p>
+<p>3.1   性能总结与比较 . . . . . . . . . . . . . . . . . . . . . . . . . . . 56</p>
+<pre><code>                                   vii
+</code></pre>
+<p>引言</p>
+<p>随着多媒体点播等先进网络服务的日益普及，云计算和存储的快速发展，数据流量的扩张
+成为推动带宽扩展的强大驱动力。每天，越来越多的用户以越来越多的方式越来越快速地访
+问互联网，使用更多的应用程序，消费更多的内容，这对带宽提出了更高的需求。此外，
+随着CMOS技术向更小尺寸扩展，数字计算核心的密度不断提高， aggregate I/O系统带宽
+必须增加以利用所有可用的计算能力。技术趋势和新应用共同创造了對高速数据通信的巨
+大需求，涵盖光纤和背板信道，以及I/O层级的各个层面，包括芯片内、芯片间、机架间和
+系统间。因此，以太网网络各处都出现了基本瓶颈，未来只会出现更多移动设备、更多
+视频、更多设备和更多数据。</p>
+<p>在这一背景下，全球以太网系统正在制定一项计划，以超越当今100 Gigabit每秒的能
+力，开发四种新的以太网速度：2.5、5、25和400 Gigabit以太网（GbE），以补充现有的六
+种速度：百兆以太网（MbE）、100MbE、千兆以太网（GbE）、10GbE、40 GbE和100GbE。
+在未来十年内，还在考虑几种额外的速度，包括50GbE、200GbE和超过400GbE的多种速
+度。这些速度共同定义了2015年以太网路线图的核心[1]。为满足未来计算和网络系统的
+I/O需求，单串行链路数据速率现已被推至25-28 Gb/s，如OIF CEI-25G-LR、CEI-28G-SR[2]
+和IEEE 802.3bj（背板和铜缆上的100GbE）[3]等标准所展示。这些标准涵盖了短距离（SR）
+和长距离（LR）串行链路信道。对于短距离链路（信道损耗约15 dB或更低），相对简单
+且功耗高效的收发器即可实现可靠信号传输。对于长距离链路（如背板），信道损耗要高
+得多，因此需要具有复杂均衡功能的更复杂收发器。</p>
+<p>过去，互连主要采用并行方式，但随着数据速度的增长，并行传输中的时钟偏移和串扰
+问题已使关注点转向串行连接。在并行传输中，多个比特（通常为8比特或一个字节）
+同时在同一电缆内的不同导线上发送。因此，并行传输比特率相对于串行传输比特率有所
+提升。然而，这种速度提升是以成本为代价的，因为多根导线比单根导线更昂贵，而且
+随着并行电缆变长，多通道之间的同步时序对距离更加敏感。如今，特别是对于长信道，
+串行传输更为首选。比特在同一导线上顺序发送，这降低了信道的成本，减少了串扰，
+而且仅对于异步传输，无需数据链路同步避免了偏斜问题，使系统更简单。主要问题在
+于随着数据速率的增加，信道响应的变化更加严重，在相同等效速度下，串行连接相对于
+并行连接表现出更大的插入信道损耗。信道损耗与频率的函数关系导致符号间干扰（ISI），
+降低误码率（BER）。问题可通过两种方式解决：第一种是在接收器和/或发射器中使用额
+外电路均衡器来补偿信道损耗；第二种是使用引入更低损耗的更好信道。出于成本原因，
+标准和行业尽可能倾向于第一种方法。</p>
+<p>为适应多种不同的互连、信道、背板拓扑结构和各种配置，自适应均衡器用于消除ISI并
+扩展最大I/O数据速率。通常，均衡器可在发射器或接收器实现。自适应接收器均衡相比
+自适应发射器均衡具有优势。首先，发射均衡限制了均衡器抽头的幅度和，降低了比特
+幅度。其次，自适应发射均衡需要将接收器信息传回发射器。</p>
+<p>第一章介绍了高速串行通信系统。将讨论对后续章节中所示的两种均衡器设计的 requirements
+和要求的原因。</p>
+<p>第二章重点描述有线串行链路，描述典型背板通信信道模型、均衡系统中使用的不同类别
+以及使系统具有自适应性的算法。</p>
+<p>第三章讨论了一种"基于高线性度全通延迟线级的25-Gb/s FIR均衡器"的新型设计，解释
+了其基本构建块、行为，最后给出了在28nm CMOS技术中实现的芯片的一些测量结果。</p>
+<p>第四章展示了一种创新导数-FIR均衡器的设计，在允许输入信号幅度方面有显著改进。
+给出了构成RX链路的主要模块的概述以及电路的一些仿真结果。
+\f\f第一章</p>
+<p>高速串行通信</p>
+<p>1.1     二进制序列</p>
+<p>1.1.1    伪随机二进制序列性质</p>
+<p>高速通信系统通常使用二进制类型信号以便于比特检测。这些系统中最常用的编码方式
+（通过电压电平表示逻辑电平）是NRZ（非归零）。然而，为放宽带宽要求，正在涌现
+新的编码方式，如使用四个电压电平的PAM-4（脉冲幅度调制-4）。</p>
+<p>伪随机二进制序列（PRBS）是通过某种定义的算术过程确定的有序数字集合，但从其
+所需目的来看，它实际上是随机数序列。PRBS是"伪随机的"，因为尽管理论上是确定性
+的，但从某种意义上说，它看起来是随机的，即"1"电平的概率独立于任何其他元素的
+值，类似于真正的随机序列。序列具有最大长度N，可以通过对N个元素重复来延伸到
+无穷远。这与随机序列形成对比。</p>
+<p>了解PRBS的性质可以仔细评估各种设计选择。二进制序列中的信息通过两个逻辑值
+的交替来获得，这两个逻辑值以相等概率出现。图1.1显示了一个示例。两个不同的
+幅度电压电平，分别为+V0和–V0，代表两个逻辑电平"1"和"0"。
+                                         5
+\f第一章。高速串行通信                                          6</p>
+<pre><code>                           "1"
+                  +V0
+
+                                                                时间
+                  -V0
+                                             "0"
+                            Tb
+                             图1.1：NRZ信号
+</code></pre>
+<p>如果每个比特持续Tb秒，则BR = 1/Tb是比特率，即每秒比特数。周期Tb也称为单位
+间隔（UI）。二进制序列可以生成多个具有相同逻辑值的连续比特。在这种情况下，
+信息呈现低转换密度，这可能导致一些问题。事实上，在没有转换的情况下， synchron
+维护同步很困难，因此标准通常定义最大可容忍的相同连续比特长度。在时域中，二
+进制序列x(t)可以表示为：</p>
+<pre><code>                                      N
+                                      X
+                             x(t) =           bk p(t − kTb )                 (1.1)
+                                         k
+
+
+
+
+                                 +p(t)
+
+
+                                                                时间
+                   -p(t)
+                             图1.2：x(t)信号
+</code></pre>
+<p>其中bk = ±V0，p(t)是如图1.2所示的矩形脉冲函数。信号x(t)是k个周期为Tb、幅度
+为V0且延迟为kTb的脉冲之和。假设正脉冲和负脉冲以相等概率发生，且幅度bk = ±1，
+信号x(t)的功率谱密度（PSD）可表示为：</p>
+<pre><code>                                             1
+                              Sx (f ) =         | P (f ) |2 ,                (1.2)
+                                             Tb
+</code></pre>
+<p>\f7                                         第一章。高速串行通信</p>
+<p>其中P(f)是信号p(t)的傅里叶变换。考虑到p(t)是矩形脉冲函数，傅里叶变换P(f)将是
+sinc函数：</p>
+<pre><code>                                          "        #
+                                       sin(πf Tb )
+                           P (f ) = Tb               ,                      (1.3)
+                                         πf Tb
+</code></pre>
+<p>最终，x(t)的频谱为：</p>
+<pre><code>                                          "           #2
+                                        sin(πf Tb )
+                           Sx (f ) = Tb                    .                (1.4)
+                                          πf Tb
+</code></pre>
+<p>图1.3显示了x(t)的频谱，可以看到功率在频率f = n/Tb处为零，其中n为整数。大部分
+能量集中在一个主瓣内。然而，如下一节所述，为不影响信号质量所需的最小带宽 up
+至频率1/2Tb[4]。</p>
+<pre><code>                       10 log Sx(f)
+
+
+
+
+                                      0       1       2        3    f
+                                              Tb      Tb       Tb
+                   图1.3：x(t)的功率谱密度
+</code></pre>
+<p>1.1.2       符号间干扰（ISI）</p>
+<p>符号间干扰（ISI）是信号的一种失真形式，其中一个符号干扰相邻符号。这是一种
+不良现象，因为脉冲的扩展干扰相邻脉冲，导致接收器判决电路出错。符号间干扰的
+主要原因之一是信号通过有限带宽信道（即频率响应为低通传递函数的信道）的传输。
+通过这样的信道会导致高频分量衰减，影响到达接收器的脉冲形状。NRZ信号波形
+开始扩散并与相邻符号序列合并，使数据无法读取。在接收端，数据被错误解码，因为
+接收器无法预测方波的正确幅度电平，导致信息丢失。因此，在接收电路设计中，目
+标是最小化ISI的影响，以获得尽可能小的误差率。通过使用自适应均衡技术和 error
+纠正码来最小化误差率。图1.4a显示随机二进制序列，而图1.4b显示信号通过通用低
+通信道时的效果，其中 high frequency filtering导致上升和下降沿变慢。
+\f第一章。高速串行通信                                           8</p>
+<pre><code>                                            偏移交叉时刻
+
+
+          a) Vin
+                   +V0                             t2
+          b) Vout
+                                                               时间
+                   -V0      t1
+图1.4：a)理想NRZ序列：b) 低通滤波对序列的影响
+</code></pre>
+<p>如图所示，在时间t1，两个"0"之间的单个"1"无法达到最大信号电平V0。另一方面，
+在t1和t2之间，连续比特序列允许达到最大信号电平。例如，在零电压阈值下，由于
+噪声，时间t1和t2的信号可能被接收器误解。此外，零交叉时刻发生偏移，引入 jitter。
+这一现象使得为接收器选择最佳电压阈值变得困难。这些效应导致符号间干扰，由于
+信道响应事先未知，因此使用自适应均衡器来补偿频率响应。
+\f9                                      第一章。高速串行通信</p>
+<p>1.1.3     带宽需求</p>
+<p>为正确处理NRZ信号，选择过大的带宽会在功耗方面带来惩罚。重要的是确定电路所需
+的最小带宽，不要显著超过。奈奎斯特定理定义了通信系统为以BR bit/s的比特率传输
+数据序列（使用"sinc"脉冲）而不产生ISI所需的最小带宽。该带宽等于BR/2。然而，
+"sinc"脉冲是非因果的，在实践中只能近似。幸运的是，"方"脉冲所需的带宽比"sinc"
+脉冲略高，奈奎斯特频率BR/2仍然是给出可忽略ISI的最小带宽的良好参考。</p>
+<p>最佳带宽在0.5BR和0.7BR之间。较低的带宽会引入 excessive ISI，而较大的带宽不会
+带来进一步优势。相反，除了功耗外，过大的带宽会引入更多噪声，导致SNR方面的
+惩罚[5]。</p>
+<p>1.1.4     抖动</p>
+<p>抖动是信号边沿相对于其理想位置的短期偏差。这是抖动的 multiple definitions 之一。
+抖动在大多数通信链路中是一个重要且不良效应，可以用与所有时变信号相同的术语来
+量化，例如均方根（RMS）或峰峰值位移。抖动可以组织成抖动树图（如图1.5），显示
+不同类型的抖动。</p>
+<p>主要由确定性抖动（DJ）和随机抖动（RJ）组成。随机抖动由大量来源组合引起，每
+个来源 magnitude 非常小。热过程、电路走线 resistance 阻抗的微观变化等 primarily
+引起RJ。由于RJ遵循无界分布，它应呈现高斯分布。随机效应有可能导致逻辑转换
+出现在任何位置，存在有限概率，扩展由分布的标准差描述。
+\f第一章。高速串行通信                                          10</p>
+<pre><code>                   Total
+                    (Tj)
+
+
+
+ Random                          Deterministic
+   (Rj)                              (Dj)
+
+
+
+
+           Bounded uncorrelated                   Data Depend
+                                                       (DDj)
+
+
+
+Periodic            Other bounded
+  (Pj)               uncorrelated          Duty Cicle           Inter-symbol
+                                           distorsion           interference
+                                             (DCD)                  (ISI)
+                       图1.5：抖动分类图
+</code></pre>
+<p>确定性抖动是在去除RJ后剩余的抖动。原则上，虽然几乎从未在实践中，DJ可以从对
+电路及其环境的完全理解中计算出来。由于DJ可以由所有其他类型的抖动组成，它不
+遵循像RJ遵循高斯那样的给定函数分布。另一方面，由于DJ由有限数量的确定性过程
+组成，其分布是有界的[6]-[7]。在后续内容中， follow other definitions of the different
+types of jitter that make up the tree.</p>
+<p>• 数据相关抖动：DDJ包括所有幅度受传输数据信号影响的抖动。</p>
+<p>• 占空比失真：DCD是TX占空比不对称性的度量。通常由驱动发射器的时钟信号
+      或发射器内的限幅放大器的不对称性引起。</p>
+<p>• 符号间干扰：ISI是DDJ的主要原因。ISI与占空比失真（DCD）的相关性使情况
+      变得复杂。</p>
+<p>• 周期抖动：PJ包括任何具有固定频率的抖动。它很容易准确测量，并作为 distinct
+      peaks 出现在抖动频率频谱中。
+\f11                                    第一章。高速串行通信</p>
+<p>1.1.5     信号质量测量</p>
+<p>1.1.5.1   眼图</p>
+<p>数据眼图是表示和分析高速信号的方法论。可以通过眼图的外观观察信号完整性，
+评估ISI、噪声和抖动的量。数据眼图是通过将对应于每个单独比特的部分折叠到
+具有垂直轴上的信号幅度和水平轴上的时间的单个图形中，从数字波形构建的。通过
+对波形的许多样本重复此 construction，最终图形将表示信号的平均统计特性，
+并将类似于一只眼睛。图1.6b显示了眼图的示例 open eye diagram，它是从图1.6a所示的
+接收序列构建的。</p>
+<pre><code>      0      1        0
+
+
+      1      0        0                        数据眼图
+
+                                                                  阈值
+      0      0        1
+                                                       Tb
+
+      1      1        1
+
+                 a)                                     b)
+            图1.6：眼图信号表示
+</code></pre>
+<p>数据眼图可以通过测量各种参数来表征，例如垂直和水平开口，从而量化信号质量。
+垂直眼图开口在采样时刻（在眼的中间）测量，表示为全眼高度的百分比（不包括
+过冲或下冲）。水平眼图开口在阈值电平处测量，表示为比特间隔的百分比。在没有
+噪声和随机抖动的情况下，开口可以如图1.7所示的简单方式确定。垂直眼图闭合由符号
+间干扰引起，水平眼图闭合由确定性抖动引起。
+\f第一章。高速串行通信                                       12</p>
+<pre><code>                            100%
+
+
+
+                                                      垂直眼
+      100%                                                           开口
+
+                        水平眼
+                          开口
+            图1.7：眼图典型测量
+</code></pre>
+<p>重要的是要理解眼图闭合取决于PRBS序列的长度。序列长度通常在2^7-1和2^31-1之间
+（通常分别称为PRBS-7和PRBS-31）。如果被测设备具有低频截止点，眼图闭合随
+序列长度增加而恶化。因此，使用眼图时必须始终指定序列长度。</p>
+<p>考虑到噪声和随机抖动，我们有一个额外的复杂性。对于高斯噪声分布，我们需要
+等待足够长的时间来正确测量眼图开口。它们的评估使用直方图，描述围绕中点的信号
+分布。如图1.8所示，您可以提取两种类型的直方图，水平和垂直，并测量相应的标准
+差σ。水平开口通常测量为两个水平分布的3σ点之间的时间间隔。垂直开口以等效方式
+评估，但使用垂直直方图。我们还可以提取眼图幅度如图所示[8]。</p>
+<p>1.1.5.2   误码率（BER）</p>
+<p>评估高速串行链路性能的最重要方法是误码率（BER）。BER定义为在某个序列内接收到的
+错误比特数与有效比特数之比。BER要求取决于应用，但通常10^-15到10^-12是典型值。
+\f13                                          第一章。高速串行通信</p>
+<pre><code>                 "1"电平
+                  直方图                    单位间隔
+
+
+
+
+     幅度
+
+
+
+
+                  垂直
+                  开口
+       眼
+
+
+
+                                                水平
+                 "0"电平                      开口
+                  直方图
+
+            图1.8：垂直和水平眼图直方图
+</code></pre>
+<p>为推导误码率表达式，假设系统具有足够的带宽且波形信号无失真[5]。对于一般比特
+序列，如图1.9a所示，比特的转换可以认为是无限快的。没有噪声时，信号 only
+呈现两个值：逻辑电平"1"为+V0，逻辑电平"0"为–V0。图1.9b显示了序列的相应概率
+密度函数（PDF）。</p>
+<pre><code>                                     PDF(x)
+    +V0
+
+                                         t
+    -V0
+                                                     -V0        0      +V0    x
+
+                                                     PDF0              PDF1
+                                      PDF(x)
+
+    +V0
+                                                       Pe,ONE       Pe,ZERO
+                                         t
+    -V0
+                                                     -V0        0     +V0     x
+
+                    图1.9：噪声对一般比特序列的影响
+</code></pre>
+<p>现在，让我们在接收信号上引入白噪声。考虑到转换仍然是理想的，零交叉位置不变。
+如图1.9c所示，幅度电平定义不明确，这导致两个不同的高斯分布，以+V0和–V0为
+中心。这些分布可以用以下概率密度表示：
+\f第一章。高速串行通信                                      14</p>
+<pre><code>                                                  (x + V0 )2
+                                               "               #
+                                                −
+                                   1                 2σn
+
+                  P DF1 (x) =      √        exp                           (1.5)
+                                 σn 2π
+
+
+                                                  (x − V0 )2
+                                               "               #
+                                                −
+                                      1              2σn
+
+                  P DF0 (x) =         √     exp                           (1.6)
+                                 σn 2π
+</code></pre>
+<p>其中σn^2是分布方差。相对于无噪声的情况，PDF延伸到零阈值之外，因此总是存在
+出错的可能性。让我们定义Pe,ZERO为发送"0"时接收器决定"1"的概率，反之Pe,ONE
+为发送"1"时接收器决定"0"的概率。这些概率是图1.9d中的灰色区域，对应于PDF的积分：</p>
+<pre><code>                                      Z ∞
+                         Pe,ZERO =          P DF0 (x)dx,                  (1.7)
+                                       0
+
+
+                                      Z 0
+                         Pe,ONE =          P DF1 (x)dx.                  (1.8)
+                                       −∞
+</code></pre>
+<p>此外，由于"1"和"0"电平具有相同的传输概率，我们可以写出：</p>
+<pre><code>                             1         1
+                         Pe = Pe,ZERO + Pe,ONE                          (1.9)
+                             2         2
+</code></pre>
+<p>其中Pe是总错误概率，即BER。然后，BER可以写为：</p>
+<pre><code>                                     " #
+                                      V0
+                              BER = Q                                    (1.10)
+                                      σn
+</code></pre>
+<p>其中Q(x)是误差函数，代表上述积分，而V0/σn比率是信噪比SNRnoise。Q函数通过
+SNRnoise定义BER，图1.10给出了图形表示。而在表1.1中，是BER与SNR的不同值。
+眼图中的每个点都可以解释为判决点，因此具有与之关联的BER。因此，可以在眼图内
+绘制恒定BER的轮廓。图1.11仅显示具有特定目标BER值的轮廓。BER越低，轮廓所包围
+的区域越小。如果我们在该轮廓内做判决，我们将始终获得较低的BER。
+\f15                                   第一章。高速串行通信</p>
+<pre><code>               图1.10：误码率与SNR的关系
+
+
+
+                   表1.1：BER与SNR的关系
+
+                   SN Rnoise   BER SN Rnoise       BER
+                     0.0        0.5  5.998         10⁻⁹
+                    3.090      10⁻³  6.361         10⁻¹⁰
+                    3.719      10⁻⁴  6.706         10⁻¹¹
+                    4.265      10⁻⁵  7.035         10⁻¹²
+                    4.753      10⁻⁶  7.349         10⁻¹³
+                    5.199      10⁻⁷  7.651         10⁻¹⁴
+                    5.612      10⁻⁸  7.942         10⁻¹⁵
+</code></pre>
+<p>在图1.11中还显示了垂直和水平眼图余量。如果眼图余量大于零，则判决电路具有
+可以获得正确比特并满足目标BER的判决阈值。</p>
+<p>眼图余量最好用称为误码率测试仪（BERT）的仪器测量，该仪器具有脉冲 pattern
+发生器和误差检测器。仪器连接到被测设备（DUT），如图1.12所示。误差检测器在
+判决阈值VTH处对数据信号进行切片，并在时刻tR对其进行采样。恢复的比特与传输的
+比特序列进行比较以确定BER，并在误差检测器上显示。判决阈值VTH和采样时刻tR都
+是可调的。可以通过将电压阈值设置在眼的中心并在眼上扫描时刻来进行水平扫描。
+结果曲线因特定形状被称为"浴缸"，如图1.13所示。当采样时刻在眼中心时BER较低，
+当采样向左或向右移动时BER上升。水平眼图余量定义为眼的左侧和右侧上浴缸曲线
+呈现特定BER值的两个点之间的间隔。例如，在10GbE标准中，水平眼图余量在BER为
+10⁻¹²时规定。
+\f第一章。高速串行通信                                      16</p>
+<pre><code>                           100%
+
+
+
+                                                            垂直眼
+</code></pre>
+<p>100%                                                           余量</p>
+<pre><code>                        水平眼
+                           余量
+             图1.11：噪声眼图中的眼图余量
+</code></pre>
+<p>确定BER，显示在误差检测器上。判决阈值VT H和采样时刻tR都是可调的。水平扫描
+可以通过将电压阈值设置在眼中心并将时刻扫描穿过眼来进行。结果曲线，就特定
+形状而言，被称为"浴缸"，如图1.13所示。当采样时刻在眼的中心时BER较低，当
+采样向左或向右移动时BER上升。水平眼余量定义为左右两侧达到指定BER值的点之间
+的间隔。例如，在10GbE标准中，水平眼余量针对10⁻¹²的BER指定。</p>
+<pre><code>      BERT仪器
+                           PRBS发生器
+
+                             数据输出
+          误差检测器                                   输入
+          浴缸屏幕       VTH       tR                被测设备
+
+                                                       输出
+                               数据输入
+
+                  图1.12：误码率测试设置
+
+
+
+
+ BER
+                  水平
+  0.5
+                   余量
+
+
+
+ 10⁻¹²
+
+                       UI                        t*
+         图1.13：浴缸曲线示例
+</code></pre>
+<p>\f\f第二章</p>
+<p>高速串行链路</p>
+<p>由于芯片间线路数量的密度限制以及芯片封装中有限的I/O引脚数量，高速链路通常
+将并行数据串化以进行芯片外传输。图2.1显示了一个简单的高速串行链路框图，由
+三个基本块组成：发射器、信道和接收器[9]。</p>
+<pre><code>       TX                                   RX                  SerDes
+         SerDes
+
+
+
+
+                    驱动器    信道        均衡器
+</code></pre>
+<p>DSP                                                                       DSP</p>
+<pre><code>              PLL                                        CDR
+       参考时钟
+
+
+
+              图2.1：高速串行链路框图
+</code></pre>
+<p>发射器使用由PLL（锁相环）生成的内部时钟对数据进行串化、调制和发送。PLL是
+高速链路中的时序发生器。它通过倍增低频参考时钟来为系统提供高频时钟。信道提供
+发射器和接收器之间的物理连接。它可以是光纤、同轴电缆、双绞线UTP（非屏蔽
+双绞线）、PCB（印刷电路板）或背板。在高比特率下，信道衰减和滤波信号，引入
+噪声和高符号间干扰。在接收端，为正确识别传输的比特，需要与数据同步的时钟。
+在接收器内部生成时钟比从发射器的PLL通过独立信道传输更方便。实现此功能的
+电路称为CDR（时钟数据恢复）。CDR电路结合了一个PLL和一些额外电路，用于将
+接收器与输入数据流同步。这些时序块在高速系统中至关重要，因为它们提供传输数据
+符号的正确 spacing，并在接收器端必须对接收信号波形进行采样。</p>
+<pre><code>                                       19
+</code></pre>
+<p>\f第二章。高速串行链路                                                20</p>
+<p>2.1      信道环境</p>
+<p>最初，千兆SerDes用于电信行业和一些 niche markets，如广播视频。今天，这类应用
+出现在电子行业的各个领域， military、医疗、网络、视频、通信等。它们也用于
+通过背板和机架间的印刷电路板（PCB）组件。例如，有多个行业标准在不同信道上
+使用多千兆传输：光纤通道（FC）、PCI Express、Serial-ATA、10 GbE等[10]。</p>
+<p>自然，信道的特性 strongly depend on the application。然而，我们可以将传输信道分为
+三类。第一类包括 accommodated on the same PCB的芯片到芯片连接。这种类型的信道
+short and well controlled。第二类包括板到板连接，如背板信道，用于连接同一 rack
+系统中的路由器。最后一类包括用于计算机之间快速连接的信道 with Ethernet and
+coaxial cables。在这项工作中，我们使用背板链路作为我们的设计目标，尽管以下
+考虑 generally可以适用于任何类型的有线信道，excluding光纤。</p>
+<p>图2.2所示的背板用于连接不同的线路卡。这样的背板通常出现在大型内部的大型
+Internet路由器中。高速 serializer/deserializer芯片位于线路卡上，使用背板走线作为
+传输介质。
+\f21                                                第二章。高速串行链路</p>
+<pre><code>                       图2.2：背板信道
+</code></pre>
+<p>通常，芯片封装在焊接在线路卡上的封装中。线路卡使用密集通孔连接器相互通信。
+系统的横截面如图2.3所示， useful to see the full signaling path。背板由介电材料制成，
+通常是FR-4（阻燃-4），而导电走线通常由铜制成。限制背板信道数据传输的三个主要
+因素是反射、串扰和损耗。下面简要 describe这三个损耗类型。</p>
+<pre><code>                  图2.3：系统横截面
+</code></pre>
+<p>一些衰减 effects come from the short traces（例如过孔或连接器走线）连接系统
+的组件。例如，从封装 into the line card的走线以及将线路卡连接到背板的走线。这些
+短走线可以创建大的阻抗不匹配并引起反射，这可能显著 degrade信号质量。使用更好
+的阻抗控制连接器、封装和过孔可以最小化由反射引起的损耗[11]。</p>
+<p>第二个损耗来源来自不同信号路径之间的 undesired电容性、电感性或导电耦合；即
+串扰。最小化串扰的一种方法是使用更好的连接器、走线和过孔的屏蔽。然而，值得
+注意的是，现代技术尝试用有源电路补偿串扰效应，但它们通常非常复杂。</p>
+<p>最后一个损耗来源是频率损耗。信号必须通过许多不同的走线才能从源头到达目的地。
+结果是，沿着背板，衰减随频率增加而增加，这是由于趋肤效应（导体损耗）和介质
+损耗。在多GHz频率下，介质损耗 dominate导体损耗。</p>
+<p>我们现在可以建模最后一个损耗源以更好地理解信道行为。传输线的分布式元件模型
+用于通过无限级联的RLGC sections表示信道，如图2.4所示，其中R、L、G和C分别具有
+Ω/m、H/m、S/m和F/m的 dimension。在传输线的精确模型中，RLGC sections远小于
+感兴趣信号的波长。电阻R和电导G代表损耗，降低信道带宽。它们分别考虑了由导体
+和绝缘及支持连接的介电材料引起的损耗。电感L和电容C则 modeling信道的 inductive
+和电容行为。
+\f第二章。高速串行链路                                                  22</p>
+<pre><code>                    Rdx          Ldx
+
+                                   Cdx                   Gdx
+
+            图2.4：信道分布式元件模型
+</code></pre>
+<p>\f23                                                     第二章。高速串行链路</p>
+<p>线的特性阻抗是一个复数量，由以下关系表示[12]：</p>
+<pre><code>                                    s
+                                        R + jωL
+                             Z0 =               .                              (2.1)
+                                        G + jωC
+</code></pre>
+<p>首先，让我们考虑理想且匹配良好的传输线，其中特性阻抗Z0等于负载电阻。我们忽略
+损耗元件R=G=0。感性 and capacitive行为在信号传播中引入相移。结果，理想信道
+具有无限带宽，仅引入延迟τd：</p>
+<pre><code>                                        √
+                                τd =        LC l                               (2.2)
+</code></pre>
+<p>其中l是信道长度。现在，同样在匹配条件下，考虑主导损耗由导体和介质非理想性
+引起的损耗线。导体损耗包括直流损耗、表面粗糙度损耗和趋肤效应损耗。由于介质
+材料不是完美绝缘体，因此存在与直流相关的损耗，电流通过介质在信号导体和地平面
+之间流动。表面粗糙度损耗 due to copper的表面粗糙度并随频率增加。趋肤效应是
+电流分布不均匀的物理现象， so that the current density at the surface of the
+conductor大于其核心。因此，电流 tend to flow at the "skin" of the conductor，
+如图2.5所示。趋肤效应导致导体的有效电阻随信号频率的平方根增加。</p>
+<pre><code>                  图2.5：趋肤效应中的电流密度
+</code></pre>
+<p>\f第一章。高速串行通信                                          10</p>
+<pre><code>                   Total
+                    (Tj)
+
+
+
+ Random                          Deterministic
+   (Rj)                              (Dj)
+
+
+
+
+           Bounded uncorrelated                   Data Depend
+                                                       (DDj)
+
+
+
+Periodic            Other bounded
+  (Pj)               uncorrelated          Duty Cicle           Inter-symbol
+                                           distorsion           interference
+                                             (DCD)                  (ISI)
+                       图1.5：抖动分类图
+</code></pre>
+<p>确定性抖动是在去除RJ后 remaining的抖动。原则上，虽然几乎从未在实践中，DJ可以
+从对电路及其环境的完全理解中计算出来。由于DJ可以由所有其他类型的抖动组成，它
+不像RJ遵循高斯分布那样遵循给定函数分布。另一方面，由于DJ由有限数量的确定性
+过程组成，其分布是有界的[6]-[7]。在后续内容中， follow other definitions of the
+different types of jitter that make up the tree.</p>
+<p>• 数据相关抖动：DDJ包括所有幅度受传输数据信号影响的抖动。</p>
+<p>• 占空比失真：DCD是TX占空比不对称性的度量。通常由驱动TX的时钟信号或TX
+      内的限幅放大器的不对称性引起。</p>
+<p>• 符号间干扰：ISI是DDJ的主要原因。ISI与DCD的相关性使情况变得复杂。</p>
+<p>• 周期抖动：PJ包括任何具有固定频率的抖动。它很容易准确测量，并出现在
+      抖动频率频谱中的离散峰值。
+\f11                                    第一章。高速串行通信</p>
+<p>1.1.5     信号质量测量</p>
+<p>1.1.5.1   眼图</p>
+<p>数据眼图是表示和分析高速信号的方法论。可以通过眼图的外观观察信号完整性，
+评估ISI、噪声和抖动的量。数据眼图是通过将对应于每个单独比特的部分折叠到
+具有垂直轴上的信号幅度和水平轴上的时间的单个图形中，从数字波形构建的。通过
+对波形的许多样本重复此 construction，最终图形将表示信号的平均统计特性，
+并将类似于一只眼睛。图1.6b显示了眼图的开放示例，它是从图1.6a所示的
+接收序列构建的。</p>
+<pre><code>      0      1        0
+
+
+      1      0        0                        数据眼图
+
+                                                                  阈值
+      0      0        1
+                                                       Tb
+
+      1      1        1
+
+                 a)                                     b)
+            图1.6：眼图信号表示
+</code></pre>
+<p>数据眼图可以通过测量各种参数来表征，例如垂直和水平开口，从而量化信号质量。
+垂直眼图开口在采样时刻（在眼的中间）测量，表示为全眼高度的百分比（不包括
+过冲或下冲）。水平眼图开口在阈值电平处测量，表示为比特间隔的百分比。在没有
+噪声和随机抖动的情况下，开口可以如图1.7所示的简单方式确定。垂直眼图闭合由符号
+间干扰引起，水平眼图闭合由确定性抖动引起。
+\f第一章。高速串行通信                                       12</p>
+<pre><code>                            100%
+
+
+
+                                                      垂直眼
+      100%                                                           开口
+
+                        水平眼
+                          开口
+            图1.7：眼图典型测量
+</code></pre>
+<p>重要的是要理解眼图闭合取决于PRBS序列的长度。序列长度通常在2^7-1和2^31-1之间
+（通常分别称为PRBS-7和PRBS-31）。如果被测设备具有低频截止点，眼图闭合随
+序列长度增加而恶化。因此，使用眼图时必须始终指定序列长度。</p>
+<p>考虑到噪声和随机抖动，我们有一个额外的复杂性。对于高斯噪声分布，我们需要
+等待足够长的时间来正确测量眼图开口。它们的评估使用直方图，描述围绕中点的信号
+分布。如图1.8所示，您可以提取两种类型的直方图，水平和垂直，并测量相应的标准
+差σ。水平开口通常测量为两个水平分布的3σ点之间的时间间隔。垂直开口以等效方式
+评估，但使用垂直直方图。我们还可以提取眼图幅度如图所示[8]。</p>
+<p>1.1.5.2   误码率（BER）</p>
+<p>评估高速串行链路性能的最重要方法是误码率（BER）。BER定义为在某个序列内接收到的
+错误比特数与有效比特数之比。BER要求取决于应用，但通常10^-15到10^-12是典型值。
+\f13                                          第一章。高速串行通信</p>
+<pre><code>                 "1"电平
+                  直方图                    单位间隔
+
+
+
+
+     幅度
+
+
+
+
+                  垂直
+                  开口
+       眼
+
+
+
+                                                水平
+                 "0"电平                      开口
+                  直方图
+
+            图1.8：垂直和水平眼图直方图
+</code></pre>
+<p>为推导误码率表达式，假设系统具有足够的带宽且波形信号无失真[5]。对于一般比特
+序列，如图1.9a所示，比特的转换可以认为是无限快的。没有噪声时，信号只呈现
+两个值：逻辑电平"1"为+V0，逻辑电平"0"为–V0。图1.9b显示了序列的相应概率
+密度函数（PDF）。</p>
+<pre><code>                                     PDF(x)
+    +V0
+
+                                         t
+    -V0
+                                                     -V0        0      +V0    x
+
+                                                     PDF0              PDF1
+                                      PDF(x)
+
+    +V0
+                                                       Pe,ONE       Pe,ZERO
+                                         t
+    -V0
+                                                     -V0        0     +V0     x
+
+                    图1.9：噪声对一般比特序列的影响
+</code></pre>
+<p>现在，让我们在接收信号上引入白噪声。考虑到转换仍然是理想的，零交叉位置不变。
+如图1.9c所示，幅度电平定义不明确，这导致两个不同的高斯分布，以+V0和–V0为
+中心。这些分布可以用以下概率密度表示：
+\f第一章。高速串行通信                                      14</p>
+<pre><code>                                                  (x + V0 )2
+                                               "               #
+                                                −
+                                   1                 2σn
+
+                  P DF1 (x) =      √        exp                           (1.5)
+                                 σn 2π
+
+
+                                                  (x − V0 )2
+                                               "               #
+                                                −
+                                      1              2σn
+
+                  P DF0 (x) =         √     exp                           (1.6)
+                                 σn 2π
+</code></pre>
+<p>其中σn^2是分布方差。相对于无噪声的情况，PDF延伸到零阈值之外，因此总是存在
+出错的可能性。让我们定义Pe,ZERO为发送"0"时接收器决定"1"的概率，反之Pe,ONE
+为发送"1"时接收器决定"0"的概率。这些概率是图1.9d中的灰色区域，对应于PDF的积分：</p>
+<pre><code>                                      Z ∞
+                         Pe,ZERO =          P DF0 (x)dx,                  (1.7)
+                                       0
+
+
+                                      Z 0
+                         Pe,ONE =          P DF1 (x)dx.                  (1.8)
+                                       −∞
+</code></pre>
+<p>此外，由于"1"和"0"电平具有相同的传输概率，我们可以写出：</p>
+<pre><code>                             1         1
+                         Pe = Pe,ZERO + Pe,ONE                          (1.9)
+                             2         2
+</code></pre>
+<p>其中Pe是总错误概率，即BER。然后，BER可以写为：</p>
+<pre><code>                                     " #
+                                      V0
+                              BER = Q                                    (1.10)
+                                      σn
+</code></pre>
+<p>其中Q(x)是误差函数，代表上述积分，而V0/σn比率是信噪比SNRnoise。Q函数通过
+SNRnoise定义BER，图1.10给出了图形表示。而在表1.1中，是BER与SNR的不同值。
+眼图中的每个点都可以解释为判决点，因此具有与之关联的BER。因此，可以在眼图内
+绘制恒定BER的轮廓。图1.11仅显示具有特定目标BER值的轮廓。BER越低，轮廓所包围
+的区域越小。如果我们在该轮廓内做判决，我们将始终获得较低的BER。
+\f15                                   第一章。高速串行通信</p>
+<pre><code>               图1.10：误码率与SNR的关系
+
+
+
+                   表1.1：BER与SNR的关系
+
+                   SN Rnoise   BER SN Rnoise       BER
+                     0.0        0.5  5.998         10⁻⁹
+                    3.090      10⁻³  6.361         10⁻¹⁰
+                    3.719      10⁻⁴  6.706         10⁻¹¹
+                    4.265      10⁻⁵  7.035         10⁻¹²
+                    4.753      10⁻⁶  7.349         10⁻¹³
+                    5.199      10⁻⁷  7.651         10⁻¹⁴
+                    5.612      10⁻⁸  7.942         10⁻¹⁵
+</code></pre>
+<p>在图1.11中还显示了垂直和水平眼图余量。如果眼图余量大于零，则判决电路具有
+可以获得正确比特并满足目标BER的判决阈值。</p>
+<p>眼图余量最好用称为误码率测试仪（BERT）的仪器测量，该仪器具有脉冲pattern
+发生器和误差检测器。仪器连接到被测设备（DUT），如图1.12所示。误差检测器在
+判决阈值VTH处对数据信号进行切片，并在时刻tR对其进行采样。恢复的比特与传输的
+比特序列进行比较以确定BER，并在误差检测器上显示。判决阈值VTH和采样时刻tR都
+是可调的。可以通过将电压阈值设置在眼的中心并在眼上扫描时刻来进行水平扫描。
+结果曲线因特定形状被称为"浴缸"，如图1.13所示。当采样时刻在眼中心时BER较低，
+当采样向左或向右移动时BER上升。水平眼图余量定义为眼的左侧和右侧上浴缸曲线
+呈现特定BER值的两个点之间的间隔。例如，在10GbE标准中，水平眼图余量在BER为
+10⁻¹²时规定。
+\f第一章。高速串行通信                                      16</p>
+<pre><code>                           100%
+
+
+
+                                                            垂直眼
+</code></pre>
+<p>100%                                                           余量</p>
+<pre><code>                        水平眼
+                           余量
+             图1.11：噪声眼图中的眼图余量
+</code></pre>
+<p>确定BER，显示在误差检测器上。判决阈值VT H和采样时刻tR都是可调的。水平扫描
+可以通过将电压阈值设置在眼中心并将时刻扫描穿过眼来进行。结果曲线，就特定
+形状而言，被称为"浴缸"，如图1.13所示。当采样时刻在眼的中心时BER较低，当
+采样向左或向右移动时BER上升。水平眼余量定义为左右两侧达到指定BER值的点之间
+的间隔。例如，在10GbE标准中，水平眼余量针对10⁻¹²的BER指定。</p>
+<pre><code>      BERT仪器
+                           PRBS发生器
+
+                             数据输出
+          误差检测器                                   输入
+          浴缸屏幕       VTH       tR                被测设备
+
+                                                       输出
+                               数据输入
+
+                  图1.12：误码率测试设置
+
+
+
+
+ BER
+                  水平
+  0.5
+                   余量
+
+
+
+ 10⁻¹²
+
+                       UI                        t*
+         图1.13：浴缸曲线示例
+</code></pre>
+<p>\f\f第二章</p>
+<p>高速串行链路</p>
+<p>由于芯片间线路数量的密度限制以及芯片封装中有限的I/O引脚数量，高速链路通常
+将并行数据串化以进行芯片外传输。图2.1显示了一个简单的高速串行链路框图，由
+三个基本块组成：发射器、信道和接收器[9]。</p>
+<pre><code>       TX                                   RX                  SerDes
+         SerDes
+
+
+
+
+                    驱动器    信道        均衡器
+</code></pre>
+<p>DSP                                                                       DSP</p>
+<pre><code>              PLL                                        CDR
+       参考时钟
+
+
+
+              图2.1：高速串行链路框图
+</code></pre>
+<p>发射器使用由PLL（锁相环）生成的内部时钟对数据进行串化、调制和发送。PLL是
+高速链路中的时序发生器。它通过倍增低频参考时钟来为系统提供高频时钟。信道提供
+发射器和接收器之间的物理连接。它可以是光纤、同轴电缆、双绞线UTP（非屏蔽
+双绞线）、PCB（印刷电路板）或背板。在高比特率下，信道衰减和滤波信号，引入
+噪声和高符号间干扰。在接收端，为正确识别传输的比特，需要与数据同步的时钟。
+在接收器内部生成时钟比从发射器的PLL通过独立信道传输更方便。实现此功能的
+电路称为CDR（时钟数据恢复）。CDR电路结合了一个PLL和一些额外电路，用于将
+接收器与输入数据流同步。这些时序块在高速系统中至关重要，因为它们提供传输数据
+符号的正确spacing，并在接收器端必须对接收信号波形进行采样。</p>
+<pre><code>                                       19
+</code></pre>
+<p>\f第二章。高速串行链路                                                20</p>
+<p>2.1      信道环境</p>
+<p>最初，千兆SerDes用于电信行业和一些niche markets，如广播视频。今天，这类应用
+出现在电子行业的各个领域，military、医疗、网络、视频、通信等。它们也用于
+通过背板和机架间的印刷电路板（PCB）组件。例如，有多个行业标准在不同信道上
+使用多千兆传输：光纤通道（FC）、PCI Express、Serial-ATA、10 GbE等[10]。</p>
+<p>自然，信道的特性 strongly depend on the application。然而，我们可以将传输信道分为
+三类。第一类包括 accommodated on the same PCB的芯片到芯片连接。这种类型的信道
+是short and well controlled。第二类包括板到板连接，如背板信道，用于连接同一 rack
+系统中的路由器。最后一类包括用于计算机之间快速连接的信道 with Ethernet and
+coaxial cables。在这项工作中，我们使用背板链路作为我们的设计目标，尽管以下
+考虑 generally可以适用于任何类型的有线信道，excluding光纤。</p>
+<p>图2.2所示的背板用于连接不同的线路卡。这样的背板通常出现在大型内部的大型
+Internet路由器中。高速 serializer/deserializer芯片位于线路卡上，使用背板走线作为
+传输介质。</p>
+<p>\f21                                                第二章。高速串行链路</p>
+<pre><code>                       图2.2：背板信道
+</code></pre>
+<p>通常，芯片封装在焊接在线路卡上的封装中。线路卡使用密集通孔连接器相互通信。
+系统的横截面如图2.3所示， useful to see the full signaling path。背板由介电材料制成，
+通常是FR-4（阻燃-4），而导电走线通常由铜制成。限制背板信道数据传输的三个主要
+因素是反射、串扰和损耗。下面简要 describe这三个损耗类型。</p>
+<pre><code>                  图2.3：系统横截面
+</code></pre>
+<p>一些衰减 effects come from the short traces（例如过孔或连接器走线）连接系统
+的组件。例如，从封装 into the line card的走线以及将线路卡连接到背板的走线。这些
+短走线可以创建大的阻抗不匹配并引起反射，这可能显著 degrade信号质量。使用更好
+的阻抗控制连接器、封装和过孔可以最小化由反射引起的损耗[11]。</p>
+<p>第二个损耗来源来自不同信号路径之间的 undesired电容性、电感性或导电耦合；即
+串扰。最小化串扰的一种方法是使用更好的连接器、走线和过孔的屏蔽。然而，值得
+注意的是，现代技术尝试用有源电路补偿串扰效应，但它们通常非常复杂。</p>
+<p>最后一个损耗来源是频率损耗。信号必须通过许多不同的走线才能从源头到达目的地。
+结果是，沿着背板，衰减随频率增加而增加，这是由于趋肤效应（导体损耗）和介质
+损耗。在多GHz频率下，介质损耗 dominate导体损耗。</p>
+<p>我们现在可以建模最后一个损耗源以更好地理解信道行为。传输线的分布式元件模型
+用于通过无限级联的RLGC sections表示信道，如图2.4所示，其中R、L、G和C分别具有
+Ω/m、H/m、S/m和F/m的 dimension。在传输线的精确模型中，RLGC sections远小于
+感兴趣信号的波长。电阻R和电导G代表损耗，降低信道带宽。它们分别考虑了由导体
+和绝缘及支持连接的介电材料引起的损耗。电感L和电容C则 modeling信道的 inductive
+和电容行为。</p>
+<pre><code>                    Rdx          Ldx
+
+                                   Cdx                   Gdx
+
+            图2.4：信道分布式元件模型
+</code></pre>
+<p>\f23                                                     第二章。高速串行链路</p>
+<p>线的特性阻抗是一个复数量，由以下关系表示[12]：</p>
+<pre><code>                                    s
+                                        R + jωL
+                             Z0 =               .                              (2.1)
+                                        G + jωC
+</code></pre>
+<p>首先，让我们考虑理想且匹配良好的传输线，其中特性阻抗Z0等于负载电阻。我们忽略
+损耗元件R=G=0。感性 and capacitive行为在信号传播中引入相移。结果，理想信道
+具有无限带宽，仅引入延迟τd：</p>
+<pre><code>                                        √
+                                τd =        LC l                               (2.2)
+</code></pre>
+<p>其中l是信道长度。现在，同样在匹配条件下，考虑主导损耗由导体和介质非理想性
+引起的损耗线。导体损耗包括直流损耗、表面粗糙度损耗和趋肤效应损耗。由于介质
+材料不是完美绝缘体，因此存在与直流相关的损耗，电流通过介质在信号导体和地平面
+之间流动。表面粗糙度损耗 due to copper的表面粗糙度并随频率增加。趋肤效应是
+电流分布不均匀的物理现象， so that the current density at the surface of the
+conductor大于其核心。因此，电流 tend to flow at the "skin" of the conductor，
+如图2.5所示。趋肤效应导致导体的有效电阻随信号频率的平方根增加。</p>
+<pre><code>                      图2.5：趋肤效应中的电流密度
+</code></pre>
+<p>\f第二章。高速串行链路                                                  24</p>
+<p>趋肤效应引起的衰减随有效电阻增加而增加。衰减α由下式给出：</p>
+<pre><code>                                       R
+                                 α=        ,                                (2.3)
+                                      Z0 W
+</code></pre>
+<p>其中W是导体的宽度。有效电阻R由下式给出：</p>
+<pre><code>                                     ρ
+                                   R= ,                                     (2.4)
+                                     δ
+</code></pre>
+<p>其中δ是趋肤深度（如图2.5所示），由下式给出：</p>
+<pre><code>                                      r
+                                           ρ
+                                δ=                                          (2.5)
+                                          πµf
+</code></pre>
+<p>其中µ是导体的绝对磁导率，f是频率。因此，在高频下，厚度δ减小，减小了导体的
+有效横截面积。值得注意的是，趋肤效应引起的损耗与√f成正比，通常在低频时占
+主导地位。这对于大多数均衡器来说是一个大问题，因为它们被设计用于恢复奈奎斯特
+损耗（高频），而在低频时均衡失败。通常，最近的工作已使用专用均衡器来恢复
+导体低频损耗[13]。</p>
+<p>介质损耗由于不完全绝缘而产生，相对于趋肤效应出现在更高频率。有少量电流进入
+介质，流动并分散产生热量。这种损耗与频率成线性关系，由损耗角正切tan(δ)量化。
+损耗角正切越低，损耗越低。表2.1显示了一些典型介质材料及各自的tan(δ)。</p>
+<p>信道衰减的表达式因此是频率和长度l的函数，由下式给出：</p>
+<pre><code>                                "            p          #
+                  Loss(f ) = exp −ks l(1 + j) f − kd lf                     (2.6)
+</code></pre>
+<p>其中ks和kd分别是与趋肤损耗和介质损耗相关的系数。总之，我们已经看到，在低频时，
+基板电导与趋肤效应相比损耗可以忽略不计。随着频率增加，介质损耗变得显著，
+导致幅度更急剧下降。典型的信道传递函数如图2.6所示，其中损耗分为两种贡献。
+\f25                                                            第二章。高速串行链路</p>
+<pre><code>                                   表2.1：介质材料
+
+                                         材料   tan(δ)
+
+                                            FR4       0.035
+
+                                         聚酰亚胺    0.025
+
+                                          GETEK       0.010
+
+                                           特氟龙     0.001
+
+
+
+
+                       图2.6：趋肤损耗与介质损耗的交叉
+</code></pre>
+<p>到目前为止，我们只看到了趋肤损耗和介质损耗在频域中的影响。显然，在时域中
+也会有差异。脉冲响应可以通过对Loss(f)进行逆傅里叶变换获得。趋肤和介质损耗影响
+整体时域响应，因此将两种贡献分开很有用，如图2.7所示。在图中，顶部是趋肤脉冲
+响应，底部是介质脉冲响应。y轴显示归一化幅度，x轴显示以Tb为单位的时间。选择
+这样的坐标是为了清楚显示脉冲形状和不同的时间跨度。可以看到，趋肤脉冲响应在
+时间上是不对称的，具有非常长的尾部。通常，因此，典型的趋肤时间响应由后继分量
+主导，而前驱分量可以忽略不计。这个长尾部直接与导体损耗典型的低频损耗相关。
+在介质响应中，前驱分量通常与后继分量相同，因为时域响应对称。请注意，相对于
+前一种情况，时间跨度更有限。</p>
+<pre><code>                   1.2
+                                                                           导体损耗
+   幅度 [V]
+
+
+
+
+                    1
+
+                   0.8
+
+                   0.6
+
+                   0.4
+
+                   0.2
+
+                    0
+                         -2      0     2     4     6      8     10    12         14           16
+
+
+
+
+                                                                           介质损耗
+   幅度 [V]
+
+
+
+
+                    1
+
+                   0.8
+
+                   0.6
+
+                   0.4
+
+                   0.2
+
+                    0
+                         -8     -6    -4    -2     0      2     4     6          8            10
+                                            单位间隔
+                         图2.7：趋肤和介质脉冲响应
+</code></pre>
+<p>\f27                                                 第二章。高速串行链路</p>
+<p>2.2      均衡器分类</p>
+<p>我们已经看到信道损耗对传输信号引入失真。在时域中，单个脉冲 spread over several
+unit intervals。理想情况下，均衡器的目的是补偿信道效应，可以表示为：</p>
+<pre><code>                             HEQ (s) = HC−1 (s)                              (2.7)
+</code></pre>
+<p>其中HEQ是均衡器传递函数，HC是信道传递函数。图2.8解释了这个概念。</p>
+<pre><code>         |Hc(s)|                |HEQ(s)|                |RS(s)|
+
+                        f
+                                               f                      f
+
+            信道             均衡器                 RS(s)
+
+               图2.8：理想均衡器概念
+</code></pre>
+<p>理想均衡器传递函数是信道传递函数的逆，即高通传递函数。HEQ函数在幅度和相位
+方面都很重要，因为在均衡器之后，R(s)的幅度必须尽可能平坦，而相位应在频率上
+引入恒定群延迟。</p>
+<p>根据应用和最大比特率，有不同类型的均衡器。它们可以组织成多个类别。第一个
+区别是基于输入信号类型，因此我们将找到仅使用模拟信号（模拟信号均衡器 - ASE）
+和混合信号均衡器（MSE）[10]的均衡器。图2.9在树图中描绘了后续类别。
+\f第二章。高速串行链路                                                28</p>
+<pre><code>                            均衡器
+
+
+             模拟                           混合
+         信号均衡器                    信号均衡器
+
+
+
+         高通滤波器                    线性       非线性
+
+
+
+       无源          有源            FIR              DFE
+                    图2.9：均衡器分类
+</code></pre>
+<p>ASE的主要优点是不需要时钟信号；因此，时钟数据恢复电路不是必需的。通常，它们
+用于均衡具有 regular frequency transfer function的信道，否则它们可能无法纠正
+由例如桩或强反射引起的任何 notch衰减。此外，这种均衡器适应性差，需要为每种
+类型的信道 custom设计。实际上，ASE是无源高通滤波器或有源高通滤波器。前者提供
+ excellent linearity，但在奈奎斯特频率的增益提升 usually limited。可以通过级联
+有源HP滤波器来克服这个问题，但这种解决方案需要更多功耗。</p>
+<p>MSE电路能够处理数字和模拟信号。MSE分为两类：线性和非线性。正如我们将在
+下一节中看到的，它们的主要优点是实现数字算法来使均衡器适应不同信道的能力。
+最流行的非线性均衡器是判决反馈均衡器（DFE）。DFE总是在 previous equalization
+之后使用，它只能 remove post-cursors。线性MSE通常通过有限脉冲响应滤波器（FIR）
+实现。
+\f29                                                       第二章。高速串行链路</p>
+<pre><code> 输入                LPF                                                       输出
+      AMP                    A/D               FIR       +   +
+                                                             +
+
+
+                                                                   DFE
+
+               图2.10：离散时间MSE框图
+</code></pre>
+<p>直到大约十年前，大多数MSE都是在离散时域中实现的。一个简单的框图如图2.10所示，
+您可以看到抗混叠滤波器后的ADC。然而，随着比特率传输的增加，链路中的模/数转换器
+已成为缺点。从模拟到数字世界的转换需要 significant power consumption，相对于
+均衡器功耗更大。</p>
+<pre><code>        输入                                                            输出
+             AMP           FIR         +   +
+                                           +
+
+
+
+
+                                                         DFE
+              图2.11：连续时间MSE框图
+</code></pre>
+<p>为克服这个问题，研究推动了混合技术的使用，如图2.11所示，其中ADC已被移除。
+如今，对于这种应用，FIR滤波器在模拟域中工作，而 adaptation logic保持数字化，
+相对于比特率以较低速度工作。</p>
+<p>因此，由于这些原因，FIR均衡器可以包含在ASE类别中，特别是在有源分支中。在
+有源类别中，有许多类型的均衡器，但我们希望将注意力集中在上述FIR和其他经典
+解决方案上。通常，它们归入线性前馈均衡器（LFE，在文献中也称为FFE）类别。
+\f第二章。高速串行链路                                                  30</p>
+<p>2.2.1     连续时间线性均衡器（CTLE）</p>
+<p>简单的前馈均衡器使用连续时间线性均衡器（CTLE）实现，通常通过容性退化差分对
+级联或使用分路方法 more complicate structures[15]-[16]-[17]实现。在这种情况下，
+信号被馈入两个并行路径：第一是单位增益路径，第二是高频 boost路径，然后
+相加以创建输出。主要优点是简单、低功耗和更少的硅 area，但它们的灵活性有限。</p>
+<p>CTLE提供增益峰值以提升高频来 counter信道衰减和失真。连续时间线性均衡器的
+峰值增益和峰值频率是改善链路性能的关键设计参数，因为它们在塑造CTLE传递函数
+方面发挥着重要作用。</p>
+<p>CTLE的概念可以在频域中解释。链路信道可以视为低通滤波器。为补偿信道的低通
+特性，在接收器添加高通滤波器以实现数据流高频和低频分量之间的平衡。典型信道
+传递函数（无频率 notch）在低通特性，可以近似为一个或几个极点：</p>
+<pre><code>                                           1
+                            HCH (s) =                                        (2.8)
+                                        s + pCH
+</code></pre>
+<p>其中pCH是信道的主导极点。CTLE具有可描述为以下传递函数：</p>
+<pre><code>                                        (s + z1 )
+                        HEQ (s) =                                            (2.9)
+                                    (s + p1 )(s + p2 )
+</code></pre>
+<p>其中zi和pi分别是零点和极点。如果CTLE的零点在正确频率，它会抵消信道的主导极点。
+均衡后的传递函数在更宽的频率范围内变得平坦，描述为：</p>
+<pre><code>                                        s + p1
+                               R(s) =          .                           (2.10)
+                                        s + p2
+</code></pre>
+<p>零点与要均衡的信道的主导极点 closely related，选择时需要谨慎 when optimizing
+CTLE参数。因此，重要的是确保CTLE的峰值在正确的频率，并且增益提升 correct。
+不正确的CTLE选择会导致欠均衡或过均衡，因此导致次优的post-CTLE信号完整性。</p>
+<p>在某些情况下，找到正确的零频率零点并获得良好的均衡并不容易。为克服CTLE
+限制，最近提出了有限脉冲响应滤波器，即使它们更复杂且功耗更高。
+\f31                                                     第二章。高速串行链路</p>
+<p>2.2.2        有限脉冲响应滤波器均衡器</p>
+<p>FIR均衡器相比经典解决方案具有不同优势：它们能够消除前导符ISI，并与 simple
+adaptation algorithm兼容。有限脉冲响应滤波器（FIR）是一个具有有限脉冲响应的
+因果线性时不变系统。从图2.12可以看出，框图没有反馈，因此系统是无条件稳定
+的。它由n个具有可变系数的乘法器、n-1个延迟单元和一个求和节点组成。FIR可以
+generate large types of transfer function thanks to the different values of its coefficients。
+通常，由于信号输入乘法器是沿延迟线获取的，因此乘法器被称为"抽头"。</p>
+<pre><code>            前驱符            光标               后继符
+
+
+
+     x(k)            x(k-1)                                        x(k-n+1)
+               Td             Td                            Td
+
+              C1              C2            Ci              Cn-i          Cn
+
+
+
+
+                                    +
+                                            y(k)
+
+            图2.12：有限脉冲响应滤波器框图
+</code></pre>
+<p>延迟单元插入在抽头之间，每个提供延迟Td。在时域中，图2.12所示FIR的输入输出
+关系为：</p>
+<pre><code>                                  n
+                                  X
+                      y(kT ) =          Ci x(k + 1 − i)Td                  (2.11)
+                                  i=1
+</code></pre>
+<p>输入信号y(k)沿延迟链传播。信号的延迟版本与抽头系数相乘，然后求和。中心抽头
+通常被选择作为主抽头（光标抽头），因为它通常具有最高系数。FIR的输入输出关系
+表明，性能以及系数都取决于延迟Td。Td的值可以等于比特周期或更低。在第一种
+情况下，我们有符号间隔均衡器（SSE），否则我们讨论分数间隔均衡器（FSE）。</p>
+<p>为理解FIR行为，查看时域操作很有用[9]。让我们考虑一个具有四个抽头的SSE结构。
+如图2.13所示，每个抽头提供输入信号的延迟版本，乘以其自己的系数。在加法器
+输出处， destructive interference shapes the bit response，消除每个光标上的能量，
+主光标除外。这在图中定性显示。
+\f33                                                第二章。高速串行链路</p>
+<pre><code>        输入       Td        Td                  Td
+
+             C1           C2                C3              C4
+                                                                 4
+                                  2                 3
+             1
+                                                                         输出
+                                                                     +
+            Tb
+
+    1
+
+    2
+                                        +
+    3
+                                                   UI                   t
+    4
+ 图2.13：时域FIR框图及相关时域行为
+</code></pre>
+<p>2.2.3       判决反馈均衡器（DFE）</p>
+<p>前馈均衡器，因此FIR和CTLE，实现非常简单，但通常 achieve sub-optimal performance。
+对于引入弱到中等ISI的信道，它们的性能 often sufficient。然而，它们在抑制ISI的
+同时增强噪声，因为它们无法区分信号和噪声或串扰。因此，最终，当信道失真变得
+严重时，线性均衡器的性能可能受到噪声增强的限制。图2.14解释了这个概念。</p>
+<pre><code>                              FFE
+         损耗
+
+
+
+                          均衡后信道
+
+                信道                       增强噪声
+
+
+                                                        噪声
+
+
+                                                        频率
+        图2.14：线性前馈均衡器的噪声限制
+</code></pre>
+<p>\f第二章。高速串行链路                                                  34</p>
+<p>因此，对于当今接收器架构，另一个非常重要的均衡器是DFE（非线性类别）。DFE
+在不平坦噪声的情况下改善线性均衡器的性能。DFE是一种非线性结构，其中，
+如图2.15所示，使用反馈FIR滤波器和判决设备（ slicer）。假设判决正确，
+先前的ISI可以通过反馈先前判决的符号从当前符号中减去。因为FFE抑制了前驱符
+ISI的贡献，如果FFE噪声不严重且DFE slicer没有判决错误，则可以消除ISI而不
+增强噪声。</p>
+<pre><code>                    FFE输出
+            FFE                     +
+                                    -   +
+                                        - -
+                                              -
+
+                                                                      CK
+
+
+
+             ws         ws-1                           w2        w1
+
+               FF         FF                  FF       FF
+                   CK          CK                 CK        CK
+
+                反馈FIR滤波器
+           图2.15：判决反馈均衡器框图
+</code></pre>
+<p>2.3      FIR上的迭代自适应</p>
+<p>在数据传输期间或较长时间内，信道 may exhibit宽范围的频率相关损耗变化。因此，
+均衡器设计需要包含 certain flexibility以自适应设置均衡器系数来最小化ISI。这样的
+均衡器称为自适应均衡器。对于我们的目的，研究FIR均衡器上的迭代自适应 aspects 就足够了。</p>
+<p>从图2.16可以看出，为了恢复原始信号，您必须找到一种均衡滤波器，以最小化原始
+传输信号与FIR滤波器后均衡信号之间的误差Je。Je也称为"代价函数"，它是滤波器
+系数的函数。
+\f35                                                   第二章。高速串行链路</p>
+<pre><code>                                                         判决器
+                                                 y                y
+              信道              FIR
+
+                           ci
+                                        Je(ci)
+                        均衡器                    误差
+                       调整                      计算
+
+                 图2.16：FIR上的迭代自适应
+</code></pre>
+<p>更新滤波器抽头系数的一般方法是：</p>
+<pre><code> 系数_new = 系数_old + (步长)(误差函数)(输入函数)         (2.12)
+</code></pre>
+<p>其中误差函数Je通常基于实际均衡信号y与期望均衡器输出ŷ之间的差异。输入函数
+从输入信号获得，步长是一个设计参数。设计者有许多实现自适应均衡器的选项，
+其范围超出我们的目的。</p>
+<p>一种广泛使用的自适应算法是最小均方（LMS），这是更通用算法即最小均方误差
+（MMSE）的特例。MMSE算法尝试始终最小化均衡器输出的均方误差。然而，它在
+自适应均衡器中未使用，因为它难以实现。LMS算法提供了更简单的实现[10]。它在
+采样频率等于比特时间的离散时域中运行。图2.17解释了在均衡器上LMS算法的经典
+实现。我们可以识别FIR滤波器的经典结构。为描述算法的工作方式，我们将滤波器
+系数向量定义为：</p>
+<pre><code>                          C̄ T = c0 , c1 , ...cn − 1 .                                    (2.13)
+</code></pre>
+<p>\f第二章。高速串行链路                                                                 36
+               噪声
+       d(k)        x(k)        x(k-1)         x(k-2)                         x(k-n+1)
+                          Td             Td                           Td</p>
+<pre><code>                      C0             C1            C2             Cn-2          Cn-1
+                                                                                       y(k)
+
+
+              图2.17：LMS算法实现
+</code></pre>
+<p>现在，我们还定义输入信号样本的向量x(k)：</p>
+<pre><code>                          "                               #
+                   x̄(k) = x(k), x(k − 1), ...x(k − n + 1) .                            (2.14)
+</code></pre>
+<p>我们有所有 ingredients 来写出FIR输出方程y(k)，作为两个向量的乘积：</p>
+<pre><code>                               n−1
+                               X
+                      y(k) =         ci x(k − 1) = C̄ T · x̄(k)                         (2.15)
+                               i=0
+</code></pre>
+<p>最后，代价函数Je由下式给出：</p>
+<pre><code>                   Je (k) = E e(k)2 = E (d(k) − y(k))2                                   (2.16)
+</code></pre>
+<p>其中E[·]运算符是参数的期望值。MSE最小化 minimize ISI和噪声的组合 effect。
+适应 goal如图2.18所示。该图显示了均衡器输出y(k)与训练数据d(k)之间的差异，
+作为均衡器系数的函数，绘制为3D表面；该图是一个带有两个系数的示例。表面是凸函数，
+因此具有全局最小值。自适应算法的目标是收敛于一小部分迭代中最小化误差的系数值。
+因此，对于FIR滤波器的自适应，我们必须在与代价函数Je的梯度相反的方向上移动
+FIR系数。</p>
+<p>给定具有绝对最小值的代价函数Je，为最小化误差，我们必须在与Je的梯度相反的
+方向上迭代更新系数：</p>
+<pre><code>                               "                     #
+                   ¯ T           ∂J     ∂J        ∂J
+                   ∇C Je (k) =        ,     , ...      .                      (2.17)
+                                 ∂c0 k ∂c1 k ∂cn−1 k
+</code></pre>
+<p>\f37                                                第二章。高速串行链路</p>
+<p>这样我们可以写出 next 系数的表达式，因此，FIR系数更新如下：</p>
+<pre><code>                                              ¯ C Je
+                         c̄(k + 1) = c̄(k) + µ∇                               (2.18)
+</code></pre>
+<p>其中µ称为步长。它用于影响收敛速度，但必须仔细选择。如果太快，算法将具有太多
+能量，将无法准确找到绝对最小误差。相反，如果太小，收敛将太慢，算法将确保在
+非常长的时间内收敛。
+\f\f第三章</p>
+<p>基于28nm LP CMOS高线性度全通
+延迟线级的25-Gb/s FIR均衡器</p>
+<p>摘要</p>
+<p>本章介绍了一种用于背板链路损耗补偿的连续时间4抽头FIR均衡器。FIR滤波器在增强
+高速有线接收机的均衡性能方面具有吸引力，可提供高度的灵活性来匹配信道频率响应，
+并与简单的自适应技术兼容。特别关注解决连续时间实现中的关键问题，如噪声、线性度
+和动态范围。为保持高SNR且不影响均衡性能，提出了一种新的全通级来实现能够容纳
+大输入信号幅度的延迟线。滤波器抽头系数由可编程跨导实现，输出电流通过电阻负载
+求和。在28 nm LP CMOS技术中实现的测试芯片上进行了全面的实验结果展示。均衡器
+在25Gbps数据速率下 demonstrates successful operation，同时从1V电源抽取25mA。
+使用900mVpk-pk输入信号的测量证明了在BER = 10⁻¹²时具有50%水平眼图开口的20-dB
+损耗信道的均衡。实验结果与最新技术相比 favorable[18]。</p>
+<pre><code>                                      39
+</code></pre>
+<p>\f第三章。25-Gb/s FIR均衡器设计                                          40</p>
+<p>3.1      引言</p>
+<p>3.1.1     研究动机</p>
+<p>为满足持续推动串行链路速度的需求，数据速率为25-28 Gb/s的新标准正在兴起。
+符号间干扰（ISI）是一个严重障碍，收发器需要 incorporate越来越复杂的信道均衡
+技术。RX均衡结合了前馈线性均衡器和判决反馈均衡。简单FFE由峰值放大器级联实现，
+难以最佳自适应，且在前导符ISI纠正能力方面有限[19]（见上一章）。更复杂的FFE，
+实现为横向FIR滤波器，最近在RX中提出[20]-[21]。它们在塑造传递函数以匹配信道
+频率响应方面提供高度灵活性，并与简单的自适应方案（如最小均方（LMS）算法）
+兼容。RX FIR均衡器的一个关键挑战是设计紧凑、宽带宽且能承受足够大输入信号的
+模拟延迟线。延迟线的增益压缩损害信号完整性并 compromise均衡能力，而最大化
+输入信号摆幅对于实现高SNR是可取的。已经提出了几种高速FIR均衡器[21-23]。
+基于集总LC网络的延迟线需要高质量无源组件， require prohibitively large area。
+有源和混合（即结合有源和无源组件）延迟线占据可接受的 area but feature limited
+linearity，特别是在低电源电压下，将最大允许信号摆幅限制在几百毫伏。在这项
+工作中，提出了一种紧凑的有源延迟线， features outstanding linear operation range，
+来实现分数间隔4抽头FIR均衡器。</p>
+<p>3.1.2     提出的RX FIR均衡器</p>
+<p>提出的FIR均衡器的框图如图3.1所示。有源延迟线由三级级联实现，提供抽头到抽头
+延迟Td。抽头放大器是具有6位可编程增益的跨导，可以通过数字字Di选择。此外，
+共享电阻负载RL用于求和抽头电流，而VGA和缓冲器 follow均衡器用于测量目的。
+VGA和缓冲器由三个具有电阻负载的退化差分对和分流峰值电感的级联实现。 overall
+增益通过编程退化和负载电阻控制在0-10 dB范围内。
+\f41                                          第三章。25-Gb/s FIR均衡器设计</p>
+<pre><code>                                 延迟线
+        Vin
+                    Td                 Td                     Td
+
+
+
+       D0              D1                 D2                     D3
+              gm0            gm1                   gm2                  gm3
+      6bit            6bit                6bit                  6bit
+
+
+
+
+                                            Vout
+                                                                      VGA 缓冲器
+                                        RL           nout
+
+            图3.1：提出的FIR均衡器框图
+</code></pre>
+<p>传递函数H(f ) = Vout /Vin由下式给出：</p>
+<pre><code>                                        X
+                             H(f ) =             ci e−j(2πf ·i·Td )                (3.1)
+                                       i=0...3
+</code></pre>
+<p>其中ci = gmi · RL (i = 0. . . 3)是滤波器系数。显然，幅度系数是 limited，权衡在
+于跨导gm和电阻负载RL，因为这两个参数分别受到输出节点的电流消耗和带宽 constraint。
+特别是，系数被限制在±0.6以内，由抽头放大器的最大跨导（gmi,max = 7.5mS）和
+负载电阻值RL = 80Ω bound together。与抽头数量或等效地延迟线长度一起，是一个
+重要的设计规范，决定了均衡性能。</p>
+<p>在考虑全数字实现时，分数间隔FIR均衡器（即Td为符号时间Tb一小部分的滤波器）
+相对于符号间隔均衡器（Td = Tb）具有 several advantages。由于更高的采样率，
+它们不受混叠影响，可以在奈奎斯特频率（fN = 1/2Tb）之外提供提升，对时钟采样
+相位不太敏感，并允许同时均衡和匹配滤波[22]-[23]。另一方面，抽头到抽头延迟越短，
+覆盖相同时间窗口所需的抽头数量就越大。当目标是模拟连续时间实现时，最小化
+抽头数量对于限制功耗是非常 desirable。此外，与数字实现不同的是，一个重要的问题是
+需要考虑均衡器噪声对输出信号SNR的影响。实际上，模拟FIR均衡器损害SNR，
+不仅因为叠加在输入信号上的高频噪声增强，而且还因为均衡器构建模块引入的噪声，
+在图3.1中由添加到输出信号的噪声nout表示。</p>
+<p>为理解FIR行为和保持高输出SNR的电压摆幅要求，查看描述传递函数Vout/Vin的
+方程H(f )。在低频时，增益GLF等于滤波器系数之和。代入H(f )中的f = 0，我们得到：</p>
+<pre><code>                                         X
+                               GLF =              ci                         (3.2)
+                                        i=0...3
+</code></pre>
+<p>\f第三章。25-Gb/s FIR均衡器设计                                          42</p>
+<p>即，低频增益等于滤波器系数之和。</p>
+<p>代替在H(f )中代入f = fN（奈奎斯特频率），我们可以找到描述高频增益的表达式，
+特别是在奈奎斯特频率的增益GHF：</p>
+<pre><code>                                      X
+                             GHF =         (−1)i ci                          (3.3)
+                                     i=0...3
+</code></pre>
+<p>高频提升是滤波器系数之和，但符号随i的幂变化。因此，低频增益GLF和高频增益GHF
+相互 trade。由于幅度系数的边界，为提供高频均衡，均衡器引入低频增益。</p>
+<p>3.1.3     线性度要求</p>
+<p>理想情况下，线性均衡器可恢复的最大信道损耗受叠加在输入信号上的高频噪声增强
+限制。然而，与数字实现相比，模拟均衡器本身引入的噪声（如图3.1中的nout）
+可能设置更严格的限制。在此设计中，nout ≈ 1.5mVrms几乎与均衡器传递函数无关。
+为达到SNR≥30dB，需要在垂直和水平眼图开口上具有良好的余量，输出电压幅度需要
+大于100mVpk-pk。给定输入摆幅，Vout的幅度由均衡器的低频增益决定，即滤波器
+系数之和。因此，最大SNR是通过让所有系数具有相同符号实现的，但为提供高频峰值，
+滤波器需要正负值。由于系数幅度有界，高频峰值以Vout和SNR的幅度为代价。
+例如，以下系数集c0,...c3 = 0.6 · [−0.35, 1, −0.16, −0.26]是均衡约20dB奈奎斯特衰减的
+背板信道所必需的，确定了17dB的低频损耗。因此，均衡器需要Vin≥700mVpk-pk
+才能使Vout≥100mVpk-pk。这种摆幅很容易由最新技术的发射器[24]提供，
+但需要 FIR滤波器具有宽广的线性工作范围以不影响均衡性能。在有限功耗下满足
+此要求，特别是在低电源电压下，是一项非常具有挑战性的任务。</p>
+<p>总之，均衡器的高压缩点对于高SNR和信号完整性至关重要。此外，图3.1中最关键
+的构建模块是延迟线级。因此，在下一节中引入了一种适用于高频工作且能容纳大
+输入摆幅的新型全通级。
+\f43                                     第三章。25-Gb/s FIR均衡器设计</p>
+<p>3.2        系统仿真与电路设计</p>
+<p>3.2.1      FIR滤波器压缩的影响</p>
+<p>FIR滤波器压缩对信号完整性的影响可以通过计算机仿真进行估计。仿真设置如图3.2
+所示的框图，其中均衡输出Vout在FIR滤波器之后。在第一种情况下，不存在DFE。
+在这种情况下可恢复的最大损耗（约20dB）需要"良好"的输出SNR且仅使用FIR均衡器。
+为此，在框图中，您可以找到一个仅14dB衰减的弱损耗信道。FIR滤波器均衡器也
+存在，其中延迟单元被建模为具有特定1dB压缩点的非线性块。此外，从功能和带宽
+的角度来看，延迟单元和抽头放大器都是理想的。</p>
+<pre><code>                                   延迟单元
+    Vin
+            信道                       Td             Td              Td
+                             c0            c1              c2             c3
+                                                                                  Vout
+图3.2：评估FIR滤波器压缩影响的仿真设置框图
+</code></pre>
+<p>这个想法是当输入信号Vin的幅度增长时测试均衡器失真对信号完整性的影响。为比较
+性能，我们使用仿真的眼图开口。在图表中（图3.3），y轴上绘制了水平和垂直眼图
+开口，而x轴上绘制了相对于延迟单元1dB压缩点的归一化输入幅度。当输入信号远
+离压缩点时，垂直和水平开口良好，眼图清晰如图3.4a所示。然而，当输入幅度开始
+达到压缩点时，眼图开口恶化。输入幅度大于1dB压缩点时的输出眼图如图3.4b所示。
+              眼图开口 [%]</p>
+<pre><code>                            100
+                             80
+                             60
+                             40
+                                     垂直
+                             20
+                                     水平
+                              0
+                                   0.2 0.4 0.6              0.8      1      1.2
+                                                  Vin/V1dB-CP
+                            图3.3：眼图开口与输入信号幅度
+
+
+
+          输入幅度 &lt;&lt; V1dBCP                        输入幅度 &gt; V1dBCP
+
+ 1                                                1
+ 0                                                0
+</code></pre>
+<p>-1                                              -1
+     -1         -0.5        0       0.5      1        -1        -0.5      0      0.5       1
+                   时间 [UI]                                           时间 [UI]
+         a)                                               b)
+                                图3.4：仿真眼图</p>
+<p>\f45                                           第三章。25-Gb/s FIR均衡器设计</p>
+<p>如果我们考虑具有更高损耗的信道，FIR滤波器压缩的影响更为重要。因此，为完整性，
+还评估了存在判决反馈均衡器的情况。仿真设置如图3.5所示，在此示例中，奈奎斯特
+频率的信道损耗为34dB。
+                            延迟单元
+         Vin
+                信道            Td            Td              Td
+                       c0           c1           c2               c3                Vout
+                                                                           DFE
+     图3.5：考虑DFE时评估FIR滤波器压缩影响的仿真设置框图</p>
+<p>如图3.6所示，当输入幅度小于1dB压缩点时，垂直开口非常高。不幸的是，当输入
+幅度增加时，眼图开口 rapid roll off您可以从图3.7所示的眼图中看到。</p>
+<p>总之，这些分析证明，为保持高SNR且不影响均衡性能，需要高线性FIR，当考虑判决
+反馈均衡器时，这甚至更重要。
+\f第三章。25-Gb/s FIR均衡器设计                                                        46</p>
+<pre><code>                            100
+
+          眼图开口 [%]
+                             80
+                             60
+                             40
+                                     垂直
+                             20
+                                     水平
+                              0
+                                   0.2 0.4 0.6                0.8        1       1.2
+                                                  Vin/V1dB-CP
+                            图3.6：眼图开口与输入信号幅度
+
+
+
+         输入幅度 &lt;&lt; V1dBCP                               输入幅度 &gt; V1dBCP
+
+1                                                       1
+0                                                       0
+</code></pre>
+<p>-1                                                      -1</p>
+<pre><code> -1         -0.5                  0      0.5      1      -1       -0.5       0         0.5   1
+                            时间 [UI]                                    时间 [UI]
+    a)                                                      b)
+                                  图3.7：仿真眼图
+</code></pre>
+<p>3.2.2        连续时间模拟延迟线</p>
+<p>工作超过10Gb/s的连续时间FIR均衡器通常利用由级联LC梯形 sections构成的集总
+元件延迟线，以同时满足高延迟和宽带宽的要求。然而，如前所述，LC sections
+具有窄调谐范围且需要高Q电感， require excessive silicon area。为实现宽带宽
+delay cell且尺寸紧凑，连续时间有源延迟线具有潜在吸引力。已经提出了多种
+通过级联低通滤波器 sections的解决方案。不幸的是，延迟 trades与带宽，为实现
+足够宽的带宽，报告的FIR均衡器具有 too limited数量的抽头和小的抽头到抽头延迟。
+由于FIR压缩是一个大问题，提出了一种新的延迟级来容纳大输入信号幅度。特别是，
+研究了CMOS全通级来实现有源延迟线。提供一阶全通响应的两种可能解决方案如图3.8
+所示的框图。</p>
+<pre><code>    x(s)                      y(s)         x(s)                        y(s)
+
+
+
+
+                a)                                     b)
+ 图3.8：不同实现的全通滤波器：a) 一阶低通滤波器 b) 一阶高通滤波器
+</code></pre>
+<p>\f47                                       第三章。25-Gb/s FIR均衡器设计</p>
+<p>全通传递函数是通过减去一阶滤波器的输出（具有2的增益和时间常数τ）和单位增益
+前馈路径实现的。</p>
+<p>图3.8a中的解决方案最近在用于多模光纤的25Gb/s FIR均衡器中得到利用。它由一个
+时间常数为τRC的一极点低通滤波器和一个单位增益路径实现。全通传递函数HRC(ω)
+和相应的群延迟GDRC(ω)为：</p>
+<pre><code>                                     y(s)   1 − sτRC
+                         HRC (s) =        =                                   (3.4)
+                                     x(s)   1 + sτRC
+
+
+                                     ∂∠H(ω)     2τRC
+                     GDRC (ω) = −           =                                 (3.5)
+                                      ∂H(ω)   1 + (ωτ )2
+</code></pre>
+<p>图3.8中低通滤波器被高通滤波器替代的替代方案在这项工作中进行了研究。对于两种
+情况，传递函数是相同的，即全通滤波器。然而，当考虑晶体管级实现时，最后一种
+架构在最大允许信号摆幅方面提供了显著的改进。</p>
+<p>3.2.3          延迟单元设计</p>
+<p>一阶全通滤波器的传递函数可以写为：</p>
+<pre><code>                                          1 − sτ
+                               HD (s) =                                     (3.6)
+                                          1 + sτ
+</code></pre>
+<p>其中τ是时间常数，与极点p1 = −1/τ和零点z1 = 1/τ相关。幅度和相位表达式分别为：</p>
+<pre><code>                                HD (jω) = 1                                 (3.7)
+
+
+
+                        ∠HD (jω) = −2 arctan(ωτ )                           (3.8)
+</code></pre>
+<p>全通滤波器的幅度在每一阶都是相同的，而相位响应随滤波器阶数变化。极点零点的
+对称性特性导致相位响应单调递减。群延迟函数可以表示为相位的导数，如 written below:</p>
+<pre><code>                                           ∂φ(ω)
+                              GD(ω) = −                                     (3.9)
+                                            ∂ω
+</code></pre>
+<p>它表示输入和输出信号之间的延迟。如上所述，它由下式给出：</p>
+<pre><code>                                             2τ
+                             GD(ω) = −                                    (3.10)
+                                          1 + (ωτ )2
+</code></pre>
+<p>从方程中可以看到，理想幅度带宽是无限的，而GDRC具有有限带宽，在低频时等于2τRC。
+随着频率增加，群延迟开始下降，直到在极点附近 collapse。这是 important aspect；
+理想情况下您会希望在整个频率上具有恒定群延迟。然而，在我们的情况下，群延迟
+在直到奈奎斯特频率必须恒定。</p>
+<p>图3.9显示了一种可能的全通函数实现。跨导gm由任意阻抗加载。输出信号通过从
+滤波器输出减去输入信号获得。</p>
+<pre><code>             Vin             gm                            +           Vout
+                                          Zi(s)                -
+                                                                   +
+                    图3.9：全通滤波器框图
+
+
+
+
+             RC负载                    RL负载
+
+
+
+                             Z(s)                                 R
+               +        +                            +        +
+ Vin      Vin       gm
+                         -
+                                              Vin/2       gm
+                                                               -
+                                                                              Vout
+               -                                     -
+
+                                                      +        +
+                                              Vin/2       gm
+                                                      -        -
+                                                                   加法器
+
+       图3.10：全通传递函数原理图
+</code></pre>
+<p>\f第三章。25-Gb/s FIR均衡器设计                                          48</p>
+<p>电路原理图如图3.10所示。跨导gm1和Z(s)负载形成低通或高通滤波器，而gm2和gm3
+用于从输入信号中减去滤波器输出：</p>
+<pre><code>                                  Vout
+                                       = gm Zi (s) − 1                           (3.11)
+                                  Vin
+</code></pre>
+<p>我们之前看到，全通传递函数HD(s)可以基于阻抗Zi(s)的选择以两种不同的方式获得。
+如果阻抗是RC并联，如图3.11所示，我们可以写出：</p>
+<pre><code>                                                 R
+                                  ZRC (s) =                                      (3.12)
+                                              1 + sCR
+
+                               ZRC(s)
+
+                                 R      C
+
+                    图3.11：RC并联阻抗
+</code></pre>
+<p>并且当gm = 2/R时，可以获得全通传递函数：</p>
+<pre><code>                                     2       1 + sτ
+                       HD (s) =          −1=                                (3.13)
+                                  1 + sτ     1 + sτ
+</code></pre>
+<p>其中τ是时间常数RC。</p>
+<p>在第二种情况下，阻抗Zi(s)是电阻R和电感L之间的并联。因此，如图3.12所示，我们
+写出：</p>
+<pre><code>                                           sL
+                            ZLR (s) =                                       (3.14)
+                                        1 + sL/R
+
+
+                                 ZRL(s)
+
+                                 R          L
+
+                    图3.12：RL并联阻抗
+</code></pre>
+<p>与前一种情况一样，如果跨导值等于gm = 2/R，则可以获得全通传递函数：</p>
+<pre><code>                                   2τ        1 + sτ
+                      HD (s) =          −1=−                                (3.15)
+                              1 + sτ      1 + sτ
+</code></pre>
+<p>其中τ是时间常数L/R。可以看到，在第二种情况下，全通传递函数具有额外的180度
+相移。
+\f51                                           第三章。25-Gb/s FIR均衡器设计</p>
+<p>为深入了解线性度性能，图3.10中每个跨导输入端的电压摆幅也报告了。考虑
+Z(s)负载等于RL并联的解决方案。跨导gm1承受最大摆幅，等于Vin，但RL负载的
+低阻抗在低频时 short outputs，避免了其失真的传播。因此，级的压缩仅由
+gm2和gm3决定，由Vin/2驱动。结果， proposed all-pass电路实现享有非常高的低频
+压缩点。与图3.8a的全通级相比，通过用RC负载替换gm1的RL负载，仿真证明1-dB
+输入压缩点改善了9 dB。</p>
+<pre><code>                 0
+               -5
+                                                            ~4 dB @ Ny
+              -10     9 dB
+  1dB C .P.
+
+
+
+              -15
+              -20
+              -25       RL
+                        RC
+              -30
+                        4       8      12    16       20        24       28
+                                     频率 [GHz]
+              图3.13：1 dB压缩点随频率变化比较
+</code></pre>
+<p>图3.13报告了1 dB压缩点作为频率的函数，黑色实线 refers to proposed解决方案。
+在低频时，仿真1dB C.P.的9 dB差异证明了选择RL负载解决方案的合理性。值得注意的是，
+压缩点 at high frequency恶化，当RL负载的阻抗增加时。然而，当均衡器由经历
+低通信道传递函数的随机比特流驱动时，高频 spectral components被显著衰减，
+需要不那么严格的高频压缩点来 preserve信号完整性。此外，在奈奎斯特频率处，
+1dB压缩损耗仅为4 dB，因此远离典型信道衰减。
+\f第三章。25-Gb/s FIR均衡器设计                                                52</p>
+<p>3.2.4      群延迟贡献</p>
+<p>带寄生电容的电路原理图如图3.14所示。延迟线级的带宽受到Cout的限制，由级联
+级和抽头放大器的输入电容决定。RP和分流峰值电感LP被调整以实现≈18 GHz带宽。
+该网络（蓝色）引入9 ps群延迟。跨导gm1及其高通RL负载已被调整以增加15 ps
+群延迟。</p>
+<pre><code>                                 R          L                          LP
+                     +                                  +
+                                                                       RP
+ Vin                    gm1+-                            gm2+-                Vout
+                      -                                 -
+                                     Cpar                                   Cout
+                                                        +      +
+                                                         gm3
+                                                        -          -
+
+         图3.14：带寄生电容的电路原理图
+
+
+
+
+                                1
+             幅度 [dB]
+
+
+
+                                0
+                               -1
+                               -2
+                               -3
+                               -4
+             群延迟 [ps]
+
+
+
+                                30
+
+                                20
+
+                                10
+
+                                0
+                                 1                            10
+                                            频率 [GHz]
+</code></pre>
+<p>图3.15：图3.14电路的仿真频率响应及不同群延迟贡献</p>
+<p>优化了几何形状以实现高自谐振频率同时保持紧凑尺寸。延迟级的仿真AC响应如图3.15
+所示。总群延迟（如图下方所示）在17 GHz时从24 ps峰值至28 ps。但是，您必须
+注意内部寄生电容Cpar，因此 also报告了群延迟的两个贡献。加载gm1的寄生电容导致
+显著峰值（虚线），这被Cpar-RP-Lp网络贡献的高频群延迟 roll-off部分补偿。
+\f53                                     第三章。25-Gb/s FIR均衡器设计</p>
+<p>3.2.5     抽头放大器设计</p>
+<p>抽头放大器的电路原理图如图3.16所示。每个放大器包括多个并联元素，提供6位
+分辨率的可编程总增益。为实现正负增益，每个元素包括两个数字控制的差分对，
+由相同的输入信号驱动，但提供相反符号的输出电流。</p>
+<pre><code>                  +Iout                         -Iout
+
+
+
+
+                  +V
+
+
+
+
+                  EN
+
+
+
+      图3.16：抽头跨导放大器电路原理图
+</code></pre>
+<p>一次只有一个对 active，允许在固定偏置电流和 constant common-mode voltage下改变
+增益，在所有抽头输出电流求和的节点。每个对中使用退化电阻器以增强线性工作范围，
+以承受与延迟线级相同的输入信号幅度在增益压缩之前。特别地，退化使1 dB压缩点
+保持在大于-5 dBV。
+\f第三章。25-Gb/s FIR均衡器设计                                         54</p>
+<pre><code>                               310 µm
+
+                                          220 µm
+
+
+
+
+                    图3.17：芯片照片
+</code></pre>
+<p>3.3      实验结果</p>
+<p>均衡器的原型在ST Microelectronics的28-nm CMOS LP工艺中制造。芯片照片如图3.17
+所示。测试芯片已封装在塑料倒装芯片BGA封装中，并安装在PCB上进行测试。核心功耗
+从1V电源为25 mW。首先，已经使用四端口S参数分析仪进行了小信号AC测量，以
+评估有源延迟线和抽头放大器的功能。然后，在25 Gb/s下测试了均衡能力：FIR滤波器
+由通过不同背板信道传输的PRBS序列馈送，而输出在高速采样示波器上监控。示波器
+波形由运行最小均方误差（MMSE）自适应算法的PC continuous acquired以控制滤波器
+系数。测量中使用的设置如图3.18所示。</p>
+<p>作为示例，图3.19显示了在奈奎斯特具有20 dB损耗的典型背板信道的频率响应。
+图中插图报告了单比特信道响应，显示了大量的pre-cursor和 several post-cursors。
+均衡器输出的眼图如图3.20所示。输入幅度设置为900mVpk-pk。图3.20下方的图显示了
+用Anritsu 1800A BERT测量的浴缸曲线， demonstrate 50%眼图开口 at BER = 10⁻¹²。
+\f55                                                                      第三章。25-Gb/s FIR均衡器设计</p>
+<pre><code>                                                          图3.18：测量设置
+
+                                                              C           响应
+                          0
+
+                         10
+        幅度 [dB]
+
+
+
+                         20
+                                                  0.4
+                                  幅度 [V]      0.3
+
+
+
+                         30                       0.2
+                                                  0.1                                           a
+                         40                        0
+                                                  -0.1
+                         50                           0 1 2 3 4    5 6 7 8 9 10 11 12
+                                                                  时间 [UI]
+                         60
+                              1                                                      10
+                                                                频率 [GHz]
+
+ 图3.19：典型背板信道的频率响应。插图中是脉冲响应
+</code></pre>
+<p>实验结果总结并在表3.1中与最近报告的两个FIR均衡器进行比较。[20]使用可比较的
+电源，但眼图开口更差，数据速率更低，BER仅为10⁻⁹。[21]支持极高的速度。另一方面，
+电源比在不损害器件可靠性的情况下允许的要高得多。在BER = 10⁻¹²时，眼图开口
+仅限于30%。所提出的均衡器 show widest眼图开口，同时保持最佳功耗与数据速率
+比。
+\f第三章。25-Gb/s FIR均衡器设计                                                56</p>
+<pre><code>                                                  输出眼图
+                                                  ▒▒▒▒图
+                          300
+         幅度 [mV]   200
+
+                          100
+
+                            0
+
+                          -100
+
+                          -200
+                          -300
+                                                  浴缸
+                            -4
+                          10
+                            -6
+                          10
+               BER
+
+
+
+                            -8
+                          10
+                            -10
+                          10
+                            -12
+                          10
+                            -0.5      -0.25         0            0.25     0.5
+                                                 时间 [UI]
+</code></pre>
+<p>图3.20：25 Gb/s均衡器输出眼图及测量的浴缸曲线</p>
+<pre><code>                          表3.1：性能总结与比较
+
+                                        本工作            [20]            [21]
+       CMOS节点                        28nm LP          45nm SOI           65nm
+         电源                            1V               1.1V             1.6V
+        抽头数量                           4                  4               3
+        数据速率                        25Gb/s           17Gb/s           40Gb/s
+   奈奎斯特衰减                        20dB              21dB            19dB
+          BER                             10⁻¹²            10⁻⁹            10⁻¹²
+   水平开口                             50%               39%            ≤ 30%*
+        功耗                           25mW              32mW            55.2mW
+     功耗/数据速率                  1mW/Gb/s        1.9mW/Gb/s       1.4mW/Gb/s
+  *从图中估计
+</code></pre>
+<p>\f第四章</p>
+<p>28nm CMOS中28Gb/s横向
+连续时间线性均衡器</p>
+<p>摘要</p>
+<p>为满足不断提高通信带宽的 unstoppable 需求，以及 data rate为25-28 Gb/s的新标准，
+正在研究多电平 signaling以达到56 Gb/s。现有背板的带宽限制使收发器设计具有
+挑战性。高速时的信道损耗主要由介质吸收决定，这与趋肤效应相反，会 enhance
+前导符ISI。传统上，RX均衡结合了由峰值放大器级联组成的连续时间线性均衡器（CTLE）
+和判决反馈均衡（DFE）。CTLE需要低功耗，但难以 optimally adapted，且在纠正
+前导符ISI方面的能力有限。TX FIR滤波器的脉冲整形解决了这些问题，但需要
+用于自适应的 back channel，并因TX峰值功率限制而限制信号摆幅，这在低电源和
+多电平信号下是一个关键问题。</p>
+<pre><code>                                    57
+</code></pre>
+<p>\f第四章。28Gb/s横向CTLE设计                                          58</p>
+<p>4.1      引言</p>
+<p>4.1.1     研究动机</p>
+<p>在这项工作中，研究了一种具有如图4.1所示的横向架构的CTLE。D单元指导数单元。
+该架构类似于FIR滤波器，因此为避免混淆，我们将其称为D-FIR（导数有限脉冲响应）
+均衡器。与传统CTLE相比，与预期仿真结果相比，它提供了 superior均衡性能，
+同时保持低功耗。此外，横向架构使其与 robust LMS自适应算法兼容。</p>
+<pre><code>    Vin
+               D           D
+
+        gm0         gm1          gm2
+                                         RL      Vout      VGA 缓冲器
+
+
+
+
+              图4.1：导数均衡器框图
+</code></pre>
+<p>新型均衡器结合了CTLE均衡器和FIR均衡器的优点。正如我们将看到的，均衡器的核心
+是导数单元，它非常类似于用于CTLE的基本单元。而结构是横向的，如同 FIR滤波器
+实现中使用的那样。主要优点是能够以简单的方式实现LMS自适应算法。</p>
+<p>FIR滤波器中最关键的元素是延迟单元。延迟单元设计非常困难，因为需要在减小面积
+和功耗的情况下获得不同且严格的规格。主要限制是 group delay-bandwidth (GDBW)
+乘积，它保持恒定。因此，容易实现低GD与高输出带宽。然而，太小的群延迟会
+惩罚均衡性能，因为 with the same number of taps，滤波器的时间跨度 reduced。
+相反，更高群延迟的需要会影响带宽。改善带宽的唯一方法是使用分流峰值电感，
+这会增加消耗面积。
+\f59                                   第四章。28Gb/s横向CTLE设计</p>
+<p>另一个问题是图2.14中gm1级负载使用的内部高Q电感。低Q电感在群延迟中产生过多
+峰值 because it未被外部级的GD roll-off补偿。这在信号上引入失真，降低均衡
+性能。为防止这种情况，需要仔细设计电感，通常需要大量面积。</p>
+<pre><code>                 输入
+
+                                D
+                C1=1                C2
+                                                            输出
+                                                     +
+                      图4.2：两抽头FIR均衡器
+</code></pre>
+<p>最后一个问题，但同样重要的，是FIR均衡器的典型直流损耗。一个示例可能有助于
+阐明这个概念。对于FIR均衡器，奈奎斯特的增益提升由下式给出：</p>
+<pre><code>                                         C1 − C2
+                                GHF =                                      (4.1)
+                                         C1 + C 2
+</code></pre>
+<p>假设在图4.3所示的两抽头FIR均衡器中使用第一个系数C1 = 1来恢复20 dB损耗。
+结果，为恢复20 dB，第二个系数是C2 = −0.82，直流损耗为：</p>
+<pre><code>                           GLF = C1 + C2 = −15dB                           (4.2)
+</code></pre>
+<p>如前所述，从信噪比的角度来看，需要高输入信号幅度以保持输出节点的高SNR。
+所提出的均衡器打破了 booster和直流损耗之间的权衡，与 current state of the art
+相比 promise superior性能，area and power consumption降低。
+\f第四章。28Gb/s横向CTLE设计                                            60</p>
+<p>4.1.2     提出的RX D-FIR均衡器</p>
+<p>均衡器必须近似信道传递函数的逆以获得良好的均衡。由于典型信道可以由全极点
+传递函数描述，均衡器必须是全零点滤波器，能够正确 invert信道的频率响应。
+因此，信道传递函数由下式给出：</p>
+<pre><code>                                               1
+                    HCH (s) =                                                    (4.3)
+                                  1 + C0 s + C1 s2 + ...Cn−1 sn
+</code></pre>
+<p>因此，根据基本思想，均衡器将描述为：</p>
+<pre><code>                    HEQ (s) = 1 + C0 s + C1 s2 + ...Cn−1 sn .                    (4.4)
+</code></pre>
+<p>由于传递函数HEQ(s)仅由零点组成，需要导数单元来实现均衡器。</p>
+<p>提出的均衡器的框图如图4.3所示。该结构有两个导数单元，生成输入信号x的第一和
+第二导数。抽头放大器的跨导由具有七位 resolution的数字字Di选择。抽头放大器的
+输出电流在电阻负载RLOAD上求和。可变增益放大器增强输出信号幅度，缓冲器用于
+驱动输出焊盘。
+                       直流路径
+                                                                    VGA 缓冲器
+                                                      RLOAD                      Y</p>
+<pre><code>      7bit           7bit            7bit                 VDD
+             gm1            gm2             gm3
+      D0             D1              D2
+
+                   d/dt           d/dt
+             X              X'              X''
+        图4.3：提出的均衡器详细框图
+</code></pre>
+<p>如图所示，红色路径称为"直流路径"，因为直流增益由第一个系数C1 = gm1 RLOAD、
+VGA和缓冲器设置。事实上，导数单元 attenuate输入信号X的低频分量，它们对直流
+增益没有贡献。由于直流损耗与高频提升 independent，模拟均衡器在不在直流
+引入损耗的情况下提升高频分量。实际上，直流损耗并不完全为零，但无论如何
+都非常低。这样，不需要 strong post-amplification，允许 further area and power saving。
+\f61                                   第四章。28Gb/s横向CTLE设计</p>
+<p>4.1.3     D-FIR均衡器行为</p>
+<p>接下来部分的目的是解释两个导数的作用，并证明使用三抽头结构的理由。我们已经
+在频域中描述了D-FIR行为。然而，为更深入地理解， look at figure 4.4很有用。
+仿真波形描述了时域行为。</p>
+<p>x信号是输入信号，而x'和x"分别是输入的第一和第二导数。图分为两部分；
+左边是通过仅具有介质效应建模的分析信道的仿真结果，右边是通过仅具有
+趋肤效应建模的分析信道的仿真结果。故意分离这两种效应以突出两个极端情况。
+当然，实际信道行为将在中间。</p>
+<pre><code>                  介质效应                    趋肤效应
+
+
+            x                               x
+
+            x'
+                                            x'
+
+            x''
+
+            y=x+C3x''                                       y=x+C2x'
+
+
+          -4 -3 -2 -1 0 1 2 3 4        -2         -1    0 1 2        3   4
+                  时间 [UI]                            时间 [UI]
+
+ 图4.4：理解D-FIR均衡器行为的仿真波形
+</code></pre>
+<p>X波形表示各信道的脉冲响应。在仅趋肤效应的情况下，脉冲可以通过乘以系数C2的
+第一导数进行均衡。y信号是均衡器输出节点上的均衡波形。而第二导数对于均衡
+介质效应很有用，如图所示。
+\f第四章。28Gb/s横向CTLE设计                                        62</p>
+<pre><code>                                  VDD
+                        L                         L
+                      RD         2RG              RD
+
+         CL                                                      CL
+                                  C
+
+                                     IBIAS
+
+                图4.5：导数单元电路图
+</code></pre>
+<p>4.2      仿真与系统设计</p>
+<p>4.2.1     导数单元实现</p>
+<p>导数单元的简化原理图如图4.5所示。该电路是具有容性退化、理想电流源和电阻负载
+的差分对。此外，使用分流峰值电感来扩展带宽。导数单元的频率传递函数为：</p>
+<pre><code>                                2 sCRL      1
+                       Hs = −                                                (4.5)
+                                    2C 1 + sCL RL
+                                1+s
+                                    gm
+</code></pre>
+<p>其中电阻RL = RD //RG，为简单起见，不考虑电感L。因此，零点和极点为：</p>
+<pre><code>                                 1                    gm               1
+                        ωz =                  ωp1 =          ωp2 =                   (4.6)
+                               2CRL                   2C             CL RL
+</code></pre>
+<p>其中p2是寄生极点，CL表示下一级的电容负载。增加电容时，第一极点和零点都移动到
+低频。跨导和负载RD设置单元的增益以及极点p1和零点之间的频率 separation。
+零点 with the capacitance C可编程，可以移动以选择导数单元的不同频率响应和行为。
+最后，电阻RG连接在输出的两个节点之间，因此必须具有 large value。它的作用是
+降低单元的增益以避免下一级的信号压缩。导数单元的仿真频率响应如图4.6所示。
+\f63                                            第四章。28Gb/s横向CTLE设计</p>
+<pre><code>                                   频率响应
+              20
+
+              10               增加C
+                                                                     增加RG
+               0
+</code></pre>
+<p>幅度 [dB]</p>
+<pre><code>              -10
+                                                                 案例A
+              -20                                                案例B
+                                                                 案例C
+                                                                 案例A-6dB
+              -30
+                                                                 案例A-9dB
+              -40
+                    0                 1                 10                    100
+                                          频率 [GHz]
+                        图4.6：导数单元频率响应
+</code></pre>
+<p>如前所述，增加退化电容，零点移动到低频。如图所示，相对于案例A，波形B和C
+在更低频率开始提升，交叉0 dB轴 at lower frequency，同时达到相同的增益。
+另一个方面是波形形状。对于某些类型的信道，在boost中 different shape可能
+有助于改善均衡。相反，增加电阻RG，增益降低，净收益是波形 downshift。在
+图中，仅显示案例A的增益降低情况。</p>
+<p>从图4.6，我们还了解到为什么第一系数路径主要设置此均衡器的直流增益。可以看到，
+导数传递函数在直流增益理想上等于零。因此，在低频时，信号只能通过第一系数
+路径到达输出。结果，模拟均衡器在不在直流引入损耗的情况下提升高频。因此，
+均衡所需的抽头增益非常低，需要非常小的 post-amplification增益来 preserve输出
+信号幅度，节省面积和功耗。</p>
+<p>实际上，实际情况略有不同，因为理想电流源IBIAS（图4.5）将被具有 certain
+output resistance RS/2的实际电流发生器替代。原理图如图4.7所示。
+\f第四章。28Gb/s横向CTLE设计                                      64</p>
+<pre><code>                                    VDD
+                             L                 L
+                         RD        2RG         RD
+
+               CL                                           CL
+                                    C
+
+               RS/2                 IBIAS             RS/2
+
+     图4.7：带实际电流源的导数单元原理图
+</code></pre>
+<p>为导出该电路的频率响应，分析图4.8所示的单端半电路可能更简单。输出电阻
+Rs/2的存在引入直流增益，如频率传递函数所示：</p>
+<pre><code>                              gm RL   1 + s/ωz      1
+                    H(s) =                                                 (4.7)
+                                gm Rs 1 + s/ωp1 1 + s/ωp2
+                             1+
+                                  2
+</code></pre>
+<p>其中零点和极点为：</p>
+<pre><code>                  1                  1 + gm Rs /2              1
+          ωz =               ωp1 =                   ωp2 =                (4.8)
+                 Rs Cs                  Rs Cs                RL CL
+
+
+                                            VDD
+                                     L
+                                 RD          RG
+
+                    CL
+
+                     RS/2                  IBIAS    2C
+
+                    图4.8：单端半电路
+</code></pre>
+<p>为正确调整单元给定输出电容负载CL，负载电阻RL必须设置为ωp2≥2πfN，其中
+fN是奈奎斯特频率。第一个极点最好接近2πfN以获得最大增益。现在，零点可以
+用可编程C退化移动以获得所需的peaking。此外，应该注意直流增益和高频增益
+HFGM为：</p>
+<pre><code>                               gm RL
+                 DCgain =                     HFGM = gm RL                (4.9)
+                            1 + gm Rs /2
+</code></pre>
+<p>直流增益值通常较低，因为输出电阻RS在kΩ的数量级，对均衡器的低频增益没有影响。
+最后，在下一幅图4.9中，简化的H(s)幅度和相位草图 just described。
+\f第四章。28Gb/s横向CTLE设计                                          66</p>
+<pre><code>                   |H(s)|
+
+                    0dB
+                                                             ω
+
+                    H(s)
+
+
+
+                                ωz1        ωp1     ωp2       ω
+                     -90°
+         图4.9：导数单元尺寸设计简图
+</code></pre>
+<p>4.2.2     抽头跨导实现</p>
+<p>由于导数单元在低频时自然低增益，改善均衡器线性度的唯一方法是对抽头放大器
+进行仔细设计。图4.10显示了抽头的并联结构。每个放大器包括十个并联元素，
+具有以6位分辨率实现正负增益的可能性。部分数字字以热计方式控制，以确保抽头
+增益的单调增加。转换由解码器完成，如图4.11所示。因此，需要十个单元，
+它们各自 enable bit bI控制。</p>
+<pre><code>           +Iout                           -Iout
+
+
+
+
+                     b0                  b0
+            +V
+
+
+
+                     b0                  b0                 单元10
+                                                         单元0
+                 图4.10：抽头放大器并联结构
+</code></pre>
+<p>\f67                                     第四章。28Gb/s横向CTLE设计</p>
+<pre><code>                         二进制部分     热计部分
+
+                     B 5B 4B 3           B 2B 1B 0
+                                               解码器
+
+                        b 9b 8b 7        b 6b 5b 4b 3b 2b 1b 0
+                                    数字字
+
+            图4.11：抽头增益数字字转换
+</code></pre>
+<p>与前一章一样，每个元素包括两个数字控制的差分对，由相同的输入信号驱动，但提供
+相反符号的输出电流。主要区别是连接到每个差分对公共源的翻转电压跟随器（FVF）
+电路。FVF电路的目的是改善线性度，降低 source 看到的阻抗。它本质上是一个
+带有负分流反馈的 cascode放大器，其中M2的栅极端子用作输入共模端子，其源极
+用作输出端子。其特点是由于M1提供的分流反馈，输出阻抗非常低，对电源电压要求
+接近晶体管阈值电压VTH，静态功耗低，增益带宽积高。输出电流变化由M1吸收，
+而M2中的电流保持恒定。图4.12更清楚地提出了抽头放大器电路的单侧。</p>
+<pre><code>                             VDD                     VDD
+                                            VDD
+                        LP                                LP
+                        RL                                RL
+                         IDC                             IDC
+
+                                     VCM
+
+
+
+
+          图4.12：单边抽头放大器详细电路
+</code></pre>
+<p>与传统差分对不同，图4.12中的电路能够 sourcing大量电流。 large sourcing capability
+是由于在节点X处的低阻抗，由FVF的输出阻抗降低：</p>
+<pre><code>                                                           1
+                                         ROU T ≈                                                                 (4.10)
+                                                      gm1 gm2 r02
+
+                     IOUT Diff. Pair                                 IOUT FVF Diff. Pair
+
+                                                                             IBIAS
+
+             V INP                                           V INP           VC M                    V INM
+                                             V INM
+                            VX
+                                                                                         VX
+                                  2I BIAS
+
+              差分输出电流 [mA]                              电压节点Vx [mV]
+       12                                             600
+                                                                                  Vx翻转跟随器
+        8                                                                         Vx差分对
+                                                      500
+        4
+        0                                             400
+        -4
+                            差分对                300
+        -8
+                            翻转跟随器差分对
+       -12                                            200
+                                                            -1       -0.5            0           0.5         1
+
+             a) 差分输入信号 [V]                    b) 差分输入信号 [V]
+               图4.13：无负载时抽头直流特性
+</code></pre>
+<p>请注意，M1提供分流反馈，因此 detailed analyses将需要确保稳定性。在图4.13中，
+显示了一些仿真以突出使用FVF差分对的巨大线性度改进。在图4.13中，输出电流和
+电压节点Vx绘制为差分输入信号的函数。可以看到，经典差分对（蓝线）的电流被
+限制在最大电流2IBIAS。对于FVF解决方案，其余电流由尾晶体管驱动。这种行为是
+可能的，因为由于极低阻抗，x节点上的电压节点不移动。实际上，仿真是在没有
+在差分对漏极上使用电阻负载的情况下进行的。</p>
+<p>如果我们考虑差分对的电阻负载，结果略有不同，如图4.14所示。
+\f69                                    第四章。28Gb/s横向CTLE设计</p>
+<pre><code>         R                 R                       R     IBIAS
+                                                                       R
+ V INP                         V INM       V INP                           V INM
+
+
+
+                     2I BIAS
+
+                      差分输出电流 [mA]
+         6
+
+         3
+
+         0
+
+         -3
+                                        差分对
+                                        翻转跟随器差分对
+         -6
+              -1        -0.5           0               0.5        1
+                      差分输入信号 [V]
+              图4.14：带电阻负载时抽头直流特性
+</code></pre>
+<p>在这种情况下，FVF输出电流不像前图中那样是直线。电流的轻微压缩是由负载在
+差分对漏极上产生的电压引起的。为了量化线性度改进，需要1 dB压缩点仿真。
+对于相同尺寸的差分对仿真两种情况，我们得到：</p>
+<pre><code>                        1dBC.P.Dif f.P air = −16dBV                                (4.11)
+
+
+
+                     1dBC.P.F V F Dif f.P air = −10dBV                             (4.12)
+</code></pre>
+<p>因此，改善了6 dB。
+\f\f结论</p>
+<p>展示了一种用于背板数据均衡的25Gb/s连续时间线性4抽头FIR均衡器和28Gb/s超紧凑
+3抽头导数FIR均衡器。对于两种均衡器，提出了系统级分析以得出均衡器规格，重点
+讨论了与连续时间核心单元实现 specifically相关的 issues。描述了第一款芯片的
+测试芯片设计，详细分析了延迟线和抽头放大器。在28 nm LP CMOS技术中实现，
+核心硅面积仅为0.065 mm²，全面的实验结果证明了在最大功耗25mW下成功均衡25Gb/s
+数据流。测量结果总结并在表3.1中与已发表的FIR均衡器进行比较。所提出的均衡器
+具有与数据速率 normalized的最先进功耗 dissipation。这些特性对于满足实际传输
+速率、新兴100 Gb/s标准的向后兼容性和能源效率的需求特别有效。</p>
+<pre><code>                                    71
+</code></pre>
+<p>\f\f参考文献</p>
+<p>[1] E. Alliance. (2015) 2015年以太网路线图。[在线]。Available:
+    http://www.ethernetalliance.org/roadmap/</p>
+<p>[2] 通用电气I/O (CEI) 6G+ bps、11G+ bps和25G+ bps I/O的电气和抖动互操作性协议
+    [在线]。Available:
+    http://www.oiforum.com/public/documents/OIF CEI 03.0.pdf</p>
+<p>[3] J. D'Ambrosia. (2012年3月) IEEE 802.3WG闭会全体报告，IEEE
+    P802.3bj 100 Gb/s背板和铜缆任务组。[在线]。
+    Available: http://www.ieee802.org/3/minutes/mar12/0312 bj close report.
+    pdf</p>
+<p>[4] B. Razavi, 光通信集成电路设计, M. G.
+    Hill, Ed., 2003.</p>
+<p>[5] M. Steyaert and F. Tavernier, 纳米级CMOS集成光电二极管的高速光接收机,
+    Springer, Ed., 2011.</p>
+<p>[6] J. Buckwalter and A. Hajimiri, "数据相关抖动的分析与均衡,"
+    IEEE固态电路期刊, vol. 41, pp. 607–620, 2006年3月
+    2006.</p>
+<p>[7] D. Stauffer, 高速SerDes器件和应用, Springer, Ed., 2008.</p>
+<p>[8] E. Sackinger, 光纤通信宽带电路, Wiley,
+    Ed., 2005.</p>
+<p>[9] H. Hall, 高速数字设计的高级信号完整性, J. Wiley
+    and Sons, Eds., 2009.</p>
+<p>[10] P. Hanumolu, U. Moon, and G. Wei, "高速串行链路的均衡器,"
+    高速电子与系统国际期刊, vol. 5, pp. 629–
+    458, 2005.
+                                       73
+\f参考文献                                                                   74</p>
+<p>[11] V. Stojanović, "信道限制的高速链路：建模、分析与设计,"
+    博士论文, 斯坦福大学, 2004.</p>
+<p>[12] W. Dally and J. Poulton, 数字系统工程, C. U. Press, Ed., 1998.</p>
+<p>[13] S. Parikh, T. Kao, Y. Hidaka, J. Jiang, A. Toda, S. Mcleod, W. Walker,
+    Y. Koyanagi, T. Shibuya, and J. Yamada, "采用28nm CMOS低频均衡器、CTLE和
+    2抽头DFE的32Gb/s有线接收机," 发表于ISSCC
+    - IEEE国际固态电路会议, 2013.</p>
+<p>[14] J. Lee, "0.13 CMOS技术中的20Gb/s自适应均衡器," IEEE固态
+    电路期刊, vol. 41, no. 9, pp. 2058–2066, 2006年9月.</p>
+<p>[15] G. E. Zhang and M. Green, "10 Gb/s BiCMOS自适应电缆均衡器,"
+    IEEE固态电路期刊, vol. 40, no. 11, pp. 2132–2240, 2005年11月
+    2005.</p>
+<p>[16] Y. Kudoh, M. Fukaishi, and M. Mizuno, "0.13 µm CMOS 5-Gb/s 10-
+    米28AWG电缆收发器，带无反馈环连续时间后均衡器," 发表于
+     symposium on VLSI Circuits, 2002.</p>
+<p>[17] H. C. Nee, C. M. Tsai, S. K. You, and W. T. Chen, "6Gb/s自适应
+    均衡器，使用0.18 µm CMOS技术中的过冲控制," 电路与系统
+    (ISCAS), IEEE国际 symposium on, pp. 1963–1966, 2012.</p>
+<p>[18] F. Loi, E. Mammei, F. Radice, M. Bruccoleri, S. Erba, M. Bassi, and A. Maz-
+    zanti, "基于28-nm LP CMOS高线性度全通延迟线级的25-Gb/s FIR均衡器," 发表于
+    IEEE射频集成电路研讨会(RFIC), 2015年5月.</p>
+<p>[19] E. H. Chen, R. Yousry, and C. K. Yang, "功率优化的基于ADC的串行
+    链路接收机," IEEE固态电路, IEEE期刊, 2012.</p>
+<p>[20] A. Agrawal, "45-nm SOI CMOS中兼具4抽头FFE和5-
+    抽头DFE功能的19-Gb/s串行链路接收机," IEEE固态电路,
+    IEEE期刊, vol. 47, no. 12, p. 3220–3231, 2012年12月.</p>
+<p>[21] M. Chen, "65nm CMOS技术中完全集成的40-Gb/s收发器,"
+    IEEE固态电路, IEEE期刊, vol. 47, no. 3, pp. 627–640, 2012年3月.</p>
+<p>[22] R. Gitlin and S. Weinstein, "分数间隔均衡：改进的数字横向均衡器,"
+    IEEE固态电路, IEEE期刊, vol. 60, no. 2, pp. 275–296, 1981年2月.</p>
+<p>[23] S. Qureshi, "自适应均衡," vol. 73, no. 9, 1985年9月, pp. 1349–1387.
+\f75                                                                     参考文献</p>
+<p>[24] J-Bulzacchelli, "32-nm SOI CMOS技术中的28-Gb/s 4-tap FFE/15-tap DFE串行
+    链路收发器," IEEE固态电路, IEEE期刊, vol. 47,
+    no. 12, pp. 3232–3248, 2012年12月.</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul></ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版 — SerDes 224G 知识库</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --fg: #c9d1d9;
+            --sidebar-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --code-bg: #1f2937;
+            --table-header: #21262d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: 13px;
+        }
+        .search-box:focus { outline: none; border-color: var(--accent); }
+        .nav-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .nav-tree::-webkit-scrollbar { width: 6px; }
+        .nav-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .nav-group { margin: 4px 0; }
+        .nav-group-title {
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-group-title::before {
+            content: "▶";
+            font-size: 8px;
+            transition: transform 0.2s;
+        }
+        .nav-group.expanded .nav-group-title::before {
+            transform: rotate(90deg);
+        }
+        .nav-group-items {
+            display: none;
+            padding-left: 8px;
+        }
+        .nav-group.expanded .nav-group-items { display: block; }
+        .nav-item {
+            display: block;
+            padding: 5px 16px 5px 28px;
+            font-size: 13px;
+            color: var(--fg);
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+        }
+        .nav-item.active {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+            border-left: 2px solid var(--accent);
+            padding-left: 26px;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .topbar {
+            height: 48px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        .topbar-title { font-size: 14px; font-weight: 500; }
+        .topbar-breadcrumb { font-size: 12px; color: #8b949e; }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 48px;
+            max-width: 900px;
+        }
+        .content::-webkit-scrollbar { width: 8px; }
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .content h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 24px 0 12px 0;
+        }
+        .content h4 {
+            font-size: 15px;
+            font-weight: 500;
+            margin: 16px 0 8px 0;
+            color: var(--accent);
+        }
+        .content p { margin: 12px 0; font-size: 14px; }
+        .content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Monaco, monospace;
+            font-size: 13px;
+        }
+        .content pre {
+            background: var(--code-bg);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .content pre code { background: none; padding: 0; }
+        .content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: #8b949e;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .content th {
+            background: var(--table-header);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+        .content td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+        }
+        .content tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+        .content ul, .content ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+        .content li { margin: 4px 0; font-size: 14px; }
+        .content a { color: var(--accent); text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+        .content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+        }
+        .toc-sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+        .toc-sidebar h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .toc-sidebar a {
+            display: block;
+            padding: 4px 0;
+            font-size: 12px;
+            color: var(--fg);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 8px;
+        }
+        .toc-sidebar a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+        .toc-sidebar .toc-h1 { font-weight: 500; }
+        .toc-sidebar .toc-h2 { padding-left: 16px; }
+        .toc-sidebar .toc-h3 { padding-left: 28px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>🔬 SerDes 224G 知识库</h1>
+            <input type="text" class="search-box" placeholder="搜索文档..." id="searchInput">
+        </div>
+        <div class="nav-tree" id="navTree">
+            <div class="nav-group expanded">
+  <div class="nav-group-title">general</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="general/README.html" data-path="general/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">ieee</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="ieee/802.22/README.html" data-path="ieee/802.22/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3by_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3by_深度技术解读.md">IEEE_P802.3by_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cc_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cc_深度技术解读.md">IEEE_P802.3cc_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cd_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cd_深度技术解读.md">IEEE_P802.3cd_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3ck_D2.1_深度技术解读.md">IEEE_P802.3ck_D2.1_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cm_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cm_深度技术解读.md">IEEE_P802.3cm_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cn_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cn_深度技术解读.md">IEEE_P802.3cn_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cp_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cp_深度技术解读.md">IEEE_P802.3cp_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3cu_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3cu_深度技术解读.md">IEEE_P802.3cu_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.html" data-path="ieee/802.3/IEEE_P802.3dj_D2.4_深度技术解读.md">IEEE_P802.3dj_D2.4_深度技术解读</a>
+    <a class="nav-item" href="ieee/802.3/README.html" data-path="ieee/802.3/README.md">README</a>
+    <a class="nav-item" href="ieee/802.3/ieee_8023_evolution.html" data-path="ieee/802.3/ieee_8023_evolution.md">ieee_8023_evolution</a>
+    <a class="nav-item" href="ieee/README.html" data-path="ieee/README.md">README</a>
+    <a class="nav-item" href="ieee/other/README.html" data-path="ieee/other/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">mineru_output</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).html" data-path="mineru_output/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)/auto/802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp).md">802.3cp 10-25-50Gbps BiDi標準化(IEEE 802.3cp)</a>
+    <a class="nav-item" href="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.html" data-path="mineru_output/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p/auto/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p</a>
+    <a class="nav-item" href="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.html" data-path="mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.html" data-path="mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p</a>
+    <a class="nav-item" href="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.html" data-path="mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.html" data-path="mineru_output/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p/auto/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p</a>
+    <a class="nav-item" href="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.html" data-path="mineru_output/DSP_Coherent_Optical_Fiber_Comms_Millar_133p/auto/DSP_Coherent_Optical_Fiber_Comms_Millar_133p.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p</a>
+    <a class="nav-item" href="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.html" data-path="mineru_output/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p/auto/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p</a>
+    <a class="nav-item" href="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.html" data-path="mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p</a>
+    <a class="nav-item" href="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.html" data-path="mineru_output/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p/auto/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p</a>
+    <a class="nav-item" href="mineru_output/Th4A.1/auto/Th4A.1.html" data-path="mineru_output/Th4A.1/auto/Th4A.1.md">Th4A.1</a>
+    <a class="nav-item" href="mineru_output/Th4A.2/auto/Th4A.2.html" data-path="mineru_output/Th4A.2/auto/Th4A.2.md">Th4A.2</a>
+    <a class="nav-item" href="mineru_output/Th4A.3/auto/Th4A.3.html" data-path="mineru_output/Th4A.3/auto/Th4A.3.md">Th4A.3</a>
+    <a class="nav-item" href="mineru_output/Th4A.4/auto/Th4A.4.html" data-path="mineru_output/Th4A.4/auto/Th4A.4.md">Th4A.4</a>
+    <a class="nav-item" href="mineru_output/Th4A.5/auto/Th4A.5.html" data-path="mineru_output/Th4A.5/auto/Th4A.5.md">Th4A.5</a>
+    <a class="nav-item" href="mineru_output/Th4A.6/auto/Th4A.6.html" data-path="mineru_output/Th4A.6/auto/Th4A.6.md">Th4A.6</a>
+    <a class="nav-item" href="mineru_output/Th4A.7/auto/Th4A.7.html" data-path="mineru_output/Th4A.7/auto/Th4A.7.md">Th4A.7</a>
+    <a class="nav-item" href="mineru_output/Th4A.8/auto/Th4A.8.html" data-path="mineru_output/Th4A.8/auto/Th4A.8.md">Th4A.8</a>
+    <a class="nav-item" href="mineru_output/Th4B.2/auto/Th4B.2.html" data-path="mineru_output/Th4B.2/auto/Th4B.2.md">Th4B.2</a>
+    <a class="nav-item" href="mineru_output/Th4B.3/auto/Th4B.3.html" data-path="mineru_output/Th4B.3/auto/Th4B.3.md">Th4B.3</a>
+    <a class="nav-item" href="mineru_output/Th4B.4/auto/Th4B.4.html" data-path="mineru_output/Th4B.4/auto/Th4B.4.md">Th4B.4</a>
+    <a class="nav-item" href="mineru_output/Th4B.5/auto/Th4B.5.html" data-path="mineru_output/Th4B.5/auto/Th4B.5.md">Th4B.5</a>
+    <a class="nav-item" href="mineru_output/Th4B.6/auto/Th4B.6.html" data-path="mineru_output/Th4B.6/auto/Th4B.6.md">Th4B.6</a>
+    <a class="nav-item" href="mineru_output/Th4B.7/auto/Th4B.7.html" data-path="mineru_output/Th4B.7/auto/Th4B.7.md">Th4B.7</a>
+    <a class="nav-item" href="mineru_output/Th4B.8/auto/Th4B.8.html" data-path="mineru_output/Th4B.8/auto/Th4B.8.md">Th4B.8</a>
+    <a class="nav-item" href="mineru_output/Th4C.1/auto/Th4C.1.html" data-path="mineru_output/Th4C.1/auto/Th4C.1.md">Th4C.1</a>
+    <a class="nav-item" href="mineru_output/Th4C.2/auto/Th4C.2.html" data-path="mineru_output/Th4C.2/auto/Th4C.2.md">Th4C.2</a>
+    <a class="nav-item" href="mineru_output/Th4C.3/auto/Th4C.3.html" data-path="mineru_output/Th4C.3/auto/Th4C.3.md">Th4C.3</a>
+    <a class="nav-item" href="mineru_output/Th4C.4/auto/Th4C.4.html" data-path="mineru_output/Th4C.4/auto/Th4C.4.md">Th4C.4</a>
+    <a class="nav-item" href="mineru_output/Th4C.5/auto/Th4C.5.html" data-path="mineru_output/Th4C.5/auto/Th4C.5.md">Th4C.5</a>
+    <a class="nav-item" href="mineru_output/Th4C.6/auto/Th4C.6.html" data-path="mineru_output/Th4C.6/auto/Th4C.6.md">Th4C.6</a>
+    <a class="nav-item" href="mineru_output/Th4C.7/auto/Th4C.7.html" data-path="mineru_output/Th4C.7/auto/Th4C.7.md">Th4C.7</a>
+    <a class="nav-item" href="mineru_output/Th4C.8/auto/Th4C.8.html" data-path="mineru_output/Th4C.8/auto/Th4C.8.md">Th4C.8</a>
+    <a class="nav-item" href="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.html" data-path="mineru_output/lecture10_ee720_jitter/auto/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.html" data-path="mineru_output/lecture11_ee720_clocking_arch_plls/auto/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.html" data-path="mineru_output/lecture12_ee720_cdrs/auto/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.html" data-path="mineru_output/lecture13_ee720_fwd_clk_deskew/auto/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.html" data-path="mineru_output/lecture14_ee720_clk_distribution/auto/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.html" data-path="mineru_output/lecture15_ee720_optical_io/auto/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.html" data-path="mineru_output/lecture1_ee720_intro/auto/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.html" data-path="mineru_output/lecture2_ee720_channels/auto/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.html" data-path="mineru_output/lecture3_ee720_tdr_spar/auto/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.html" data-path="mineru_output/lecture4_ee720_channel_pulse_model/auto/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.html" data-path="mineru_output/lecture5_ee720_termination_txdriver/auto/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.html" data-path="mineru_output/lecture6_ee720_rx_circuits/auto/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.html" data-path="mineru_output/lecture7_ee720_eq_intro_txeq/auto/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.html" data-path="mineru_output/lecture8_ee720_rx_adaptive_eq/auto/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.html" data-path="mineru_output/lecture9_ee720_noise_sources/auto/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">oif</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="oif/README.html" data-path="oif/README.md">README</a>
+    <a class="nav-item" href="oif/cei/README.html" data-path="oif/cei/README.md">README</a>
+    <a class="nav-item" href="oif/fp/README.html" data-path="oif/fp/README.md">README</a>
+    <a class="nav-item" href="oif/ia/README.html" data-path="oif/ia/README.md">README</a>
+    <a class="nav-item" href="oif/oif_cei_specification.html" data-path="oif/oif_cei_specification.md">oif_cei_specification</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">optical</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="optical/README.html" data-path="optical/README.md">README</a>
+    <a class="nav-item" href="optical/components/README.html" data-path="optical/components/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/README.html" data-path="optical/fundamentals/README.md">README</a>
+    <a class="nav-item" href="optical/fundamentals/pam4_odsp.html" data-path="optical/fundamentals/pam4_odsp.md">pam4_odsp</a>
+    <a class="nav-item" href="optical/market/README.html" data-path="optical/market/README.md">README</a>
+    <a class="nav-item" href="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.html" data-path="optical/papers/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告/Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告.md">Adaptive_Receiver_HighSpeed_Optical_Communication_Ozkaya_EPFL_135p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告.md">Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.html" data-path="optical/papers/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告/Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告.md">Advanced_DSP_Coherent_Optical_Fiber_Comms_Zhao_et_al_20p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告.md">DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.html" data-path="optical/papers/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告.md">DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告/DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告.md">DSP_Coherent_Optical_Communication_Systems_XuZhang_DTU_150p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.html" data-path="optical/papers/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告/DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告.md">DSP_Coherent_Optical_Fiber_Comms_Millar_133p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.html" data-path="optical/papers/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告/High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告.md">High_Speed_Silicon_Photonics_Module_Packaging_Key_Technology_Wu_85p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.html" data-path="optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告.md">High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.html" data-path="optical/papers/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告/Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告.md">Low_Power_Analog_FrontEnd_112Gbps_PAM4_SerDes_Receiver_24p_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/README.html" data-path="optical/papers/ofc_pdp/README.md">README</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.1_深度学习报告/Th4A.1_深度学习报告.md">Th4A.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.2_深度学习报告/Th4A.2_深度学习报告.md">Th4A.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.3_深度学习报告/Th4A.3_深度学习报告.md">Th4A.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.4_深度学习报告/Th4A.4_深度学习报告.md">Th4A.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.5_深度学习报告/Th4A.5_深度学习报告.md">Th4A.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.6_深度学习报告/Th4A.6_深度学习报告.md">Th4A.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.7_深度学习报告/Th4A.7_深度学习报告.md">Th4A.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4A.8_深度学习报告/Th4A.8_深度学习报告.md">Th4A.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.2_深度学习报告/Th4B.2_深度学习报告.md">Th4B.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.3_深度学习报告/Th4B.3_深度学习报告.md">Th4B.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.4_深度学习报告/Th4B.4_深度学习报告.md">Th4B.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.5_深度学习报告/Th4B.5_深度学习报告.md">Th4B.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.6_深度学习报告/Th4B.6_深度学习报告.md">Th4B.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.7_深度学习报告/Th4B.7_深度学习报告.md">Th4B.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4B.8_深度学习报告/Th4B.8_深度学习报告.md">Th4B.8_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.1_深度学习报告/Th4C.1_深度学习报告.md">Th4C.1_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.2_深度学习报告/Th4C.2_深度学习报告.md">Th4C.2_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.3_深度学习报告/Th4C.3_深度学习报告.md">Th4C.3_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.4_深度学习报告/Th4C.4_深度学习报告.md">Th4C.4_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.5_深度学习报告/Th4C.5_深度学习报告.md">Th4C.5_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.6_深度学习报告/Th4C.6_深度学习报告.md">Th4C.6_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.7_深度学习报告/Th4C.7_深度学习报告.md">Th4C.7_深度学习报告</a>
+    <a class="nav-item" href="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.html" data-path="optical/papers/ofc_pdp/Th4C.8_深度学习报告/Th4C.8_深度学习报告.md">Th4C.8_深度学习报告</a>
+    <a class="nav-item" href="optical/systems/README.html" data-path="optical/systems/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">plan</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="plan/01_cdr.html" data-path="plan/01_cdr.md">01_cdr</a>
+    <a class="nav-item" href="plan/02_pam4_odsp.html" data-path="plan/02_pam4_odsp.md">02_pam4_odsp</a>
+    <a class="nav-item" href="plan/03_224g_system.html" data-path="plan/03_224g_system.md">03_224g_system</a>
+    <a class="nav-item" href="plan/04_standards.html" data-path="plan/04_standards.md">04_standards</a>
+    <a class="nav-item" href="plan/README.html" data-path="plan/README.md">README</a>
+    <a class="nav-item" href="plan/notes/224g_system_notes.html" data-path="plan/notes/224g_system_notes.md">224g_system_notes</a>
+    <a class="nav-item" href="plan/notes/cdr_notes.html" data-path="plan/notes/cdr_notes.md">cdr_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_notes.html" data-path="plan/notes/pam4_notes.md">pam4_notes</a>
+    <a class="nav-item" href="plan/notes/pam4_odsp_notes.html" data-path="plan/notes/pam4_odsp_notes.md">pam4_odsp_notes</a>
+    <a class="nav-item" href="plan/notes/standards_notes.html" data-path="plan/notes/standards_notes.md">standards_notes</a>
+    <a class="nav-item" href="plan/progress.html" data-path="plan/progress.md">progress</a>
+    <a class="nav-item" href="plan/serdes_learning_roadmap_2026.html" data-path="plan/serdes_learning_roadmap_2026.md">serdes_learning_roadmap_2026</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">serdes</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="serdes/README.html" data-path="serdes/README.md">README</a>
+    <a class="nav-item" href="serdes/applications/README.html" data-path="serdes/applications/README.md">README</a>
+    <a class="nav-item" href="serdes/deep_research/00_五大方向综合总结.html" data-path="serdes/deep_research/00_五大方向综合总结.md">00_五大方向综合总结</a>
+    <a class="nav-item" href="serdes/deep_research/01_CDR深入研究报告.html" data-path="serdes/deep_research/01_CDR深入研究报告.md">01_CDR深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/02_均衡技术深入研究报告.html" data-path="serdes/deep_research/02_均衡技术深入研究报告.md">02_均衡技术深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html" data-path="serdes/deep_research/03_PAM4_oDSP深入研究报告.md">03_PAM4_oDSP深入研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/224G标准到电路间隙分析报告.html" data-path="serdes/deep_research/224G标准到电路间隙分析报告.md">224G标准到电路间隙分析报告</a>
+    <a class="nav-item" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html" data-path="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.md">ADC-Based_112G_224G_SerDes_架构设计指南</a>
+    <a class="nav-item" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html" data-path="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.md">AI_ML辅助SerDes链路设计深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/CPO共封装光学深度研究报告.html" data-path="serdes/deep_research/CPO共封装光学深度研究报告.md">CPO共封装光学深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html" data-path="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.md">IEEE_802.3_OIF标准参数到电路实现映射研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html" data-path="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.md">MLSE均衡器硬件实现深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html" data-path="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.md">PAM6_PAM8与概率整形深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/SerDes_224G_知识图谱.html" data-path="serdes/deep_research/SerDes_224G_知识图谱.md">SerDes_224G_知识图谱</a>
+    <a class="nav-item" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html" data-path="serdes/deep_research/热管理与可靠性测试深度研究报告.md">热管理与可靠性测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/系统级仿真与测试深度研究报告.html" data-path="serdes/deep_research/系统级仿真与测试深度研究报告.md">系统级仿真与测试深度研究报告</a>
+    <a class="nav-item" href="serdes/deep_research/钧衡技术深度专业文档.html" data-path="serdes/deep_research/钧衡技术深度专业文档.md">钧衡技术深度专业文档</a>
+    <a class="nav-item" href="serdes/deep_research_serdes_20260415.html" data-path="serdes/deep_research_serdes_20260415.md">deep_research_serdes_20260415</a>
+    <a class="nav-item" href="serdes/fundamentals/README.html" data-path="serdes/fundamentals/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/cdr_technology.html" data-path="serdes/fundamentals/cdr_technology.md">cdr_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/equalization_technology.html" data-path="serdes/fundamentals/equalization_technology.md">equalization_technology</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/README.html" data-path="serdes/fundamentals/lectures/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告/Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告.md">Session_08V-ULTRA-HIGH-SPEED_WIRELINE_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/Session_08_深度学习报告.html" data-path="serdes/fundamentals/lectures/Session_08_深度学习报告.md">Session_08_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter.md">lecture10_ee720_jitter</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_ee720_jitter_深度学习报告/lecture10_ee720_jitter_深度学习报告.md">lecture10_ee720_jitter_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture10_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture10_深度学习报告.md">lecture10_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls.md">lecture11_ee720_clocking_arch_plls</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_ee720_clocking_arch_plls_深度学习报告/lecture11_ee720_clocking_arch_plls_深度学习报告.md">lecture11_ee720_clocking_arch_plls_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture11_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture11_深度学习报告.md">lecture11_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs.md">lecture12_ee720_cdrs</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_ee720_cdrs_深度学习报告/lecture12_ee720_cdrs_深度学习报告.md">lecture12_ee720_cdrs_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture12_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture12_深度学习报告.md">lecture12_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew.md">lecture13_ee720_fwd_clk_deskew</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_ee720_fwd_clk_deskew_深度学习报告/lecture13_ee720_fwd_clk_deskew_深度学习报告.md">lecture13_ee720_fwd_clk_deskew_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture13_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture13_深度学习报告.md">lecture13_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution.md">lecture14_ee720_clk_distribution</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_ee720_clk_distribution_深度学习报告/lecture14_ee720_clk_distribution_深度学习报告.md">lecture14_ee720_clk_distribution_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture14_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture14_深度学习报告.md">lecture14_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io.md">lecture15_ee720_optical_io</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/lecture15_ee720_optical_io_深度学习报告.md">lecture15_ee720_optical_io_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture15_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture15_深度学习报告.md">lecture15_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_detailed.md">lecture1_ee720_intro_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro.md">lecture1_ee720_intro</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_ee720_intro_深度学习报告/lecture1_ee720_intro_深度学习报告.md">lecture1_ee720_intro_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture1_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture1_深度学习报告.md">lecture1_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_detailed.md">lecture2_ee720_channels_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels.md">lecture2_ee720_channels</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_ee720_channels_深度学习报告/lecture2_ee720_channels_深度学习报告.md">lecture2_ee720_channels_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture2_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture2_深度学习报告.md">lecture2_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_detailed.md">lecture3_ee720_tdr_spar_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar.md">lecture3_ee720_tdr_spar</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/lecture3_ee720_tdr_spar_深度学习报告.md">lecture3_ee720_tdr_spar_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture3_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture3_深度学习报告.md">lecture3_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_detailed.md">lecture4_ee720_channel_pulse_model_detailed</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model.md">lecture4_ee720_channel_pulse_model</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_ee720_channel_pulse_model_深度学习报告/lecture4_ee720_channel_pulse_model_深度学习报告.md">lecture4_ee720_channel_pulse_model_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture4_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture4_深度学习报告.md">lecture4_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver.md">lecture5_ee720_termination_txdriver</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_ee720_termination_txdriver_深度学习报告/lecture5_ee720_termination_txdriver_深度学习报告.md">lecture5_ee720_termination_txdriver_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture5_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture5_深度学习报告.md">lecture5_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits.md">lecture6_ee720_rx_circuits</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_ee720_rx_circuits_深度学习报告/lecture6_ee720_rx_circuits_深度学习报告.md">lecture6_ee720_rx_circuits_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture6_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture6_深度学习报告.md">lecture6_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq.md">lecture7_ee720_eq_intro_txeq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_ee720_eq_intro_txeq_深度学习报告/lecture7_ee720_eq_intro_txeq_深度学习报告.md">lecture7_ee720_eq_intro_txeq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture7_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture7_深度学习报告.md">lecture7_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq.md">lecture8_ee720_rx_adaptive_eq</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_ee720_rx_adaptive_eq_深度学习报告/lecture8_ee720_rx_adaptive_eq_深度学习报告.md">lecture8_ee720_rx_adaptive_eq_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture8_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture8_深度学习报告.md">lecture8_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources.md">lecture9_ee720_noise_sources</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_ee720_noise_sources_深度学习报告/lecture9_ee720_noise_sources_深度学习报告.md">lecture9_ee720_noise_sources_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/lectures/lecture9_深度学习报告.html" data-path="serdes/fundamentals/lectures/lecture9_深度学习报告.md">lecture9_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC.md">2014_Survey_FEC</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.html" data-path="serdes/fundamentals/papers/2014_Survey_FEC_深度学习报告.md">2014_Survey_FEC_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP.md">LPO_serdes_oDSP</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.html" data-path="serdes/fundamentals/papers/LPO_serdes_oDSP_深度学习报告.md">LPO_serdes_oDSP_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍.md">PAM4 oDSP原理介绍</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4 oDSP原理介绍_深度学习报告.md">PAM4 oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.html" data-path="serdes/fundamentals/papers/PAM4_oDSP原理介绍_深度学习报告.md">PAM4_oDSP原理介绍_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/README.html" data-path="serdes/fundamentals/papers/README.md">README</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/papers_summary.html" data-path="serdes/fundamentals/papers/papers_summary.md">papers_summary</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.html" data-path="serdes/fundamentals/papers/光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告.md">光纤通信系统中MLSE均衡器的性能分析及优化_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.html" data-path="serdes/fundamentals/papers/应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告.md">应用于高速SerDes的时钟数据恢复电路的设计研究_曹启富_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.html" data-path="serdes/fundamentals/papers/面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告.md">面向100G_400GbE...传输链路关键技术研究与实现_展永政_深度学习报告</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究.md">高速直调直检光传输系统均衡算法研究</a>
+    <a class="nav-item" href="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.html" data-path="serdes/fundamentals/papers/高速直调直检光传输系统均衡算法研究_深度学习报告.md">高速直调直检光传输系统均衡算法研究_深度学习报告</a>
+    <a class="nav-item" href="serdes/protocols/README.html" data-path="serdes/protocols/README.md">README</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md" class="nav-item active">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.html" data-path="serdes/theses/10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告.md">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.html" data-path="serdes/theses/Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告.md">Adaptive_Analog_Transversal_Equalizers_HighSpeed_Serial_Links_Loi_83p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.html" data-path="serdes/theses/CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated.md">CDR_65nm_Technology_Design_RenYi_49p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.html" data-path="serdes/theses/Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告.md">Circuit_Architectures_HighSpeed_CMOS_CDR_Ravikumar_112p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.html" data-path="serdes/theses/Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告.md">Energy_Efficient_HighSpeed_Wireline_Serial_Links_Celik_EPFL_131p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_中文版</a>
+    <a class="nav-item" href="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.html" data-path="serdes/theses/Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告.md">Equalization_Continuous_Discrete_Time_HighSpeed_Links_Jain_97p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.html" data-path="serdes/theses/HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated.md">HighSpeed_Serial_Link_224Gbps_Channel_Margin_Exploration_NYCU_15p_深度学习报告_annotated</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.html" data-path="serdes/theses/HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告.md">HighSpeed_Wireline_Link_Design_Zhang_Hongyang_UnivPavia_109p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.html" data-path="serdes/theses/High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告.md">High_Data_Rate_DMT_SerDes_Design_Jiang_115p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_中文版</a>
+    <a class="nav-item" href="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.html" data-path="serdes/theses/High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告.md">High_Speed_SerDes_Devices_Applications_Stauffer_494p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_中文版</a>
+    <a class="nav-item" href="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.html" data-path="serdes/theses/OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告.md">OnChip_Signaling_HighSpeed_SerDes_Transceivers_NagyTadros_119p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.html" data-path="serdes/theses/Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告.md">Oversampling_HighSpeed_Serial_Link_Transceiver_Toivanen_Tampere_69p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v2</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_v3</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_完整版</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_中文版_续</a>
+    <a class="nav-item" href="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.html" data-path="serdes/theses/PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告.md">PHY_Link_Design_Optimization_HighSpeed_LowPower_Yuan_TUDarmstadt_144p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.html" data-path="serdes/theses/PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告.md">PLL_Based_CDR_Circuit_Design_HighSpeed_SerDes_Bisht_44p_深度学习报告</a>
+    <a class="nav-item" href="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.html" data-path="serdes/theses/Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告.md">Serializer_Deserializer_Design_Verification_Valkonen_66p_深度学习报告</a>
+    <a class="nav-item" href="serdes/vendors/README.html" data-path="serdes/vendors/README.md">README</a>
+  </div>
+</div>
+<div class="nav-group expanded">
+  <div class="nav-group-title">根目录</div>
+  <div class="nav-group-items">
+    <a class="nav-item" href="README.html" data-path="README.md">README</a>
+    <a class="nav-item" href="knowledge_base_status.html" data-path="knowledge_base_status.md">knowledge_base_status</a>
+    <a class="nav-item" href="research_plan.html" data-path="research_plan.md">research_plan</a>
+    <a class="nav-item" href="serdes_research_report.html" data-path="serdes_research_report.md">serdes_research_report</a>
+  </div>
+</div>
+
+        </div>
+    </nav>
+    <main class="main">
+        <div class="topbar">
+            <span class="topbar-title">10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版</span>
+            <span class="topbar-breadcrumb">serdes / theses / 10Gbps_Serial_Link_Modeling_Design_Characterization_Bandiziol_167p_中文版.md</span>
+        </div>
+        <div class="content-wrapper">
+            <article class="content" id="content">
+                <h1 id="_1">博洛尼亚大学（意大利）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h1 id="_2">电气与信息工程系<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<h2 id="_3">博士论文<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h1 id="10gbps">10Gbps 串行链路<a class="headerlink" href="#10gbps" title="Permanent link">&para;</a></h1>
+<h1 id="_4">建模、设计与表征<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<h1 id="modeling-design-and-characterization-of-a-10gbps-serial-link">Modeling, Design and Characterization of a 10Gbps Serial Link<a class="headerlink" href="#modeling-design-and-characterization-of-a-10gbps-serial-link" title="Permanent link">&para;</a></h1>
+<p>导师：Prof. Ing. Pierpaolo Palestri  博士候选人：Andrea Bandiziol</p>
+<p>学术年度：2016 – 2017</p>
+<hr />
+<h2 id="_5">摘要<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>本博士论文的目标是建模、设计和表征一种适用于汽车电子控制单元（ECU）的10Gbps串行接口。本工作与英飞凌科技公司合作完成。</p>
+<p>高速串行接口在学术界和工业界都是热门话题。由于严格的安全要求和链接必须正常工作的极端恶劣环境，汽车领域比消费市场落后了几年。因此，本工作的主要目标是弥合消费电子与汽车电子单元之间的差距，从学术界已成熟的方案中找出适合我们工作条件的技术，并对这些方案进行转化和改进，使其更加稳定且功耗更低。这一目标要求深入理解从系统级到晶体管级的串行链路，本论文将沿此思路展开。</p>
+<p>本工作的第一部分专注于发射机：我们将从系统级分析开始，创建一种方法来评估在处理汽车环境典型信道时发射机端所需的预加重能力。随后将描述晶体管级设计，说明设计选择并用仿真结果和文献中的最新技术进行比较。本部分最后将展示所描述发射机的测量结果并加以讨论。</p>
+<p>本论文的第二部分主要聚焦于接收机。与发射机一样，我们首先进行系统级分析，旨在理解文献中提出的不同均衡方案。在Simulink模型的帮助下，提出一种架构。随后将对该架构进行晶体管级分析，并通过接收机单独和完整收发器（含数字控制部分）的晶体管级仿真加以验证。</p>
+<p>最后，将展示完整链路的实验表征，分析在英飞凌科技公司奥地利维拉赫设计中心进行的测量结果。</p>
+<hr />
+<h2 id="_6">目录<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>摘要 - i</p>
+<p>索引 - i</p>
+<p>第1章 引言 1</p>
+<p>1.1 为什么我们需要更快的高速串行接口？ 1</p>
+<p>1.2 历年演进 2</p>
+<p>1.3 串行链路架构：主要问题与解决方案 5</p>
+<p>1.3.1 发射机结构 5</p>
+<p>1.3.2 时钟方案 7</p>
+<p>1.3.2.1 时钟与数据恢复 8</p>
+<p>1.3.2.2 基于振荡器的恢复 11</p>
+<p>1.3.2.3 基于相位插值器的恢复 11</p>
+<p>1.3.2.4 前向时钟架构 12</p>
+<p>1.3.3 串行链路中的噪声与干扰源 14</p>
+<p>1.3.3.1 噪声干扰 14</p>
+<p>1.3.3.2 传输介质的色散 14</p>
+<p>1.3.4 均衡技术 17</p>
+<p>1.3.4.1 前馈均衡（FFE） 17</p>
+<p>1.3.4.2 连续时间线性均衡（CTLE） 18</p>
+<p>1.3.4.3 判决反馈均衡（DFE） 19</p>
+<p>1.4 汽车环境中的高速串行接口 22</p>
+<p>1.5 工作动机与论文结构 24</p>
+<p>第2章 发射机系统级设计 27</p>
+<p>2.1 驱动拓扑的选择 28</p>
+<p>2.2 驱动器架构 29</p>
+<p>2.3 均衡抽头的选择 34</p>
+<p>2.4 实际信道示例 36</p>
+<p>2.5 抽头量化的影响 43</p>
+<p>2.6 发射机架构 48</p>
+<p>第3章 发射机晶体管级设计 51</p>
+<p>3.1 引言 51</p>
+<p>3.2 触发器 51</p>
+<p>3.3 开关矩阵 54</p>
+<p>3.4 LDO 56</p>
+<p>3.5 仿真结果 61</p>
+<p>3.6 寄生电感影响的分析 64</p>
+<p>3.6.1 FFE抽头的选择 65</p>
+<p>3.6.2 不含VDD和VSS电感的 结果 66</p>
+<p>3.6.3 含VDD和VSS电感的结果 71</p>
+<p>3.7 结论 76</p>
+<p>第4章 发射机实验表征 77</p>
+<p>4.1 RMTX测试芯片概述 77</p>
+<p>4.2 RMTX测量结果 79</p>
+<p>4.3 InnoTC概述 82</p>
+<p>4.4 InnoTC测量结果 82</p>
+<p>第5章 接收机系统与晶体管级设计 95</p>
+<p>5.1 接收机结构 97</p>
+<p>5.1.1 输入放大级 97</p>
+<p>5.1.2 半速率、CDR与DFE 98</p>
+<p>5.1.3 接收机架构 100</p>
+<p>5.2 CDR算法 102</p>
+<p>5.3 晶体管级设计与仿真结果 108</p>
+<p>5.3.1 输入级 108</p>
+<p>5.3.2 DFE时序 112</p>
+<p>5.3.3 加法器、比较器与PI 114</p>
+<p>5.3.4 解串器 116</p>
+<p>5.3.5 CDR算法时序 119</p>
+<p>5.3.6 固定PI码的结果 121</p>
+<p>5.3.7 XA-VCS结果 122</p>
+<p>5.4 结论 130</p>
+<p>第6章 完整链路表征 131</p>
+<p>6.1 InnoTC概述 131</p>
+<p>6.2 InnoTC测量设置 133</p>
+<p>6.3 完整链路测量结果 134</p>
+<p>6.4 HSIO评估板 141</p>
+<p>结论 143</p>
+<p>发表论文列表 159</p>
+<p>致谢 161</p>
+<hr />
+<h1 id="1">第1章<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
+<h1 id="_7">引言<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h1>
+<h2 id="11">1.1 为什么我们需要更快的高速串行接口？<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<p>过去几十年，半导体技术的创新一直由摩尔定律驱动，该定律指出集成电路中的晶体管数量大约每两年翻一番。摩尔定律的直接后果是电子器件特征尺寸的持续缩小，从而提高了器件本身的截止频率，进而使得集成电路的工作频率更高，每个逻辑功能的功耗更低。所有这些点的自然结果是：单个处理单元中封装的功能数量增加，因此单个芯片内部或不同芯片之间需要存储和交换的数据量也相应增加。</p>
+<p>实现更高芯片通信带宽有两种可能的方法：增加串行接口的数量或提高单个接口的传输速率。在大多数情况下，增加I/O引脚数量并不是一个可行的选择，无论是从焊盘环空间还是成本角度（增加I/O引脚数量意味着增加封装和板上走线的数量，从而需要更多的金属和材料放置在芯片上）。总而言之，提高单个信道的传输速率是芯片间通信的必然选择，即使这样做很复杂。事实上，除去器件的技术改进之外，传输信道的带宽是一个需要克服的内在限制，同时还需要控制链路的功耗预算。</p>
+<h2 id="12">1.2 历年演进<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<p>过去几年，由于数据交换的需求，高速串行接口（HSSI）已广泛应用于许多领域，例如：</p>
+<ul>
+<li>电信网络，例如IEEE以太网标准</li>
+<li>带有线I/O的计算单元，例如PCIe、Hypertransport，或插入无线网络链接无线电设备控制与无线基站中无线电设备的接口，例如CPRI</li>
+<li>光网络内部接口，例如Interlaken和OIF-CEI</li>
+<li>芯片到芯片和板到板链路</li>
+<li>存储应用，例如SATA</li>
+<li>高性能嵌入式处理，例如SRIO</li>
+</ul>
+<p>高速串行链路目前所应用领域的多样性导致了多种标准的采用，有时这些标准之间相互冲突。为了比较不同标准，人们创建了信道规格和信号参数的通用定义。这些领域串行链路的速度反映了其所达到的不同成熟阶段。共同的特点是所有不同应用的通信速度都在不断增加，落后于最新学术发表成果几年时间。随着速度的提高，功耗效率也相应提高，尽管信道限制在向更高传输速率发展时变得越来越严重。</p>
+<h2 id="13">1.3 串行链路架构：主要问题与解决方案<a class="headerlink" href="#13" title="Permanent link">&para;</a></h2>
+<p>串行接口的一般结构包括发射机、信道和接收机。第一个遇到的模块是串行器，它从数字侧获取并行数据并将其串行输出到驱动器。驱动器在信道上产生输出电压摆幅，同时具有与信道匹配的输出阻抗以避免反射。串行器和驱动器本身的时序通过时钟参考和锁相环（PLL）获得，PLL将晶体的低频倍增到数据速率频率和数字所需的频率（通常比数据速率小十到一百倍）。在信道之后，接收机输入端有一个比较器，它对接收到的实际电压值进行采样并与阈值比较以判决是'1'还是'0'。之后，数据被重新生成为CMOS值并传递到解串器，解串器将串行数据流作为输入并输出并行数据到数字后处理。比较器的采样位置通过时序恢复电路固定，该电路将时钟与输入数据流对齐，使其位于更容易正确区分'1'和'0'值的位置。以下将详细分析构成收发器的三个主要模块：发射机、信道和接收机。</p>
+<h3 id="131">1.3.1 发射机结构<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
+<p>发射机的一般结构如下。在通过驱动器将数据作为电压电平传输之前，通常会对数据进行数字预处理即编码，这种方法解决了发射机和接收机模块在不同DC电平下工作的问题。事实上，每當两个芯片相互通信时都必须面对这个问题，特别是当它们在不同的工艺中制造时。最简单的解决方案是交流耦合。使用这种结构，交流耦合电容和接收机输入端接电阻形成高通滤波器，这反过来又导致沿信道传输的信号低频成分的缓慢损耗。这种损耗导致当要传输一长串连续相同比特时，线上的信号会缓慢漂移：这个问题称为基线漂移。可以以多种方式处理此问题：最简单的方法是使用非常大的耦合电容以使高通滤波器具有非常低的截止频率。由于仅此解决方案理论上不能解决问题，可以对数据进行编码以避免出现极长序列的相同比特，例如使用"8b10b编码"。这种著名的编码方案保证最多传输五个相同的连续比特，但这样做会引入25%的开销。在更高的数据速率下，许多标准开始使用引入更少开销的更宽松编码方案（例如10千兆以太网中的64b66b编码）。</p>
+<p>驱动器的三个主要特性是：其模式（电压或电流，将在第2章详细讨论）、其输出摆幅和其输出阻抗。如前所述，使发射机输出阻抗匹配至关重要，特别是在更高的数据速率下。在这些频率下，传输信号的波长与芯片间通信链路的物理长度相当，因此通常将发射机设计为匹配50Ω，这是大多数串行链路应用的典型信道阻抗。因此，鉴于需要匹配的输出阻抗是固定的，就有很强的兴趣降低发射机输出信号摆幅以降低终端电阻本身的功耗（功耗由VR表示，其中V是电压摆幅，R是终端阻抗）。这导致了各种基于低压差分信号传输标准的发展。</p>
+<h3 id="132">1.3.2 时钟方案<a class="headerlink" href="#132" title="Permanent link">&para;</a></h3>
+<p>时钟电路是串行链路的重要组成部分，其取决于所采用的时钟策略。基于此，我们可以区分四类不同的接口：</p>
+<ul>
+<li><strong>同步接口</strong>：发射机和接收机处的时钟与数据具有完全相同的频率和相位。这种方案在高速率下几乎不使用，因为奈奎斯特频率下的波长与物理距离相当；</li>
+<li><strong>等时接口</strong>：发射机和接收机时钟频率完全相同，但相对于数据的相位不同；</li>
+<li><strong>准同步接口</strong>：发射机和接收机时钟频率几乎相同但不精确，且相对于数据的相位不同；</li>
+<li><strong>异步接口</strong>：发射机和接收机时钟之间没有任何关系。采用此方案的链路中，接收机通常甚至不知道传输速率。</li>
+</ul>
+<p>无论采用何种时钟方案，放松时钟电路的一种常见解决方案是使用所谓的半速率架构用于发射机和/或接收机。在半速率架构中，数据以数据速率一半的频率处理，但通常以全速率传输/接收，意味着它们以全速率在传输线上传输。使用收发器的半速率部分意味着还需要生成半速率时钟，这比全速率时钟更容易管理。这样做是为了放松电路中一些关键模块的时序（例如触发器），否则它们在全额率频率下将难以设计。使用半速率架构还有一个很大优势是降低功耗，因为所有时钟分配电路都以半频率工作。在接下来的章节中，我们将深入探讨这一概念。</p>
+<h4 id="1321">1.3.2.1 时钟与数据恢复<a class="headerlink" href="#1321" title="Permanent link">&para;</a></h4>
+<p>很容易理解，无论我们使用何种时钟方案，在高频下，发射机端数据与时钟的关系在传输中会丢失，必须在接收机端重建。事实上，如果没有重新创建正确的数据-时钟相位关系，则可能在接收机的第一采样级采样到错误的数据，即使传输了正确的数据，只是因为采样时间不正确。对齐数据和时钟的电路是时钟与数据恢复电路（CDR），有时也称为时序恢复。</p>
+<p>由于CDR的工作是对齐两个相位，因此其中必须始终存在相位检测器。作为一个特定的研究案例，我们现在来分析Alexander相位检测器，这是高速接口中最常用的相位检测器之一。为了提取相位信息，需要数据中有跳变：只有当跳变发生时，相位检测器才能做出判决。</p>
+<p>实现数据活动检测器最简单和最常见的方式是：将数据送入采样器链并采样两个连续比特；如果两者不同，则表示发生了跳变，使能信号变高。</p>
+<p>一旦方向判决模块被使能，边沿采样就起作用了。当使能信号为高时，所有可能的情况如下：dir[n]是边沿采样，在时钟的下降沿采样，因此与数据反相。如果数据跳变发生在时钟下降沿之后，则意味着数据采样过早，因此决定将下一个采样点延迟（updw=+1）。如果数据跳变发生在时钟下降沿之前，则意味着数据采样过晚，因此决定将下一个采样点提前（updw=-1）。</p>
+<p>实现方向判决并将其与数据跳变检测集成在一起最直接的方式如下。方向判决中在时钟上升沿工作的采样器是必要的，以确保输出dir[n]是与第n个时钟上升沿之前的时钟下降沿相关的数据采样。</p>
+<p>Alexander相位检测器是一种所谓的Bang-Bang相位检测器，这意味着它每次识别到数据跳变时都会做出方向判决。在Bang-Bang相位检测器中，稳定工作点是系统处于最高可能频率的极限环时，即Bang-Bang输出（updw[n]）在每个时钟周期在-1和1之间切换。在CDR中，上述极限环只有当采样数据act[n]在每个时钟周期在0和1之间切换时才能发生，因此环路可以在每个时钟周期校正相位误差，边沿采样dir[n]在每个时钟周期在sct[n]和act[n-1]的值之间切换。</p>
+<p>高速链路中嵌入CDR的三种最常见方案是：基于振荡器的恢复、基于相位插值器的恢复和前向时钟架构。</p>
+<h4 id="1322">1.3.2.2 基于振荡器的恢复<a class="headerlink" href="#1322" title="Permanent link">&para;</a></h4>
+<p>基于受控振荡器（CO）的时钟恢复电路的串行链路方案属于异步类，因为时钟是通过发射机的晶体参考和PLL生成的，然后用于数据传输时序。传输后，在接收机端，CDR电路通过控制VCO（电压控制振荡器）在频率和相位上重构时钟，使采样时钟与数据流对齐。</p>
+<h4 id="1323">1.3.2.3 基于相位插值器的恢复<a class="headerlink" href="#1323" title="Permanent link">&para;</a></h4>
+<p>基于相位插值器的CDR串行链路架构如下。在这种电路中，发射机和接收机处通过两个晶体参考产生两个标称相同频率的时钟，它们可能在以其质量规格定义的范围内有所不同（以百万分之一表示）。这意味着该电路属于准同步系统。接收机处的CDR电路将本地生成的时钟（通过晶体和PLL）的相位与输入数据流对齐以设置最佳采样点。有两种主要方式可以实现这一点：通过延迟锁相环（DLL）和通过时钟分频器和相位插值器（PI）。</p>
+<p>DLL是一个反相器链，生成由插入链中的反相器数量定义的不同延迟间隔。如果延迟间隔足够精细，则可以从DLL提取的相位中直接使用一个作为采样时钟。</p>
+<p>在第二种方案中，来自PLL的时钟进入时钟分频器，输出具有四个不同相位的时钟（0°、90°、180°和270°，即所谓的I-Q相位）。然后这四个相位进入PI，它作为两个输入相位之间的加权加法器工作，因此其输出时钟将具有介于两者之间的相位。</p>
+<h4 id="1324">1.3.2.4 前向时钟架构<a class="headerlink" href="#1324" title="Permanent link">&para;</a></h4>
+<p>前向时钟串行链路的方案如下。在之前分析的所有方案中，数据是唯一发送到接收机的信息，而在这种情况下，数据和时钟都通过信道发送。时钟通过晶体参考和PLL在发射机处生成，然后通过不同的驱动器与数据一起发送到接收机。在接收机端，CDR将本地时钟的相位与输入数据流对齐，但与之前描述的系统不同，区别在于本地时钟不是由晶体和PLL生成的，而是转发过来的。该电路属于等时系统类别，但在高速率下使用时非常不实用，主要是因为无法实现匹配的时钟和数据延迟。这反过来导致CDR带宽降低，这是CDR可以跟踪的最高抖动频率。此外，使用不同的驱动器传输时钟需要更多面积和功耗，使这种方案不太吸引人。</p>
+<h3 id="133">1.3.3 串行链路中的噪声与干扰源<a class="headerlink" href="#133" title="Permanent link">&para;</a></h3>
+<p>完整的背板链路横截面显示了所有可能给系统带来干扰和噪声的元素。我们已经介绍了信道特性给出的带宽限制，但远不止这些。可以做一个粗略的区分，将所有干扰分为噪声和链路色散特性。</p>
+<h4 id="1331">1.3.3.1 噪声干扰<a class="headerlink" href="#1331" title="Permanent link">&para;</a></h4>
+<p>噪声源大致可分为两类：串扰和随机信号波动。串扰是两条相邻线路之间通过电容和互感耦合的机制。在串扰中始终可以识别两部分：攻击者和受害者。根据这两部分的位置，我们称之为远端串扰（FEXT）或近端串扰（NEXT）。后者是最危险的，因为攻击者与受害者在同一芯片上且距离很近，因此是直接耦合机制。在FEXT中，攻击者的能量沿信道传播，然后在接收端与受害者耦合，因此已经被介质衰减。随机信号波动始终存在于系统中，由有源和无源器件的热噪声和散粒噪声引起，导致信号的定时偏差，使边沿提前或推迟。这些偏差属于抖动的定义，我们将在下文中经常提到。</p>
+<h4 id="1332">1.3.3.2 传输介质的色散<a class="headerlink" href="#1332" title="Permanent link">&para;</a></h4>
+<p>在本小节中，我们将分析传输介质固有的色散和损耗机制，即集肤效应、介质损耗和阻抗失配与不连续性。</p>
+<p>集肤效应是信道插入损耗的一种形式，原因是高频下电流流动的导线有效横截面积减小，因此电流仅在表面附近流动。该效应可以建模为信道每单位长度阻抗的频率相关性。集肤效应导致10dB/十倍频程的损耗。</p>
+<p>介质损耗由介质从传播波中吸收能量转化为热量。这可以归结为介质介电常数的虚部。介质损耗导致高频下20dB/十倍频程的损耗依赖性。</p>
+<p>第三个要分析的损耗机制是阻抗失配和不连续性。封装、插座、交流耦合电容的连接、PCB过孔和各种性质的连接器都在信道阻抗中引入不连续性，这反过来又产生以系统脉冲响应中 notch形式出现的信号反射。阻抗失配的另一个效应是模式转换：差分信号的部分能量转换为共模分量，这反过来可能导致反射。</p>
+<p>在一般信道中，所有这些效应耦合在一起并出现在信道的脉冲响应中。为了识别哪个损耗机制是信道中的主要因素，可以查看传输函数（S21）的幅度或系统的脉冲响应，因为它们严格相关。脉冲响应中除了当前比特的所有残余称为前导符（pre-cursor），当前比特之后的所有残余称为后跟符（post-cursor）。当前比特通常称为主光标（main-cursor）。</p>
+<h3 id="134">1.3.4 均衡技术<a class="headerlink" href="#134" title="Permanent link">&para;</a></h3>
+<p>如前所述，特别是向极高数据速率发展时，传输介质可能会完全扼杀收发器建立甚至不归零（NRZ）通信的能力。设计者能做的是预见到信道的这种不利影响并加以补偿：这在文献中称为均衡。均衡背后的主要思想是：通过逆传输函数来补偿传输介质传输函数中的"不平坦"。假设传输函数中的非理想性与频率成正比（即由集肤效应或介质损耗引起），则在发射机或接收机应用校正是一致的。如果非理想性随频率的行为不仅仅是成正比，而是有各种凹陷（即来自阻抗不连续性），则可以通过数字技术（例如有限脉冲响应滤波器）或非线性技术（例如判决反馈均衡）进行校正。</p>
+<h4 id="1341">1.3.4.1 前馈均衡<a class="headerlink" href="#1341" title="Permanent link">&para;</a></h4>
+<p>发射机端的均衡通过在设置信道输入电压电平之前对信号进行预处理来完成。为了做到这一点，有两种选择：放大高频分量（预加重）或降低低频分量（去加重），因为预期效果毕竟是一个高通滤波器来抵消信道低通特性。这可以通过将待传输比特流的延迟版本（即所谓的抽头）乘以加权系数来实现。延迟数据很容易创建，因为时钟电路始终存在于发射机端。这种方法将在后续章节中详细分析。</p>
+<p>可以理解，这种方法既可以应用于发射机端也可以应用于接收机端。但通常，这样的FIR滤波器在发射机端实现，因为传输链的这个点上系统仍在处理数字比特'1'或'0'，直接来自数字编码，因此只需通过简单的寄存器链就可以轻松创建延迟版本，而通过开关电路乘以适当的系数。另一方面，在接收机端使用这种方法意味着要处理模拟信号。为了避免这种情况，可以用非常快的ADC替换接收机端的第一个采样器，然后对信号进行数字化再应用FFE。</p>
+<h4 id="1342">1.3.4.2 连续时间线性均衡<a class="headerlink" href="#1342" title="Permanent link">&para;</a></h4>
+<p>连续时间线性均衡（CTLE）是一种在线性技术，在接收机的模拟前端（AFE）中实现。CTLE的目标是通过在略小于数据速率的频率处引入一个零点来补偿信道的低通特性。这通常通过源极简并差分对实现，该差分对在零点频率设计为远低于主极点时具有高通滤波器特性。该技术对前导符和后跟符同样有效，因为它直接作用于系统的传输函数。</p>
+<p>CTLE的主要问题是单级实现难以获得高峰值增益。如果想要高增益，应该使用多级架构，但级联多个源极简并差分对，然后在校准所有此类结构中存在的寄生极点在典型的汽车环境宽PVT变化范围内变得极其困难。因此，CTLE通常与其他均衡方案配合使用，作为促进其他均衡技术（例如DFE）工作的手段。</p>
+<h4 id="1343">1.3.4.3 判决反馈均衡<a class="headerlink" href="#1343" title="Permanent link">&para;</a></h4>
+<p>判决反馈均衡（DFE）是一种非线性技术，通常在CTLE级之后应用于接收机。DFE背后的思想是直接基于已检测的比特来消除输入模拟电压电平上的符号间干扰。最后一句话意味着不可能处理任何前导符ISI，因此DFE通常与FFE和/或CTLE配合使用。</p>
+<p>DFE的最大优点是，与FFE和CTLE不同，它不会放大高频噪声，因为它处理的是先前采样的数字比特：由于这个原因，过去几年研究者开始大量偏好DFE而非FFE。也可以理解，这种均衡技术在处理阻抗不连续性（正如我们所见，表现为S21曲线中的凹陷）时特别有效，因为它精确地抵消了符号间干扰，因此能够校正这些凹陷。相反，这种均衡技术的主要缺点是错误传播：如果比较器输入端的噪声如此之大以至于发生错误检测，这个错误的判决会以不利的方式影响后续比特的均衡，直到一系列正确比特被识别并错误从由N个锁存器组成的移位寄存器中清除。因此，虽然DFE通常有助于降低误码率（BER），但有时会出现突发错误并需要校正。出于这个原因，通常会配合使用前向纠错码（例如Reed-Solomon）来校正这些突发错误。</p>
+<p>实现DFE的另一个问题是它施加的严格时序约束：事实上，对应于第一抽头的反馈环路必须在一个比特周期内完成。对于以10Gbps工作的接收机，这意味着关闭反馈环路的时间为100ps。为了解决这个问题，人们使用了多种技术：最常见的解决方案是将判决 lookahead方案（所谓的环路展开技术）与半速率方案混合使用，以将关闭反馈环路的时间延长四倍。</p>
+<h2 id="14">1.4 汽车环境中的高速串行接口<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<p>如今，普及和智能电子设备存在于我们生活的方方面面，这意味着我们生活的环境能够由于传感器和执行器的存在对可预见事件做出适当反应。车辆也遵循了同样的发展道路，受汽车内部不同应用的执行器、控制和监测系统开发的驱动，范围从安全和信息娱乐到驾驶辅助、动力系统和舒适性。</p>
+<p>汽车环境中电子设备的增加似乎是不可避免的，共享的市场很可能在未来几十年继续增长，特别是随着先进驾驶辅助系统（ADAS）和未来几年自动驾驶的出现，更不用说已经正在进行的信息娱乐领域的爆发。车辆中要执行的功能数量每天都在增加，因此汽车中存在的电子控制单元（ECU）数量也将进一步增加。增加计算节点的数量意味着增加这些节点之间的网络连接，因此增加要交换的数据量，从而强烈增强当前的数据传输速率。</p>
+<p>如今，汽车内最普及的通信标准是CAN、LIN和Flexray，但所有这些标准的范围从几kb/s到10Mb/s。很明显，上述应用需要更高的数据速率，采用1Gbps以太网作为汽车标准正是朝这个方向发展的，并证实了这一趋势将在未来几年得到确认。</p>
+<p>然而，从消费电子到汽车环境的直接技术转移是不可能的，因为恶劣的汽车标准对电路设计者提出了严峻挑战，特别是对HSSI设计者。事实上，汽车环境的要求比消费应用要严格得多。给HSSI设计者带来最高挑战的要求是极宽的温度范围，在这种情况下非常缩小器件的阈值电压可能变化200mV，以及ESD保护，它对发射机输出和接收机输入起到低通滤波器的作用，因此可能是致命因素。</p>
+<h2 id="15">1.5 工作动机与论文结构<a class="headerlink" href="#15" title="Permanent link">&para;</a></h2>
+<p>从本介绍可以明显看出，高速串行接口的世界受到学术界和工业界的强烈关注。同时，考虑到严格的安全要求和链路必须正常工作的极端恶劣环境，汽车领域比消费市场落后几年，这是可以理解的。因此，本工作的主要目标是弥合消费电子与汽车电子单元之间的差距，从学术界已成熟的方案中找出适合我们工作条件的具体技术，并对这些方案进行转化和改进，使其更加稳定且功耗更低。这一目标要求深入理解从系统级到晶体管级的串行链路，本论文将沿此思路展开。在本介绍之后，论文分为以下章节：</p>
+<ul>
+<li>
+<p><strong>第2章</strong>专注于发射机的系统级设计，创建一种程序来评估发射机端的均衡策略并通过评估脉冲响应和眼图等性能指标来定义其主要参数；</p>
+</li>
+<li>
+<p><strong>第3章</strong>围绕发射机的晶体管级设计展开。这里将分析来自文献的设计选择，加以证明和解释。将详细描述10Gbps发射机的设计与从原理图和后布局仿真得出的结果。此后，将对寄生电感对FFE的影响进行原理分析。</p>
+</li>
+<li>
+<p><strong>第4章</strong>讨论上述发射机的实验表征，展示第一个测试芯片的测量结果并展示FFE在改善BER方面的改进。</p>
+</li>
+<li>
+<p><strong>第5章</strong>深入探讨接收机的系统和晶体管级分析。这里将对现有文献进行广泛综述，并结合完整的半速率接收机与DFE和环路展开的Simulink表示，以指导设计选择。此外，我们将展示我们的CDR实现。晶体管级设计将通过单个接收机模块（CDR、DFE+CTLE）的后布局仿真和包含发射机和接收机的整个10Gbps系统的原理图仿真来确认。最后，混合信号仿真将帮助验证CDR及其算法的正确性。</p>
+</li>
+<li>
+<p><strong>第6章</strong>关于接收机的表征，展示在第二个测试芯片上进行的实验室测量结果。</p>
+</li>
+<li>
+<p><strong>第7章</strong>总结迄今为止完成的所有工作，展示整个收发器的结果并说明我们设计中实现的所有可能均衡和CDR解决方案。</p>
+</li>
+<li>
+<p>最后，将添加关于高速串行接口中电磁干扰（EMI）的附录，这是最初几个月工作中分析的课题。</p>
+</li>
+</ul>
+<hr />
+<h1 id="2">第2章<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h1 id="_8">发射机系统级设计<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h1>
+<p>本章将专注于发射机的系统级设计，创建一种程序来评估发射机端的均衡策略并通过评估脉冲响应和眼图等性能指标来定义其主要参数。</p>
+<p>在介绍中，我们讨论了高速链路的兴起及其过去几年的速度提高。由于这些链路当今工作的波特率极高，符号间干扰（ISI）已成为最限制因素。为了减轻ISI，最有效的解决方案是信道均衡。我们已经看到，均衡可以在发射机端信道之前进行（即前馈均衡，FFE）或在接收机进行（例如判决反馈均衡，DFE形式）。在本章中我们将专注于发射机的系统级设计：我们的目标是创建一个程序来分析根据信道在发射机端所需的均衡量，计算这种均衡方案的权重并评估抽头量化在现实场景中的影响。之后，将通过检查脉冲响应和一些眼图参数（如眼高和眼宽）来评估所施加FFE的正确性。</p>
+<p>带前馈均衡的发射机的一般结构如下：比特流的延迟版本被馈送到具有不同强度的驱动器，从而实现FIR滤波器。</p>
+<h2 id="21">2.1 驱动拓扑的选择<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<p>对于发射机，我们选择电压模式架构，因为它在相同输出摆幅下比电流模式功耗更低。对于电压模式驱动器，当使用差分端接2R=2Z时，差分输出电压为Vdiff_out = IS · Z0，功耗为PD = VDD · IS = (2VDD Vdiff_out)/Z0。而同样条件下电流模式驱动器的功耗是电压模式的四倍。</p>
+<h2 id="22">2.2 驱动器架构<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
+<p>对于发射机，我们选择电压模式架构，因为与相同输出摆幅的电流模式相比功耗更低。电压模式差分驱动器的一般结构如下：两个反相器由比特驱动以产生差分电压vo。如果MOSFET足够大以至于导通时压降可以忽略不计，阻抗匹配通过电阻实现。</p>
+<p>这也是解释FFE应用于电压模式驱动器的起点。一个驱动器可以分成多个slice，串行数据输入的同一比特bi可以驱动其中许多slice，即具有不同权重wi的加权加法。</p>
+<p>考虑vi只能根据bi的值（1或0）和与驱动器的连接取VDD或0，我们可以写出输出电压v0的闭合表达式，表明该结构实现了一个FIR滤波器，它实现了比特流与抽头向量wi之间的卷积。</p>
+<p>应该注意的是，为了获得精细的阻抗调谐和补偿PVT（工艺、电压和温度）变化，人们并不严格遵循上述公式：驱动器（分成slice）被设计为获得远大于50Ω的电阻；然后复制该结构的许多副本并调整并联的这种副本数量以匹配50Ω目标。</p>
+<h2 id="23">2.3 均衡抽头的选择<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
+<p>在本段中，我们将介绍确定FFE权重所需的基本步骤。我们遵循的方法是最迫零方法。这里的讨论是教程级别的，以弥合[43]中的理论与实际硬件实现之间的差距。目标是使发射机+信道（即可无ISI接收的信号）的期望响应与实际接收到的响应之间的距离最小化；这是通过最小二乘最小化问题来完成的。</p>
+<p>最小化问题的解决方案需要提取信道脉冲响应。仿真设置用于此目的，包括差分链路、脉冲发生器（具有理想陡峭的上升和下降时间）和S参数块。</p>
+<h2 id="24">2.4 实际信道示例<a class="headerlink" href="#24" title="Permanent link">&para;</a></h2>
+<p>在本节中，作为示例，我们分析两种不同系统，我们称之为"BGA系统"和"引线框系统"。BGA系统由一个大约5毫米长的过孔组成，将发射机输出信号连接到封装输出、BGA封装、印刷电路板（PCB）和电缆（10厘米长）。在接收端，阻抗匹配为100Ω差分。引线框系统与BGA系统类似，但使用引线框封装代替BGA封装。</p>
+<p>一旦用公式找到了最佳权重，通过仿真由发射机、封装、板和信道组成的等效结构并评估眼图的改善来进行关于权重正确性的另一次验证。眼图参数包括眼宽（水平直方图的宽度）、眼高（采样时刻高低电平之间的差异）和信噪比（定义为在眼中心'1'和'0'电平的平均值之差除以两个电平标准差之和）。</p>
+<p>由于系统级设计是在实际在晶体管级设计发射机之前执行的，因此在以下内容中，对于5Gbps和10Gbps情况，仅使用PRBS源。</p>
+<p>对于5Gbps情况，FFE带来的改善微乎其微，而在10Gbps下使用引线框系统，FFE是必须的。请注意，在给定VDD下，包含FFE会降低眼图的高电平和低电平。</p>
+<h2 id="25">2.5 抽头量化的影响<a class="headerlink" href="#25" title="Permanent link">&para;</a></h2>
+<p>公式提供了最佳抽头权重，但还必须考虑实际实现，这显然意味着量化这些权重，因为每个比特将连接到有限数量的slice。这个问题是电压模式发射机分成slice特有的。之前的作品已经引入了使用slice驱动器的均衡，但主要是电流模式逻辑，这使得均衡更容易以高粒度实现。</p>
+<p>这里我们用两种不同的粒度分析量化的影响：8级和16级。这两种不同粒度分别提供0.125和0.0625的量化步长。量化对16 slice的眼图参数非常接近公式得到的结果，而8 slice有退化。</p>
+<p>如果传输速度更高，则需要更多抽头，量化的影响变得更加相关。FFE改善了眼高和眼宽，尽管如果wi的粒度太粗，部分改善会丢失。</p>
+<h2 id="26">2.6 发射机架构<a class="headerlink" href="#26" title="Permanent link">&para;</a></h2>
+<p>在完成前面各节中的系统级分析后，我们可以最终绘制出发射机的架构。单个模块将在第3章详细分析。发射机的结构如下。左边是移位寄存器，它向驱动器提供串行数据（data）的延迟版本。我们决定使用一个前导抽头，因为这样的校正在使用DFE的接收机端将不可能实现，还有一个额外的主抽头后跟抽头以防止来自未预见的PVT角落的可能的效应。Main驱动器由M=16个slice组成，开关矩阵决定了有多少slice连接到第i个延迟数据版本。</p>
+<p>所有slice并联连接到输出信号。16个slice的模块复制K次以允许阻抗匹配，通过仅激活k个副本。结果输出阻抗为Rout = RD/(M·k)，与传输信号和抽头权重选择无关。</p>
+<p>由于我们希望尽可能降低功耗，我们希望以低摆幅传输信号，以最小化终端电阻上的功耗。为此，我们必须通过LDO降低给驱动器slice供电的电源，但，这意味着几乎不可能使用传统的反相器结构。由于没有电压空间来开启pMOSFET，我们决定实现一个NN slice。我们为slice选择了单电阻实现，因为它保证了更低的输出寄生电容。</p>
+<p>选择全速率架构而不是半速率。后者需要驱动器的两个副本或在单个驱动器的输入端交错两个序列。在这两种情况下，我们选择的权重的灵活性将使延迟版本的分布变得非常复杂且效率低下。另一方面，在全速率实现中，触发器必须在10 Gbps下工作，这使得它们更加耗电。</p>
+<hr />
+<h1 id="3">第3章<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
+<h1 id="_9">发射机晶体管级设计<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h1>
+<h2 id="31">3.1 引言<a class="headerlink" href="#31" title="Permanent link">&para;</a></h2>
+<p>在上一章中，我们研究了在汽车环境典型信道上实现FFE的方法，指出了抽头数量和抽头量化的努力。此外，在处理需要广泛温度和电源电压变化的汽车标准时，系统均衡将更具挑战性。因此，汽车标准的合适均衡器必须是高度可调谐的系统，通常需要更多面积和功耗。在上一章末尾我们介绍了发射机的架构。</p>
+<p>在本章中，我们将描述发射机的晶体管级设计，包括其前馈均衡，遵循第2章的分析。这里将分析justify并解释来自文献研究的设计选择，以及来自原理图和后布局仿真的结果。该系统已在28nm平面技术上进行晶体管级设计然后进行布局。此后，将对寄生电感对FFE的影响进行原理分析。</p>
+<h2 id="32">3.2 触发器<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
+<p>如我们所见，发射机的主要构建模块是触发器（用于移位寄存器和重新采样级）、驱动器slice、LDO和开关矩阵。</p>
+<p>伪差分架构触发器的原理图是对[53]的轻微改编，其中时钟传输晶体管已被t-gate替代。单元的布局和波形表明该电路能够在VDD低至750mV的情况下以10 GHz时钟正确操作（触发器的标称电源电压为1V，但由于IR和L·dI/dt压降和电源寄生，它可能下降到750mV）。为了控制IR和寄生电感压降的影响，使用了两个不同的电源域：一个用于LDO和预驱动器（驱动器在LDO下），另一个用于所有其他部分。</p>
+<h2 id="33">3.3 开关矩阵<a class="headerlink" href="#33" title="Permanent link">&para;</a></h2>
+<p>另一个关键部分是开关矩阵。开关矩阵的输入和输出需要一些缓冲，由反相器invA和invB实现。invA用于降低符号选择电路看到的容性负载，而invB用于降低开关矩阵看到的容性负载。此外，关键路径从移位寄存器到重新采样级的信号延迟需要低于时钟周期。最坏情况下延迟的明细在图中报告。</p>
+<p>核心开关已实现为每个可选输入信号的三态反相器，因为八个可用信号（一个前导、主和六个后跟抽头）中只有一个将驱动一个slice，因此七个三态反相器中的八个将处于高阻态。</p>
+<h2 id="34-ldo">3.4 LDO<a class="headerlink" href="#34-ldo" title="Permanent link">&para;</a></h2>
+<p>关于LDO的设计，需要关注三个主要参数。首先是环路增益——这是电子学中一个广泛存在的概念——是系统抑制电源对其输出信号任何变化的能力。其次是电源抑制比（PSR），同样是一个广泛使用的概念。第三个是环路增益的相位裕度，也是一个广泛了解的概念。在标称角落（VDD=900mV，T=25°C，顶部-顶部工艺角落），LDO具有45.85 dB的环路增益，在20 MHz带宽上具有-38.83 dB的PSR和94度的相位裕度。</p>
+<p>LDO的建立时间约为50ns，与用于突发模式通信的快速on/off链路的业界水平相当。</p>
+<h2 id="35">3.5 仿真结果<a class="headerlink" href="#35" title="Permanent link">&para;</a></h2>
+<p>FFE激活时，发射机的晶体管级实现眼图仿真结果已报告。该图突出显示了即使在10 Gbps工作也存在16个输出均衡电平以及短上升和下降时间。没有连接任何信道，仅有100Ω差分负载、ESD保护、焊盘和布线寄生。仿真功耗在最低功耗角落为22.5 mW，对应于非常低的2.25 pJ/bit，与业界水平对齐。我们强调，报告的300mV的眼高是同一最低功耗角落的：在其他角落检查这个数字时，这个值上升到400mV以上。我们强调，除了[46]之外，表中引用的所有其他作品都是为消费电子设计的，而非汽车。与此同时，高可编程性提供了在所有可能的工艺角落调整发射机阻抗和权重的能力，极大地简化了相应接收机的设计并降低了其功耗。事实上，我们的发射机与众不同之处正是均衡能力。驱动器单独和预驱动器消耗0.633 pJ/bit，而移位寄存器、抽头符号选择、开关矩阵和重新采样消耗0.855 pJ/bit。剩余功耗（0.762 pJ/bit）来自LDO和时钟树，后者由于重新采样级的存在而耗电。</p>
+<h2 id="36">3.6 寄生电感影响的分析<a class="headerlink" href="#36" title="Permanent link">&para;</a></h2>
+<p>在以下各节中，我们使用这种发射机的晶体管级和系统级仿真与通过精确电磁仿真获得的现实信道s参数描述相结合，来评估在存在芯片与其封装结合时电源连接上的现实寄生电感下的链路性能和FFE的有效性。我们发现它们对链路性能有不可忽视的影响，并倾向于抵消FFE的 benefits。据我们所知，对串行链路发射机上电源电感影响的系统研究尚未发表。由于重新采样级的存在消除了到该点为止的所有抖动，我们可以专注于驱动器slice上存在的电源电感。</p>
+<h4 id="361-ffe">3.6.1 FFE抽头的选择<a class="headerlink" href="#361-ffe" title="Permanent link">&para;</a></h4>
+<p>为了评估FFE带来的改善和电源寄生电感的有害影响，我们必须使方法适应我们的晶体管设计规范。我们再次考虑了三个现实信道，其|S21|如从EM仿真获得所示。我们考虑由封装+板+电缆组成的系统及其一些子系统（单独板和板+电缆）。</p>
+<p>在仿真对100ps脉冲的响应后，我们使用公式获得FFE抽头的权重。结果需要以1/16的步长量化。</p>
+<p>在以下内容中，我们将比较使用PRBS传输的系统级仿真（使用ANSYS Electronic Desktop中内置的参数高级发射机模型）和更复杂（和耗时）的程序（其中信道的s参数描述和电路的晶体管级描述包括布局寄生）耦合在一起的结果。</p>
+<h4 id="362-vdd-vss">3.6.2 不含VDD和 VSS电感的 结果<a class="headerlink" href="#362-vdd-vss" title="Permanent link">&para;</a></h4>
+<p>这里我们比较从眼图考虑全晶体管级描述的发射机或其替换为系统级描述的性能提取。我们将VDD和VSS电感设为零。当我们激活FFE时，SNR改善，而抖动没有。这可以预期，因为ZFM目标是打开眼图中心。此外，FFE的有效性受到需要量化抽头权重值的影响。</p>
+<p>晶体管级和系统级仿真在良好的一致性，只要在系统级仿真中量化抽头权重。设计师因此可以在早期研究阶段利用系统级仿真，因为这些平均比晶体管级仿真快一千倍。</p>
+<h4 id="363-vdd-vss">3.6.3 含VDD和 VSS电感的结果<a class="headerlink" href="#363-vdd-vss" title="Permanent link">&para;</a></h4>
+<p>在晶体管级仿真中观察到峰值高达8mA（相对于直流电流）且持续时间小于1ns的电流峰值，这突出了考虑VDD和VSS上寄生电感的重要性。我们还包括了每个电源域的典型寄生串联电阻（0.4-0.8Ω），但它们没有发挥作用。直方图显示FFE激活时寄生电感的存在显著增加抖动并降低SNR。比较有无寄生电感的情况，可以看出电源电感部分抵消了与FFE相关的性能提升：时间和模式相关的电压降导致额外的ISI。</p>
+<p>为了进一步研究寄生电感的影响，我们绘制了不同k值（激活的16个slice副本向量中的数量）的抖动和SNR。我们看到：i) FFE对抖动的影响较小；ii) 寄生电感对抖动的影响很大；iii) 即使未激活FFE，寄生电感对SNR的影响也很大；iv) 寄生电感往往会妨碍与FFE相关的SNR改善。</p>
+<p>关于增加k的影响，SNR增强且抖动减少，主要是因为驱动器输出电阻较低导致输出信号较大。然而，相应的阻抗失配在存在沿线或接收机端的阻抗不连续性时（假设为理想的100Ω差分负载）预计会有不利影响，因为这将导致多次反射（即额外的ISI）。</p>
+<h2 id="37">3.7 结论<a class="headerlink" href="#37" title="Permanent link">&para;</a></h2>
+<p>在本章中，我们描述了8抽头FFE 10Gbps发射机的晶体管级设计，并通过使用第2章提出的方法与现实信道的回检来评估其在现实条件下运行的能力。首先，我们分析了单个模块的性能如后布局仿真所示，并检查了发射机输出端眼图的正确性。然后，我们将发射机的性能与文献进行了比较，突出了功耗和均衡能力如何与此工作的业界水平保持一致。最后，我们重点关注了寄生电感对发射机性能的影响，特别是眼图参数。为了充分利前馈均衡的优势，控制电源寄生电感是强制性的。对于研究中这个特定情况，将VDD电感保持在0.4nH以下，VSS电感保持在0.2nH左右，可以恢复近乎理想的情况。当这些电感较低时，高效的系统级仿真提供准确的性能估计（以眼图参数如抖动和SNR表示），与更耗时但更精确的晶体管级分析相当。</p>
+<hr />
+<h1 id="4">第4章<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<h1 id="_10">发射机实验表征<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h1>
+<p>在本章中，我们分析了两个不同测试芯片的10Gbps发射机测量结果，第一个（RMTX）在上述设计之后tape-out，第二个（InnoTC）已包含完整链路。对于两个测试芯片，我们将从测试芯片的快速概述开始，然后介绍使用不同时序设置、有无FFE的眼图结果。</p>
+<h2 id="41-rmtx">4.1 RMTX测试芯片概述<a class="headerlink" href="#41-rmtx" title="Permanent link">&para;</a></h2>
+<p>RMTX测试芯片于2017年3月tape-out，2017年8月开始测量。测试芯片的结构如下。10Gbps发射机位于图片左侧，在两个高速输出焊盘左侧。测试芯片面积为0.98mm²，但可以看到焊盘占据了测试芯片近一半的面积，很大一部分由提供时钟给发射机的20GHz自由运行VCO占据（之后被2分频）。在开发的最后阶段，芯片已集成了混合SPI/JTAG接口以编程VCO和发射机的设置。剩余区域填充了去耦电容，高Q和低Q比例为1:1，每个电源域总计约40pF。</p>
+<h2 id="42-rmtx">4.2 RMTX测量结果<a class="headerlink" href="#42-rmtx" title="Permanent link">&para;</a></h2>
+<p>测量结果表明FFE有效降低了发射机的误码率。由于只有有限数量的FFE设置可用于此测试芯片，我们只测试了其中一些设置。结果表明FFE确实有效降低了BER，在某些设置下改善了约一个数量级。</p>
+<h2 id="43-innotc">4.3 InnoTC概述<a class="headerlink" href="#43-innotc" title="Permanent link">&para;</a></h2>
+<p>InnoTC测试芯片的布局及其为高速链路测量而设计的封装结合描述将在第6章讨论，但发射机方面有两个主要区别。第一个是唯一可用的PRBS序列是PRBS32，这不被示波器识别为pattern：这意味着所有抖动分析都不可用，因此我们无法分离各个抖动分量。第二个是使用了不同的去耦概念：每个发射机电源域使用了105.6pF高Q和105.6pF低Q去耦电容，以确保不会看到与电源寄生电感相关的自感应噪声的任何抖动影响。第三个是每个电源使用了两个焊盘，因此将寄生电源电感减少了一半。无论如何，这个测试芯片的引线比RMTX（约2-3mm）更长，所以最终每个电源域的寄生电源电感与RMTX相当（约1-1.5nH）。最后，时钟不是直接由自由运行VCO提供，而是由芯片上的数字PLL提供，该PLL本身从DCO获取时钟。</p>
+<h2 id="44-innotc">4.4 InnoTC测量结果<a class="headerlink" href="#44-innotc" title="Permanent link">&para;</a></h2>
+<p>测量结果证明了FFE的有效性，并展示了使用9个激活副本在9.23Gbps下的眼图。测量验证了在降低电源电压下发射机工作的能力，同时保持了合理的眼图质量。分析了眼图参数与电源电压的关系、激活副本数量的影响以及传输速度对眼图参数的影响。</p>
+<p>测量表明，在降低传输速度时，眼图水平开口改善，这是预期的，因为ISI减少。同时，垂直开口在较低传输速度下也改善，这归因于IR压降在电源分配线上减少。</p>
+<p>关于功率测量，使用LDO和旁路LDO两种配置都显示了可接受的功耗水平，与业界水平一致。</p>
+<hr />
+<h1 id="5">第5章<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
+<h1 id="_11">接收机系统与晶体管级设计<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h1>
+<p>正如我们所说，不同特性的信道，包括具有许多在S21中引入凹陷的连接器的信道，可能用于汽车环境，这需要对高可重构性的高级均衡策略。因此，接收机中的线性均衡如IIR必须与DFE结合，特别是在高速率下。</p>
+<p>典型的高速接收机架构如下。DFE被用作非线性均衡技术，其中关于先前重构比特的信息被用来减轻对当前接收比特上ISI的影响。第一个后跟符（h1）的反馈环路具有非常严格的时序约束，因此在高速率下经常使用推测性DFE（环路展开）。全速率接收机与环路展开DFE的架构如下。</p>
+<p>所述接收机以全速率工作。半速率时钟用于放宽时序、节省功耗和简化锁存器。半速率架构结合环路展开DFE、CDR和半速率架构在高速率下具有挑战性。特别是，DFE在采样点打开了接收眼图。但是，它对部分响应信号边沿分布有不利影响，使使用bang-bang数字CDR变得困难。边沿可以在DFE求和器之前采样，但需要增强采样器灵敏度和跳变滤波，这会降低CDR带宽。</p>
+<p>在本章中，我们为汽车应用10Gb/s高速接口提出了一种新的半速率接收机设计，采用4抽头DFE（一次推测）和能够利用推测DFE路径的边沿样本来适应CDR同时保持高CDR带宽。</p>
+<h2 id="51">5.1 接收机结构<a class="headerlink" href="#51" title="Permanent link">&para;</a></h2>
+<p>在本节中，我们将说明有关接收机结构的一般选择的原因。晶体管级设计将在本章后面一节详细分析。</p>
+<h3 id="511">5.1.1 输入放大级<a class="headerlink" href="#511" title="Permanent link">&para;</a></h3>
+<p>我们在接收机遇到的第一个模块是输入放大级，它可以像单级CTLE一样简单，也可以是更复杂的电路。CTLE几乎存在于所有高速收发器中：一个好的CTLE应该在低频相对于奈奎斯特频率有良好的增益、低输入参考噪声和低直流偏移。然而，一些工作声称CTLE也会放大高频噪声和串扰以及额外的功耗，导致两者相对于眼图开口都被放大。出于这个原因，他们通常让DFE-IIR做同样的工作（或甚至有多个IIR）；然而，我们已经确定在我们的情况下所需的CTLE量不足以证明这种非常规解决方案的合理性。</p>
+<p>在第一个放大模块之前，需要交流耦合以独立于接收数据的直流偏置设置偏置点。然而，接收机输入端的长序列1或0可能引起耦合后接收信号低频部分的瞬态偏移，这反过来又变得减少接收机的灵敏度。为了避免这个问题，已提出许多电路解决方案，但我们决定通过使用已经介绍的"8b10b编码"对传输数据进行编码来解决这个问题，这样相同比特的最长序列是5个。除此之外，使用25nF的板级交流耦合电容。</p>
+<p>传统放大级方案由[29]提出并草图如下。在T-coil峰值之后，使用并联放大器处理广泛的输入信号电平范围和两级峰值放大器。</p>
+<p>我们决定实现一个单级RC源极简并差分对CTLE，类似于[29]和[66]的第一个峰值级。</p>
+<h3 id="512-cdrdfe">5.1.2 半速率、CDR与DFE<a class="headerlink" href="#512-cdrdfe" title="Permanent link">&para;</a></h3>
+<p>如第1章和本章引言所述，在高速下，几乎不可能单独分析接收机的以下三个方面：它是全速率还是半速率、其CDR方案和DFE。</p>
+<p>关于CDR，文献中显示电路实现的工作实际上非常古老，现在的焦点完全在算法方面。很少有论文描述CDR的晶体管级设计，而且它们彼此之间差异不大。</p>
+<p>最后，关于DFE，我们决定避免使用IIR，因为它更适合长硅信道。我们的想法是在发射机和接收机之间分担均衡职责，对某些抽头使用FFE，对其他一些使用DFE。在10Gbps，速度迫使我们使用环路展开技术。我们决定采用更传统的1抽头环路展开DFE。</p>
+<h3 id="513">5.1.3 接收机架构<a class="headerlink" href="#513" title="Permanent link">&para;</a></h3>
+<p>所提出接收机的DFE和采样部分的框图如下。为简单起见，仅显示偶数路径。环路展开需要每个路径两个加法器。抽头h1是推测性的，+h1和-h1之间的选择由另一路径的输出决定。同一路径内的反馈环路和移位寄存器用于h2和h4，而h3需要在偶数和奇数路径之间跨越。我们将DFE限制为4个抽头，基于在[78]中进行的系统级分析，表明对于汽车中板对板通信的典型信道，脉冲响应不会显著延伸到第4个后跟符之外。</p>
+<p>在图底部，我们可以看到用于边沿采样的额外锁存器，作为输入到CDR算法以及数据样本。在此，我们考虑所有加法器输出处的边沿（总共4个）。四相位、半速率（即5GHz）时钟采样数据和边沿。</p>
+<h2 id="52-cdr">5.2 CDR算法<a class="headerlink" href="#52-cdr" title="Permanent link">&para;</a></h2>
+<p>我们考虑具有基于跳变的相位检测的数字CDR。在存在ISI的情况下，这需要跳变滤波。如果信道仅在四个后跟符或更少引入显著ISI，这将意味着丢弃大量比特序列（只有101模式有用），导致非常低的CDR带宽。</p>
+<p>为了避免DFE和CDR之间的相互作用并利用精确的跳变滤波，应该在DFE求和器之前采样边沿跳变；然而，这增加了接收机第一级（连续时间线性均衡器）的负载电容，从而降低其带宽。</p>
+<p>CDR的框图如下，而相位检测（PD）算法的状态图如下。PD的第一步是在40比特分组中找到3比特时钟模式（101或010）。在我们选择的模式中，我们分析第二个跳变。</p>
+<p>PD的输出不会直接馈入PI计数器。投票模块在PD的平均决策上进行多数投票，输出到PI计数器：如果Early是多数则增加1，如果Late更多则减1，否则为0。</p>
+<p>为了更好地理解半速率架构、CDR和DFE之间的混合，在设计实际晶体管级之前，已实现了整个接收机的Simulink模型。该结构的功能已通过现实输入数据序列验证，其中考虑了典型汽车信道的ISI，显示了PI码的正确 settling和接收数据的无误重建。</p>
+<h2 id="53">5.3 晶体管级设计与仿真结果<a class="headerlink" href="#53" title="Permanent link">&para;</a></h2>
+<p>在以下各节中，将给出接收机单个模块的晶体管级实现的细节。使用的技术与发射机相同28nm平面CMOS技术。</p>
+<h3 id="531">5.3.1 输入级<a class="headerlink" href="#531" title="Permanent link">&para;</a></h3>
+<p>输入级的结构如下。CTLE的工作点通过电阻分压器设置。分压器的值可以在最小值VDD/2到最大值2VDD/3之间的八个值中进行trimming，这取决于传输信号差分峰峰值开口。</p>
+<p>DC偏置电阻分压器后面是一个CTLE，实现为RC源极简并差分对。峰值频率和boost增益可以通过3位可trimming电容和2位可trimming电阻来调节，以补偿PVT变化。CTLE的传输函数针对不同PVT角落的报告显示了显着的变化，但trimming设置允许在所有角落获得可接受的一致性。</p>
+<h3 id="532-dfe">5.3.2 DFE时序<a class="headerlink" href="#532-dfe" title="Permanent link">&para;</a></h3>
+<p>在本节中，我们将分析有关DFE的信号时序，以证明电路这部分没有问题。在所有分析中，我们将参考图并分析五个时间点a、b、c、d和e。分析将针对偶数数据路径进行，但可以针对奇数数据路径进行。</p>
+<p>分析显示，所有DFE抽头在正确采样当前比特时都正确设置，并且当前比特也正确地在帮助均衡后续比特中发挥作用。所有timing约束都得到满足。</p>
+<h3 id="533-pi">5.3.3 加法器、比较器和PI<a class="headerlink" href="#533-pi" title="Permanent link">&para;</a></h3>
+<p>加法器采用传统电流模式架构实现。对于加法器，重要的是其输出应尽快达到最终值以便ISI消除正常工作。此时间由图中的RC常数设置。对于10 Gbps半速率RX，此RC延迟必须约为17ps。</p>
+<p>在本级中，我们添加了高级可编程性以提供多种解决方案：加法器主抽头中的电流可以用16级trimming，DFE抽头中的电流也可以。最精细的可编程DFE校正为6mV。</p>
+<p>比较器以经典的双尾拓扑实现，而锁存器以与发射机中使用的相同的伪差分架构设计。</p>
+<p>PI以传统方式实现，分为64步。数字PLL提供10GHz时钟，然后分频为5GHz四相位。</p>
+<h3 id="534">5.3.4 解串器<a class="headerlink" href="#534" title="Permanent link">&para;</a></h3>
+<p>所有三个解串器都实现为2:40解串器。两个串行数据流作为输入，在并行数据输出端交错。由于解串器采用两个不同的串行数据流作为输入，因此需要两个不同的时钟相位来锁存这些串行数据。数据解串器需要CLK0和CLK180，而两个边沿解串器可以使用相同的时钟。</p>
+<h3 id="535-cdr">5.3.5 CDR算法时序<a class="headerlink" href="#535-cdr" title="Permanent link">&para;</a></h3>
+<p>本节旨在为第5.2节中介绍的CDR算法添加一些晶体管级见解。晶体管级波形连同以下说明应澄清先前表达的概念。</p>
+<p>从DOUTP流中，我们看到接收到的数据序列为00010101010。在这次分析中，我们关注这个序列的第5、6和7比特，即一个010模式。在时间点c)，我们在DOUTP中找到010序列的第三个比特：这是我们算法的第一步。我们将这些三个比特称为b0、b1和b2。我们看到在c)处，b2，即010序列中的第二个零，在CLK0的上升沿冻结，所以这是一个偶数比特。我们必须查看边沿样本以了解采样时钟是否定位良好。</p>
+<h3 id="536-pi">5.3.6 固定PI码的结果<a class="headerlink" href="#536-pi" title="Permanent link">&para;</a></h3>
+<p>所有模块已在所有PVT角落单独进行后布局验证。接收机的功能首先通过将PI码固定为最佳值进行测试。发射机和接收机已通过理想信道连接，以检查接收机结构的基本功能。</p>
+<h3 id="537-xa-vcs">5.3.7 XA-VCS结果<a class="headerlink" href="#537-xa-vcs" title="Permanent link">&para;</a></h3>
+<p>为了验证提出的接收机拓扑和CDR算法，整个RX（模拟部分、数字部分包括CDR算法和JTAG接口以及简化时序外壳STS）与发射机的后布局晶体管级模型一起组装，并使用XA-VCS仿真器对整个系统进行了仿真。</p>
+<p>这些仿真显示了RX在标称PVT条件下的功耗为2.05mW/Gbps：接收机的模拟部分（偏置分配、CTLE、DFE、加法器、比较器）消耗0.77mW/Gbps，而CDR电路（PI、PI解码器、2:40解串器）消耗1.28mW/Gbps。在最低功耗PVT角落，模拟部分消耗0.5mW/Gbps，CDR电路消耗0.8mW/Gbps，总计1.3mW/Gbps。</p>
+<p>不同PD算法、不同信道和不同DFE设置的仿真结果已报告。与我们的CDR算法和纯Alexander PD之间存在约八步（25ps）的时钟采样位置差异。我们的PD算法相对于输入数据的采样器位置非常稳定地settled，这意味着Alexander PD设置的时钟可能偏离正确的采样位置，从而减少PLL的抖动预算。</p>
+<p>最后，图显示了 transceiver不同点的眼图，即发射机输出、接收机输入、CTLE输出和两个推测采样器的输入。</p>
+<h2 id="54">5.4 结论<a class="headerlink" href="#54" title="Permanent link">&para;</a></h2>
+<p>我们设计了一个功耗与业界水平一致的10Gbps高速接口半速率接收机。提出了一种在具有环路展开DFE系统中专用于CDR的原始相位检测算法，允许大的CDR带宽同时需要有限量的跳变滤波。该算法是健壮的，不需要DFE抽头的特定优化。通过使用上述Simulink模型以及带有后布局寄生的全收发器架构晶体管级仿真验证了所提出算法的正确性。实验数据将在年底可用。</p>
+<hr />
+<h1 id="6">第6章<a class="headerlink" href="#6" title="Permanent link">&para;</a></h1>
+<h1 id="_12">完整链路表征<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h1>
+<p>在本章中，我们分析了InnoTC的完整链路测量结果，如前几章所述。我们将从测试芯片的快速概述开始，特别关注高速收发器，然后评估链路的BER和获得的浴缸曲线，以及两种相位检测算法的表现。</p>
+<h2 id="61-innotc">6.1 InnoTC概述<a class="headerlink" href="#61-innotc" title="Permanent link">&para;</a></h2>
+<p>InnoTC的布局及其为高速链路测量而设计的封装结合如下。InnoTC的总面积约为9mm²，其上放置了几个其他电路。高速接口的总面积，包括去耦电容、偏置和时钟分配、PRBS发生器、PRBS检查器和JTAG接口，约为0.5mm²，其中去耦电容占近三分之二。高速接口位于芯片左侧，靠近为接口提供时钟的数字PLL。DPLL本身从DCO获取时钟，中心频率约为17.4GHz，可在16.4GHz至18.4GHz之间调谐。DPLL然后将此时钟除以二并传递给高速接口：由于这个原因，只能使用8.2Gbps至9.2Gbps之间的传输速度。由于在收发器内部实现的除以二和除以四，也可以测试2.1-3.2Gbps和4.1-4.6Gbps的传输速度。</p>
+<p>从图中可以看出，我们有独立的电源域，两个用于发射机，两个用于接收机。如前一章所述，每个电源域有两个焊盘，以将寄生电源电感减少一半。电源的引线约为3nm长，因此每个电源域的有效寄生电感约为1.5nH。</p>
+<h2 id="62-innotc">6.2 InnoTC测量设置<a class="headerlink" href="#62-innotc" title="Permanent link">&para;</a></h2>
+<p>测量设置用于评估收发器的性能。芯片结合到封装然后安装到PCB（称为子板）上。该板本身安装到另一个板（称为母板）上，为芯片带来四种不同的电源。这意味着所有四个电源域在母板层面连接在一起，仅在子板层面分开。尝试了两个不同版本的子板，一个顶部安装了晶体参考，另一个带有200MHz外部时钟参考。由于在环回模式下测量没有显著差异，因此这里将仅报告使用外部参考时钟的测量结果。</p>
+<p>在环回模式下工作完整链路的连接如下：发射机的输出直接馈入接收机输入，经过约40cm电缆、SMB连接器和交流耦合器，这些模拟了板上分离发射机和接收机共模电平所需的电容效应。</p>
+<h2 id="63">6.3 完整链路测量结果<a class="headerlink" href="#63" title="Permanent link">&para;</a></h2>
+<p>不幸的是，由于PRBS检查器由于接收机和简化时序外壳之间时序问题无法在此速度启动，无法获得9.2Gbps的BER。此错误已在仿真中得到证实，芯片的一个样品已进行FIB来解决此问题。进一步测量将在此样品上进行以使PRBS检查器工作。尽管存在此问题，但可以通过在1V的发射机和接收机电源下静态pattern的正确传输和接收以及CDR锁定来证明此速度下的模拟设计的正确性。通过从外部固定PI码并扫描它，可以找到约15个PI码（约50ps）的范围，其中静态pattern被正确检测，表示接收机采样器处眼图清晰。</p>
+<p>上述时序问题在4.6Gbps时不会出现，因此可以进行BER测量。</p>
+<p>图显示了三种不同VDD的浴缸曲线，突出显示随着电源电压降低浴缸更接近。同时也可以看出，所有三种情况下在接收机采样器输入端都能看到清晰开放的眼图。</p>
+<p>最后，进行了一些测量以评估两种实现的相位检测方法的性能。为了评估这两种方法，我们使用激活的CDR和激活的BER运行链路，以便同时监控整体性能。在这次运行中，我们读取PI码200次并计算这200次读取中每个PI码的出现次数。</p>
+<p>比较两种相位检测算法，我们可以说当使用低CDR带宽时，两种算法的表现相似：两种PD都围绕三个PI码settled，极少见两个相邻的。唯一区别与CDR settling的居中PI码有关：在接收机侧采样之前没有眼图监控，很难说哪一种更居中。</p>
+<p>当CDR带宽增加时，PI码的spread增加。这是因为当增加CDR带宽时，也会跟踪更高频率的噪声，而在低CDR带宽下，看到的确定性抖动是CDR极限循环本身给出的。同时，当增加CDR带宽时，BER也增加：在读取报告中PI码时没有看到错误，而在更高情况下我们发现了约10^-10和10^-6的BER。</p>
+<h2 id="64-hsio">6.4 HSIO评估板<a class="headerlink" href="#64-hsio" title="Permanent link">&para;</a></h2>
+<p>为了解决前一章末尾所述的对更高损耗信道的需求，以比较两种相位检测算法的性能并更好地研究我们接口的均衡能力，设计和制造了一个PCB，上面有多个信道。该板的信道组合可实现高达2.5GHz时20dB的损耗。PCB由四层组成，尺寸为40cmX40cm。使用的介电是标准FR-4，这是汽车大规模生产应用中使用的材料，因为其成本较低。</p>
+<hr />
+<h1 id="_13">结论<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h1>
+<p>在本论文中，在介绍芯片到芯片通信高速串行接口的框架后，我们提出了从系统级分析到晶体管级和布局实现的10Gbps收发器完整设计流程。最后，通过测量对整个收发器进行了表征。</p>
+<p>我们首先展示了定义发射机均衡策略的程序以及评估其对传输数据影响的方法，然后转到支持这种FFE方案的发射机架构的晶体管级设计。发射机采用电压模式驱动器设计以节省功耗，具有8抽头FFE（一个前导、主抽头和六个后跟抽头），可使用16级编程。整个架构分为两个电源域，驱动器由LDO供电，输出电压可在八个不同值中选择，在标称PVT条件下可调的眼图峰峰值差分高度为250mV至380mV。每个电源域50pF去耦电容，发射机在VDD（800mV至1.05V）、工艺角落（所有可能的慢、典型和快工艺角落的组合）和温度（-40°C至175°C）的广泛范围内正确工作。</p>
+<p>发射机的功能已通过晶体管级仿真和两个独立测试芯片上的测量得到证明。在第二个测试芯片上的发射机上进行了完整的表征。此外，还对VDD和VSS域上寄生电感的影响进行了扩展分析，突出了在芯片bonding过程中控制这些电感值的必要性。</p>
+<p>然后，我们将注意力集中在接收机的设计上，从系统级分析开始，旨在理解半速率架构、环路展开DFE和CDR之间的相互依赖性。为此，我们构建了一个Simulink模型。然后，我们提出了一种专用于具有DFE系统的CDR的新型相位检测算法，并使用上述Simulink模型进行了验证。</p>
+<p>接收机架构具有源极简并差分对CTLE，可对源电阻（2位）、源电容（3位）和偏置电流（4位）进行编程。CTLE的工作点也可以调谐（3位）以根据PVT条件和传输的眼图开口找到最佳值。CTLE可以将传输比特奈奎斯特（约5GHz）附近的频率分量相对于低频提升高达10dB。接收机还具有4后跟抽头DFE，第一个是环路展开的。主加法器抽头中的电流可用16级trimming，DFE抽头中的电流也可以。主加法器的漏极电阻具有8个不同的可trimming级别，因此可编程的最小DFE校正为6mV。接收机也分为两个电源域。每个电源域50pF去耦电容，仿真显示接收机在VDD（800mV至1.05V）、工艺角落（所有可能的慢、典型和快工艺角落的组合）和温度（-40°C至175°C）的广泛范围内正确工作。</p>
+<p>接收机及其与已tape-out发射机的集成功能已通过晶体管级和混合信号仿真得到证明，包括收发器的数字部分。这些仿真表明所提出的相位检测算法适用于频率发生的高质量晶体（100ppm或以上）。发射机和接收机也能够以三种不同的传输速度工作：2.5Gbps、5Gbps和10Gbps。</p>
+<p>仿真数据指出，发射机在最低功耗角落的功耗为22.5mW，效率为2.25 pJ/bit，与文献中的业界水平一致。对于接收机，功耗在标称PVT条件下为20.5mW，功耗效率为2.05pJ/bit。接收机的模拟部分（偏置分配、CTLE、DFE、加法器、比较器）消耗0.77mW/Gbps，而CDR电路（PI、PI解码器、2:40解串器）消耗1.28mW/Gbps。在最低功耗PVT角落，模拟部分消耗0.5mW/Gbps，CDR电路消耗0.8mW/Gbps，总计1.3mW/Gbps。</p>
+<p>最后，通过测量证明了整个收发器的功能。在9.2Gbps环回模式下静态pattern与settling CDR一起工作已被证明。在4.6Gbps环回模式下对链路进行了完整表征，突出了低于10^-12的BER以及仿真和测量在功耗方面的良好一致性。两种相位检测算法性能的深入分析刚刚开始，本论文中已有初步结果。在下一步中，将使用在已经设计和生产的PCB上放置的不同迹线进行更多测量。</p>
+<hr />
+<h1 id="_14">发表论文列表<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h1>
+<p>本研究成果已在国际同行评审会议上发表：</p>
+<ul>
+<li>
+<p>Bandiziol, A., Grollitsch, W., Brandonisio, F., Nonis, R., Palestri, P. (2016, 5月). 汽车微控制器高速串行接口发射机设计. 发表于信息与通信技术、电子与微电子学（MIPRO）2016 第39届国际会议. IEEE.</p>
+</li>
+<li>
+<p>Bandiziol, A., Grollitsch, W., Brandonisio, F., Nonis, R., Palestri, P. (2016, 10月). 汽车微控制器8抽头10Gbps发射机设计. 发表于电路与系统（APCCAS）2016 IEEE亚太会议. IEEE.</p>
+</li>
+<li>
+<p>Bandiziol, A., Grollitsch, W., Brandonisio, F., Nonis, R., Palestri, P. (2017, 6月). 具有现实信道和电源寄生的8抽头FFE 10Gbps串行链路发射机的系统和晶体管级分析. 发表于微电子学与电子学博士研究（PRIME）2017 第13届会议. IEEE.</p>
+</li>
+</ul>
+<p>在国内发表：</p>
+<ul>
+<li>Bandiziol, A., Grollitsch, W., Brandonisio, F., Nonis, R., Palestri, P., Selmi L. (2016, 6月). 汽车微控制器高速串行接口发射机设计. GE2016第48届会议论文集, 意大利布雷西亚.</li>
+</ul>
+<p>此外，以下文章已被接受并将在国际同行评审会议上发表：</p>
+<ul>
+<li>
+<p>Bandiziol, A., Grollitsch, W., Brandonisio, F., Bassi M., Nonis, R., Palestri, P. 具有1抽头展开4抽头DFE和自定义CDR算法的10Gbps汽车串行接口半速率接收机设计. 电路与系统（ISCAS）2018国际研讨会. IEEE.</p>
+</li>
+<li>
+<p>Dazzi M., Palestri P., Rossi D., Bandiziol A., loi I., Bellasi D., Benini L. 用于超低功耗物联网端节点的亚mW多Gbps芯片到芯片通信链路（邀请论文）. 电路与系统（ISCAS）2018国际研讨会. IEEE.</p>
+</li>
+</ul>
+<hr />
+<h1 id="_15">致谢<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h1>
+<p>首先要感谢我在乌迪内大学的导师Pierpaolo Palestri教授。在这三年里，我很难想象有比他更好的导师了。他的帮助是无价的，他对电子学各个方面的好奇心一直激励着我努力每天成为一个更好的研究者。</p>
+<p>同样要非常感谢我在英飞凌科技设计中心的导师Roberto Nonis博士。除了这些年他传授给我的技术内容外，我从他的日常行为中学到最多的事情是有能力在最忙碌的日子里抽出时间倾听别人。与他一起，Werner Grollitsch也教会了我很多东西，而不仅仅是高速串行接口设计：谦卑是一个更大的美德，尤其是当你对一个几乎一无所知的领域有几年经验的人表现出谦卑时。</p>
+<p>我能够在这三年里完全专注于这项工作，完全要感谢我的家人：没有你们持续的支持，这一切都不可能。榜样比言语更强大，你们在我的一生中给了我大量的榜样。我最大的希望是每天都能有你们对我所做的那样，即使只有十分之一的启发性。也要非常感谢Ginevra：你本可以说我在最近几个月太专注于工作了，但你选择像水在碗里一样适应我的时间。当你的碗变小时我会记住这一点。</p>
+<p>有一个氛围很好的办公室并不是每个人都能做到的。有两个就更神奇了。我在英飞凌科技的CIS找到了这些年需要的所有支持和良好的氛围。当我和朋友或家人谈论我进入办公室时的感受时，他们几乎不相信我。很难找到这样的经验、对工作的热爱、奉献和随和态度的组合。我要特别感谢Fabio、Francesco、Andrea、Matteo、Dmytro和Thomas，感谢他们每天表现出的耐心。非常感谢Stefan和Andrea所做的布局工作。显然，没有他们，实验室就没有什么可以测量的。还要感谢Florin第一轮测量，并为接下来将要进行的测量道歉。与此同时，我永远不会忘记在Selmilab的时光：Paolo、Stefano、Enrico、Giulia、Owes、Tommaso、Andrea、Alessandro、Julian、Martino、Patrick、Daniel、Federico，我对你们每个人都有回忆。谢谢你们的笑声、帮助和建议。如果这四年过得这么快，我觉得自己好像是昨天才第一次进入那个实验室，那主要是因为你们。</p>
+<hr />
+<h1 id="_16">参考文献<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h1>
+<p>[1] Altera, "FPGAs at 40 nm and &gt;10 Gbps: Jitter-, Signal Integrity-, Power-, and Process-Optimized Transceivers," Tech. Rep. April, 2013.</p>
+<p>[2] I. C. Society, IEEE Std 802.3TM -2015 (Revision of IEEE Std 802.3-2012), IEEE Standard for Ethernet. 2015.</p>
+<p>[3] D. Law, D. Dave, J. D'Ambrosia, M. Hajduczenia, M. Laubach, and S. Carlson, "Evolution of Ethernet Standards in the IEEE 802.3 Working Group," IEEE Communications Magazine, no. 8, pp. 88–96, 2013.</p>
+<p>[4] PCI, "PCI Express R Base Specification Revision 3.0," 2010.</p>
+<p>[5] Hypertransport, HyperTransport 3.1. 2008.</p>
+<p>[6] CPRI, CPRI Specification V7.0. 2015.</p>
+<p>[7] Interlaken, Interlaken Protocol Definition. 2008.</p>
+<p>[8] OIF, Common Electrical I/O (CEI) - Electrical and Jitter Interoperability agreements for 6G+bps, 11G+bps and 25G+bps I/O. 2014.</p>
+<p>[9] SATA-IO, Serial ATA 3.0. 2009.</p>
+<p>[10] RapidIO, RapidIO Interconnect Specification 4.0. 2016.</p>
+<p>[11] K. Chang, G. Zhang, and C. Borrelli, "Evolution of Wireline Transceiver Standards," IEEE Solid-State Circuits Magazine, no. 4, pp. 47–52, 2015.</p>
+<p>[12] R. Mellitz, A. Ran, M. P. Li, and V. Ragavassamy, "Channel Operating Margin (COM): Evolution of Channel Specifications for 25 Gbps and Beyond," in DesignCon, pp. 1–20, 2013.</p>
+<p>[13] X. D. M. M. F. R. W. J. G. Zhang, "Relating COM to Familiar S-Parameter Parametric to Assist 25Gbps System Design," in DesignCon, 2014.</p>
+<p>[14] T. C. Carusone, "Introduction to Digital I/O," IEEE Solid-State Circuits Magazine, no. 4, pp. 14–22, 2015.</p>
+<p>[15] B. Razavi, "Historical Trends in Wireline Communications," IEEE Solid-State Circuits Magazine, no. 4, pp. 42–46, 2015.</p>
+<p>[16] S. Palermo, "High-Speed Serial I/O Design for Channel- Limited and Power-Constrained Systems," in CMOS Nanoelectronics Analog and RF VLSI Circuits, 2011.</p>
+<p>[17] A. X. Widmer and P. A. Franaszek, "A DC-Balanced, Partitioned-Block, 8B/10B Transmission Code," IBM J. Res. Develop, vol. 27, no. 5, pp. 440–451, 1983.</p>
+<p>[18] M. P. Li, Jitter, Noise, and Signal Integrity at High-Speed. 2007.</p>
+<p>[19] B. Razavi, Design of integrated circuits for optical communications. 2012.</p>
+<p>[20] B. Casper, "Clocking Wireline Systems," IEEE Solid-State Circuits Magazine, no. 4, pp. 32–41, 2015.</p>
+<p>[21] R. Kreienkamp, U. Langmann, C. Zimmermann, T. Aoyama, and H. Siedhoff, "A 10-Gb/s CMOS Clock and Data Recovery Circuit With an Analog Phase Interpolator," IEEE Journal of Solid State Circuits, vol. 40, no. 3, pp. 736–743, 2005.</p>
+<p>[22] S. Hu, C. Jia, K. Huang, C. Zhang, X. Zheng, and Z. Wang, "A 10Gbps CDR based on Phase Interpolator for Source Synchronous Receiver in 65nm CMOS," in IEEE International Symposium on Circuits and Systems, pp. 309–312, 2012.</p>
+<p>[23] S. S. Iyer and T. Kirihata, "Three-Dimensional Integration," IEEE Solid-State Circuits Magazine, no. 4, pp. 63–74, 2015.</p>
+<p>[24] J. Fan, X. Ye, J. Kim, B. Archambeault, and A. Orlandi, "Signal Integrity Design for High-Speed Digital Circuits: Progress and Directions," IEEE Trabsactions on Electromagnetic Compatibility, vol. 52, no. 2, pp. 392–400, 2010.</p>
+<p>[25] P. K. Hanumolu, G.-y. Wei, and U.-k. Moon, "Equalizers for High-Speed Serial Links," International Journal of High Speed Electronics and Systems, vol. 15, no. 2, pp. 429–458, 2005.</p>
+<p>[26] J. F. Bulzacchelli, "Equalization for Electrical Links: Current Design Techniques and Future Directions," IEEE Solid-State Circuits Magazine, no. 4, pp. 23–31, 2015.</p>
+<p>[27] T. Kawamoto, "Multi-Standard 185fs 0.3-to-28Gb/s 40dB Backplace Signal Conditioner with Adaptive Pattern-Match 36-Tap DFE and Data-Rate-Adjustment PLL in 28nm CMOS," in IEEE International Solid-State Circuits Conference, pp. 54–56, 2015.</p>
+<p>[28] E. Mammei, F. Loi, F. Radice, A. Dati, M. Bruccoleri, M. Bassi, and A. Mazzanti, "Analysis and Design of a Power-Scalable Continuous-Time FIR Equalizer for 10 Gb/s to 25 Gb/s Multi-Mode Fiber EDC in 28 nm LP CMOS," IEEE Journal of Solid-State Circuits, vol. 49, no. 12, pp. 3130–3140, 2014.</p>
+<p>[29] J. F. Bulzacchelli, T. J. Beukema, D. W. Storaska, D. R. Hanson, P.-h. Hsieh, S. V. Rylov, D. Furrer, D. Gardellini, A. Prati, T. Morf, V. Sharma, R. Kelkar, H. A. Ainspan, W. R. Kelly, L. R. Chieco, G. A. Ritter, J. A. Sorice, J. D. Garlett, R. Callan, P. Buchmann, M. Kossel, and D. J. Friedman, "A 28-Gb/s 4-Tap FFE/15-Tap DFE Serial Link Transceiver in 32-nm SOI CMOS Technology," IEEE Journal of Solid State Circuits, vol. 47, no. 12, pp. 3232–3248, 2012.</p>
+<p>[30] A. Agrawal, J. F. Bulzacchelli, T. O. Dickson, Y. Liu, J. A. Tierno, and D. J. Friedman, "A 19-Gb/s Serial Link Receiver With Both 4-Tap FFE and 5-Tap DFE Functions in 45-nm SOI CMOS," IEEE Journal of Solid State Circuits, vol. 47, no. 12, pp. 3220–3231, 2012.</p>
+<p>[31] T. Toifl, P. Buchmann, T. Beukema, M. Beakes, P. A. Francese, C. Menolfi, M. Kossel, L. Kull, and T. Morf, "A 3.5pJ/Bit 8-Tap-Feed-Forward 8-Tap-Decision Feedback Digital Equalizer for 16Gb/s I/Os," in IEEE European Solid State Circuits Conference (ESSCIRC), pp. 455–458, 2014.</p>
+<p>[32] H. Yueksel, L. Kull, A. Burg, M. Braendli, P. Buchmann, P. A. Francese, C. Menolfi, M. Kossel, T. Morf, T. M. Andersen, D. Luu, and T. Toifl, "A 3.6 pJ/b 56 Gb/s 4-PAM Receiver with 6-Bit Ti-SAR ADC and Quarter-Rate Speculative 2-Tap DFE in 32 nm CMOS," in IEEE European Solid State Circuits Conference (ESSCIRC), pp. 148–151, 2015.</p>
+<p>[33] S. Rylov, T. Beukema, Z. Toprak-deniz, T. Toifl, Y. Liu, A. Agrawal, P. Buchmann, A. Rylyakov, M. Beakes, B. Parker, and M. Meghelli, "A 25Gb/s ADC-Based Serial Line Receiver in 32nm CMOS SOI," in IEEE International Solid-State Circuits Conference, pp. 56–58, 2016.</p>
+<p>[34] S. Gondi and B. Razavi, "Equalization and Clock and Data Recovery Techniques for 10-Gb/s CMOS Serial-Link Receivers," IEEE Journal of Solid-State Circuits, vol. 42, no. 9, pp. 1999–2011, 2007.</p>
+<p>[35] A. Healey, "Noise considerations for 40/100GBASE-CR4/10," in IEEE P802.3ba Task Force Meeting, no. July, 2009.</p>
+<p>[36] Infineon, "Annual Report 2016," tech. rep., 2016.</p>
+<p>[37] R. Tummala, "New Era of Automotive Electronics as the most complex Electronic System of Our Life Time," in IEEE Electrical Design of Advanced Packaging and Systems (EDAPS), 2016.</p>
+<p>[38] M. Traub and A. Maier, "Future Automotive Architecture and the Impact of IT Trends," IEEE Software, no. May/June, pp. 27–32, 2017.</p>
+<p>[39] J. Endo, "Wireless Communication In and Around the Car: Status and Outlook - ES3: High-Speed Communications on 4 Wheels: What's in Your Next Car?," in IEEE International Solid-State Circuits Conference, 2013.</p>
+<p>[40] C. Schmidt, "Automotive Electronics - Enabling the future of individual mobility," in IEEE International Electronic Devices Meeting (IEDM), pp. 3–8, 2007.</p>
+<p>[41] A. Cristofoli, P. Palestri, L. Selmi, and N. Da Dalt, "Efficient Statistical Simulation of Intersymbol Interference and Jitter in High-Speed Serial Interfaces," IEEE Transactions on Components, Packaging and Manifacturing Technology, vol. 4, no. 3, pp. 480–489, 2014.</p>
+<p>[42] M. Kossel, J. Weiss, C. Menolfi, P. Buchmann, T. Morf, T. Toifl, and M. Schmarz, "A T-Coil-Enhanced 8.5Gb/s High-Swing SST Transmitter in 65nm Bulk CMOS With &lt;-16dB Return Loss Over 10GHz Bandwidth," IEEE Journal of Solid State Circuits, vol. 43, no. 12, pp. 2905–2919, 2008.</p>
+<p>[43] J. G. Proakis, Digital Communications. 2008.</p>
+<p>[44] Ansys, "Ansys Electronic Desktop 16.0 Manual," 2016.</p>
+<p>[45] Ansys, "Ansys SIWave 16.0 Manual," 2016.</p>
+<p>[46] A. Cossettini, A. Cristofoli, W. Grollitsch, L. Alves, R. Nonis, L. D. Ricca, P. Palestri, and L. Selmi, "Design, characterization and signal integrity analysis of a 2.5 Gb/s high-speed serial interface for automotive applications overarching the chip/PCB wall," in 2015 IEEE 1st International Forum on Research and Technologies for Society and Industry Leveraging a better tomorrow (RTSI), 2015.</p>
+<p>[47] J. F. Bulzacchelli, M. Meghelli, S. V. Rylov, W. Rhee, A. Rylyakov, H. A. Ainspan, B. D. Parker, M. P. Beakes, A. Chung, T. J. Beukema, P. K. Pepeljugoski, L. Shan, Y. H. Kwark, S. Gowda, and D. J. Friedman, "A 10-Gb/s 5-tap DFE/4-tap FFE transceiver in 90-nm CMOS technology," IEEE Journal of Solid State Circuits, vol. 41, no. 12, pp. 2885–2900, 2007.</p>
+<p>[48] T. Beukema, M. Sorna, K. Selander, S. Zier, B. L. Ji, P. Murfet, J. Mason, W. Rhee, H. Ainspan, B. Parker, and M. Beakes, "A 6.4-Gb/s CMOS SerDes core with feed-forward and decision-feedback equalization," IEEE Journal of Solid-State Circuits, vol. 40, no. 12, pp. 2633–2644, 2005.</p>
+<p>[49] S. Saxena, R. K. Nandwana, and P. K. Hanumolu, "A 5 Gb/s Energy-Efficient Voltage-Mode Transmitter Using Time-Based De-Emphasis," IEEE Journal of Solid State Circuits, vol. 49, no. 8, pp. 1827–1836, 2014.</p>
+<p>[50] C. Menolfi, T. Toifl, P. Buchmann, M. Kossel, T. Morf, J. Weiss, and M. Schmatz, "A 16Gb/s Source-Series Terminated Transmitter in 65nm CMOS SOI," in IEEE International Solid-State Circuits Conference, pp. 446–448, 2007.</p>
+<p>[51] W.-s. Choi, G. Shu, M. Talegaonkar, Y. Liu, D. Wei, L. Benini, and P. K. Hanumolu, "A 0.45-to-0.7V 1-to-6Gb/s 0.29-to-0.58pJ/b Source-Synchronous Transceiver Using Automatic Phase Calibration in 65nm CMOS," in IEEE International Solid-State Circuits Conference, pp. 66–68, 2015.</p>
+<p>[52] T. Shibasaki, T. Danjo, Y. Ogata, Y. Sakai, H. Miyaoka, F. Terasawa, M. Kudo, H. Kano, A. Matsuda, S. Kawai, T. Arai, H. Higashi, N. Naka, H. Yamaguchi, T. Mori, Y. Koyanagi, and H. Tamura, "A 56Gb/s NRZ-Electrical 247mW/lane Serial-Link Transceiver in 28nm CMOS," in IEEE International Solid-State Circuits Conference, pp. 64–66, 2016.</p>
+<p>[53] M. J. Myjak, J. G. Delgado-Frias, and S. Kwang Jeon, "An Energy-Efficient Differential Flip-Flop for Deeply Pipelined Systems," in Midwest Symposium on Circuistemsts and Systems, no. September 2006, 2006.</p>
+<p>[54] G. Shu, W.-s. Choi, S. Saxena, S.-j. Kim, M. Talegaonkar, R. Nandwana, A. Elkholy, T. Nandi, and P. K. Hanumolu, "A 16Mb/s-to-8Gb/s 14.1-to-5.9pJ/b Source Synchronous Transceiver Using DFVS and Rapid On/Off in 65nm CMOS," in IEEE International Solid-State Circuits Conference, pp. 398–400, 2016.</p>
+<p>[55] H. Hentzell, S.-t. Persson, H. Hesselbom, B. Lofstedt, and M. Hansen, "Techniques For Reducing Switching Noise In High Speed Digital Systems," in IEEE International ASIC Conference and Exhibit, pp. 21–24, 1995.</p>
+<p>[56] G. Khanna, R. Chandel, and A. K. Chandel, "Impact of Skew and Jitter on the Performance of VLSI Interconnects," in IEEE Asia-Pacific Conference on Circuits and Systems (APCCAS), pp. 1223–1226, 2010.</p>
+<p>[57] A. Bandiziol, W. Grollitsch, F. Brandonisio, R. Nonis, and P. Palestri, "Design of a 8-taps, 10Gbps transmitter for automotive micro-controllers," in IEEE Asia-Pacific Conference on Circuits and Systems (APCCAS), pp. 6–9, 2016.</p>
+<p>[58] H. Kimura, P. M. Aziz, T. Jing, A. Sinha, S. P. Kotagiri, R. Narayan, H. Gao, P. Jing, G. Hom, A. Liang, E. Zhang, A. Kadkol, R. Kothari, G. Chan, Y. Sun, B. Ge, J. Zeng, K. Ling, M. C. Wang, A. Malipatil, L. Li, C. Abel, and F. Zhong, "A 28 Gb/s 560 mW Multi-Standard SerDes With Single-Stage Analog Front-End and 14-Tap Decision Feedback Equalizer in 28 nm CMOS," IEEE Journal of Solid State Circuits, vol. 49, no. 12, pp. 3091–3103, 2014.</p>
+<p>[59] S. Shahramian, B. Dehlaghi, and A. C. Carusone, "A 16Gb/s 1 IIR + 1 DFE Compensating 28dB Loss with Edge-Based Adaptation Converging in 5us," in IEEE International Solid-State Circuits Conference, pp. 410–412, 2016.</p>
+<p>[60] B. Leibowitz, R. Farjad, T. Greer, and V. Stojanovic, "A 7.5Gb/s 10-Tap DFE Receiver with First Tap Partial Response, Spectrally Gated Adaptation, and 2nd-Order Data-Filtered CDR," in IEEE International Solid-State Circuits Conference, pp. 228–220, 2007.</p>
+<p>[61] T. Norimatsu, T. Kawamoto, K. Kogo, N. Kohmu, F. Yuki, N. Nakajima, T. Muto, J. Nasu, T. Komori, H. Koba, T. Usugi, T. Hokari, T. Kawamata, Y. Ito, S. Umai, M. Tsuge, T. Yamashita, M. Hasegawa, and K. Higeta, "A 25Gb/s Multistandard Serial Link Transceiver for 50dB-Loss Copper Cable in 28nm CMOS," in IEEE International Solid-State Circuits Conference, pp. 60–62, 2016.</p>
+<p>[62] S. Shahramian and A. C. Carusone, "A 0.41 pJ/bit 10 Gb/s Hybrid 2-IIR and 1 Discrete-Time DFE Tap in 28 nm-LP CMOS," IEEE Journal of Solid State Circuits, vol. 50, no. 7, pp. 1722–1735, 2015.</p>
+<p>[63] S. Shahramian, H. Yasotharan, and A. C. Carusone, "Decision Feedback Equalizer Architectures With Multiple Continuous-Time Infinite Impulse Response Filters," IEEE Transactions on Circuits and Systems II: Express Briefs, vol. 59, no. 6, pp. 326–330, 2012.</p>
+<p>[64] G. R. Gangasani, C.-m. Hsu, J. F. Bulzacchelli, T. Beukema, W. Kelly, H. H. Xu, D. Freitas, A. Prati, D. Gardellini, R. Reutemann, G. Cervelli, J. Hertle, M. Baecher, J. Garlett, P.-a. Francese, J. F. Ewen, D. Hanson, D. W. Storaska, and M. Meghelli, "A 32 Gb/s Backplane Transceiver With On-Chip AC-Coupling and Low Latency CDR in 32 nm SOI CMOS Technology," IEEE Journal of Solid State Circuits, vol. 49, no. 11, pp. 2474–2489, 2014.</p>
+<p>[65] F. Zhong, S. Quan, W. Liu, P. Aziz, T. Jing, J. Dong, C. Desai, H. Gao, M. Garcia, G. Hom, T. Huynh, H. Kimura, R. Kothari, L. Li, C. Liu, S. Lowrie, K. Ling, A. Malipatil, R. Narayan, T. Prokop, C. Palusa, A. Rajashekara, A. Sinha, C. Zhong, and E. Zhang, "A 1.0625-14.025 Gb/s Multi-Media Transceiver With Full-Rate Source-Series-Terminated Transmit Driver and Floating-Tap Decision-Feedback Equalizer in 40nm CMOS," IEEE Journal of Solid State Circuits, vol. 46, no. 12, pp. 3126–3139, 2011.</p>
+<p>[66] S. Parikh, T. Kao, Y. Hidaka, J. Jiang, A. Toda, S. Mcleod, W. Walker, Y. Koyanagi, T. Shibuya, and J. Yamada, "A 32Gb/s Wireline Receiver with a Low-Frequency Equalizer, CTLE and 2-Tap DFE in 28nm CMOS," in IEEE International Solid-State Circuits Conference, pp. 28–30, 2013.</p>
+<p>[67] J. Han, Y. Lu, N. Sutardja, K. Jung, and E. Alon, "A 60Gb/s 173mW Receiver Frontend in 65nm CMOS Technology," in 2015 VLSI Circuits Digest of Technical Papers, pp. 230–231, 2015.</p>
+<p>[68] A. Manian and B. Razavi, "A 40-Gb/s 9.2-mW CMOS Equalizer," in 2015 VLSI Circuits Digest of Technical Papers, pp. 226–227, 2015.</p>
+<p>[69] U. Singh, A. Garg, B. Raghavan, N. Huang, H. Zhang, Z. Huang, A. Momtaz, and J. Cao, "A 780mW 4X28Gb/s Transceiver for 100GbE Gearbox PHY in 40nm CMOS," IEEE Journal of Solid State Circuits, vol. 49, no. 12, pp. 3116–3129, 2014.</p>
+<p>[70] P. A. Francese, T. Toifl, M. Braendli, C. Menolfi, M. Kossel, T. Morf, L. Kull, T. Meyer Andersen, H. Yueksel, A. Cevrero, and D. Luu, "Continuous-Time Linear Equalization with Programmable Active-Peaking Transistor Arrays in a 14nm FinFET 2mW/Gb/s 16Gb/s 2-Tap Speculative DFE Receiver," in IEEE International Solid-State Circuits Conference, pp. 186–188, 2015.</p>
+<p>[71] P. A. Francese, C. Menolfi, M. Kossel, T. Morf, L. Kull, A. Cevrero, H. Yueksel, I. Oezkaya, D. Luu, and T. Toifl, "A 30Gb/s 0.8pJ/b 14nm FinFET Receiver Data-Path," in IEEE International Electronic Devices Meeting (IEDM), pp. 408–410, 2016.</p>
+<p>[72] B. Kim, Y. Liu, T. O. Dickson, J. F. Bulzacchelli, and D. J. Friedman, "A 10-Gb/s Compact Low-Power Serial I/O With DFE-IIR Equalization in 65-nm CMOS," IEEE Journal of Solid State Circuits, vol. 44, no. 12, pp. 3526–3538, 2009.</p>
+<p>[73] O. Elhadidy and S. Palermo, "A 10 Gb/s 2-IIR-Tap DFE Receiver with 35 dB Loss Compensation in 65-nm CMOS," in 2013 VLSI Circuits Digest of Technical Papers, pp. 272–273, 2013.</p>
+<p>[74] A. Emami-neyestanak, A. Varzaghani, J. F. Bulzacchelli, A. Rylyakov, C.-k. K. Yang, and D. J. Friedman, "A 6.0-mW 10.0-Gb/s Receiver With Switched-Capacitor Summation DFE," IEEE Journal of Solid State Circuits, vol. 42, no. 4, pp. 889–896, 2007.</p>
+<p>[75] Y.-c. Huang and S.-i. Liu, "A 6Gb/s Receiver with 32.7dB Adaptive DFE-IIR Equalization," in IEEE International Solid-State Circuits Conference, pp. 68–69, 2011.</p>
+<p>[76] S. Son, H.-s. Kim, M.-j. Park, K. Kim, E.-h. Chen, B. Leibowitz, and J. Kim, "A 2.3-mW, 5-Gb/s Low-Power Decision-Feedback Equalizer Receiver Front-End and its Two-Step, Minimum Bit-Error-Rate Adaptation Algorithm," IEEE Journal of Solid State Circuits, vol. 48, no. 11, pp. 2693–2704, 2013.</p>
+<p>[77] H. Miyaoka, F. Terasawa, M. Kudo, H. Kano, A. Matsuda, N. Shirai, S. Kawai, T. Arai, Y. Ide, K. Terashima, H. Higashi, T. Higuchi, and N. Naka, "A 28-Gb/s 4.5-pJ/bit Transceiver With 1-Tap Decision Feedback Equalizer in 28-n CMOS," in IEEE Asian Solid-State Circuits Conference, pp. 1–4, 2015.</p>
+<p>[78] A. Bandiziol, W. Grollitsch, F. Brandonisio, R. Nonis, and P. Palestri, "Design of a transmitter for high-speed serial interfaces in automotive micro-controller," in IEEE International Convention on Information and Communication Technology, Electronics and Microelectronics (MIPRO), pp. 90–94, 2016.</p>
+<p>[79] R. Navid, E.-h. Chen, M. Hossain, B. Leibowitz, J. Ren, C.-h. A. Chou, B. Daly, B. Su, S. Li, M. Shirasgaonkar, F. Heaton, J. Zerbe, and J. Eble, "A 40 Gb/s Serial Link Transceiver in 28 nm CMOS Technology," IEEE Journal of Solid State Circuits, vol. 50, no. 4, pp. 814–827, 2015.</p>
+<p>[80] J. Han, N. Sutardja, Y. Lu, and E. Alon, "Design Techniques for a 60-Gb/s 288-mW NRZ Transceiver With Adaptive Equalization and Baud-Rate Clock and Data Recovery in 65-nm CMOS Technology," IEEE Journal of Solid State Circuits, no. 99, pp. 1–12, 2017.</p>
+<p>[81] Synopsis, Synopsis Verilog Compiler Simulator 2017.03 Manual. 2017.</p>
+<p>[82] B. Razavi, "Challenges in the Design of High-Speed Clock and Data Recovery Circuits," IEEE Communications Magazine, vol. 40, no. 8, pp. 94–101, 2002.</p>
+<p>[83] J. Poulton, R. Palmer, A. M. Fuller, T. Greer, J. Eyles, W. J. Dally, and M. Horowitz, "A 14-mW 6.25-Gb/s Transceiver in 90-nm CMOS," IEEE Journal of Solid State Circuits, vol. 42, no. 12, pp. 2745–2757, 2007.</p>
+<p>[84] T. Musah, J. E. Jaussi, G. Balamurugan, S. Hyvonen, T.-c. Hsueh, G. Keskin, S. Shekhar, J. Kennedy, S. Sen, R. Inti, M. Mansuri, M. Leddige, B. Horine, C. Roberts, R. Mooney, and B. Casper, "A 4-32 Gb/s Bidirectional Link With 3-Tap FFE/6-Tap DFE and Collaborative CDR in 22nm CMOS," IEEE Journal of Solid State Circuits, vol. 49, no. 12, pp. 1–12, 2014.</p>
+<p>[85] V. Balan, O. Oluwole, G. Kodani, C. Zhong, R. Dadi, A. Amin, and A. Ragab, "A 15–22 Gbps Serial Link in 28 nm CMOS With Direct DFE," IEEE Journal of Solid State Circuits, vol. 49, no. 12, pp. 3104–3115, 2014.</p>
+<p>[86] M.-s. Chen and C.-k. K. Yang, "A 50–64 Gb/s Serializing Transmitter With a 4-Tap, LC-Ladder-Filter-Based FFE in 65 nm CMOS Technology," IEEE Journal of Solid State Circuits, vol. 50, no. 8, pp. 1903–1916, 2015.</p>
+<p>[87] T. Anand, M. Talegaonkar, A. Elkholy, S. Saxena, A. Eishazly, and P. K. Hanumolu, "Ultra-High-Speed Wireline Transceivers and Energy-Efficient Links," in IEEE International Solid-State Circuits Conference, pp. 64–66, 2015.</p>
+<p>[88] M.-s. Chen, Y.-n. Shih, C.-l. Lin, H.-w. Hung, and J. Lee, "A Fully-Integrated 40-Gb/s Transceiver in 65-nm CMOS Technology," IEEE Journal of Solid State Circuits, vol. 47, no. 3, pp. 627–640, 2012.</p>
+<p>[89] A. Cristofoli, Analysis and Design of High Speed Serial Interfaces for Automotive Applications. PhD thesis, 2014.</p>
+<p>[90] T. O. Dickson, Y. Liu, A. Agrawal, J. F. Bulzacchelli, H. A. Ainspan, Z. Toprak-deniz, B. D. Parker, M. P. Beakes, M. Meghelli, and D. J. Friedman, "A 1.8pJ/bit 16X16Gb/s Source-Synchronous Parallel Interface in 32nm SOI CMOS with Receiver Redundancy for Link Recalibration," IEEE Journal of Solid State Circuits, vol. 51, no. 8, pp. 1744–1755, 2016.</p>
+<p>[91] A. A. Hafez, M.-s. Chen, and C.-k. K. Yang, "A 32–48 Gb/s Serializing Transmitter Using Multiphase Serialization in 65 nm CMOS Technology," IEEE Journal of Solid State Circuits, vol. 50, no. 3, pp. 763–775, 2015.</p>
+<p>[92] W. Jia, B. Nikolic, V. Stojanovic, J. K.-s. Chiu, and M. M.-t. Leung, "Improved Sense-Amplifier-Based Flip-Flop: Design and Measurements," IEEE Journal of Solid State Circuits, vol. 35, no. 6, pp. 876–884, 2000.</p>
+<p>[93] J. W. Jung and B. Razavi, "A 25-Gb/s 5-mW CMOS CDR/Deserializer," IEEE Journal of Solid State Circuits, vol. 48, no. 3, pp. 684–697, 2013.</p>
+<p>[94] K. Kaviani, A. Amirkhany, C. Huang, P. Le, C. Madden, K. Saito, K. Sano, V. Murugan, W. Beyene, K. Chang, and C. Yuan, "A 0.4mW/Gb/s 16Gb/s Near-Ground Receiver Front-End with Replica Transconductance Termination Calibration," in IEEE International Solid-State Circuits Conference, vol. 6, pp. 152–153, 2012.</p>
+<p>[95] J. Lee, P. Chiang, and C. Weng, "56Gb/s PAM4 and NRZ SerDes Transceivers in 40nm CMOS," in 2015 VLSI Circuits Digest of Technical Papers, pp. 118–119, 2015.</p>
+<p>[96] A. Manian and B. Razavi, "A 40Gb/s 14mW CMOS Wireline Receiver," in IEEE International Solid-State Circuits Conference, 2016.</p>
+<p>[97] M. Muller and K. Muller, "Timing Recovery in Digital Synchronous Data Receivers," IEEE Transactions on Communications, vol. C, no. 5, pp. 516–531, 1976.</p>
+<p>[98] B. Raghavan, D. Cui, U. Singh, D. Pi, A. Vasani, Z. C. Huang, A. Momtaz, and J. Cao, "A Sub-2 W 39.8-44.6 Gb/S Transmitter and Receiver Chipset With SFI-5.2 Interface in 40 nm CMOS," IEEE Journal of Solid State Circuits, vol. 48, no. 12, pp. 3219–3228, 2013.</p>
+<p>[99] W. Sansen, "Minimum Power in Analog Amplifying Blocks," IEEE Solid-State Circuits Magazine, no. 4, pp. 83–89, 2015.</p>
+<p>[100] J. Savoj, S. Member, and B. Razavi, "A 10-Gb/s CMOS Clock and Data Recovery Circuit with a Half-Rate Linear Phase Detector," IEEE Journal of Solid State Circuits, vol. 36, no. 5, pp. 761–767, 2001.</p>
+<p>[101] S. Saxena, G. Shu, R. K. Nandwana, M. Talegaonkar, A. Elkholy, T. Anand, W.-s. Choi, and P. K. Hanumolu, "A 2.8 mW/Gb/s, 14 Gb/s Serial Link Transceiver," IEEE Journal of Solid State Circuits, vol. 52, no. 5, pp. 1399–1411, 2017.</p>
+<p>[102] H. Tamura, "Looking to the Future," IEEE Solid-State Circuits Magazine, no. 4, pp. 53–62, 2015.</p>
+<p>[103] Y. Wang, B. Afshar, L. Ye, V. C. Gaudet, and A. M. Niknejad, "Design of a Low Power, Inductorless Wideband Variable-Gain Amplifier for High-Speed Receiver Systems," IEEE Transactions on Circuits and Systems I: Reguar Papers, vol. 59, no. 4, pp. 696–707, 2012.</p>
+            </article>
+            <aside class="toc-sidebar" id="tocSidebar">
+                <h3>📑 目录</h3>
+                <div class="toc"><span class="toctitle">目录</span><ul>
+<li><a href="#_1">博洛尼亚大学（意大利）</a></li>
+<li><a href="#_2">电气与信息工程系</a><ul>
+<li><a href="#_3">博士论文</a></li>
+</ul>
+</li>
+<li><a href="#10gbps">10Gbps 串行链路</a></li>
+<li><a href="#_4">建模、设计与表征</a></li>
+<li><a href="#modeling-design-and-characterization-of-a-10gbps-serial-link">Modeling, Design and Characterization of a 10Gbps Serial Link</a><ul>
+<li><a href="#_5">摘要</a></li>
+<li><a href="#_6">目录</a></li>
+</ul>
+</li>
+<li><a href="#1">第1章</a></li>
+<li><a href="#_7">引言</a><ul>
+<li><a href="#11">1.1 为什么我们需要更快的高速串行接口？</a></li>
+<li><a href="#12">1.2 历年演进</a></li>
+<li><a href="#13">1.3 串行链路架构：主要问题与解决方案</a><ul>
+<li><a href="#131">1.3.1 发射机结构</a></li>
+<li><a href="#132">1.3.2 时钟方案</a><ul>
+<li><a href="#1321">1.3.2.1 时钟与数据恢复</a></li>
+<li><a href="#1322">1.3.2.2 基于振荡器的恢复</a></li>
+<li><a href="#1323">1.3.2.3 基于相位插值器的恢复</a></li>
+<li><a href="#1324">1.3.2.4 前向时钟架构</a></li>
+</ul>
+</li>
+<li><a href="#133">1.3.3 串行链路中的噪声与干扰源</a><ul>
+<li><a href="#1331">1.3.3.1 噪声干扰</a></li>
+<li><a href="#1332">1.3.3.2 传输介质的色散</a></li>
+</ul>
+</li>
+<li><a href="#134">1.3.4 均衡技术</a><ul>
+<li><a href="#1341">1.3.4.1 前馈均衡</a></li>
+<li><a href="#1342">1.3.4.2 连续时间线性均衡</a></li>
+<li><a href="#1343">1.3.4.3 判决反馈均衡</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#14">1.4 汽车环境中的高速串行接口</a></li>
+<li><a href="#15">1.5 工作动机与论文结构</a></li>
+</ul>
+</li>
+<li><a href="#2">第2章</a></li>
+<li><a href="#_8">发射机系统级设计</a><ul>
+<li><a href="#21">2.1 驱动拓扑的选择</a></li>
+<li><a href="#22">2.2 驱动器架构</a></li>
+<li><a href="#23">2.3 均衡抽头的选择</a></li>
+<li><a href="#24">2.4 实际信道示例</a></li>
+<li><a href="#25">2.5 抽头量化的影响</a></li>
+<li><a href="#26">2.6 发射机架构</a></li>
+</ul>
+</li>
+<li><a href="#3">第3章</a></li>
+<li><a href="#_9">发射机晶体管级设计</a><ul>
+<li><a href="#31">3.1 引言</a></li>
+<li><a href="#32">3.2 触发器</a></li>
+<li><a href="#33">3.3 开关矩阵</a></li>
+<li><a href="#34-ldo">3.4 LDO</a></li>
+<li><a href="#35">3.5 仿真结果</a></li>
+<li><a href="#36">3.6 寄生电感影响的分析</a><ul>
+<li><a href="#361-ffe">3.6.1 FFE抽头的选择</a></li>
+<li><a href="#362-vdd-vss">3.6.2 不含VDD和 VSS电感的 结果</a></li>
+<li><a href="#363-vdd-vss">3.6.3 含VDD和 VSS电感的结果</a></li>
+</ul>
+</li>
+<li><a href="#37">3.7 结论</a></li>
+</ul>
+</li>
+<li><a href="#4">第4章</a></li>
+<li><a href="#_10">发射机实验表征</a><ul>
+<li><a href="#41-rmtx">4.1 RMTX测试芯片概述</a></li>
+<li><a href="#42-rmtx">4.2 RMTX测量结果</a></li>
+<li><a href="#43-innotc">4.3 InnoTC概述</a></li>
+<li><a href="#44-innotc">4.4 InnoTC测量结果</a></li>
+</ul>
+</li>
+<li><a href="#5">第5章</a></li>
+<li><a href="#_11">接收机系统与晶体管级设计</a><ul>
+<li><a href="#51">5.1 接收机结构</a><ul>
+<li><a href="#511">5.1.1 输入放大级</a></li>
+<li><a href="#512-cdrdfe">5.1.2 半速率、CDR与DFE</a></li>
+<li><a href="#513">5.1.3 接收机架构</a></li>
+</ul>
+</li>
+<li><a href="#52-cdr">5.2 CDR算法</a></li>
+<li><a href="#53">5.3 晶体管级设计与仿真结果</a><ul>
+<li><a href="#531">5.3.1 输入级</a></li>
+<li><a href="#532-dfe">5.3.2 DFE时序</a></li>
+<li><a href="#533-pi">5.3.3 加法器、比较器和PI</a></li>
+<li><a href="#534">5.3.4 解串器</a></li>
+<li><a href="#535-cdr">5.3.5 CDR算法时序</a></li>
+<li><a href="#536-pi">5.3.6 固定PI码的结果</a></li>
+<li><a href="#537-xa-vcs">5.3.7 XA-VCS结果</a></li>
+</ul>
+</li>
+<li><a href="#54">5.4 结论</a></li>
+</ul>
+</li>
+<li><a href="#6">第6章</a></li>
+<li><a href="#_12">完整链路表征</a><ul>
+<li><a href="#61-innotc">6.1 InnoTC概述</a></li>
+<li><a href="#62-innotc">6.2 InnoTC测量设置</a></li>
+<li><a href="#63">6.3 完整链路测量结果</a></li>
+<li><a href="#64-hsio">6.4 HSIO评估板</a></li>
+</ul>
+</li>
+<li><a href="#_13">结论</a></li>
+<li><a href="#_14">发表论文列表</a></li>
+<li><a href="#_15">致谢</a></li>
+<li><a href="#_16">参考文献</a></li>
+</ul>
+</div>
+
+            </aside>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.nav-group-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.parentElement.classList.toggle('expanded');
+            });
+        });
+        const searchInput = document.getElementById('searchInput');
+        const navItems = document.querySelectorAll('.nav-item');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
