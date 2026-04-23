@@ -1,7 +1,7 @@
 {
-  "name": "Hux Blog",
-  "short_name": "Hux Blog",
-  "description": "About an engineer & designer who loves web.",
+  "name": "Bert Blog",
+  "short_name": "Bert Blog",
+  "description": "Bert 杨泽鹏的个人博客，记录技术、生活与成长。",
   "icons": [{
     "src": "icons/128.png",
     "sizes": "128x128",
