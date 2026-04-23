@@ -1,142 +1,508 @@
 ---
 layout: page
 title: SerDes 224G 知识库
-description: "SerDes/光通信深度研究报告 · 253个页面 · 暗色主题"
-header-img: "img/bg-little-universe.jpg"
+description: "SerDes/光通信深度研究报告 · 253个页面"
 ---
 
 <style>
-.knowledge-base {
-    padding: 20px 0;
-}
-.knowledge-base h2 {
-    color: #58a6ff;
-    margin: 24px 0 12px 0;
-    font-size: 18px;
-}
-.knowledge-base h3 {
-    color: #c9d1d9;
-    margin: 16px 0 8px 0;
-    font-size: 15px;
-}
-.knowledge-base ul {
-    list-style: none;
-    padding: 0;
-}
-.knowledge-base li {
-    margin: 4px 0;
-}
-.knowledge-base a {
-    color: #8b949e;
-    text-decoration: none;
-    font-size: 14px;
-    padding: 4px 8px;
-    display: block;
-    border-radius: 4px;
-    transition: all 0.15s;
-}
-.knowledge-base a:hover {
-    color: #58a6ff;
-    background: rgba(88,166,255,0.1);
-    padding-left: 12px;
-}
-.knowledge-base .section {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 12px 0;
-}
-.stat-box {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 16px 0;
-}
-.stat {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 16px;
+  :root {
+    --bg: #f8f9fb;
+    --card: #ffffff;
+    --border: #e2e6ed;
+    --text: #1a1f36;
+    --text-secondary: #5a6380;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --accent-hover: #1d4ed8;
+    --green: #059669;
+    --green-light: #d1fae5;
+    --section-bg: #f1f5f9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #0ea5e9 100%);
+    color: white;
+    padding: 48px 24px 40px;
     text-align: center;
-}
-.stat .num {
-    font-size: 28px;
-    font-weight: 600;
-    color: #58a6ff;
-}
-.stat .label {
+  }
+
+  .page-header .eyebrow {
     font-size: 12px;
-    color: #8b949e;
-    margin-top: 4px;
-}
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .page-header .subtitle {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 24px;
+  }
+
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-item .num {
+    font-size: 26px;
+    font-weight: 700;
+    display: block;
+  }
+
+  .stat-item .label {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .search-box {
+    margin-bottom: 32px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    background: var(--card);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-box input:focus {
+    border-color: var(--accent);
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: box-shadow 0.2s, transform 0.15s;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.12);
+    transform: translateY(-1px);
+    border-color: var(--accent);
+  }
+
+  .card .card-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .card .card-tag.green {
+    background: var(--green-light);
+    color: var(--green);
+  }
+
+  .card .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .card .card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .doc-list {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .doc-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    gap: 12px;
+    transition: background 0.15s;
+  }
+
+  .doc-item:last-child {
+    border-bottom: none;
+  }
+
+  .doc-item:hover {
+    background: var(--accent-light);
+  }
+
+  .doc-item .doc-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .doc-item .doc-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .doc-item .doc-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .doc-item .doc-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .doc-item .doc-arrow {
+    color: var(--text-secondary);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .stats-bar { gap: 20px; }
+  }
+
+  .quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .quick-link {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+
+  .quick-link:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .quick-link .ql-icon {
+    font-size: 18px;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
 </style>
 
-<div class="knowledge-base">
-
-<div class="stat-box">
-  <div class="stat">
-    <div class="num">253</div>
-    <div class="label">HTML 页面</div>
+<div class="page-header">
+  <div class="eyebrow">Optical Communication · SerDes Chip Design</div>
+  <h1>SerDes 224G 知识库</h1>
+  <div class="subtitle">光通信/SerDes 芯片设计深度研究报告 · 2026年4月</div>
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="num">253</span>
+      <span class="label">HTML 页面</span>
+    </div>
+    <div class="stat-item">
+      <span class="num">15</span>
+      <span class="label">深度研究报告</span>
+    </div>
+    <div class="stat-item">
+      <span class="num">48</span>
+      <span class="label">论文注解</span>
+    </div>
+    <div class="stat-item">
+      <span class="num">224G</span>
+      <span class="label">研究速率</span>
+    </div>
   </div>
-  <div class="stat">
-    <div class="num">15</div>
-    <div class="label">深度研究报告</div>
+</div>
+
+<div class="container">
+
+  <div class="search-box">
+    <input type="text" placeholder="搜索文档... (Ctrl+F)" id="searchInput" oninput="filterCards()">
   </div>
-  <div class="stat">
-    <div class="num">9</div>
-    <div class="label">学习任务完成</div>
+
+  <!-- Deep Research Reports -->
+  <h2 class="section-title"><span class="icon">🔬</span> 深度研究报告</h2>
+  <div class="grid-3" id="cardGrid">
+    <a class="card" href="serdes/deep_research/SerDes_224G_知识图谱.html">
+      <div class="card-tag">推荐入口</div>
+      <div class="card-title">📍 SerDes 224G 知识图谱</div>
+      <div class="card-desc">全局视角：224G SerDes 五大方向知识总览与关联图谱</div>
+    </a>
+    <a class="card" href="serdes/deep_research/01_CDR深入研究报告.html">
+      <div class="card-tag">电路</div>
+      <div class="card-title">CDR 时钟数据恢复电路</div>
+      <div class="card-desc">相位插值、DLL/PLL架构、抖动收敛与锁定检测</div>
+    </a>
+    <a class="card" href="serdes/deep_research/02_均衡技术深入研究报告.html">
+      <div class="card-tag">电路</div>
+      <div class="card-title">均衡技术</div>
+      <div class="card-desc">CTLE、DFE、FFE、MLSE；功耗与线性度权衡</div>
+    </a>
+    <a class="card" href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html">
+      <div class="card-tag">DSP</div>
+      <div class="card-title">PAM4 与 oDSP</div>
+      <div class="card-desc">PAM4调制、模数转换、DSP算法与非对称补偿</div>
+    </a>
+    <a class="card" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html">
+      <div class="card-tag">架构</div>
+      <div class="card-title">ADC-Based 架构设计</div>
+      <div class="card-desc">112G/224G ADC架构、ENOB/SNDR预算、采样率与带宽</div>
+    </a>
+    <a class="card" href="serdes/deep_research/224G标准到电路间隙分析报告.html">
+      <div class="card-tag green">标准</div>
+      <div class="card-title">224G 标准 Gap 分析</div>
+      <div class="card-desc">IEEE 802.3/OIF CEI到电路实现的能力间隙与优化方向</div>
+    </a>
+    <a class="card" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html">
+      <div class="card-tag">电路</div>
+      <div class="card-title">MLSE 均衡器硬件实现</div>
+      <div class="card-desc">Viterbi算法实现、状态机设计、功耗与延迟分析</div>
+    </a>
+    <a class="card" href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html">
+      <div class="card-tag green">标准</div>
+      <div class="card-title">标准参数 → 电路映射</div>
+      <div class="card-desc">IEEE 802.3/OIF规范参数到晶体管级实现的对齐</div>
+    </a>
+    <a class="card" href="serdes/deep_research/系统级仿真与测试深度研究报告.html">
+      <div class="card-tag">测试</div>
+      <div class="card-title">系统级仿真与测试</div>
+      <div class="card-desc">BERT、示波器、误码率测试、ESR/ENOB验证</div>
+    </a>
+    <a class="card" href="serdes/deep_research/热管理与可靠性测试深度研究报告.html">
+      <div class="card-tag">可靠性</div>
+      <div class="card-title">热管理与可靠性</div>
+      <div class="card-desc">结温预算、热阻模型、HTOL、EM分析</div>
+    </a>
+    <a class="card" href="serdes/deep_research/CPO共封装光学深度研究报告.html">
+      <div class="card-tag">系统</div>
+      <div class="card-title">CPO 共封装光学</div>
+      <div class="card-desc">CPO架构、光引擎、2.5D/3D封装、热提取与信号完整性</div>
+    </a>
+    <a class="card" href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html">
+      <div class="card-tag">AI</div>
+      <div class="card-title">AI/ML 辅助 SerDes 设计</div>
+      <div class="card-desc">机器学习优化链路预算、自动均衡参数搜索</div>
+    </a>
+    <a class="card" href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html">
+      <div class="card-tag">DSP</div>
+      <div class="card-title">PAM6/PAM8 与概率整形</div>
+      <div class="card-desc">高阶PAM调制、概率整形、几何整形、Husimi编码</div>
+    </a>
+    <a class="card" href="serdes/deep_research/钧衡技术深度专业文档.html">
+      <div class="card-tag">厂商</div>
+      <div class="card-title">钧衡技术深度文档</div>
+      <div class="card-desc">IP核规格、参考设计、斲衡参考设计资料</div>
+    </a>
   </div>
-  <div class="stat">
-    <div class="num">224G</div>
-    <div class="label">当前研究速率</div>
+
+  <!-- Paper Collections -->
+  <h2 class="section-title"><span class="icon">📚</span> 论文与标准注解</h2>
+  <div class="doc-list">
+    <a class="doc-item" href="optical/papers/ofc_pdp/">
+      <span class="doc-icon">📄</span>
+      <div class="doc-info">
+        <div class="doc-title">OFC PDP 论文深度注解 (23篇)</div>
+        <div class="doc-meta">OFC 2024-2025 Post-Deadline Papers · 相干光通信、DSP、非线性补偿</div>
+      </div>
+      <span class="doc-arrow">→</span>
+    </a>
+    <a class="doc-item" href="optical/papers/">
+      <span class="doc-icon">📄</span>
+      <div class="doc-info">
+        <div class="doc-title">光学论文注解 (7篇)</div>
+        <div class="doc-meta">光通信关键论文 · 调制格式、SerDes接口、光模块</div>
+      </div>
+      <span class="doc-arrow">→</span>
+    </a>
+    <a class="doc-item" href="serdes/theses/">
+      <span class="doc-icon">🎓</span>
+      <div class="doc-info">
+        <div class="doc-title">SerDes 博士论文注解 (15篇)</div>
+        <div class="doc-meta">顶尖院校博士论文 · CDR、均衡、ADC架构、检测器</div>
+      </div>
+      <span class="doc-arrow">→</span>
+    </a>
+    <a class="doc-item" href="ieee/802.3/">
+      <span class="doc-icon">�准</span>
+      <div class="doc-info">
+        <div class="doc-title">IEEE 802.3 标准解读</div>
+        <div class="doc-meta">200G/400G/800G Ethernet · 224G SerDes PMA/PCS</div>
+      </div>
+      <span class="doc-arrow">→</span>
+    </a>
+    <a class="doc-item" href="oif/">
+      <span class="doc-icon">📄</span>
+      <div class="doc-info">
+        <div class="doc-title">OIF/CEI 规范解读</div>
+        <div class="doc-meta">CEI-224G、FlexE、多协议接口标准</div>
+      </div>
+      <span class="doc-arrow">→</span>
+    </a>
   </div>
+
+  <!-- Learning & General -->
+  <h2 class="section-title"><span class="icon">🗺️</span> 学习路径与通用资源</h2>
+  <div class="two-col">
+    <div>
+      <div class="doc-list">
+        <a class="doc-item" href="plan/notes/">
+          <span class="doc-icon">📝</span>
+          <div class="doc-info">
+            <div class="doc-title">学习笔记</div>
+            <div class="doc-meta">边学边注的个人笔记</div>
+          </div>
+          <span class="doc-arrow">→</span>
+        </a>
+        <a class="doc-item" href="mineru_output/">
+          <span class="doc-icon">🖼️</span>
+          <div class="doc-info">
+            <div class="doc-title">MinerU 论文图片注解</div>
+            <div class="doc-meta">48篇论文 · 带深度注解的图片索引</div>
+          </div>
+          <span class="doc-arrow">→</span>
+        </a>
+        <a class="doc-item" href="general/">
+          <span class="doc-icon">📚</span>
+          <div class="doc-info">
+            <div class="doc-title">通用 SerDes 知识</div>
+            <div class="doc-meta">基础概念、术语表、设计考量</div>
+          </div>
+          <span class="doc-arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="quick-links">
+        <a class="quick-link" href="serdes/deep_research/SerDes_224G_知识图谱.html">
+          <span class="ql-icon">📍</span> 知识图谱
+        </a>
+        <a class="quick-link" href="serdes/deep_research/224G标准到电路间隙分析报告.html">
+          <span class="ql-icon">📊</span> Gap 分析
+        </a>
+        <a class="quick-link" href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html">
+          <span class="ql-icon">⚙️</span> ADC 架构
+        </a>
+        <a class="quick-link" href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html">
+          <span class="ql-icon">🔧</span> MLSE
+        </a>
+        <a class="quick-link" href="optical/papers/ofc_pdp/">
+          <span class="ql-icon">📄</span> OFC PDP
+        </a>
+        <a class="quick-link" href="serdes/theses/">
+          <span class="ql-icon">🎓</span> 博士论文
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    🔗 全部页面为静态 HTML，零依赖，双击即可离线浏览 · 最后更新 2026-04-23
+  </div>
+
 </div>
 
-<div class="section">
-<h2>🔬 深度研究报告</h2>
-<ul>
-  <li><a href="serdes/deep_research/SerDes_224G_知识图谱.html">📍 SerDes_224G_知识图谱.html — 知识总图谱（推荐入口）</a></li>
-  <li><a href="serdes/deep_research/01_CDR深入研究报告.html">01_CDR深入研究报告.html — 时钟数据恢复电路</a></li>
-  <li><a href="serdes/deep_research/02_均衡技术深入研究报告.html">02_均衡技术深入研究报告.html — 均衡技术</a></li>
-  <li><a href="serdes/deep_research/03_PAM4_oDSP深入研究报告.html">03_PAM4_oDSP深入研究报告.html — PAM4/oDSP</a></li>
-  <li><a href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html">ADC-Based_112G_224G_SerDes_架构设计指南.html — 架构设计</a></li>
-  <li><a href="serdes/deep_research/224G标准到电路间隙分析报告.html">224G标准到电路间隙分析报告.html — Gap分析</a></li>
-  <li><a href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html">MLSE均衡器硬件实现深度研究报告.html — MLSE均衡器</a></li>
-  <li><a href="serdes/deep_research/IEEE_802.3_OIF标准参数到电路实现映射研究报告.html">IEEE_802.3_OIF标准参数到电路实现映射研究报告.html — 标准映射</a></li>
-  <li><a href="serdes/deep_research/系统级仿真与测试深度研究报告.html">系统级仿真与测试深度研究报告.html — 仿真测试</a></li>
-  <li><a href="serdes/deep_research/热管理与可靠性测试深度研究报告.html">热管理与可靠性测试深度研究报告.html — 热管理</a></li>
-  <li><a href="serdes/deep_research/CPO共封装光学深度研究报告.html">CPO共封装光学深度研究报告.html — CPO</a></li>
-  <li><a href="serdes/deep_research/AI_ML辅助SerDes链路设计深度研究报告.html">AI_ML辅助SerDes链路设计深度研究报告.html — AI/ML</a></li>
-  <li><a href="serdes/deep_research/PAM6_PAM8与概率整形深度研究报告.html">PAM6_PAM8与概率整形深度研究报告.html — PAM6/PCS</a></li>
-  <li><a href="serdes/deep_research/钧衡技术深度专业文档.html">钧衡技术深度专业文档.html</a></li>
-</ul>
-</div>
-
-<div class="section">
-<h2>📚 其他文档</h2>
-<ul>
-  <li><a href="optical/papers/ofc_pdp/">OFC PDP 论文深度报告 (23篇) →</a></li>
-  <li><a href="serdes/theses/">SerDes 论文深度报告 (15篇) →</a></li>
-  <li><a href="ieee/802.3/">IEEE 802.3 标准解读 →</a></li>
-  <li><a href="oif/">OIF/CEI 规范解读 →</a></li>
-  <li><a href="plan/notes/">学习笔记 →</a></li>
-</ul>
-</div>
-
-<div class="section">
-<h2>⚡ 快速导航</h2>
-<ul>
-  <li><a href="serdes/deep_research/SerDes_224G_知识图谱.html">📍 知识图谱（总入口）</a></li>
-  <li><a href="serdes/deep_research/224G标准到电路间隙分析报告.html">📊 224G Gap 分析</a></li>
-  <li><a href="serdes/deep_research/ADC-Based_112G_224G_SerDes_架构设计指南.html">⚙️ ADC 架构指南</a></li>
-  <li><a href="serdes/deep_research/MLSE均衡器硬件实现深度研究报告.html">🔧 MLSE 均衡器</a></li>
-</ul>
-</div>
-
-<p style="color:#8b949e;font-size:12px;margin-top:24px">
-🔗 全部页面为静态 HTML，零依赖，双击即可离线浏览。<br>
-📅 最后更新: 2026-04-23 | 共 253 个 HTML 页面
-</p>
-
-</div>
+<script>
+  function filterCards() {
+    var q = document.getElementById('searchInput').value.toLowerCase();
+    var cards = document.querySelectorAll('.card');
+    cards.forEach(function(card) {
+      var text = card.textContent.toLowerCase();
+      card.style.display = text.includes(q) ? '' : 'none';
+    });
+  }
+</script>
