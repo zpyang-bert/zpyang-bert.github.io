@@ -8,6 +8,7 @@ tags:
   - Optical
   - Paper
   - 深度学习
+---
 
 ## 1. 论文基本信息
 
@@ -22,7 +23,6 @@ tags:
 | **关键词** | Digital Signal Processing (DSP), Coherent Detection, Optical Fibre Communications, Digital Backpropagation, Polarization-Switched QPSK (PS-QPSK), Dual-Polarization QPSK (DP-QPSK), Dual-Polarization 16-QAM (DP-QAM16), Chromatic Dispersion, Wiener-Hammerstein Model |
 | **发表年份** | 约2011-2012年 |
 
----
 
 ## 2. 研究背景与问题定义
 

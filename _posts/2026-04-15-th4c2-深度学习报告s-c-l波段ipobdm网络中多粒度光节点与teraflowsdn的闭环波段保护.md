@@ -8,6 +8,7 @@ tags:
   - Optical
   - PDP
   - Paper
+---
 
 # Th4C.2 深度学习报告：S-C-L波段IPoBDM网络中多粒度光节点与TeraFlowSDN的闭环波段保护
 
@@ -15,7 +16,6 @@ tags:
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合SDN光网络、IP over BDM、多波段、闭环保护）
 
----
 
 ## 一、论文核心贡献
 

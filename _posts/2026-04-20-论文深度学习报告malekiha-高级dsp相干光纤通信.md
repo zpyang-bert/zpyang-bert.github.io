@@ -8,6 +8,7 @@ tags:
   - Optical
   - Paper
   - 深度学习
+---
 
 ## 1. 论文基本信息
 
@@ -22,7 +23,6 @@ tags:
 | **关键词** | Digital Signal Processing (DSP), Chromatic Dispersion (CD), Multi-Sub-Band (MSB), Perturbation-Based Nonlinearity Compensation (PB-NLC), Adaptive Nonlinear Equalizer, OFDM, Single Carrier, Volterra Series |
 | **发表年份** | 2016年 |
 
----
 
 ## 2. 研究背景与问题定义
 

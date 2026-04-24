@@ -8,6 +8,7 @@ tags:
   - Optical
   - Paper
   - 深度学习
+---
 
 ## 1. 论文基本信息
 
@@ -38,7 +39,6 @@ tags:
 | **关键词** | Digital Signal Processing (DSP), Multiband (MB), Optical Coherent Transceivers, Digital Pre-distortion (DPD), Bayesian Optimization (BO), Link Tomography, Volterra Series, Indium Phosphide (InP), MMI Coupler, Optical Performance Monitoring |
 | **发表年份** | 2023年 |
 
----
 
 ## 2. 研究背景与问题定义
 

@@ -8,6 +8,7 @@ tags:
   - Optical
   - PDP
   - Paper
+---
 
 # Th4A.4 深度学习报告：Silicon Mach-Zehnder调制器实现400G/lane PAM4
 
@@ -15,7 +16,6 @@ tags:
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合硅光子学、MZM调制理论、SerDes系统设计）
 
----
 
 ## 一、论文核心贡献
 
