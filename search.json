@@ -4,11 +4,11 @@ layout: null
 [
   {% for post in site.posts %}
     {
-      "title"    : {{ post.title | json }},
-      "subtitle" : {{ post.subtitle | json }},
-      "tags"     : {{ post.tags | json }},
-      "url"      : {{ post.url | json }},
-      "date"     : {{ post.date | json }}
-    } {% unless forloop.last %},{% endunless %}
+      "title"    : "{{ post.title | replace: '\\', '\\\\' | replace: '"', '\\"' | replace: '&', '&amp;' | replace: '<', '&lt;' | replace: '>', '&gt;' }}",
+      "subtitle" : "{{ post.subtitle | replace: '\\', '\\\\' | replace: '"', '\\"' | replace: '&', '&amp;' | replace: '<', '&lt;' | replace: '>', '&gt;' }}",
+      "tags"     : "{{ post.tags | join: ', ' | replace: '\\', '\\\\' | replace: '"', '\\"' | replace: '&', '&amp;' | replace: '<', '&lt;' | replace: '>', '&gt;' }}",
+      "url"      : "{{ site.baseurl }}{{ post.url }}",
+      "date"     : "{{ post.date | date: "%Y-%m-%d %H:%M:%S %z" }}"
+    }{% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]
