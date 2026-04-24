@@ -4,9 +4,9 @@ layout: null
 [
   {% for post in site.posts %}
     {
-      "title"    : {{ post.title | jsonify }},
-      "subtitle" : {{ post.subtitle | jsonify }},
-      "tags"     : {{ post.tags | jsonify }},
+      "title"    : {{ post.title | default: "" | jsonify }},
+      "subtitle" : {{ post.subtitle | default: "" | jsonify }},
+      "tags"     : {{ post.tags | default: "" | jsonify }},
       "url"      : {{ post.url | jsonify }},
       "date"     : {{ post.date | jsonify }}
     }{% unless forloop.last %},{% endunless %}
