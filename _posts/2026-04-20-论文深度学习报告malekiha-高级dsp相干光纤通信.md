@@ -8,7 +8,7 @@ tags:
   - Optical
   - Paper
   - 深度学习
----
+
 ## 1. 论文基本信息
 
 | 项目 | 内容 |
@@ -70,7 +70,7 @@ CP长度 ∝ 色散引起的脉冲展宽
 
 MSB技术将信号频谱分割为多个子带，每个子带独立处理：
 
-![MSB系统架构](/img/mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/images/895338d0d20c8298d43169303b18fc4579f9cda58a890222ce6e57a7c11736ab.jpg)
+![](/img/mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/auto/images/895338d0d20c8298d43169303b18fc4579f9cda58a890222ce6e57a7c11736ab.jpg)
 > 🔍 深度说明：该图展示了MSB（多子带）技术的核心架构，将宽带信号分割为多个独立处理的子带。每个子带具有较窄的带宽，从而显著缩短循环前缀（CP）长度，大幅降低系统开销。子带分割后通过离散傅里叶变换（DFT）将信号转换到频域进行单载波均衡，这种架构天然支持并行化处理，简化了硬件实现复杂度，特别适用于高速光通信系统的低功耗DSP实现。
 
 **发射机DSP结构：**
@@ -126,7 +126,7 @@ MSB技术将信号频谱分割为多个子带，每个子带独立处理：
 ```
 其中C_{m,n}为扰动系数
 
-![PB-NLC扰动补偿原理](/img/mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p/auto/images/5197e0728eaba6ff00b6d84b8de6682836309f88c38f6364f7023e3ae2e6f7f7.jpg)
+![](/img/mineru_output/Advanced_DSP_Coherent_Fiber_Optic_Comms_Malekiha_McGill_24p_深度学习报告/auto/images/5197e0728eaba6ff00b6d84b8de6682836309f88c38f6364f7023e3ae2e6f7f7.jpg)
 > 🔍 深度说明：该图阐述了PB-NLC（扰动基非线性补偿）技术的理论基础。非线性补偿通过计算扰动系数C_{m,n}来预测并抵消光纤Kerr效应引入的信号失真。关键优化在于量化策略：仅需保留8个关键扰动系数，归一化系数|C_{m,n}|/C_{0,0} ≤ -35 dB的项可忽略。自适应非线性均衡器进一步简化实现，无需预计算扰动系数，仅使用少量自适应系数即可达到与全精度PB-NLC相当的性能。
 
 **扰动系数计算：**

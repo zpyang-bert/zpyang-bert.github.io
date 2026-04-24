@@ -8,8 +8,9 @@ tags:
   - Optical
   - PDP
   - Paper
-  - 深度学习
----
+
+# Th4A.3 深度学习报告：Sony高带宽氧化限制VCSEL实现200G-PAM4
+
 **原始论文**：Sony Semiconductor Solutions — "High Temperature >35GHz Bandwidth Oxide-Confined VCSELs for 200G-PAM4 Links"
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合半导体激光物理、VCSEL工艺、高速调制理论）

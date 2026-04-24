@@ -8,7 +8,7 @@ tags:
   - Optical
   - Paper
   - 深度学习
----
+
 ## 1. 论文基本信息
 
 ---
@@ -16,12 +16,12 @@ tags:
 
 **Figure 1.1**
 *Figure 1.1: a) Optical MB spectrum. b) Throughput records in SMF using WDM MB systems.*
-![](/img/mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/images/e216ef4365cf700468ccd1cfc3c4c7eed20d23036450b283bb31a6cc7f7613fa.jpg)
+![](/img/mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/auto/images/e216ef4365cf700468ccd1cfc3c4c7eed20d23036450b283bb31a6cc7f7613fa.jpg)
 > 🔍 深度说明：本图展示光纤通信常用波段的频谱划分示意图（Fig.1.1第(a)子图）。横轴为波长(1260~1620nm)，5个波段分别用不同颜色标注：O-band（原始波段）1260~1360nm（灰蓝色，带宽100nm/17.5THz）；E-band（扩展波段）1360~1460nm（天蓝色，带宽100nm/15.1THz）；S-band（短波段）1460~1520nm（浅黄绿色，带宽70nm/9.4THz）；C-band（常规波段）1520~1560nm（浅黄色，带宽30nm/3.76THz）；L-band（长波段）1560~1620nm（砖红色，带宽65nm/7.12THz）。工程背景：C-band是光纤通信最常用波段——对应掺铒光纤放大器（EDFA）的增益窗口（1530~1565nm），该波段光纤损耗最低（约0.2dB/km），EDFA增益最高（>30dB），C+L两波段组合可提供约183nm总带宽。当前商用WDM系统（80波×200G）主要在C-band运行，每通道间隔50GHz（ITU-T G.694.1）；下一代超800G系统正在扩展到S-band以提升总容量。落地注意：S-band的扩展面临挑战——S-band EDFA增益较低（<25dB）且噪声系数更高，光纤在S-band的衰减也略大（~0.25dB/km），链路预算需要更保守设计。对于SerDes芯片，多波段支持意味着DSP需要可配置的色散补偿系数（不同波段DGD、色散系数不同）和可编程的通道间隔参数。 
 
 **Figure 1.1**
 *Figure 1.1: a) Optical MB spectrum. b) Throughput records in SMF using WDM MB systems.*
-![](/img/mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p/auto/images/4f4ed497c3d89717ac4f9387e4128a4f846e8fbe47d854a999e41ff6f8e87975.jpg)
+![](/img/mineru_output/DSP_Algorithms_Intelligent_Optical_Coherent_Transceivers_RibeiroSena_24p_深度学习报告/auto/images/4f4ed497c3d89717ac4f9387e4128a4f846e8fbe47d854a999e41ff6f8e87975.jpg)
 > 🔍 深度说明：本图展示多波段WDM系统的容量-距离权衡关系散点图（Fig.1.1第(b)子图）。纵轴为吞吐量(50~250Tbit/s)，横轴为传输距离(10~10000km，对数刻度)。7个数据点代表不同参考文献的成果：(1)红色点[14]：206.1Tbit/s @ 54km，S+C+L三波段；(2)蓝色点[15~17]：三波段方案，50km量级，吞吐量150~175Tbit/s；(3)蓝色点[18~20]：C+L双波段方案，100~2000km距离，吞吐量95~105Tbit/s。关键趋势：三波段（S+C+L）容量更高（>110Tbit/s）但距离受限（<100km）；双波段（C+L）吞吐量略低但可传输更远（最远2000km）。工程背景：这反映了光通信的基本权衡——高容量需要更多带宽（多波段）+ 高阶调制（64QAM），但高阶调制对OSNR要求更高，距离受限。商用系统需要在容量和距离间做架构选择：数据中心互联（DCI）通常<100km，可用S+C+L高容量方案；长途骨干网>500km，则用C+L低阶调制（QPSK/8QAM）。落地注意：对于SerDes芯片设计，图中的容量-距离权衡直接影响芯片的调制格式配置——短距离可用高阶调制（256QAM）提升单波长容量，长距离则需回退到QPSK以保证OSNR余量，当前商用DSP通常支持自适应调制格式切换（根据BER/OSNR反馈实时调整）。
 
 ---

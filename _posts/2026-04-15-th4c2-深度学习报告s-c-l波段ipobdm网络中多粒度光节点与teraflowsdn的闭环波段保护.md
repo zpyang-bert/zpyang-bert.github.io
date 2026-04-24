@@ -8,8 +8,9 @@ tags:
   - Optical
   - PDP
   - Paper
-  - 深度学习
----
+
+# Th4C.2 深度学习报告：S-C-L波段IPoBDM网络中多粒度光节点与TeraFlowSDN的闭环波段保护
+
 **原始论文**：Fraunhofer HHI + Scuola Sant'Anna + ETH Zurich + 多机构 — "Experimental Demonstration of Closed-Loop Waveband Protection in S-C-L-Band IPoBDM Fiber Network using Multi-Granular Optical Nodes and TeraFlowSDN Controllers"
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合SDN光网络、IP over BDM、多波段、闭环保护）

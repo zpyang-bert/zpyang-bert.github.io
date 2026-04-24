@@ -8,8 +8,9 @@ tags:
   - Optical
   - PDP
   - Paper
-  - 深度学习
----
+
+# Th4A.4 深度学习报告：Silicon Mach-Zehnder调制器实现400G/lane PAM4
+
 **原始论文**：Coherent Corp — "400G/lane PAM4 Modulation Using Silicon Mach-Zehnder Modulators"
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合硅光子学、MZM调制理论、SerDes系统设计）

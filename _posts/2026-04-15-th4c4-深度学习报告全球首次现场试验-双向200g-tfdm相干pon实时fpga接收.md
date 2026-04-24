@@ -8,8 +8,9 @@ tags:
   - Optical
   - PDP
   - Paper
-  - 深度学习
----
+
+# Th4C.4 深度学习报告：全球首次现场试验 — 双向200G TFDM相干PON实时FPGA接收
+
 **原始论文**：Fudan University + China Telecom — "World's First Field-Trial Demonstration of Bidirectional 200G TFDM Coherent PON Enabled by Real-Time FPGA-Based Reception"
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合TFDM、相干PON、实时FPGA、场部署试验）

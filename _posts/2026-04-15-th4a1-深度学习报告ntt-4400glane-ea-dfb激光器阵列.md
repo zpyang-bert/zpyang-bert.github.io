@@ -8,8 +8,9 @@ tags:
   - Optical
   - PDP
   - Paper
-  - 深度学习
----
+
+# Th4A.1 深度学习报告：NTT 4×400G/lane EA-DFB激光器阵列
+
 **原始论文**：NTT Corporation — "4×400Gb/s EA-DFB激光器阵列用于单通道400Gb/s/lane光传输"
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合光电器件理论、SerDes系统需求、IEEE标准）

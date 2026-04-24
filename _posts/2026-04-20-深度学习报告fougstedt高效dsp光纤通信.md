@@ -8,7 +8,7 @@ tags:
   - Optical
   - Paper
   - 深度学习
----
+
 ## 1. 论文基本信息
 
 **标题**: High-throughput power-efficient DSP for fiber-optic communication systems
@@ -85,7 +85,7 @@ h_k = √(cT²/|D|λ²L) · exp(jπcT²k²/(|D|λ²L))
 3. **流水线级别优化**: 平衡延迟与功耗
 4. **系数组优化**: 减少开关活动
 
-![色散补偿滤波器功率优化策略](/img/optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/_images/70a0f4ee10b05fba65103c2c443df143b9128575fe052fa100f2bc59a3f4462b.jpg)
+![](/img/mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/images/70a0f4ee10b05fba65103c2c443df143b9128575fe052fa100f2bc59a3f4462b.jpg)
 > 🔍 深度说明：该图展示了色散补偿滤波器的功率优化策略，从算法级到电路级的多层次优化方法。抽头系数量化通过减少位宽来降低功耗和硅面积；滤波器结构选择涉及直接型、转置型、折叠型等不同架构的权衡；流水线级别优化平衡处理延迟与功耗；系数组优化通过减少开关活动来降低动态功耗。这种实现感知的设计方法论是从硬件实现角度审视DSP算法的典型范例。
 
 #### 3.2.3 鲁棒性设计
@@ -142,7 +142,7 @@ h_k = √(cT²/|D|λ²L) · exp(jπcT²k²/(|D|λ²L))
 - 最优步长选择
 - 噪声整形
 
-![DBP有限精度实现优化](/img/optical/papers/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p_深度学习报告/_images/1e123c01112f4ba04d6d12b17b1576dc71f2c7cc17932772de370a5709913236.jpg)
+![](/img/mineru_output/High_Throughput_Power_Efficient_DSP_Fiber_Optic_Fougstedt_67p/auto/images/1e123c01112f4ba04d6d12b17b1576dc71f2c7cc17932772de370a5709913236.jpg)
 > 🔍 深度说明：该图阐明了时域数字反向传播（DBP）算法的有限精度实现挑战与优化策略。精度问题涉及定点数vs浮点数的选择、噪声增强效应和误差传播机制。优化策略以符号间干扰（ISI）最小化为准则，通过选择最优步长和噪声整形技术来平衡计算复杂度与系统性能。色散算子需要高精度，非线性算子采用中等精度，缓存可用低精度——这种分层精度分配策略是实现低功耗高效DBP的关键。
 
 ### 3.5 BCH解码器

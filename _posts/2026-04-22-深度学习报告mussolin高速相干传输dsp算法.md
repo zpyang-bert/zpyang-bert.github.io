@@ -8,7 +8,7 @@ tags:
   - Optical
   - Paper
   - 深度学习
----
+
 ## 1. 论文基本信息
 
 ---
@@ -16,67 +16,67 @@ tags:
 
 **Fig. 1.1**
 *Fig. 1.1: Optical fiber attenuation*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/671b5359d83721bc6310e7358211b35dc40cca5b79ba09e68de9654a40444b76.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/671b5359d83721bc6310e7358211b35dc40cca5b79ba09e68de9654a40444b76.jpg)
 > 🔍 深度说明：本图展示1310nm和1550nm两个光纤通信主要窗口的损耗谱。1310nm窗口典型衰减约0.35dB/km（零色散点但衰减值较高），1550nm窗口衰减约0.2d/km（C波段，掺铒光纤放大器EDFA增益窗口）。值得注意的是1550nm处有OH⁻离子吸收峰（约1240nm和1380nm），这是光纤制造工艺遗留的杂质峰。图中可见1625nm区域（水峰区）衰减急剧上升。对于SerDes光模块设计，这两个低损耗窗口决定了两种主流技术路线：数据中心的1310nm多模/单模（短距＜2km用多模，省却激光器冷却成本）和电信长距的1550nm单模+EDFA。实际光模块选择需权衡：1310nm激光器（InGaAsP/InP边发射）成本低于1550nm DFB（需TEC温控维持±0.01°C波长稳定），但1550nm窗口的更低衰减使100km以上长距传输的OSNR余量更充裕。
 
 **Fig. 1.2**
 *Fig. 1.2: Fiber imperfection[4]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/30087b86e2e47c83e977b015ade08955b9c3f9eef969709ac8535ef9bb815729.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/30087b86e2e47c83e977b015ade08955b9c3f9eef969709ac8535ef9bb815729.jpg)
 > 🔍 深度说明：本图展示光纤的实际制造缺陷，包括纤芯直径波动、椭圆度误差和折射率分布不均匀。这些缺陷是光纤厂商规格表中"Mode Field Diameter (MFD) tolerance ±0.5μm"、"Core-cladding concentricity error <0.8μm"等指标的来源。光纤不完美度直接影响接续损耗（熔接损耗典型值0.05-0.2dB）和PMD（偏振模色散，典型值0.1ps/√km）。在SerDes光模块硬件设计时，接续点越多（如18跨段长途系统），累积的接续损耗和PMD代价越显著。商用PMD补偿器（基于LiNbO₃或液晶）成本极高（单级$3K-8K），因此系统设计倾向于在路由规划阶段避免长光纤接续造成的PMD恶化。
 
 **Fig. 1.3**
 *Fig. 1.3: Perturbated fiber core[4]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/429b47d24d1cc1e3b83a6611b707ae8ba7fc4c6b00a0cbd2cdd1a259e04c98b2.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/429b47d24d1cc1e3b83a6611b707ae8ba7fc4c6b00a0cbd2cdd1a259e04c98b2.jpg)
 > 🔍 深度说明：本图展示光纤中应力导致的纤芯扰动，这种微弯/宏弯效应在外力作用下（光缆施工、光纤绑扎不当、弯曲半径过小<10mm）会引发模式耦合，将导模能量泄漏到包层形成辐射损耗。工程上用"弯曲灵敏度"衡量：G.652光纤1550nm弯曲半径10mm时附加损耗约0.5dB。对于SerDes光模块的尾纤设计，弯折半径必须>15mm（ITU-T G.657 A类弯曲不敏感光纤可到10mm），且FPC（柔性印刷电路）上的光纤走线需避免锐角。相干接收机的保偏光纤（PMF）尾纤对弯曲更敏感——弯曲应力会改变偏振主轴方向，直接恶化偏振消光比（PER从>20dB跌至<15dB）。
 
 **Fig. 1.4**
 *Fig. 1.4: Impact of PMD on the propagating pulse*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/b9ad54fde8fc466a27665208f85067708dceca66a282cc0ca284977e6139afc7.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/b9ad54fde8fc466a27665208f85067708dceca66a282cc0ca284977e6139afc7.jpg)
 > 🔍 深度说明：本图展示PMD对传输脉冲的影响——偏振模色散导致双折射光纤中两个偏振态以不同群速度传播，使脉冲展宽和码间干扰（ISI）。一阶PMD用差分群时延（DGD）表征，典型值0.1ps/根号km；高阶PMD更复杂，包含偏振模式耦合和波长相关效应。对于28GBd QPSK系统，DGD>30ps时眼图严重恶化，BER从10^-3升至10^-1。实际系统设计需保证DGD < 符号周期的1/4（对28GBd符号周期约35.7ps，故DGD容限约9ps）。商用光模块通过DSP中的自适应均衡器（特别是CMA蝴蝶结构）补偿PMD，代价是功耗增加约15%（滤波器抽头数翻倍）。
 
 **Fig. 1.5**
 *Fig. 1.5: On-Off-keying constellation*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/2d34f9501ec3ffd58b453146377a40789c5e6e70251366f07c007490c7418544.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/2d34f9501ec3ffd58b453146377a40789c5e6e70251366f07c007490c7418544.jpg)
 > 🔍 深度说明：本图展示On-Off-Keying（OOK）调制格式的星座图，典型的2ASK只有两个符号点（0和1）。OOK是强度调制直接检测（IM-DD）系统的标准格式，驱动器简单、成本低（无本振激光、无偏振控制），在数据中心10km以下短距场景仍是主流（100G QSFP28使用4波长x25G OOK）。然而OOK受限于频谱效率（1bit/s/Hz）和接收灵敏度（背靠背OSNR需求约10dB@BER=10^-9），无法支持100Gb/s以上长距传输。在SerDes光模块中，28GBd OOK的消光比（ER）设计典型值3-6dB——ER越高接收灵敏度越好，但过高会加重激光器啁啾和调制器线性区工作点漂移。
 
 **Fig. 1.6**
 *Fig. 1.6: Binary PSK constellation*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/65c981e5115f03b1ed3ef9cfe9e2cd0d2b7688af17dddf950b81534584c617dc.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/65c981e5115f03b1ed3ef9cfe9e2cd0d2b7688af17dddf950b81534584c617dc.jpg)
 > 🔍 深度说明：本图展示Binary PSK（二进制相移键控）星座图，两个符号点位于复平面单位圆上，相位差180度。BPSK是相干检测的基本调制格式，抗噪声能力强（理论上比OOK有3dB灵敏度增益），但频谱效率低（1bit/s/Hz）。在长距海底光缆系统中，BPSK配合相干检测实现10Gb/s超长距传输。对于SerDes芯片设计，BPSK调制需要I/Q调制器（基于马赫-曾德干涉仪MZM），驱动器需保证I/Q幅度平衡（<0.5dB）和正交精度（<1度），否则星座图旋转导致误码。实际IC设计中常用有源I/Q误差检测环路来校正不平衡。
 
 **Fig. 1.7**
 *Fig. 1.7: PSK-OOK transmitter using a Mach-Zehnder EAM optical modulator*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/a6bf93761414e80faeba99071eb2fdc7a316a00727a18aeabaf2a702142ba8a5.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/a6bf93761414e80faeba99071eb2fdc7a316a00727a18aeabaf2a702142ba8a5.jpg)
 > 🔍 深度说明：本图展示PSK-OOK发射机使用Mach-Zehnder EAM（电吸收调制器）光调制器的结构。EAM调制器基于量子限制Stark效应（QCSE）——施加反向偏压改变吸收谱，实现高速调制（>40Gb/s）。相比LiNbO3 MZM，EAM具有更小尺寸、更低驱动电压（Vpi约2-4V vs LiNbO3的5-8V）和片上集成优势，是数据中心光模块（100G PSM4、CWDM4）的首选。图中级联MZM和EAM实现混合调制——MZM产生光载波，EAM执行相位调制。SerDes光模块中EAM的调制速率受限于载流子渡越时间，理论带宽>50GHz，实际器件约30-40GHz，故56GBd系统需采用InP或SiGe调制器而非普通EAM。
 
 **Fig. 1.8**
 *Fig. 1.8: QPSK Grey coded constellation*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/6350d573e95e80256ec3c45d432882bbe82fb08e0388f9b6728cb10df676a467.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/6350d573e95e80256ec3c45d432882bbe82fb08e0388f9b6728cb10df676a467.jpg)
 > 🔍 深度说明：本图展示Grey编码的QPSK（正交相移键控）星座图，4个符号点构成正方形（45/135/225/315度），每个符号承载2bit信息。Grey编码使相邻符号仅差1bit，降低误码时的比特错误概率。QPSK是100G/400G相干光通信的核心调制格式，28GBd QPSK实现56Gb/s（2bit x 28Gbaud）。在SerDes芯片中，QPSK的I/Q调制需要4路DAC（数模转换器，精度>=6bit ENOB）；接收端需要4路ADC和CORDIC算法提取相位。QPSK星座图的相邻符号欧氏距离比BPSK小3dB（功率相同条件下），但频谱效率提升1倍，实际系统设计中通常通过增加OSNR预算（+2~3dB）来换取频谱效率收益。
 
 **Fig. 1.9**
 *Fig. 1.9: QPSK transmitter using a nested MZM modulator*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/fdd7f544846711d59acb414f4c291e9e726c45d0effd0fd1f1c2c967f004a3fb.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/fdd7f544846711d59acb414f4c291e9e726c45d0effd0fd1f1c2c967f004a3fb.jpg)
 > 🔍 深度说明：本图展示使用嵌套MZM（马赫-曾德调制器）的QPSK发射机结构。嵌套MZM由两个子MZM（分别调制I和Q路）经90度光混频器合路构成，是产生高线性度QPSK的标准方案。相比于单驱动MZM（只能做BPSK），嵌套结构可实现两个正交光载波。关键设计参数：主调制器的消光比（>30dB）决定旁路泄露抑制；子调制器的偏置点（通常在Null点）漂移会导致星座图倾斜；驱动信号的幅度匹配（I/Q平衡度<0.5dB）和正交精度（<1度）直接影响EVM（误差向量幅度）。商用100G相干光模块中，I/Q调制器通常集成了偏置控制器（BBC）和自动功率稳定环路，以补偿环境温度漂移（>40摄氏度范围）。
 
 **Fig. 1.10**
 *Fig. 1.10: PolMux-QPSK block scheme*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/bf1056e0d0060975a23e4ea534bc77dfce86d8048fccdb5ebd00c0d42ed7cf5b.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/bf1056e0d0060975a23e4ea534bc77dfce86d8048fccdb5ebd00c0d42ed7cf5b.jpg)
 > 🔍 深度说明：本图展示PolMux-QPSK（偏振复用QPSK）的框图结构——将两路独立QPSK流分别调制到两个正交偏振态（X和Y偏振）实现频谱效率翻倍。112Gb/s PolMux-QPSK系统使用4x28Gb/s PRBS序列（2偏振x2正交分量x28Gbaud）。偏振复用系统的关键挑战在于偏振解复用——两路偏振信号在光纤中随机混合，接收端需要自适应均衡（典型CMA蝴蝶结构4x4抽头矩阵）。偏振消光比（PER）需>20dB以避免两路信号串扰，这对保偏光纤（PMF）和偏振分束器（PBC）的指标要求极高。商用相干光模块的典型偏振串扰约-25dB，对应约0.3dB的Q因子代价——这个代价在长距系统中累积效应显著。
 
 **Fig. 1.11**
 *Fig. 1.11: Evolution from PSK to POLMUX-QPSK[5]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/01f16dd76ebcde3e2ba825867b8e8d0077a61abc9cac9e8a740e3599b9cec90f.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/01f16dd76ebcde3e2ba825867b8e8d0077a61abc9cac9e8a740e3599b9cec90f.jpg)
 > 🔍 深度说明：本图展示从PSK演进到PolMux-QPSK的技术路径。可以看到从BPSK(1bit)到QPSK(2bit)到PolMux-QPSK(4bit)的频谱效率提升过程。2009-2010年这个时期，商用100GbE光模块刚从直接检测转向相干检测，PolMux-QPSK成为行业标准（IEEE 802.3ba 100GBASE-LR4使用DP-QPSK）。这个演进路径对SerDes芯片架构设计有指导意义：调制阶数的提升（QPSK到16QAM到64QAM）对ADC/DAC精度（从6bit到8bit到10bit）、DSP并行处理能力（FFT/IFFT核数量）和功耗（从<3W到8W到15W）都提出更高要求。目前商用1.6T光模块采用144GBd 16QAM（4bit/符号），对SerDes芯片的ADC ENOB要求已达7.5bit以上。
 
 **Fig. 1.12**
 *Fig. 1.12: Schematic direct receiver*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/857f982cccdd97dca9a5895258d014d960a0782931085a6af3dd0dd03f55c378.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/857f982cccdd97dca9a5895258d014d960a0782931085a6af3dd0dd03f55c378.jpg)
 > 🔍 深度说明：本图展示直接检测接收机的原理框图——光信号经光电探测器（PIN或APD）直接转换为电流，无需本振激光和90度混频器。直接检测只能恢复光强信息（|E|^2），相位和偏振信息丢失，这是其与相干检测的根本区别。直接检测系统成本低（无TEC激光器、无复杂光学混频结构），在数据中心短距（<10km）仍是主流（28GBd OOK或PAM4）。但直接检测的OSNR灵敏度比相干检测差约3-10dB（取决于调制格式），且无法补偿色散——因此无法支持100Gb/s以上速率和100km以上传输距离。对于SerDes芯片，直接检测的CDR（时钟数据恢复）通常采用线性相位检测（edge-based PD），而相干检测则用Viterbi-Viterbi或Bang-bang PD。
 
 **Fig. 1.13**
 *Fig. 1.13: Schematic coherent receiver[7]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/321e7df38d9c7406577c3873301b6f50fa487fea876ad7b96c96d59f5589656f.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/321e7df38d9c7406577c3873301b6f50fa487fea876ad7b96c96d59f5589656f.jpg)
 > 🔍 深度说明：本图展示相干检测接收机的原理框图——本振激光（LO）与接收信号光在90度光混频器中相干，本振的相位和频率锁定于信号光（通过数字DSP估计和补偿频偏/相偏）。相干检测可以同时恢复光场的幅度、相位和偏振四个自由度，结合DSP算法实现色散（CD）完全补偿、PMD自适应均衡和非线性效应补偿。典型的相干接收机包括：2x4 90度混频器（产生I_X、Q_X、I_Y、Q_Y四路输出）、平衡探测器（抑制共模噪声）、本地振荡器（linewidth<100kHz的窄线宽激光器）和ADC（>=2采样/符号，精度>=6bit ENOB）。相干检测的OSNR灵敏度比直接检测高约5-8dB，这就是为何长距（>100km）和超长距（>1000km）传输必须采用相干检测——但代价是光模块成本和功耗大幅增加（相干光模块典型功耗8-15W vs 直接检测2-4W）。
 
 ---
@@ -101,87 +101,87 @@ tags:
 
 **Fig. 2.1**
 *Fig. 2.1: Transmission and DSP block scheme*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/55cda79c022583e6d0f205ae795217e00a205f2a54e79b3b6701bb1b77c8640e.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/55cda79c022583e6d0f205ae795217e00a205f2a54e79b3b6701bb1b77c8640e.jpg)
 > 🔍 深度说明：本图展示112Gb/s PolMux-QPSK相干传输系统的发射端和DSP链路框图。发射端：4x28Gb/s PRBS -> QPSK调制器（I/Q两路） -> 偏振复用 -> 光纤。DSP接收链路包括：ADC采样 -> 色散补偿（CD） -> 偏振解复用（CMA自适应均衡） -> 载波相位恢复（Viterbi-Viterbi） -> 判决输出。这条DSP链路是商用相干光模块的基准架构，每个模块的性能指标（OSNR灵敏度、CD补偿范围、PMD容忍度）都取决于各环节的实现质量。28GBd系统的ADC采样率通常56GSa/s（2样本/符号），对ADC的ENOB要求>5.5bit（实际系统需要>6bit才能保证0.5dB的OSNR余量）。DSP链路总延迟约100-200微秒（取决于滤波器深度和算法并行度），这对低延迟应用（如金融交易）是关键指标。
 
 **Fig. 2.2**
 *Fig. 2.2: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram without DSP, (b) *
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/d9536e2a5674277c9790e85d91c8740ff897a80f7495caec6a2ee3d9ab91294f.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/d9536e2a5674277c9790e85d91c8740ff897a80f7495caec6a2ee3d9ab91294f.jpg)
 > 🔍 深度说明：本图展示QPSK信号在未经过任何DSP处理时的原始接收星座图（Fig.2.2第(a)子图）。黑色散点以原点(0,0)为中心呈横向椭圆分布，范围约[-0.06, +0.06]（横轴）和[-0.05, +0.05]（纵轴），点群直径约0.1，说明信号存在严重的相位旋转和幅度畸变。这种单簇椭圆分布是未补偿系统的典型特征——CD（色散）导致脉冲展宽产生模式混合，载波相位噪声导致星座点绕原点旋转，整体形成横向拉伸的椭圆形。工程背景：112Gb/s PolMux-QPSK系统（28GBd），光纤色散约17ps/nm/km@1550nm，100km标准光纤累计色散约1700ps/nm，若不经CD补偿，星座点会沿光纤长度方向持续旋转。SerDes芯片测试中，芯片回片后需在相干接收实验平台测试，观察此阶段的原始星座图可判断器件损伤来源——若椭圆长轴方向固定则为CD主导，若随机旋转则为相位噪声主导。落地注意：未DSP星座图的质量直接决定后续均衡器的初始收敛速度，若初始误差太大（sigma>0.15），LMS/CMA可能收敛到局部最优而非全局最优，需要先用常数模算法（CMA）进行粗补偿再切换到LMS。
 
 **Fig. 2.2**
 *Fig. 2.2: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram without DSP, (b) *
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/6470e24866fd42e673fa8b6e47ea5a7f225ede655a3c6ed559fba1e6d7459112.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/6470e24866fd42e673fa8b6e47ea5a7f225ede655a3c6ed559fba1e6d7459112.jpg)
 > 🔍 深度说明：本图展示QPSK信号经过CD（色散）补偿和偏振解复用后但未进行载波相位恢复阶段的星座图（Fig.2.2第(b)子图）。4个高密度点簇分别以(±0.6, ±0.6)为中心，范围覆盖[-1.5, +1.5]，每个簇呈水平椭圆（x方向方差>y方向方差），说明CD补偿已消除色散导致的脉冲展宽，偏振解复用也已分离两个正交偏振态。但各簇仍有约±0.6的随机相位旋转——这是激光器相位噪声（线宽约100kHz@100km）和载波相位恢复前残留误差的体现。工程背景：在相干光通信DSP链路中，CD补偿通常在偏振解复用之前做（因为CD是线性损伤，与偏振态无关），偏振解复用由CMA（常数模算法）或MIMO-FIR滤波器完成，二者顺序不能颠倒——CMA的收敛需要信号具备一定的统计特性，若CD未补偿则信号被严重展宽，CMA无法收敛。对于112Gb/s QPSK，CD补偿范围需覆盖约1700ps/nm（对应100km SSMF），FIR滤波器抽头数约31~65（取决于符号率与色散量）。落地注意：图中4个簇的清晰度（簇直径sigma）直接决定后续CPE（载波相位估计）的精度——sigma越大，CPE误差越大，BER floor越高。对于工程实现，Viterbi-Viterbi算法（4次方相位恢复）对QPSK可将相位噪声容限提升至约1MHz线宽。 
 
 **Fig. 2.3**
 *Fig. 2.3: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram without DSP, (b) *
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/66b91c4dccb2ce89dcfdf9ee89b6ae8d1463caa26a6fdcf126cae2a8620d27d8.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/66b91c4dccb2ce89dcfdf9ee89b6ae8d1463caa26a6fdcf126cae2a8620d27d8.jpg)
 > 🔍 深度说明：本图展示QPSK信号在偏振解复用前的双偏振混合信号联合分布（Fig.2.3第(a)子图）。坐标轴标签为希腊字母α（阿尔法），范围[-0.06, +0.06]，散点呈以原点为中心的横向椭圆，x方向方差大于y方向。物理本质：两个正交偏振态（X_pol和Y_pol）在光纤中经历不同的DGD（差分群延时）和相位旋转后叠加，x-pol和y-pol的混合权重不断变化，导致联合散点图呈现二维高斯分布特征。工程背景：偏振混合是PMD（偏振模色散）的直接结果——对于28GBd QPSK，若DGD约30ps（PMD约1ps/√km），则相邻符号间偏振态会发生显著变化。CMA（恒模算法）蝴蝶结构通过4个FIR抽头（hxx, hxy, hyx, hyy）逐步解耦两个偏振信号，收敛时间通常需要数千符号周期（约10微秒）。若系统发生快速偏振旋转（如ROADM切换、光缆振动），CMA可能失锁，需要盲备份或导向天线法辅助恢复。落地注意：对于商用相干光模块，PMD补偿通常集成在CMA前端，抽头数4~8足以应对标准单模光纤的PMD（平均约0.1ps/√km）；但对于PMD补偿器的自适应算法，过度增加抽头数会显著增加功耗和延迟。
 
 **Fig. 2.3**
 *Fig. 2.3: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram without DSP, (b) *
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/9be6ca550336c4c5e62dfb7e3cffc128b73068eaa789da1f878aed10af9e8201.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/9be6ca550336c4c5e62dfb7e3cffc128b73068eaa789da1f878aed10af9e8201.jpg)
 > 🔍 深度说明：本图展示CMA（恒模算法）均衡后成功分离的双偏振QPSK星座图（Fig.2.3第(b)子图）。坐标轴标签为希腊字母δ_f（通常表示频率偏移），范围[-0.06, +0.06]，散点呈以原点为中心的横向椭圆，x方向方差大于y方向——这说明CMA已成功将两个正交偏振态分离，恢复了4个QPSK符号点簇，但各簇仍有残余的相位旋转（星座点围绕各自理想位置仍有约±0.06弧度的随机抖动）。物理本质：CMA的误差函数为ε=|y|^4-|y|^2，通过迭代使输出信号的模值趋向恒定（对QPSK来说4个符号模值相等），从而完成偏振解复用。工程背景：CMA收敛后，每个偏振通道的输出应该是标准的QPSK星座图——4个点分别位于45°、135°、225°、315°方向。若收敛后星座点仍有明显的椭圆分布或旋转偏移，说明CMA抽头数不足或步长参数（mu）设置不当，需要调整。对于112Gb/s系统，通常采用步长mu=1e-4~1e-3，抽头更新速率需与信道相干时间匹配。落地注意：CMA收敛后的残余相位噪声主要来自激光器线宽（EDFA的泵浦激光约100kHz，本振激光约100kHz），对于相干接收机，本振激光线宽直接决定相位恢复算法的性能需求——线宽越大，需要更深的相位搜索窗口。
 
 **Fig. 2.4**
 *Fig. 2.4: Fir filter block*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/a2cba7cefa33062293908c27148198b51d65a101df6eb18e5b54bc55b98d00c3.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/a2cba7cefa33062293908c27148198b51d65a101df6eb18e5b54bc55b98d00c3.jpg)
 > 🔍 深度说明：本图展示FIR滤波器的基本结构——N抽头横向滤波器，每个抽头乘以系数w_k后累加。FIR滤波器用于色散补偿和信道均衡，其频率响应由抽头系数决定。N个抽头的FIR滤波器计算复杂度O(N)——对28GBd系统，若色散补偿需要101个抽头（100km SSMF @1550nm），则每样本需101次乘加操作，56GSa/s采样率下每秒需5.7B次乘加（功耗约0.5-2W）。ASIC实现时通常采用时分复用——用1个乘加器复用处理多路并行流，以降低硬件资源。色散补偿FIR滤波器的抽头数计算公式：N近似等于2乘以根号(|D|乘以lambda^2乘以z/(2cT^2))，其中D=16ps/nm/km、lambda=1550nm、z=传输距离、T=符号周期。对100km传输，N约71抽头（28GBd）；对1000km则需225抽头，实际系统可能超出DSP处理能力。
 
 **Fig. 2.5**
 *Fig. 2.5: Adaptive filter scheme*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/949e9a7b492703db8bddd522a855324b7a6c13ee5defce38596a44729bd7e88d.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/949e9a7b492703db8bddd522a855324b7a6c13ee5defce38596a44729bd7e88d.jpg)
 > 🔍 深度说明：本图展示自适应滤波器的基本结构——输入信号x(n)经过FIR滤波器产生输出y(n)，与期望信号d(n)比较产生误差e(n)，误差反馈给系数更新模块调整滤波器系数。自适应滤波器是相干光接收机DSP的核心模块，用于PMD补偿、偏振解复用和载波相位恢复。更新算法（LMS: w(n+1)=w(n)+mu乘以x*(n)乘以e(n)）的选择决定收敛速度和硬件复杂度——LMS只需1次乘加/抽头/样本，但收敛慢；RLS收敛快但需矩阵求逆（O(N^3)复杂度），ASIC实现困难。步长mu是关键参数：mu越大收敛越快但稳态误差越大（mu~10^-3~10^-2量级）。在28nm CMOS工艺下，1个自适应滤波器核（32抽头LMS）的功耗约5-10mW，完整相干DSP芯片集成64-128个并行核。
 
 **Fig. 2.6**
 *Fig. 2.6: LMS error evaluation*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/c87946a96715337503118c80936d474e60e294d701d04d9eeaee0a3d2357c94c.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/c87946a96715337503118c80936d474e60e294d701d04d9eeaee0a3d2357c94c.jpg)
 > 🔍 深度说明：本图展示LMS误差评估的框图结构。标准LMS算法中，误差e(n)=d(n)-y(n)，其中d(n)是期望信号（在盲均衡时用判决结果代替）。误差的统计特性决定滤波器是否收敛——收敛条件是步长mu满足0<mu<2/lambda_max（lambda_max为输入信号自相关矩阵的最大特征值）。在实际系统中，输入信号的功率变化会导致mu有效值变化，引起收敛不稳定。因此商用DSP通常采用归一化LMS（NLMS）或符号LMS（sign-LMS）来增强鲁棒性。Sign-LMS（e(n)用sign(e(n))代替）将乘法简化为符号翻转，硬件实现只需1bit比较器，但收敛精度下降约3dB。对于高阶QAM（64QAM/256QAM），需要更复杂的误差定义（如CMA误差函数epsilon=1-|y|^2）来避免判决指向错误造成的误差传播问题。
 
 **Fig. 2.7**
 *Fig. 2.7: FFT CD compensation algorithm scheme*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/95c302966ff7accd5111b121bb77e371d8fae1dbcb011214b4cecb4472e4c09c.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/95c302966ff7accd5111b121bb77e371d8fae1dbcb011214b4cecb4472e4c09c.jpg)
 > 🔍 深度说明：本图展示基于FFT的色散补偿算法框图。相比时域FIR滤波（O(N)复杂度），FFT方法将卷积转化为频域乘法（O(N log N)），大幅降低计算量。算法流程：接收信号 -> 分窗 -> FFT -> 与色散传递函数H(omega)=exp(-jDlambda^2z omega^2/(4 pi c))相乘 -> IFFT -> 重叠相加输出。关键参数是FFT长度L_FFT——L_FFT越大分辨率越高（频率分辨率Delta_f=1/(L_FFT T_s)），但计算延迟增加。overlap-save方法在分窗时相邻窗口重叠50-75%以避免边界效应。ASIC实现中，FFT/IFFT核是面积最大的模块之一（28nm工艺下64点FFT核面积约0.1mm^2，功耗约20mW）。对100km色散补偿需128点FFT，对2000km需1024点FFT——这直接决定芯片的时钟频率和流水线深度。
 
 **Fig. 2.8**
 *Fig. 2.8: Overlap add method*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/d943f75299951f909b5553508e7836fff8df9a794d6f4b05620131202bb92725.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/d943f75299951f909b5553508e7836fff8df9a794d6f4b05620131202bb92725.jpg)
 > 🔍 深度说明：本图展示重叠相加法（Overlap-Add Method）的原理。分窗后的每段信号在FFT前补零（zero-padding）以在频域产生圆卷积等价于线性卷积的效果，相邻窗口重叠部分在输出端拼接。重叠长度通常为滤波器长度M-1（若滤波器有M个抽头），以确保卷积边界不错失。具体操作：输入序列分成长为L的段，每段后补M-1个零 -> N点FFT(L+M-1<=N) -> 频域乘H(k) -> N点IFFT -> 重叠部分相加。工程中L的选择是延迟与计算效率的trade-off——L越大延迟越高但FFT计算开销占比下降；L越小越灵活但开销增大。对28GBd 112Gb/s系统典型配置：L=512~2048符号，N=1024~4096点FFT，处理延迟约1-10微秒。
 
 **Fig. 2.9**
 *Fig. 2.9: Functionality of the digital filtering stage[6]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/1fbe112c9fc1e11827d96737cbb83319c5d8a23e6efb1ab81980f7456373a8fd.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/1fbe112c9fc1e11827d96737cbb83319c5d8a23e6efb1ab81980f7456373a8fd.jpg)
 > 🔍 深度说明：本图展示数字滤波阶段的功能——图中可见接收信号经过滤波后，符号间干扰（ISI）被抑制，星座图点群收紧。这是DSP链路中色散补偿与自适应均衡协同工作的结果：固定色散补偿（FFT方法）消除大部分线性色散，残余色散由自适应滤波器（CMA）处理。具体而言：CD补偿后信号经历与信道冲激响应h(t)的卷积，残余ISI由均衡器FIR抽头系数w(t)补偿，使得总体响应w(t)*h(t)近似等于delta(t)。工程实现中，CD补偿和均衡可级联（先CD后均衡）或联合（2x2 MIMO均衡器同时处理CD+PMD），联合方式对高速率（>100GBd）更优但硬件复杂度翻倍。眼图测试是验证均衡效果的标准方法——补偿后眼图应张开高度>50%（相对最大眼高）。
 
 **Fig. 2.10**
 *Fig. 2.10: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram before PMD compe*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/650eca6e50bfa9470402d867430dfdbb66c1ad18f3e6c07fd3c05888b1b12db2.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/650eca6e50bfa9470402d867430dfdbb66c1ad18f3e6c07fd3c05888b1b12db2.jpg)
 > 🔍 深度说明：本图展示QPSK信号在PMD（偏振模色散）补偿前的双偏振联合分布（Fig.2.10第(a)子图）。横轴标签为Δl（差分群延时相关的归一化变量），范围[-0.08, +0.08]，散点以原点为中心呈横向椭圆，x方向范围约[-0.062, +0.062]，y方向约[-0.065, +0.065]。这种单一横向椭圆的分布特征表明两个正交偏振态的信号完全混合，形成二维高斯分布——每个符号位置处，x-pol和y-pol的复振幅叠加，导致联合散点呈圆形而非分离的4个QPSK簇。工程背景：PMD是光纤的非理想双折射效应，归一化差分群延时Δl=DGD/ Tb，其中DGD为差分群延时（典型值10~30ps@100km），Tb为符号周期（28GBd约35.7ps）。当DGD与Tb可比时，相邻符号间偏振态剧烈变化，形成统计混合的星座图。CMA盲均衡（恒模算法）通过4抽头蝴蝶结构（hxx, hxy, hyx, hyy）逐步分离两个偏振态，但收敛速度受步长mu和信道相干时间制约——步长太大导致抖动太大，步长太小则收敛太慢。落地注意：对于商用光模块，PMD容忍度是必测指标——IEEE 802.3要求400G相干模块在30ps DGD下BER<1e-2，实际系统需预留约3dB OSNR余量应对动态PMD事件。
 
 **Fig. 2.10**
 *Fig. 2.10: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram before PMD compe*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/0762146a2a59e26af043373861e525bd7bac5c5361b9cddd599b1d818ef02173.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/0762146a2a59e26af043373861e525bd7bac5c5361b9cddd599b1d818ef02173.jpg)
 > 🔍 深度说明：本图展示PMD补偿过程中载波相位恢复前后的QPSK星座图对比（Fig.2.10第(b)子图）。坐标轴标签为θ（载波相位），范围[-2, +2]弧度。关键特征：散点呈空心环形分布——内环空白区半径约0.3~0.5，外环边界约±1.5，环形带内点密度均匀。这是载波相位噪声的典型表现：每个符号的真实相位被随机旋转θ∈[-π, π]，导致原本应落在4个理想QPSK点上的符号被"甩"到环形轨道上。物理本质：激光器相位噪声（Linewidth）使本振光相位随布朗运动积累，相位误差φ(t)服从维纳过程，方差为2πΔν·t（Δν为激光线宽）。对100kHz线宽的激光，28GBd符号周期（35.7ps）内的相位扰动约0.02弧度，但长距离传输后累积相位误差可达数弧度。工程背景：载波相位恢复（CPE）算法（如Viterbi-Viterbi 4次方法、CNN-based相位搜索）的作用是将环形分布的散点"卷回"到4个理想QPSK点。Viterbi-Viterbi算法利用QPSK的4重对称性，通过4次方运算消除相位偏移（对QPSK：φ→4φ，然后mod 4π→0），复杂度低但只能处理相位噪声而不能处理频率偏移。落地注意：对于实际系统，CPE前通常需要先做频率偏移补偿（FOE），因为频率偏移会导致星座点持续旋转而非随机抖动——FOE通常用V&A算法或导频辅助估计。
 
 **Fig. 2.11**
 *Fig. 2.11: QPSK constellation from a PolMux-QPSK (section 1.2): (a) received data constellation diagram before carrier p*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/904d6e2833398c6764e8198e954de0d9af8ae6f100ddf265865934ae981c3d96.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/904d6e2833398c6764e8198e954de0d9af8ae6f100ddf265865934ae981c3d96.jpg)
 > 🔍 深度说明：本图展示QPSK星座图在载波相位恢复前后的对比——(a)为CPE（载波相位估计）前的信号，星座图整体旋转且有明显的环形模糊（相位噪声导致）；(b)为Viterbi-Viterbi相位估计后的星座图，4个符号点清晰分离。Viterbi-Viterbi算法利用QPSK的4次对称性：4次方运算使QPSK的4个相位点（45/135/225/315度）全部映射到同一点（相位消除），再通过滑动平均估计实际相位噪声并补偿。窗口长度N是关键参数：N越大噪声抑制越好（理论上sigma近似等于1/根号N），但跟踪速度越慢（无法跟踪快速相位噪声）。对于100kHz线宽激光器和28GBd符号率，相位噪声的相干时间约1/(pi乘以Delta_nu)近似等于3.2微秒，故N不能超过约90个符号（28GBd下）。商用芯片中N通常取15-30以平衡噪声抑制与跟踪速度。
 
 **Fig. 2.12**
 *Fig. 2.12: Span[13]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/08c36f7c5875a00470562f389d27b26889ad90ce4132afa32d36fda43ac60e43.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/08c36f7c5875a00470562f389d27b26889ad90ce4132afa32d36fda43ac60e43.jpg)
 > 🔍 深度说明：本图展示光纤跨段（Span）的结构——每跨段由一段标准单模光纤（SSMF，约80-100km）和一个EDFA光放大器组成。长距传输系统由多个跨段级联而成。EDFA工作波段C波段（1530-1565nm），增益约20-25dB，噪声指数NF约4-6dB（掺铒光纤长度和泵浦功率决定）。每跨段损耗约16-20dB（80km x 0.2dB/km + 接续损耗），恰好被EDFA补偿。多跨段累积的ASE噪声和PMD是限制传输距离的主要因素——系统设计公式：OSNR(dB)=P_out(dBm)-L_span(dB)-NF(dB)-10log10(N_span)+58，N_span越大OSNR越差。对于SerDes系统，跨段数每翻倍，OSNR下降约3dB（对Q因子影响约1.5dB），这直接决定最大无中继传输距离。
 
 **Fig. 2.13**
 *Fig. 2.13: Nonlinear compensator[14]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/9333708af44d9f2f3c5e39127d1be41f95b2244e033a3da50db1535c8dcb042e.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/9333708af44d9f2f3c5e39127d1be41f95b2244e033a3da50db1535c8dcb042e.jpg)
 > 🔍 深度说明：本图展示非线性补偿器（Non-Linear Compensation, NLC）的级联结构原理（Fig.2.12第(a)子图）。核心结构为" FIR滤波器 × NLC_core ×N"——左侧FIR滤波器负责线性损伤补偿（色散CD、偏振相关损耗PDL），右侧NLC核心基于扰动法（perturbation-based）或简化DBP（数字背向传播）对Kerr非线性进行逆操作。级联次数×N表示该结构在链路中重复N次，每一级独立补偿一段光纤的非线性相位旋转。物理本质：光纤Kerr效应导致非线性相位旋转φ_NL=γ·P·L_eff，其中γ为非线性系数（约1.3/W/km for SSMF），P为瞬时功率，L_eff为有效长度。DBP通过逆向求解非线性薛定谔方程（NLSE）来抵消这一效应，但标准DBP需要对每一步菲涅尔衍射做精确的相位补偿，计算量巨大（O(N log N) per span）。简化DBP（扰动法）仅保留一阶扰动项，将复杂度从O(N²)降至O(N)，适合硬件实时实现。工程背景：对于112Gb/s QPSK系统，NLC的增益通常约0.5~1dB（改善OSNR灵敏度），但计算复杂度和功耗显著——每级NLC需要额外的乘累加运算单元，对28nm CMOS DSP芯片而言约增加15%~20%功耗预算。落地注意：NLC的效果与入纤功率密切相关——功率太低（<-3dBm/ch）非线性效应可忽略，功率太高（>+3dBm/ch）则NLC无法完全补偿，存在最优功率点约0~2dBm/ch。
 
 **Fig. 2.13**
 *Fig. 2.13: Nonlinear compensator[14]*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/722549eeb9e4c4fc473a42cedc13a522d983f7137f0431278991392ba501a1a1.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/722549eeb9e4c4fc473a42cedc13a522d983f7137f0431278991392ba501a1a1.jpg)
 > 🔍 深度说明：本图展示双偏振（Dual-Pol）非线性相位预失真/补偿单元的详细结构（Fig.2.13第(b)子图）。两路输入：x-pol signal和y-pol signal。核心计算路径：(1)各路信号先计算模平方|P_x|²和|P_y|²（瞬时功率）；(2)4个乘法器分别乘以系数α（自相位调制系数，对角元素）和β（交叉相位调制系数 off-diagonal）；(3)两个加法器分别输出x支路和y支路需要补偿的总相位偏移量：φ_x=α·|P_x|²+β·|P_y|²，φ_y=β·|P_x|²+α·|P_y|²；(4)最后通过复指数乘法×exp(-j·)对各路信号做相位旋转。物理本质：这是对Kerr非线性的精确逆向补偿——XPol的自相位调制（SPM）产生α·|P_x|²的相位旋转，YP ol的交叉相位调制（XPM）产生β·|P_y|²的相位旋转，总相位旋转需精确抵消。工程背景：在数字预失真（DPD）场景中，该结构用于发射端预补偿（先对要发送的信号做相位预失真，使得经过光纤传输后自动恢复正确相位）；在接收端补偿场景中，则对接收信号做逆向相位旋转。对于56GBd+高阶QAM（16QAM/64QAM），XPM效应比QPSK严重3~5倍，因为多电平调制使峰均功率比（PAPR）更高，XPM导致的串扰更显著。落地注意：该结构中α和β系数的准确估计是关键——通常需要先用导频信号或训练序列做信道探测，获得准确的γ（非线性系数）和有效长度L_eff后才能确定α、β的实际值。对于动态网络（多跳ROADM），α、β会随路由变化，需要周期性重新估计。
 
 ---
@@ -211,67 +211,67 @@ tags:
 
 **Fig. 3.1**
 *Fig. 3.1: Schematic of 112 Gbit/s PM-QPSK coherent transmission system*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/5a147b6c65da3fe1d79746b57d47eca5a089f624d721dfb04e9a132739041873.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/5a147b6c65da3fe1d79746b57d47eca5a089f624d721dfb04e9a132739041873.jpg)
 > 🔍 深度说明：本图展示112Gb/s PM-QPSK相干传输系统的完整实验装置。发射端：4x28Gb/s PRBS 2^31-1 -> QPSK调制器 -> 偏振复用 -> EDFA功率放大 -> 光纤。接收端：相干检测（2x4混频器+平衡探测器）-> 40GSa/s实时示波器（采集后离线DSP处理）。系统参数：波长1550nm，符号率28GBd，帧长65536符号（2.34微秒），光纤SSMF，EDFA增益20dB。图中标注了功率预算：发射功率0dBm，EDFA输出+17dBm，接收功率-10dBm。对于SerDes芯片设计，这个实验参数是基准——112Gb/s PolMux-QPSK是2010年前后的商用最高水平，当前的1.6Tb/s系统（144GBd 16QAM）在DSP复杂度和功耗上提高了约20倍。
 
 **Fig. 3.2**
 *Fig. 3.2: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using the Savory’s method*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/e8cee29f91361d58c0089a242bf94b869c6d8f8ae4e3f632f40ec403938c0005.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/e8cee29f91361d58c0089a242bf94b869c6d8f8ae4e3f632f40ec403938c0005.jpg)
 > 🔍 深度说明：本图展示OSNR需求（BER=10^-3对应）与传输距离的关系，使用Savory时域色散补偿方法。横坐标传输距离（0-2000km），纵坐标所需OSNR(dB)。Savory方法在短距离（<500km）存在约1-2dB的近似误差惩罚（因为近似条件在长距离才成立），长距离后惩罚消失。背靠背基准OSNR约14.8dB @BER=10^-3。图中可见随距离增加OSNR需求近似线性上升（每跨段约1dB ASE噪声累积）。关键信息：Savory方法在2000km传输时需OSNR约20dB，对应每跨段OSNR预算有限。工程中，实际系统通常保留2-3dB的OSNR余量以应对突发噪声和非线性效应。对于SerDes芯片的DSP设计，CD补偿算法选择（Savory vs FFT）影响可达到的最大传输距离——Savory方法对超长距（>1500km）更合适（无FFT边界效应），对中短距（<500km）FFT+CMA组合更优。
 
 **Fig. 3.3**
 *Fig. 3.3: Number of taps required using the Savory’s method*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/45a4c69b2dbd68b6708efe11d93726c9d5abdc75446659534d6adcb6bf3f3398.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/45a4c69b2dbd68b6708efe11d93726c9d5abdc75446659534d6adcb6bf3f3398.jpg)
 > 🔍 深度说明：本图展示Savory方法所需抽头数与传输距离的关系。Savory色散补偿FIR滤波器的抽头数公式：N=2乘以根号(|D|lambda^2 z/(2cT^2))+1，随距离z的平方根增长。对28GBd系统：100km需约71抽头，500km需约159抽头，2000km需约317抽头。抽头数直接决定计算复杂度和功耗——N个抽头的LMS滤波器每样本需2N次乘加（I/Q两路）。ASIC实现时，N>100时通常采用时分复用（将1路高速处理拆分为多路低速处理并行），这增加了控制逻辑复杂度但降低了时钟频率（节省动态功耗）。N>300时滤波器收敛所需样本数增加（需更长训练序列），这在突发业务场景下是不可接受的——这也是Savory方法用于超长距系统时的主要工程局限。
 
 **Fig. 3.4**
 *Fig. 3.4: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using CMA adaptive filter*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/e52155a9057a1a2410f280555e560277f5db9a97329c9c066c040f6f9dbd6522.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/e52155a9057a1a2410f280555e560277f5db9a97329c9c066c040f6f9dbd6522.jpg)
 > 🔍 深度说明：本图展示使用CMA自适应滤波器的OSNR需求与传输距离关系。CMA（恒模算法）误差函数epsilon=1-|y|^2，利用调制格式的恒模特性（QPSK四个点模值相同）实现盲均衡——无需训练序列，这对突发业务和动态信道（如ROADM网络）特别重要。图中可见CMA可达到背靠背OSNR性能（无惩罚），但收敛困难——长距离传输（>500km）时需要重复接收数据3次（共65536x3样本）才能收敛。这在实验室测试中可以接受，但商用系统无法等待这么长的收敛时间。工程解决：先用训练序列初始化（DD-LMS），收敛后切换到CMA跟踪——这结合了两种算法的优点。对于SerDes芯片，混合模式切换逻辑需要状态机控制，步长mu在初始化阶段用大值（10^-2）快速收敛，稳定后切换到小值（10^-3~10^-4）降低稳态误差。
 
 **Fig. 3.5**
 *Fig. 3.5: Number of taps required CMA adaptive filter*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/8087155dd7823fa427229a1d949957dd30525da9741614fe8a90b527c0587fe3.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/8087155dd7823fa427229a1d949957dd30525da9741614fe8a90b527c0587fe3.jpg)
 > 🔍 深度说明：本图展示CMA自适应滤波器所需抽头数与传输距离的关系。与Savory固定抽头不同，CMA抽头数取决于信道冲激响应长度——信道色散越严重（光纤越长），等效抽头数越多。100km需约10-20抽头，1000km需约50-100抽头。与Savory方法相比，CMA在相同距离下抽头数更少（因为CMA同时处理色散+PMD，而Savory只处理色散），但CMA需要更长的收敛时间（需观测足够多样本统计平均误差）。ASIC实现中，CMA抽头更新涉及复数乘法——每抽头每次更新需4次实数乘加（I/Q各两次）。在28nm工艺下，16抽头CMA核的典型功耗约8mW，100抽头约50mW。商用相干DSP芯片通常集成4-8个并行CMA核处理I/Q/X/Y四路，总功耗约300-500mW。
 
 **Fig. 3.6**
 *Fig. 3.6: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using Savory’s and CMA filters*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/db40ca304f9d9bb58f00f8c25570325f2c4955cbf9021238a99d8748828ac3f2.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/db40ca304f9d9bb58f00f8c25570325f2c4955cbf9021238a99d8748828ac3f2.jpg)
 > 🔍 深度说明：本图对比Savory和CMA两种方法的OSNR需求与传输距离。关键结论：短距离（<200km）Savory有轻微惩罚（<1dB）但CMA完美；中距离（200-800km）两者都接近背靠背性能；长距离（>800km）两者都出现代价，且随距离增加差距不大（都受限于ASE噪声累积）。这个对比说明两种方法在工程中可互补使用：短距用FFT+CMA（计算效率高），长距用Savory（近似误差消失）。图中每条曲线代表不同的DSP配置——这启示SerDes芯片设计应支持多种算法模式切换，以适应不同传输距离场景。实际商用芯片通常内置距离自适应功能：根据接收OSNR监测自动选择算法配置（CD补偿强度、均衡器抽头数、步长等），在性能和功耗间取得平衡。
 
 **Fig. 3.7**
 *Fig. 3.7: FFT length in overlap add method*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/743fe3fd5487a82fc48dbfd449972f48ffbbbf4b32bb120a1d964fbdb821df08.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/743fe3fd5487a82fc48dbfd449972f48ffbbbf4b32bb120a1d964fbdb821df08.jpg)
 > 🔍 深度说明：本图展示Overlap-Add方法中FFT长度与重叠系数的关系。FFT长度L_FFT需满足L_FFT >= N+M-1（N=滤波长度，M=信号段长度），同时L_FFT应为2的幂次以使用高效FFT算法（如Radix-2 Cooley-Tukey）。重叠系数r=(L_FFT-L+M)/L_FFT：r=0.5对应50%重叠（最小重叠），r越大计算开销越大但边界效应越小。图中可见对不同距离（L=512, 1024, 2048符号），L_FFT的优化选择不同。工程上L_FFT通常取4-16倍于信号段长度——若L=512符号，L_FFT=2048（4倍）对应重叠开销75%，但这确保频域卷积边界无误。ASIC实现时，FFT/IFFT核的功耗与N成正比（O(N log N)），因此需优化L_FFT选择以在性能与功耗间取得平衡。
 
 **Fig. 3.8**
 *Fig. 3.8: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using FFT method*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/1f2567829b367eaf3787fba68a08f6c8d73b35b79d300c9b8b840e3f6473aa08.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/1f2567829b367eaf3787fba68a08f6c8d73b35b79d300c9b8b840e3f6473aa08.jpg)
 > 🔍 深度说明：本图展示FFT方法（单独使用，无CMA）的OSNR需求与传输距离。关键发现：即使5km也无法达到背靠背性能——这是因为FFT方法在处理有限长度信号时的近似误差（窗函数效应和重叠不足导致边界失真）。FFT方法在短距离的惩罚约2-3dB @BER=10^-3，随距离增加惩罚逐渐减小（因为色散量增大使边界效应相对变小）。5000km时约3dB惩罚，与Savory方法类似。图中曲线的弯曲形状反映两个竞争效应：ASE噪声累积（OSNR恶化）和色散补偿近似误差（在小色散量时更显著）。对SerDes芯片设计，这个结果说明单独的FFT色散补偿不足以达到商用性能，需要级联CMA残余色散均衡器——这与论文后面章节的结论一致（FFT+CMA组合可达背靠背性能）。
 
 **Fig. 3.9**
 *Fig. 3.9: FFT length required versus the propagation distance*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/4b4ef09c0b536fef2ebf4a128d4533216e73697a4100a11ae4121826cea3e0ac.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/4b4ef09c0b536fef2ebf4a128d4533216e73697a4100a11ae4121826cea3e0ac.jpg)
 > 🔍 深度说明：本图展示FFT方法所需FFT长度与传输距离的关系。L_FFT需要覆盖足够的色散延迟扩展。对28GBd系统（符号周期T约35.7ps）：20km需L_FFT约32点，100km需约128点，500km需约512点，2000km需约2048点。L_FFT必须是2的幂次（32/64/128/256/512/1024/2048...），因此实际选取时常取略大的2幂次（如100km用128而非精确所需的约114）。ASIC实现中，FFT核的大小决定可处理的色散量——大FFT核（如4096点）可处理>4000km传输但面积和功耗显著增加（4096点FFT核面积约0.5mm^2@28nm，功耗>100mW），因此商用芯片通常针对特定距离优化（城域<500km用512点，长距>2000km用2048点）。
 
 **Fig. 3.10**
 *Fig. 3.10: OSNR required for BER of $1 0 ^ { - 3 }$ versus the propagation distance using FFT method and CMA filter*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/9adfcdc5c6324be1f94216290bdada61e363b629dc2b8da6321649b905d4e8a1.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/9adfcdc5c6324be1f94216290bdada61e363b629dc2b8da6321649b905d4e8a1.jpg)
 > 🔍 深度说明：本图展示FFT+CMA组合方法的OSNR需求——这是论文最优方案，组合后可达背靠背性能（无惩罚）。固定色散补偿（FFT）消除大部分色散（>95%），残余色散由自适应CMA处理（仅需7个抽头@500km）。组合方法相比单独FFT或单独CMA的优势：FFT处理大色散量（计算高效），CMA处理残余动态色散和PMD（自适应）。对SerDes芯片，FFT+CMA组合的实现有两种架构：串行（先FFT后CMA，延迟相加）和融合（2x2 MIMO FFT滤波，同时补偿CD+PMD，延迟更小但复杂度更高）。商用芯片（如Acacia AC100）采用融合架构——2x2蝶形FFT同时处理CD和偏振均衡，计算效率更高，但滤波器设计更复杂（需在频域实现偏振耦合矩阵）。图中可见即使2000km，FFT+CMA仍保持接近背靠背性能，这是实际系统设计的推荐方案。
 
 **Fig. 3.11**
 *Fig. 3.11: BER dependency on intra-polarization nonlinear parameter (α) and interpolarization parameter (β)*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/accc104c952911539f02b33c57d13c54149403d7bc7e5638273a10bdf7fb45f9.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/accc104c952911539f02b33c57d13c54149403d7bc7e5638273a10bdf7fb45f9.jpg)
 > 🔍 深度说明：本图展示BER与偏振内非线性参数alpha和偏振间非线性参数beta的关系。Kerr非线性导致自相位调制（SPM，alpha参数）和交叉相位调制（XPM，beta参数）——高功率传输时非线性相位旋转累积，星座图扭曲。对于112Gb/s QPSK，线性阈值（BER=10^-3对应OSNR约14.8dB），超过线性阈值后（高功率区）非线性效应导致BER上升。图中可见beta（偏振间）对系统影响比alpha（偏振内）更大——因为XPM将另一偏振的能量耦合到当前偏振，产生更难补偿的干扰。工程中功率预算公式需包含非线性容限：最优发射功率约0~+3dBm（取决于跨段数和信道间隔），过高则非线性占主导，过低则OSNR不足。对于WDM系统，通道间隔越窄XPM越严重（50GHz间隔比100GHz间隔XPM代价高约2dB）。
 
 **Fig. 3.12**
 *Fig. 3.12: OSNR required for a bit error rate (BER) of $1 0 ^ { - 3 }$ versus the propagation distance with and without *
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/fa3ea0012b9be9d8501371bde2d4e0b9822013d30ce165f65f2b5db9abad51b1.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/fa3ea0012b9be9d8501371bde2d4e0b9822013d30ce165f65f2b5db9abad51b1.jpg)
 > 🔍 深度说明：本图展示BER=10^-3时所需OSNR与传输距离的关系，对比有/无非线性补偿（NLC）的性能差异。图中可见：无NLC时，>1000km后非线性效应累积导致OSNR需求急剧上升（error floor出现）；有NLC时error floor被抑制，2000km仍可维持正常OSNR需求曲线。非线性补偿的收益约2-5dB（在长距离和高功率时更显著）。这个结果对系统设计的启示：长距传输必须采用非线性补偿，否则无法达到目标距离；对于城域网络（<500km），非线性效应相对较轻，可以不使能NLC以节省DSP功耗。商用SerDes芯片通常提供可配置的NLC模式（关闭/轻度/全量），用户根据实际应用场景（长距vs城域）选择，功耗差异约1-3W。
 
 **Fig. 3.13**
 *Fig. 3.13: BER versus power launched in the fiber with and without NLC*
-![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p/auto/images/3240bce538679f1f92570a096f0806124b928a61abe8a43d77e96580462e080c.jpg)
+![](/img/mineru_output/DSP_Algorithms_HighSpeed_Coherent_Transmission_Mussolin_Padova_85p_深度学习报告/auto/images/3240bce538679f1f92570a096f0806124b928a61abe8a43d77e96580462e080c.jpg)
 > 🔍 深度说明：本图展示BER与入纤功率的关系，对比有/无NLC（ nonlinear compensation）的曲线。关键特征：无NLC时BER曲线呈U型——低功率区受限于OSNR（ASE噪声主导），高功率区受限于非线性效应（Kerr效应主导），最优功率约0~+3dBm（取决于跨段数和信道间隔）；有NLC时U型底部更宽更深（性能更优），且最优功率点向更高功率方向移动（因为NLC扩展了线性动态范围）。图中线性区（低功率）的斜率约1（ASE主导的OSNR损耗），非线性区（高功率）的斜率更陡（SPM/XPM累积）。对于SerDes芯片设计，这个U型曲线是功率管理算法的依据——接收机DSP中的AGC（自动增益控制）环路会根据均衡后信号功率调整前置放大器增益，使ADC工作在最佳动态范围；同时，发射端的APC（自动功率控制）环路维持输出功率在最优值附近（通常偏置在NLC使能曲线的最优点以下约1dB，留有余量应对功率波动）。
 
 ---

@@ -8,8 +8,9 @@ tags:
   - Optical
   - PDP
   - Paper
-  - 深度学习
----
+
+# Th4A.5 深度学习报告：GaAs-on-TFLN异构集成1064nm全集成发射机
+
 **原始论文**：Nexus Photonics + Northeastern University — "Fully Integrated 1064 nm Transmitters with Widely Tunable GaAs Lasers and >100-GHz Thin-Film LiNbO₃ Modulators"
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合异构集成、激光物理、空心光纤通信）

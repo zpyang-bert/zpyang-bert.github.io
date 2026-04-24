@@ -8,8 +8,9 @@ tags:
   - Optical
   - PDP
   - Paper
-  - 深度学习
----
+
+# Th4C.1 深度学习报告：Optics GPT — 首个光学垂直预训练基础模型
+
 **原始论文**：Shanghai Jiao Tong University + China Telecom — "Optics GPT: The First Vertically Pre-trained Foundation Model for Optics and Optical Communications"
 **整理日期**: 2026/04/15
 **研究深度**: 深度解读（结合大语言模型、光网络、AI for Optics、DSP代码生成）
