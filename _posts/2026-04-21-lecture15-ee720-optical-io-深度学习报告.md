@@ -14,7 +14,7 @@ tags:
 ## Spring 2023 - Lecture 15: Optical I/O
 ### Sam Palermo, Analog & Mixed-Signal Center, Texas A&M University
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/1e8d8123726a9f729cb2f30b717d287d2afaacddfe704a97f8a88edcd301dfd4.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/1e8d8123726a9f729cb2f30b717d287d2afaacddfe704a97f8a88edcd301dfd4.jpg)
 > 🔍 深度说明：
 > 【研究背景】ECEN 720是德州农工大学的研究生课程，聚焦高速链路电路与系统，2023年春季第15讲聚焦Optical I/O技术。该课程时间节点处于数据中心从电互连向光互连转型的关键期，112Gb/s Serdes即将商用，硅光子技术开始成熟。
 > 【核心结论】本讲全面覆盖光I/O技术：1)光通道特性（损耗~0.2dB/km @1550nm，远优于铜缆）；2)光发射技术（VCSEL/EAM/MZM/RRM各类型调制器）；3)光接收技术（PIN/APD + TIA）；4)光电集成方案（CPO、混合集成、CMOS光子）。课程强调电光联合设计的重要性。
@@ -25,7 +25,7 @@ tags:
 
 ## High-Speed Electrical Link System
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/527e4dd9a0dd6099e143633961e03dbb593c00e1aea0f3264f4fa21a1e3ef72c.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/527e4dd9a0dd6099e143633961e03dbb593c00e1aea0f3264f4fa21a1e3ef72c.jpg)
 > 🔍 深度说明：
 > 【研究背景】高速电互连系统完整架构图，展示TX Serializer → 驱动器 → 背板通道 → RX Deserializer的完整链路。电互连在带宽-距离积方面存在根本限制，理解这一架构是学习光I/O替代优势的前提。
 > 【核心结论】典型Serdes链路结构：并行数据 → Serializer（串行化，8b/10b或64b/66b编码）→ 驱动器 → 背板/连接器/PCB通道 → RX均衡器 → Deserializer。关键瓶颈：趋肤效应和介电损耗导致的频率相关衰减，连接器回波损耗，串扰。
@@ -36,7 +36,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/ba03854bcd03e89694ec2713498b2d8b0e88e01a24ecc294af72301564f49236.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/ba03854bcd03e89694ec2713498b2d8b0e88e01a24ecc294af72301564f49236.jpg)
 > 🔍 深度说明：
 > 【研究背景】电互连与光互连的性能对比图，直观展示两者在带宽-距离积上的根本差异。该图是光I/O取代电互连的核心论据基础。
 > 【核心结论】电互连衰减特性：趋肤效应（损耗∝√f）+ 介电损耗（损耗∝f）导致10GHz下FR4 PCB约5dB/in。光互连（单模光纤）：1550nm窗口损耗仅~0.2dB/km，与频率几乎无关，可传输>100km。
@@ -47,7 +47,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/cac277c8777d0aa254f2ec6e396ee7640fad607668acdf4f56d7de72f8a0cd3c.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/cac277c8777d0aa254f2ec6e396ee7640fad607668acdf4f56d7de72f8a0cd3c.jpg)
 > 🔍 深度说明：
 > 【研究背景】Channel Performance Impact对比图的续页，可能展示了不同速率下电互连的衰减曲线或眼图对比。理解通道衰减如何限制系统性能是光I/O设计的理论基础。
 > 【核心结论】关键数据点：电互连在56Gb/s时可用距离约1m（PCB），10Gb/s时可延伸至约10m。光互连在56Gb/s时可达10km+，差距达1000倍。该图表量化了电光之间的不可逾越的鸿沟。
@@ -58,7 +58,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/8c323db33b0f9a1301504876f673dece3d4d28125787164a4bf553124a6754f9.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/8c323db33b0f9a1301504876f673dece3d4d28125787164a4bf553124a6754f9.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是不同长度背板或电缆的频率响应对比图（s21参数），展示通道衰减与频率的关系。
 > 【核心结论】s21曲线显示：低频损耗小，高频损耗大。1m背板@28Gb/s约-7dB，@56Gb/s时损耗增加到-15dB+。频率越高，通道的等效衰减越严重，这是电互连的根本限制。
@@ -69,7 +69,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/a3b141bb8bbb32c473038e64da7edb92e5d3d74a67e2d392e794dd9ec271888b.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/a3b141bb8bbb32c473038e64da7edb92e5d3d74a67e2d392e794dd9ec271888b.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是均衡后的眼图对比或通道仿真结果，展示均衡技术对电互连性能的改善程度。
 > 【核心结论】均衡可有效打开闭合的眼图。对于28Gb/s NRZ信号，CTLE+DFE可将通道损耗从-20dB补偿到等效-5dB的效果。但代价是噪声放大和功耗增加（均衡器功耗约占Serdes总功耗30%）。
@@ -80,7 +80,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/55ea51c40f03d569d39b43ca7af245b41ca97dd9e2b8bc8174ab10bb9de3240d.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/55ea51c40f03d569d39b43ca7af245b41ca97dd9e2b8bc8174ab10bb9de3240d.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是通道的脉冲响应或眼图扫描结果，展示符号间干扰（ISI）的具体表现。
 > 【核心结论】通道的冲激响应显示：主脉冲后存在长尾拖尾（postcursor ISI），这是导致眼图闭合的根本原因。尾瓣振幅约为主瓣的10-30%，足以导致判决错误。均衡器就是要去除这些尾瓣。
@@ -91,7 +91,7 @@ tags:
 
 ## Link with Equalization
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/dc5ba4499809d76c266a47022c3a629bb3e1bbd55448136a7f1bc90f52dbf04c.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/dc5ba4499809d76c266a47022c3a629bb3e1bbd55448136a7f1bc90f52dbf04c.jpg)
 > 🔍 深度说明：
 > 【研究背景】带均衡技术的高速Serdes链路架构图，展示TX预加重和RX均衡的完整信号链路。理解均衡架构是理解电互连与光互连差异的关键。
 > 【核心结论】TX侧：预加重（Pre-emphasis，FIR滤波器）提升高频分量，补偿通道衰减。RX侧：CTLE（连续时间线性均衡）放大高频恢复信号；DFE（判决反馈均衡）消除postcursor ISI。DSP-based方案可编程适应多种通道。
@@ -102,7 +102,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/1cf14511fa2691d8a9656eee528a27e0ef8da8d6713fe428f5af90d3d2552c23.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/1cf14511fa2691d8a9656eee528a27e0ef8da8d6713fe428f5af90d3d2552c23.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是综合对比电互连（均衡后）与光互连的性能图表，展示两者在长距离下的最终差距。
 > 【核心结论】即使使用强均衡，电互连在>10Gb/s @ >10m后仍然无法与光互连竞争。光互连的等效损耗<0.5dB/km，电互连经过均衡后等效损耗仍在dB/m量级。差距1000倍。
@@ -113,7 +113,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/7a1a5c18ac10051439ded4185aa9857ca5b1a6e5fb75a364910924b3e612654c.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/7a1a5c18ac10051439ded4185aa9857ca5b1a6e5fb75a364910924b3e612654c.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是另一种角度的通道性能对比图，可能涉及不同调制格式（NRZ vs PAM4）在电通道上的表现对比。
 > 【核心结论】PAM4相比NRZ可在相同带宽下传输2倍数据，但代价是信噪比损失（每级眼SNR降低约9.5dB）。在电通道上，PAM4的眼高仅为NRZ的1/3，对噪声更敏感。
@@ -124,7 +124,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/9b9bdc31e27b98021a55129b7b0f9f5998fd05657d93995c40ff50bf90c7ff45.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/9b9bdc31e27b98021a55129b7b0f9f5998fd05657d93995c40ff50bf90c7ff45.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是电通道的眼图扫描结果，展示不同距离或不同速率下的眼图质量变化。
 > 【核心结论】眼图随距离增加而闭合：10Gb/s @ 1m眼图清晰，56Gb/s @ 1m眼图部分闭合，112Gb/s @ 1m眼图几乎完全闭合。这量化展示了电互连的速率-距离限制。
@@ -135,7 +135,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/e0ddeb3fff3ebb60eaa1f03a58109b56f921af64b5cc379b67d35e2af3c642dd.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/e0ddeb3fff3ebb60eaa1f03a58109b56f921af64b5cc379b67d35e2af3c642dd.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是通道的频率响应图（s21 magnitude），展示电通道的频率相关衰减特性。
 > 【核心结论】s21曲线显示明显的低通特性：10GHz以下损耗较小，>10GHz后损耗急剧增加。FR4材料的介电损耗在10GHz附近显著上升。光纤的s21则几乎平坦（仅0.2dB/km）。
@@ -146,7 +146,7 @@ tags:
 
 ## Channel Performance Impact
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/182e19c36c44df1c2a34d913ebefbc5df33f37991a83a323cf07ce78a8a05b63.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/182e19c36c44df1c2a34d913ebefbc5df33f37991a83a323cf07ce78a8a05b63.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是更全面的电/光通道性能对比，涵盖从芯片内部到数据中心规模的完整距离范围。
 > 【核心结论】电互连的优势范围：芯片内部（<1cm）到板级（<1m）。光互连的优势范围：机架间（>1m）到数据中心（>100m）到城域（>10km）。两者在1m附近存在竞争，但电互连的功耗优势在缩短。
@@ -157,7 +157,7 @@ tags:
 
 ## High-Speed Optical Link System
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/02caae3bec91c536a038d0ee0151e0cc2a1ae95859768cfc459c44b221ff86a9.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/02caae3bec91c536a038d0ee0151e0cc2a1ae95859768cfc459c44b221ff86a9.jpg)
 > 🔍 深度说明：
 > 【研究背景】完整高速光链路系统架构图，对比电互连系统结构，清晰展示光发射和光接收各模块的级联关系。
 > 【核心结论】光链路TX：Serdes → 驱动器 → 调制器（EAM/MZM/RRM）→ 激光器（CW光源）→ 光纤。光链路RX：光纤 → 光探测器（PIN/APD）→ TIA → Limiting Amp → Serdes。关键指标：调制速率（GBd）、消光比（dB）、探测器灵敏度（dBm）、TIA噪声电流。
@@ -168,7 +168,7 @@ tags:
 
 ## High-Speed Optical Link System
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/c01cbc68399734dfedc4958f8af117f90cf2f1eeba0d874e3dd7ad8dd947d03a.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/c01cbc68399734dfedc4958f8af117f90cf2f1eeba0d874e3dd7ad8dd947d03a.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是高速光链路系统的详细框图，补充了完整的信号链路和关键参数指标。
 > 【核心结论】光互连相比电互连的优势：1)极低损耗（光纤0.2dB/km vs PCB 5dB/m）；2)频率无关损耗；3)无串扰；4)天然支持WDM。光链路的模块化设计使系统升级更容易。
@@ -179,7 +179,7 @@ tags:
 
 ## Wavelength-Division Multiplexing
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/d6428ab9b87c9fc6587ec55380de54cfa3d21936f6ede3687c5b4fb91edbaf6e.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/d6428ab9b87c9fc6587ec55380de54cfa3d21936f6ede3687c5b4fb91edbaf6e.jpg)
 > 🔍 深度说明：
 > 【研究背景】波分复用（WDM）技术原理图，Young等人2010年JSCC论文展示了WDM在硅光子集成光模块中的应用。这是提升光通信容量的核心技术。
 > 【核心结论】WDM技术：1)DWDM（密集波分复用）——50GHz或100GHz波长间隔，可容纳40-80波长；2)CWDM（粗波分复用）——20nm间隔，用于短距离。典型设计：每个波长承载56Gb/s或112Gb/s，总容量可达3.2Tb/s。
@@ -190,7 +190,7 @@ tags:
 
 ## Optical Fiber Cross-Section
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/ebf4bfe71431a5a9b0cf9422580708414177aa3134cac1d0e69989fdaa97e89d.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/ebf4bfe71431a5a9b0cf9422580708414177aa3134cac1d0e69989fdaa97e89d.jpg)
 > 🔍 深度说明：
 > 【研究背景】光纤横截面结构图，展示单模光纤的包层、芯径和折射率分布。光波在芯径内通过全内反射传输。
 > 【核心结论】单模光纤（SMF）结构：芯径约8-10μm，包层直径125μm，涂覆层直径245μm。折射率差Δ≈0.3-0.5%，阶跃折射率分布。数值孔径NA≈0.12。
@@ -201,7 +201,7 @@ tags:
 
 ## Single-Mode Fiber Loss & Dispersion
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/5de0d07f23d4a1fd92b8c9bf2dfe554e8c307dd7be3d108b10fe32d31b33da3c.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/5de0d07f23d4a1fd92b8c9bf2dfe554e8c307dd7be3d108b10fe32d31b33da3c.jpg)
 > 🔍 深度说明：
 > 【研究背景】单模光纤的损耗光谱和色散特性图，这是光通信系统设计的核心参考。1550nm窗口的最低损耗和17ps/nm/km的色散是长距离光通信的基础。
 > 【核心结论】光纤损耗光谱：1550nm窗口~0.2dB/km（最低），1310nm窗口~0.35dB/km。色散：1550nm的色度色散~17ps/nm/km，零色散点在1310nm。光纤可用带宽>10THz。
@@ -212,7 +212,7 @@ tags:
 
 ## Inter-Chip Waveguide Examples
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/0c863d6b5b9636ee99ba6c9164d424da1248130ae4d7b3f7ff48f57bde5a5c1a.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/0c863d6b5b9636ee99ba6c9164d424da1248130ae4d7b3f7ff48f57bde5a5c1a.jpg)
 > 🔍 深度说明：
 > 【研究背景】芯片间光波导实例——Reflex Photonics的12通道带状光纤（Ribbon Fiber）。这是典型的短距离高密度光互连技术。
 > 【核心结论】带状光纤规格：12通道@250μm pitch，每通道10Gb/s → 40Gb/s/mm密度。与电差分对（~500μm间距）相比，带状光纤的带宽密度提升约10倍。
@@ -223,7 +223,7 @@ tags:
 
 ## Optical Polymer Waveguide in PCB
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/75dde616ef510a6f96a7003a7a48e99eabcce80650ee25cec706191969e33554.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/75dde616ef510a6f96a7003a7a48e99eabcce80650ee25cec706191969e33554.jpg)
 > 🔍 深度说明：
 > 【研究背景】PCB内嵌聚合物光波导实物图和结构图，Immonen 2009年研究成果。这种技术将光路直接集成到PCB板中，是短距离高密度光互连的研究方向之一。
 > 【核心结论】聚合物光波导优势：与PCB工艺兼容，可批量制造。关键参数：波导间距<100μm，带宽>10GHz·km，损耗~0.1dB/cm @ 850nm。可实现>100Gb/s/mm的带宽密度。
@@ -234,7 +234,7 @@ tags:
 
 ## Free-Space Optical Links
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/9a417793f51e7d4769199c567557b9c6767da9b7a4a6ba63ed8e71c05da08128.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/9a417793f51e7d4769199c567557b9c6767da9b7a4a6ba63ed8e71c05da08128.jpg)
 > 🔍 深度说明：
 > 【研究背景】自由空间光互连示意图，Gruber等人的研究方案。这种技术用透镜系统将光束在芯片间路由，替代光纤或波导。
 > 【核心结论】自由空间光互连原理：通过微型透镜阵列（microlens array）准直和聚焦光束，实现芯片到芯片的光传输。优势：无需光纤/波导，可实现极高带宽密度，支持3D堆叠芯片间光连接。
@@ -245,7 +245,7 @@ tags:
 
 ## CMOS Waveguides – Bulk CMOS
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/93af74cc3d94b22bcfe39488aa8d1476b2011cb02e559b358381a7a3f82fdb94.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/93af74cc3d94b22bcfe39488aa8d1476b2011cb02e559b358381a7a3f82fdb94.jpg)
 > 🔍 深度说明：
 > 【研究背景】Bulk CMOS工艺制作硅光波导的研究，Holzwarth CLEO 2008论文。由于标准CMOS的STI层较薄，光学模式会泄漏到硅衬底，导致~1000dB/cm的极大损耗。
 > 【核心结论】Bulk CMOS制作光波导的问题：多晶硅芯层被SiO₂包裹，但底层硅衬底距离近（STI厚度~350nm），光学模式泄漏严重。即使做后处理改善，损耗仍在10dB/cm量级。
@@ -256,7 +256,7 @@ tags:
 
 ## CMOS Waveguides – Bulk CMOS
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/fc3e7b00e2625e505099735492b2863e284275bdfcecc357cb72fadd3b451.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/fc3e7b00e2625e505099735492b2863e284275bdfcecc357cb72fadd3b451.jpg)
 > 🔍 深度说明：
 > 【研究背景】Bulk CMOS波导的损耗测试数据或仿真结果，可能展示了后处理前后波导截面的对比。
 > 【核心结论】后处理前的波导损耗~1000dB/cm，后处理（刻蚀底部硅）后可降至~10dB/cm。改善了100倍，但仍比SOI（<3dB/cm）差3倍。
@@ -267,7 +267,7 @@ tags:
 
 ## CMOS Waveguides – SOI
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/5dd37520de2a805b73eb93b3c144d60786277c1853ae5f6fce0a57aee8cc29f8.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/5dd37520de2a805b73eb93b3c144d60786277c1853ae5f6fce0a57aee8cc29f8.jpg)
 > 🔍 深度说明：
 > 【研究背景】SOI（绝缘体上硅）工艺制作硅光波导的方案，Narasimha JSSC 2007论文。SOI的厚埋氧层（BOX，~2μm）提供了优异的光学隔离。
 > 【核心结论】SOI波导结构：硅芯层（~220nm）被上方空气和下方SiO₂包裹，形成全内反射。厚BOX层确保光学模式不泄漏。典型损耗<3dB/cm，带宽>10THz。
@@ -278,7 +278,7 @@ tags:
 
 ## CMOS Waveguides – Back-End Processing
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/f44b2b841b5a85b55e3a1e0c247326682feb22e114d3fc04986e62321e3f982f.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/f44b2b841b5a85b55e3a1e0c247326682feb22e114d3fc04986e62321e3f982f.jpg)
 > 🔍 深度说明：
 > 【研究背景】"Optics on Top"架构，Young JSSC 2010论文，将光子器件集成在CMOS芯片的金属层之上。
 > 【核心结论】"Optics on Top"优势：1)不占用晶体管有源区；2)可与标准CMOS工艺兼容；3)光栅耦合器可直接耦合到光纤。适合制作调制器、探测器等无源/有源光子器件。
@@ -289,7 +289,7 @@ tags:
 
 ## Optical Modulation Techniques
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/6cfc33c7dae3ca6f2cecb53e72ccc18eeaab3eda484a7ddd0677f8ff23860fbc.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/6cfc33c7dae3ca6f2cecb53e72ccc18eeaab3eda484a7ddd0677f8ff23860fbc.jpg)
 > 🔍 深度说明：
 > 【研究背景】光调制技术概述图，对比直接调制和外部调制两种技术路线。课程强调根据传输距离和速率选择合适的调制方式。
 > 【核心结论】直接调制：简单、成本低，但有chirp，适合短距离（<100m）。外部调制：无chirp、调制速率高，适合长距离和高速率（>50Gb/s）。SLM（单纵模）激光器是长距离通信的必备条件。
@@ -300,7 +300,7 @@ tags:
 
 ## Directly Modulated Laser
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/e92e507306e41f84d00fecc19b306eb33ea41c9bd62e0f8bb2f66880ad126398.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/e92e507306e41f84d00fecc19b306eb33ea41c9bd62e0f8bb2f66880ad126398.jpg)
 > 🔍 深度说明：
 > 【研究背景】直接调制激光器原理图，展示最简单的光调制方式——直接通过改变激光器驱动电流来调制输出光功率。
 > 【核心结论】直接调制原理：改变偏置电流 → 载流子浓度变化 → 折射率变化 → 输出光功率变化。优点：简单、成本低、无额外插入损耗。缺点：产生频率啁啾（chirp）。
@@ -311,7 +311,7 @@ tags:
 
 ## Externally Modulated Laser
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/a776aaa2423a98abad9a014e58e39e04c56690911285c39ea03b5668cac3dabf.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/a776aaa2423a98abad9a014e58e39e04c56690911285c39ea03b5668cac3dabf.jpg)
 > 🔍 深度说明：
 > 【研究背景】外部调制激光器原理图，与直接调制对比，展示用独立调制器对CW激光器进行调制的方式。
 > 【核心结论】外部调制工作原理：CW激光器 → 调制器（EAM/MZM）→ 通过电场改变材料特性 → 输出调制光。优点：无啁啾、调制速率高（>60GBd）、消光比高（>30dB）。
@@ -322,7 +322,7 @@ tags:
 
 ## Optical Sources for Chip-to-Chip Links
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/b5ce8b2b14a6ba4c893a0e081e9b78fa71fd6df05aa27dd12be5503022bb5289.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/b5ce8b2b14a6ba4c893a0e081e9b78fa71fd6df05aa27dd12be5503022bb5289.jpg)
 > 🔍 深度说明：
 > 【研究背景】四种芯片到芯片光互连光源技术总览：VCSEL、Mach-Zehnder调制器、电吸收调制器、环形谐振腔调制器。这是光I/O发射端的核心器件对比。
 > 【核心结论】VCSEL：低成本短距（<100m），速率受限（<25Gb/s）；EAM：中等距离（<10km），速率>50Gb/s；MZM：长距离相干，高性能；RRM：硅光集成，适合CPO。选型取决于距离、速率、成本。
@@ -333,7 +333,7 @@ tags:
 
 ## VCSEL L-I-V Curves
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/715ca30dfcbdc0ddfee2199872b9603128ac9ceb480ae80513c11ab7fe9fdd58.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/715ca30dfcbdc0ddfee2199872b9603128ac9ceb480ae80513c11ab7fe9fdd58.jpg)
 > 🔍 深度说明：
 > 【研究背景】VCSEL的光功率-电流-电压（L-I-V）特性曲线，是表征VCSEL电光转换性能的核心图表。
 > 【核心结论】L曲线（光功率vs电流）：线性区域斜率=η（效率），阈值I_TH~700μA处有明显拐点。V曲线显示工作电压~1.9V @ 10mA。调制响应在驰豫振荡频率处出现峰值。
@@ -344,7 +344,7 @@ tags:
 
 ## VCSEL Bandwidth vs Reliability
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/56086c44bf7f6130210fdf9393abc9bc1ed85c3719a6aea8e06a663b2eb679d3.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/56086c44bf7f6130210fdf9393abc9bc1ed85c3719a6aea8e06a663b2eb679d3.jpg)
 > 🔍 深度说明：
 > 【研究背景】VCSEL带宽与可靠性的trade-off关系，这是VCSEL设计中最核心的权衡。带宽与电流密度成正相关，但电流密度增加会指数级降低器件寿命。
 > 【核心结论】关键关系：BW ∝ √(I_avg - I_TH)，MTTF ∝ 1/BW⁴。带宽提高2倍，寿命降低16倍。MTTF = A/J² × exp(E_A/kT_j)，激活能EA~0.7eV。
@@ -355,7 +355,7 @@ tags:
 
 ## VCSEL Drivers
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/1bfe029a189ae94c92125e5e3757af5f41e3a8dc0c3e7072401f4b155baf73c4.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/1bfe029a189ae94c92125e5e3757af5f41e3a8dc0c3e7072401f4b155baf73c4.jpg)
 > 🔍 深度说明：
 > 【研究背景】VCSEL驱动电路原理图，电流模式驱动器。Palermo和Horowitz 2006年ESSCIRC论文展示的90nm CMOS VCSEL驱动技术。
 > 【核心结论】电流模式驱动器优势：VCSEL的L-I特性近似线性，用电流源驱动可实现良好的调制精度。驱动器核心是高速电流开关（current switch）+ 调制电流源。
@@ -366,7 +366,7 @@ tags:
 
 ## VCSEL Driver w/ 4-tap FIR Equalization
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/698399b05296d02e40b9543670163bda42b5dc981613f4afd2a94e6a31ac31bd.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/698399b05296d02e40b9543670163bda42b5dc981613f4afd2a94e6a31ac31bd.jpg)
 > 🔍 深度说明：
 > 【研究背景】带4抽头FIR预均衡的VCSEL驱动器，通过数字信号处理技术扩展VCSEL调制带宽。
 > 【核心结论】FIR预均衡原理：时域加权叠加，增强高频分量，补偿VCSEL和通道的带宽限制。4抽头FIR可有效扩展-3dB带宽约50%。
@@ -377,7 +377,7 @@ tags:
 
 ## Electro-Absorption Modulator (EAM)
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/9947d498296046e47240c37624b4fbb71d9fb5611f1f6aef2715d5d971931d30.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/9947d498296046e47240c37624b4fbb71d9fb5611f1f6aef2715d5d971931d30.jpg)
 > 🔍 深度说明：
 > 【研究背景】电吸收调制器（EAM）的QWAFEM结构图，Helman等人的JSTQE 2005论文。EAM是最广泛使用的外部调制器。
 > 【核心结论】EAM工作原理：量子限制Stark效应（QCSE），改变反向偏压导致吸收边波长移动。调制速率>60GBd，驱动电压2-5Vpp。
@@ -388,7 +388,7 @@ tags:
 
 ## Waveguide EAM
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/af83ef06811dc28987fbfdc78d26136190b756ecda81cc1f3044604e246367dc.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/af83ef06811dc28987fbfdc78d26136190b756ecda81cc1f3044604e246367dc.jpg)
 > 🔍 深度说明：
 > 【研究背景】波导型EAM的结构图，与表面法向EAM对比。波导型EAM光在波导内传播，与电极平行，适合与激光器端面耦合形成集成光路。
 > 【核心结论】波导EAM特点：端面耦合入纤功率高，与DFB激光器集成方便，调制带宽>40GHz，电容10-500fF。可承受高光功率。
@@ -399,7 +399,7 @@ tags:
 
 ## Waveguide EAM
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/e45a164c0c5cf6804817e1f25a987c258f283a0c00cc33c049c45d0563d424ac.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/e45a164c0c5cf6804817e1f25a987c258f283a0c00cc33c049c45d0563d424ac.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是Waveguide EAM的详细结构或测试数据，Liu的研究工作。展示了波导型EAM与传统EAM的结构差异。
 > 【核心结论】波导型EAM的电极与光波导平行，光在波导内传输，与交变电场充分相互作用。相比表面法向，消光比更高（>30dB），但制作工艺更复杂。
@@ -410,7 +410,7 @@ tags:
 
 ## Ring-Resonator Modulator (RRM)
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/1d15f6f1d75e22ac1156d08950c6377679da11e627604304d86c5c0d3a5e5c4d.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/1d15f6f1d75e22ac1156d08950c6377679da11e627604304d86c5c0d3a5e5c4d.jpg)
 > 🔍 深度说明：
 > 【研究背景】环形谐振腔调制器（RRM）结构图，Young等人ISSCC 2009论文。RRM利用环形谐振腔的窄带滤波特性，通过等离子体色散效应改变折射率。
 > 【核心结论】RRM工作原理：环形谐振腔具有窄带共振特性，共振波长随载流子浓度变化。调制速率>30GHz，电容仅~10fF，ring直径<20μm。
@@ -421,7 +421,7 @@ tags:
 
 ## Ring-Resonator-Based Silicon Photonics Transceiver
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/400648bab0a05efa01b8ca3e3e52935baca170aaf618fbbf17906609b5c2b907.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/400648bab0a05efa01b8ca3e3e52935baca170aaf618fbbf17906609b5c2b907.jpg)
 > 🔍 深度说明：
 > 【研究背景】基于RRM的硅光子收发器芯片照片，Young等人ISSCC 2009论文。这是早期全集成的硅光子收发器，展示了高电压驱动器+预均衡、前向时钟接收机等技术。
 > 【核心结论】芯片特性：1)高电压驱动器+预均衡扩展RRM调制带宽；2)前向时钟接收机+自适应功率灵敏度RX；3)偏置调谐环路锁定谐振波长。
@@ -432,7 +432,7 @@ tags:
 
 ## Ring-Resonator Modulator Performance
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/21fd03ec41bdebb9b8cd56112b52c85dff72d9e412e04dd0d4cce004964af2c5.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/21fd03ec41bdebb9b8cd56112b52c85dff72d9e412e04dd0d4cce004964af2c5.jpg)
 > 🔍 深度说明：
 > 【研究背景】RRM的光学器件性能对比图，Young等人ISSCC 2009论文汇总了VCSEL、EAM、MZM、RRM的带宽-功耗-尺寸特性。
 > 【核心结论】RRM优势：尺寸最小（<20μm ring）、电容极低（~10fF）、CMOS兼容驱动器。缺点：消光比低（3-6dB）、温度敏感、工艺敏感。
@@ -443,7 +443,7 @@ tags:
 
 ## Wavelength Division Multiplexing w/ Ring Resonators
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/1dd9a1c7a48dc5e38c524e9c421b053d611cee36cace783cf5405db4764c533c.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/1dd9a1c7a48dc5e38c524e9c421b053d611cee36cace783cf5405db4764c533c.jpg)
 > 🔍 深度说明：
 > 【研究背景】RRM在波分复用系统中的应用原理图，Rabus的论文。环形谐振腔可同时作为WDM通道选择器和调制器。
 > 【核心结论】RRM的WDM应用：每个RRM可独立调谐到不同波长，同时实现波长选择（add/drop filter）和强度调制。潜在能力：>100个波导，每个>10Gb/s，间距~4μm。
@@ -454,7 +454,7 @@ tags:
 
 ## Wavelength Division Multiplexing w/ Ring Resonators
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/c0ac4d9474920018a562e7417bfbb13036c8ca3e8a806506e80648b031b1a230.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/c0ac4d9474920018a562e7417bfbb13036c8ca3e8a806506e80648b031b1a230.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是RRM WDM系统的详细结构图或测试数据，展示了多波长通道的切换或选择功能。
 > 【核心结论】RRM作为add/drop filter的工作原理：通过改变环内载流子浓度，调节谐振波长，实现特定波长的下载（drop）或上载（add）。
@@ -465,7 +465,7 @@ tags:
 
 ## Ring-Resonator-Based Silicon Photonics Transceiver
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/665a106dcf9899443df55878c58f2164cbd3e428dc032110a5605b572584cfba.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/665a106dcf9899443df55878c58f2164cbd3e428dc032110a5605b572584cfba.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是硅光子收发器的详细照片或封装结构图，Li等人ISSCC 2013论文的后续或补充。
 > 【核心结论】收发器集成特性：1)64通道WDM；2)每通道>10Gb/s；3)总容量>640Gb/s；4)芯片面积~10mm²。展示了全集成的可行性。
@@ -476,7 +476,7 @@ tags:
 
 ## CMOS Modulator Driver
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/21e8a07413383278ec15c6387463c6cfb32a45052bbdf45f09fd430f9defde32.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/21e8a07413383278ec15c6387463c6cfb32a45052bbdf45f09fd430f9defde32.jpg)
 > 🔍 深度说明：
 > 【研究背景】CMOS调制器驱动电路图，展示Pulsed-Cascode结构。Palermo和Horowitz 2006年ESSCIRC论文展示用标准CMOS工艺驱动EAM和RRM的技术。
 > 【核心结论】CMOS驱动EAM/RRM的优势：调制器电容小（10-500fF），可用标准CMOS驱动器直接驱动。Pulsed-Cascode可提供2×Vdd或4×Vdd摆幅，最高可达2 FO4数据率。
@@ -487,7 +487,7 @@ tags:
 
 ## Pulsed-Cascode Driver
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/4d08d09d3ffcf0c7a29032ef607ea6615483f5fafee2dd7442561c3ce28ea503.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/4d08d09d3ffcf0c7a29032ef607ea6615483f5fafee2dd7442561c3ce28ea503.jpg)
 > 🔍 深度说明：
 > 【研究背景】Pulsed-Cascode驱动器的详细电路图，这是实现高输出摆幅的经典CMOS技术，允许在标准CMOS工艺中产生超过2×Vdd的电压摆幅。
 > 【核心结论】Pulsed-Cascode原理： cascoded transistors允许在输出节点累积电荷，实现瞬时电压超过Vdd。输出摆幅可达2×Vdd（cascode）或4×Vdd（stacked cascode）。
@@ -498,7 +498,7 @@ tags:
 
 ## Mach-Zehnder Modulator (MZM)
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/9c7abb2ba73faa11ffb4fc239bf0d12d3ca01ddd63e7dea997ada888924d18d5.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/9c7abb2ba73faa11ffb4fc239bf0d12d3ca01ddd63e7dea997ada888924d18d5.jpg)
 > 🔍 深度说明：
 > 【研究背景】马赫-曾德调制器（MZM）的结构和工作原理图，Analui的研究。MZM是相干光通信系统的核心器件，也是长距离强度调制系统的首选。
 > 【核心结论】MZM工作原理：输入光在两个臂分成两路，通过电极改变臂的折射率（电光效应），两路光再合并产生干涉。关键参数：Vπ（半波电压，约3-5V）、消光比（>30dB）、带宽（>30GHz）。
@@ -509,7 +509,7 @@ tags:
 
 ## Optical Receiver Technology
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/ccb4b5423ec6cb3854a0415c16b5eb529523d63488fec5d3c5ce5ed1321fbcbf.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/ccb4b5423ec6cb3854a0415c16b5eb529523d63488fec5d3c5ce5ed1321fbcbf.jpg)
 > 🔍 深度说明：
 > 【研究背景】光接收技术概述图，展示了光电探测器（PIN/APD）和电放大器（TIA/Limiting Amp）的级联架构。
 > 【核心结论】光接收链路：光探测器（PIN/APD）将光功率转为电流 → TIA转为电压并放大 → Limiting Amp提供固定电平输出 → Serdes CDR恢复时钟和数据。关键指标：灵敏度、带宽、动态范围。
@@ -520,7 +520,7 @@ tags:
 
 ## Integrated Ge MSM Photodetector
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/002de462288fcc920633dee0a2e15dcf103724b8278e33be78a1dd8ce99cb16d.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/002de462288fcc920633dee0a2e15dcf103724b8278e33be78a1dd8ce99cb16d.jpg)
 > 🔍 深度说明：
 > 【研究背景】锗（Germanium）金属-半导体-金属（MSM）探测器的截面图和性能参数，Young等人JSSC 2010论文。这是硅光子平台中实现高速光探测的关键器件。
 > 【核心结论】Ge MSM探测器特性：与标准CMOS工艺兼容，极低电容<1fF，小有源区<2μm²，响应度~0.5A/W @ 850nm。适合集成在硅光子芯片上。
@@ -531,7 +531,7 @@ tags:
 
 ## Ge MSM Photodetector
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/9677c97f058c3b67718767620d424b8aa6e9a9bbf61955647aaf2edc52c161f2.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/9677c97f058c3b67718767620d424b8aa6e9a9bbf61955647aaf2edc52c161f2.jpg)
 > 🔍 深度说明：
 > 【研究背景】Ge MSM探测器的详细截面图，展示了Cu电极、Ge有源区、SiN波导的相对位置关系。叉指电极（interdigital fingers）结构用于增大光吸收面积同时保持小电容。
 > 【核心结论】结构特点：SiN波导将光耦合到Ge有源区上方，Cu叉指电极在Ge表面，Ge直接在SiO₂上沉积。超低电容源于小有源区和厚介质隔离。
@@ -542,7 +542,7 @@ tags:
 
 ## Integrated Ge MSM Photodetector
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/8509a9e176f7c1654cce45eb17de5cd1c35f8d1408046e2d3965294b8f53fec2.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/8509a9e176f7c1654cce45eb17de5cd1c35f8d1408046e2d3965294b8f53fec2.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是Ge MSM探测器的详细尺寸标注和性能参数汇总，展示了<1fF电容和<2μm²有源区的关键规格。
 > 【核心结论】Ge MSM的超低电容使其成为高速光探测的理想选择。<1fF的电容与50Ω端接电阻产生的RC带宽约>300GHz，远超过实际系统需求。
@@ -553,7 +553,7 @@ tags:
 
 ## Hybrid Integration
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/66aeeae36727a4b5cb9120075f7fe7966a63b4f99af2c33dd591305e9bc2abaf.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/66aeeae36727a4b5cb9120075f7fe7966a63b4f99af2c33dd591305e9bc2abaf.jpg)
 > 🔍 深度说明：
 > 【研究背景】混合集成方案对比图，展示Wirebonding、Flip-Chip Bonding、Short In-Package Traces三种方式。这是光电器件与电路集成的核心技术。
 > 【核心结论】Wirebonding：寄生电感>1nH，带宽约10-15GHz，适合<10Gb/s。Flip-Chip Bonding：寄生电感<100pH，适合>25Gb/s。Short In-Package Traces：综合性能最佳，是CPO的主要选择。
@@ -564,7 +564,7 @@ tags:
 
 ## Wirebonding
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/e90e8b65f3a28dbda6a6ffa6fb7c45a9b496dd9f50fa87713367c6b202b871a9.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/e90e8b65f3a28dbda6a6ffa6fb7c45a9b496dd9f50fa87713367c6b202b871a9.jpg)
 > 🔍 深度说明：
 > 【研究背景】引线键合方式的示意图，这是最原始的芯片到芯片电气连接方式。简单但高频性能差。
 > 【核心结论】Wirebonding特性：寄生电感1-10nH（取决于线长和直径），带宽限制约10-15GHz，成本最低，工艺成熟。适用于较低速率（<10Gb/s）的光模块。
@@ -575,7 +575,7 @@ tags:
 
 ## Flip-Chip Bonding
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/faa46129f41412ac176bd492af2fc2807f3c34bdf464a3ba058b8d47d143c55d.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/faa46129f41412ac176bd492af2fc2807f3c34bdf464a3ba058b8d47d143c55d.jpg)
 > 🔍 深度说明：
 > 【研究背景】倒装芯片键合示意图，这是当前高速光模块的主流封装技术。通过焊球阵列实现电气连接，寄生电感可低至<100pH。
 > 【核心结论】Flip-chip优势：焊球距离短（<100μm），寄生电感低；信号分布均匀；适合高频（>30GHz）；可用于光学器件与IC的混合封装。
@@ -586,7 +586,7 @@ tags:
 
 ## Integrated CMOS Photonics
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/27cc8c05c2d887df8f7b556af1698efb7e3643f7dc861811860e394d7921f021.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/27cc8c05c2d887df8f7b556af1698efb7e3643f7dc861811860e394d7921f021.jpg)
 > 🔍 深度说明：
 > 【研究背景】"Optics on Top"架构在Bulk CMOS的实现方案，Batten的研究。这种架构将光子器件堆叠在CMOS芯片之上，不占用前端有源区。
 > 【核心结论】"Optics on Top"特点：光子器件在金属层之上，不占用晶体管有源区，可使用标准CMOS工艺。挑战：光栅耦合效率低、层间串扰。
@@ -597,7 +597,7 @@ tags:
 
 ## Bulk CMOS Process
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/c9c58c647c30db4b7ccdd2673e364d78d7de79d1ece323a3187897896ce8ed71.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/c9c58c647c30db4b7ccdd2673e364d78d7de79d1ece323a3187897896ce8ed71.jpg)
 > 🔍 深度说明：
 > 【研究背景】Bulk CMOS工艺的光学集成方案，将光子器件制作在标准CMOS芯片之上。这是试图复用现有CMOS fab产能的方案。
 > 【核心结论】Bulk CMOS光子集成的挑战：薄STI层导致波导模式泄漏，后处理工艺增加成本，光学性能受限。更实际的做法是使用专门的SOI光子工艺。
@@ -608,7 +608,7 @@ tags:
 
 ## Short In-Package Traces
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/cf2a7b7544a9ae7b336d4fd839284ee2a67a59624abdac6453a6eff9587a96ff.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/cf2a7b7544a9ae7b336d4fd839284ee2a67a59624abdac6453a6eff9587a96ff.jpg)
 > 🔍 深度说明：
 > 【研究背景】封装内短走线连接示意图，这是介于wirebonding和full flip-chip之间的折中方案。适合在同一个封装内连接光器件和电路。
 > 【核心结论】Short In-Package Traces特性：走线长度1-5mm，可设计为受控阻抗传输线（50Ω差分），寄生电感约100-500pH。在硅基板（Si interposer）上可实现~100μm线宽/间距。
@@ -619,7 +619,7 @@ tags:
 
 ## Integrated CMOS Photonics
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/5f672839131d8230350c8855fb00d8e2f95132b87a6fa5cb1b4b1aabf171ddd8.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/5f672839131d8230350c8855fb00d8e2f95132b87a6fa5cb1b4b1aabf171ddd8.jpg)
 > 🔍 深度说明：
 > 【研究背景】可能是"Optics on Top"架构的详细示意图或"Future Photonic CMOS Chip"的早期概念图。
 > 【核心结论】"Optics on Top"架构将光子器件层叠在CMOS电路之上，实现方式可以是背面（through- substrate coupling）或正面（through-metal coupling）耦合。
@@ -630,7 +630,7 @@ tags:
 
 ## Future Photonic CMOS Chip
 
-![](/img/mineru_output/lecture15_ee720_optical_io_深度学习报告/auto/images/ccf7f1d31c2827922524c61ce1a01e16145a3341949944e6debfb9c325ee18c6.jpg)
+![](/img/serdes/fundamentals/lectures/lecture15_ee720_optical_io_深度学习报告/_images/ccf7f1d31c2827922524c61ce1a01e16145a3341949944e6debfb9c325ee18c6.jpg)
 > 🔍 深度说明：
 > 【研究背景】未来光子CMOS芯片的愿景图，Young等人ISSCC 2009论文。展示了单芯片上集成Serdes PHY、CPU core和光I/O的融合架构。
 > 【核心结论】愿景：统一的片上/片间光互连——核心到核心、处理器到处理器、处理器到内存。光互连实现"光I/O + 计算 + 存储"的单芯片融合。
