@@ -1,154 +1,418 @@
----
-layout: post
-title:      "lecture3 ee720 tdr spar 深度学习报告"
-date:       2026-04-21 09:25:41
-author:     "Bert"
-tags:
-  - Fundamentals
-  - Lecture
-  - SerDes
-  - TDR
-  - 深度学习
+# ECEN720 Lecture 3: Time-Domain Reflectometry & S-Parameter Channel Models — 深度学习报告
+
+**课程**: ECEN720: High-Speed Links Circuits and Systems, Spring 2023
+**授课人**: Sam Palermo, Analog & Mixed-Signal Center, Texas A&M University
+**整理日期**: 2026/04/27（专业增强版）
+**研究深度**: 深度解读（TDR时域反射测量 → VNA/S参数分析 → ABCD级联 → 脉冲响应生成 → 眼图与ISI）
+
 ---
 
-ECEN720: High-Speed Links
-            Circuits and Systems
-                Spring 2023
-Lecture 3: Time-Domain Reflectometry & S-Parameter Channel Models
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-000.jpg)
 
-
-
-
-                        Sam Palermo
-                Analog & Mixed-Signal Center
-                    Texas A&M University
-
-![课程封面](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-000.jpg)
 > 🔍 深度说明：
-> 【研究背景】这是ECEN720第三讲的封面，主题是TDR时域反射计和S参数测量，是高速信道特性测量的核心技术，准确的信道测量是Serdes设计和验证的基础。
-> 【核心结论】本讲内容覆盖：TDR工作原理、阻抗不连续的TDR响应、S参数测量方法、VNA矢量网络分析仪使用、测量校准技术、去嵌方法，是信号完整性工程师必备的测量技能。
-> 【工程价值】所有高速链路的信道特性都需要通过实际测量得到，仿真结果必须和测量结果对齐，才能保证Serdes芯片在实际系统中正常工作；测量不准确会导致设计余量不足，甚至流片失败。
-> 【落地注意】高频S参数测量对校准要求非常高，SOLT校准、TRL校准都必须严格按照流程操作，测试夹具的去嵌必须准确，否则测量结果会有很大误差；同时要注意测量时的防静电和阻抗匹配，避免损坏仪表。
-
-
----
-
-Announcements
-• Lab 1 report and Prelab 2 due Feb 6
-
-• Reference Material Posted on Website
-  • TDR theory application note
-  • S-parameter notes
-
-
-
-
-                                         2
-
-![TDR工作原理](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-001.jpg)
-> 🔍 深度说明：
-> 【研究背景】TDR时域反射计的工作原理示意图，TDR是测量传输线阻抗分布的核心工具，可以定位传输线上的阻抗不连续点（比如过孔、连接器、stub等）。
-> 【核心结论】TDR的工作原理是向传输线发送一个阶跃信号，然后测量反射回来的信号，根据反射信号的幅度和时间，可以计算出阻抗不连续点的位置和阻抗值；反射系数Γ = (Z - Z0)/(Z + Z0)，阻抗高于Z0时反射为正，低于Z0时反射为负。
-> 【工程价值】TDR是PCB信号完整性测试的必备工具，可以用来验证PCB的阻抗控制是否符合要求，定位阻抗不连续的位置，分析过孔、连接器的阻抗特性。
-> 【落地注意】TDR的上升时间决定了测量的分辨率，上升时间越快，分辨率越高，对于112G Serdes的信道测量，需要使用上升时间<20ps的TDR，才能分辨出毫米级的阻抗不连续点；测量时需要注意线缆的校准，消除测试线缆的影响。
-
+> 【研究背景】Lecture 3是信道建模方法论的核心课程。2023年SerDes速率已从10Gb/s NRZ演进到112Gb/s PAM4，信道表征从简单的时域TDR测量发展到复杂的频域S参数建模+时域脉冲响应仿真。本讲涵盖从测量仪器原理到信道建模实践的完整流程，是信号完整性分析的"工具箱"章节——Dally Ch3.4/3.6-3.7（TDR材料）和Hall Ch9（S参数材料）是两大核心参考文献。
+> 【核心结论】信道建模双轨制：TDR（时域）提供直观的阻抗剖面定位不连续，空间分辨率由阶跃上升时间决定（Δx > t_r·v_p，28ps → ~4.2mm在FR4上）；VNA/S参数（频域）提供精确的宽带频率响应（50MHz-15GHz@10MHz步进），通过ABCD参数矩阵乘法实现多段信道级联。从S参数生成脉冲响应是SerDes链路仿真的标准流程：正负频率构造 → 零填充（±500GHz → 1ps分辨率） → IFFT → 验证（FFT对比原始S参数）。
+> 【工程价值】掌握S参数级联（ABCD转换法）是信道建模的核心技能——芯片BGA→封装RDL→微带线→过孔→带状线→连接器→背板等6-10段级联是实际产品建模的日常操作。高损耗信道中S₂₁幅值降至-40dB时注意数值精度。眼图是链路性能的综合指标，眼高/眼宽/抖动/ISI是sign-off的四大参数。IBM Meghelli ISSCC 2006的10Gb/s SerDes经典案例展示了信道损伤的全过程。
+> 【落地注意】VNA校准（SOLT→±0.1dB，TRL→±0.05dB）的准确性直接影响S参数质量。112G PAM4链路需要宽带(DC-28GHz)、低噪声(S₂₁<-80dB)、因果/被动验证的S参数。TDR的缺陷：信道低通滤波会"补偿"远端不连续尖峰——看起来温和但实际危害不减。零填充8-16倍是工程最优折中（计算量vs时域精度）。
 
 ---
 
-Agenda
-• Interconnect measurement techniques
-  • Time-domain reflectometry (TDR)
-  • Network analyzer
-• S-parameters
-• Cascading S-parameter models
-• Full S-parameter channel model
-• Transient simulations
-  • Impulse response generation
-  • Eye diagrams
-  • Inter-symbol interference
+## 一、互连建模方法论
 
-                                        3
+### 1.1 为什么需要互连模型
 
-![TDR响应示例](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-002.jpg)
-> 🔍 深度说明：
-> 【研究背景】这是典型传输线结构的TDR响应示例，展示了不同阻抗不连续点的TDR波形特征，是TDR测量结果分析的基础。
-> 【核心结论】1) 开路：反射系数为+1，TDR波形跳变到2倍输入阶跃幅度；2) 短路：反射系数为-1，TDR波形跳变到0；3) 电容性不连续（比如过孔stub）：TDR波形出现向下的凹陷；4) 电感性不连续（比如引线）：TDR波形出现向上的凸起。
-> 【工程价值】通过分析TDR波形，可以定位传输线上的阻抗不连续点的位置和类型，指导PCB设计优化，降低信号反射。
-> 【落地注意】过孔stub是TDR测量中最常见的阻抗不连续点，112G链路中背钻后的残留stub必须控制在8mil以内，否则TDR会出现明显的凹陷，导致反射过大，链路余量不足。
+高速SerDes设计中，信道互连模型是实现可靠设计的三大基石：
 
+1. **手算与仿真**（Spice, Matlab, ADS）：在流片前预测信号行为，指导均衡器架构选择和链路预算分配。没有模型意味着只能靠经验试错——这在112G时代行不通。
+2. **定位性能瓶颈**：定量识别每个信道组件（封装键合线~0.5dB、BGA过孔~1dB、PCB走线~3-8dB、连接器~0.5dB/个、背板~15-25dB）的损耗占比。
+3. **设计权衡**：均衡方案 vs 器件选型 vs PCB板材 vs 连接器规格 vs 成本——在多维约束中寻找最优解。
 
----
+三种模型生成方法：电磁CAD工具（HFSS/SIwave，设计阶段，最精最慢）、实际测量（TDR/VNA，原型验证，反映实物）、解析模型（闭式公式，架构探索，秒级）。
 
-Lecture References
-• Majority of TDR material from Dally
-  Chapter 3.4, 3.6 - 3.7
+### 1.2 两大测量技术深度对比
 
-• Majority of s-parameter material from Hall
-  “Advanced Signal Integrity for High-Speed
-  Digital Designs” Chapter 9
-
-
-
-
-                                               4
-
-![S参数测量](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-003.jpg)
-> 🔍 深度说明：
-> 【研究背景】这是VNA矢量网络分析仪测量S参数的原理示意图，S参数是频域的信道特性描述，是Serdes链路仿真的标准输入格式。
-> 【核心结论】VNA通过向被测件发送扫频的正弦信号，测量每个频率点的入射波、反射波、传输波的幅度和相位，计算得到S参数；可以测量的参数包括插入损耗（S21）、回波损耗（S11）、串扰（S31/S41）等。
-> 【工程价值】S参数是Serdes链路仿真的核心输入，所有的眼图仿真、误码率仿真、均衡器参数优化都基于准确的S参数，测量得到的S参数还可以用来验证仿真模型的准确性。
-> 【落地注意】测量S参数时，频率范围需要覆盖到Serdes的Nyquist频率的2~3倍，比如112G PAM4 Serdes的Nyquist频率是14GHz，测量频率范围需要到40GHz以上，才能准确描述信道的高频特性；同时要注意测量的动态范围，一般要求>80dB，保证弱信号的测量精度。
-
+| 维度 | TDR（时域反射计） | VNA（矢量网络分析仪） |
+|------|------------------|---------------------|
+| 激励源 | 快沿阶跃脉冲 ~28-35ps | 扫频正弦波 50MHz-15GHz@10MHz步进 |
+| 检测方式 | 等效时间采样示波器 | 定向耦合器 + 幅度/相位相干检测 |
+| 输出格式 | 阻抗-时间剖面 Z(t)→Z(x) | S参数矩阵 S₁₁/S₂₁/S₁₂/S₂₂ |
+| 核心优势 | 直观、快速定位不连续位置 | 精确、宽带、可级联、可逆变换 |
+| 分辨率 | 空间~4.2mm(28ps), 时间~fs(等效采样) | 频率10MHz步进, 时间~33.3ps(15GHz) |
+| 适用场景 | 故障诊断、阻抗剖面检验 | 系统级仿真、链路预算、全信道建模 |
+| 校准 | 探头deskew（简单） | SOLT/TRL系统校准（复杂但精确） |
 
 ---
 
-Interconnect Modeling
+## 二、时域反射计（TDR）
 
+### 2.1 TDR系统架构与原理
 
+TDR由两个核心模块组成：**快沿阶跃发生器**（~28-35ps上升时间） + **高速采样示波器**（等效时间采样）。
 
-• Why do we need interconnect models?
-  • Perform hand calculations and simulations (Spice, Matlab, etc…)
-  • Locate performance bottlenecks and make design trade-offs
-• Model generation methods
-  • Electromagnetic CAD tools
-  • Actual system measurements
-• Measurement techniques
-  • Time-Domain Reflectometer (TDR)
-  • Network analyzer (frequency domain)
-                                                                      5
+工作原理：阶跃脉冲注入被测信道 → 沿线传播 → 遇阻抗不连续(Z_T ≠ Z₀)产生反射 → 反射波反向传播叠加在入射波上 → 源端观测总电压V(t)=V_i+V_r(t) → 反推沿线阻抗分布。
 
-![S参数校准](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-004.jpg)
+TDR仅需**单端口接入**即可表征整个信道——这是其相对于VNA的最大操作便利性。
+
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-001.ppm)
+
 > 🔍 深度说明：
-> 【研究背景】这是S参数测量的校准技术示意图，校准是保证S参数测量准确性的关键步骤，没有校准的测量结果是没有意义的。
-> 【核心结论】常用的校准方法包括：1) SOLT校准：使用短路（Short）、开路（Open）、负载（Load）、直通（Thru）四个校准件，是最常用的同轴校准方法；2) TRL校准：使用直通（Thru）、反射（Reflect）、延迟线（Line），适合非同轴的PCB测量，精度更高；3) SOLR校准：适用于未知负载的情况。
-> 【工程价值】准确的校准是S参数测量准确的前提，校准误差是S参数测量的最大误差来源，因此必须严格按照校准流程操作，定期校准校准件，保证校准精度。
-> 【落地注意】PCB上的S参数测量一般采用TRL校准，需要在测试板上设计专门的TRL校准图形，校准件的阻抗必须准确，延迟线的长度需要根据测量频率范围来设计，保证校准精度。
+> 【研究背景】TDR结构图展示了快沿发生器、采样头、参考电缆和DUT的标准连接拓扑。TDR发明可追溯至HP 1415A（1960年代，100ps上升时间）用于电缆故障定位。现代TDR（Keysight 54754A模块，28ps上升时间）已集成到DCA-X系列示波器中，支持差分探头测量100Ω差分阻抗剖面。等效时间采样(Equivalent-Time Sampling)使TDR可达飞秒级时间分辨率，但受限于阶跃发生器固有上升时间。
+> 【核心结论】空间分辨率 Δx > t_r·v_p。28ps上升时间在FR4(v_p≈1.5×10⁸m/s)上对应~4.2mm——间距<4.2mm的两个不连续点在波形上融合为模糊响应。差分TDR（4端口）可同时测量奇模(Z_odd)和偶模(Z_even)阻抗剖面。
+> 【工程价值】TDR是SI工程师的首选调试工具。PCB故障分析可快速定位：BGA焊球空洞（~2mm处阻抗突升）、过孔stub（~15mm处凹陷）、连接器接触不良（~100mm处台阶）。±10%的阻抗偏差（50Ω±5Ω）在TDR上对应的电压偏移为±2.5%×0.5V=±12.5mV——在1V/div灵敏度下可见。
+> 【落地注意】探头接地线电感（~1nH/mm）对28ps上升沿产生j35Ω/mm感抗——1mm接地线即引入~10Ω测量误差。高频测量需deskew校准消除通道间时延差。阶跃源内阻温度漂移±2Ω会导致V_i误差~4%，在精密阻抗验收（±1Ω容差）时需单独验证源内阻。
 
+### 2.2 TDR阻抗计算公式
+
+反射系数与终端阻抗关系：
+
+$$ k_r(t) = \frac{V_r(t)}{V_i} = \frac{Z_T(t) - Z_0}{Z_T(t) + Z_0} $$
+
+由反射系数反推时变阻抗：
+
+$$ Z_T(t) = Z_0 \left( \frac{1 + k_r(t)}{1 - k_r(t)} \right) = Z_0 \left( \frac{V_i + V_r(t)}{V_i - V_r(t)} \right) = Z_0 \left( \frac{V(t)}{2V_i - V(t)} \right) $$
+
+若阶跃源幅度 **V_STEP = 1V**（50Ω源分压后 V_i = 0.5V）：
+
+$$ \boxed{Z_T(t) = Z_0 \left( \frac{V(t)}{1\text{V} - V(t)} \right)} $$
+
+空间位置由往返时间转换：$$ Z_T(x) = Z_T\!\left(t = \frac{2x}{v_p}\right) $$
+
+> 🔍 深度说明：
+> 【研究背景】TDR阻抗公式的意义：观测到的时域电压V(t)可实时转换为阻抗Z(t)，再由v_p转换为空间分布Z(x)。每个阻抗不连续在TDR波形上都留下"签名"——这是一维分布参数系统的"断层扫描"。
+> 【核心结论】V_STEP=1V时V_i=0.5V是基线电压：V>0.5V→Z_T>50Ω（高阻：电感、开路、细线）；V<0.5V→Z_T<50Ω（低阻：电容、短路、宽线）；V=0.5V→Z_T=50Ω（匹配）。观测电压直接判断阻抗偏离方向。
+> 【工程价值】标准TDR直接输出阻抗替代电压显示（50Ω/100Ω/75Ω可切换参考阻抗）。差分TDR同时测量奇偶模阻抗剖面。
+> 【落地注意】"t=0"参考时间需校准去除电缆延迟（~5ns/m）和探头延迟（~100ps）。公式假设源内阻=Z₀，但温度漂移±2Ω引入~4%的V_i误差。
+
+### 2.3 TDR终端波形特征
+
+| 终端 | Z_T | k_r | 稳态V | 波形特征 |
+|------|-----|-----|-------|---------|
+| 开路 | ∞ | +1 | 1.0V | 全反射同相叠加，电压跃升至2×入射 |
+| 短路 | 0 | -1 | 0V | 全反射反相抵消，电压归零 |
+| 匹配 | 50Ω | 0 | 0.5V | 无反射，电压恒定 |
+
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-002.jpg)
+
+> 🔍 深度说明：
+> 【研究背景】三种终端条件的TDR波形是反射分析的ABC。开路(k_r=+1)、短路(k_r=-1)、匹配(k_r=0)代表全反射/无反射的极端情况。实际信道中任何不连续点可视作局部"开路"或"短路"。
+> 【核心结论】开路V=1V是TDR可观测最大电压（2×入射0.5V）；短路V=0V是最小电压；匹配V=0.5V保持恒定。所有TDR分析以此三态为参照系。
+> 【工程价值】TDR波形快速诊断法则：上升沿=L型不连续（过孔stub、细线、键合线）；下降沿=C型不连续（焊盘、过孔pad、并联电容）；平台=均匀传输线；振铃=多重反射。
+> 【落地注意】远距离不连续（>100mm）被趋肤/介质损耗模糊化——30英寸背板末端的BGA偏差可能只显示"缓坡"而非"尖峰"。
+
+### 2.4 不连续性TDR波形
+
+并联电容(Shunt C)：负冲→指数恢复，τ=C·Z₀/2
+串联电感(Series L)：正冲→指数恢复，τ=L/(2Z₀)
+
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-014.jpg)
+
+> 🔍 深度说明：
+> 【研究背景】Shunt C和Series L是PCB/封装中最常见的寄生元件。BGA焊球过渡呈现C特征（对地间隙~2-4mil→~0.2-0.5pF），过孔为C（pad）和L（stub）混合特征。区分C/L不连续：负冲→C，正冲→L。
+> 【核心结论】C/L尖峰幅度定量公式：
+
+> $$ \frac{\Delta V}{V} = \left( \frac{\tau}{t_r} \right) \left[ 1 - e^{(-t_r/\tau)} \right] $$
+
+> τ ≪ t_r时ΔV/V≈τ/t_r；τ ≫ t_r时ΔV/V≈1。尖峰幅度反比于上升时间——越快越尖锐。反推：C=2τ/Z₀，L=2τ·Z₀。
+> 【工程价值】PCB debug法则：负冲→查参考平面间隙(via antipad)、BGA参考平面缺失、走线变宽；正冲→查过孔stub、走线变窄、键合线电感。结合距离定位到具体节点修复。
+> 【落地注意】反直觉现象：信道低通滤波会"补偿"远端C/L尖峰——长距离传播后高频衰减，等效t_r展宽使尖峰"温和化"（Channel Filtering Compensation）。不可因远距离尖峰减小而低估不连续危害。
+
+### 2.5 TDR空间分辨率
+
+$$ \boxed{\Delta x > t_r \cdot v_p} $$
+
+关键影响因素：阶跃上升时间(28-35ps)、趋肤效应展宽、色散(不同频率不同速度)、C/L不连续的低通滤波效应。
+
+### 2.6 多重不连续与格型图
+
+多重反射路径序列（A→B→C→负载）：A直接反射、A→B→A、B→C→B、C→B→C、C→A→B→C等。格型图追踪每次反射的时序（t_d）、幅度（k_r累积乘积）和收敛性。
+
+> 🔍 深度说明：
+> 【研究背景】两不连续点间距<t_r·v_p/2(28ps→~2.1mm)时反射重叠无法单独分辨——恰是高密度BGA的特征间距(1-1.27mm)。40G+ SerDes封装分析需要超快TDR(t_r<5ps,分辨率~0.75mm)。格型图由Bewley(1930s)提出。
+> 【核心结论】多重反射衰减由各点反射系数乘积决定——每次反射能量折损k_r²，高阶反射(>3次)通常<-30dB可忽略。同侧反射(两高阻或两低阻)k_r连续乘积为正→单调收敛；异侧反射符号交替→振荡收敛。
+> 【工程价值】TDR用于多层PCB的via stub定位——反射路径1-2-3-2-1序列可推断stub在第3层深度。配合TDT可"透视"PCB内部结构无需物理切板。
+> 【落地注意】复杂高频板需多端口差分TDR——奇模和偶模反射特征相反（奇模TDR上的"小Cap"可能是偶模的"小Inductor"）。
+
+### 2.7 时域传输（TDT）
+
+TDT测量传输到信道另一侧的信号：
+
+$$ H(j\omega) = \frac{V_2(j\omega)}{V_1(j\omega)} $$
+
+TDT与TDR互补：TDR看反射（定位不连续），TDT看传输（测端到端损耗）。TDT难以分离单个不连续——所有效应叠加在一个上升沿上。TDR+TDT联合表征是完整信道分析的标准手段。
 
 ---
 
-Time-Domain Reflectometer (TDR)
-                                                            [Agilent]
+## 三、网络分析仪与S参数
 
+### 3.1 VNA测量架构
 
+VNA通过扫频正弦波源和定向耦合器分离前向/反射波，测量信道的完整频率响应。
 
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-019.ppm)
 
-[Dally]
-
-• TDR consists of a fast step generator and a high-speed
-  oscilloscope
-• TDR operation
-   • Outputs fast voltage step onto channel
-   • Observe voltage at source, which includes reflections
-   • Voltage magnitude can be converted to impedance
-   • Impedance discontinuity location can be determined by delay
-• Only input port access to characterize channel
-                                                                        6
-
-![去嵌技术](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-005.jpg)
 > 🔍 深度说明：
-> 【研究背景】这是S参数测量的去嵌技术示意图，去嵌是去掉测试夹具对测量结果的影响，得到真实被测件的S参数的技术。
-> 【核心结论】测试夹具包括测试端口到被测件之间的走线、过孔、连接器等，这些部分的特性会叠加到测量结果中，必须通过去嵌技术去掉；常用的去嵌方法包括：2xThru去嵌、SOLT去嵌、TRL去嵌等。
-> 【工程价值】如果不去掉测试夹具的影响，测量得到的S参数会包含夹具的损耗和反射，导致信道特性被高估或者低估，影响Serdes设计的准确性。
-> 【落地注意】去嵌模型必须准确，夹具的S参数需要预先测量或者仿真得到，去嵌后的S参数必须满足无源、互易、因果的条件，否则不能用于链路仿真；去嵌后的插入损耗在低频段应该接近0dB，保证去嵌的正确性。
+> 【研究背景】VNA是射频/微波信道表征的标准仪器。按频率分：经济型(9kHz-9GHz)、标准型(10MHz-26.5GHz)、高性能型(10MHz-110GHz)。现代VNA（Keysight PNA-X/N5247B、R&S ZVA67）内置第二源、脉冲调制、噪声系数测量功能。核心是定向耦合器——硬件分离入射波a和反射波b。
+> 【核心结论】VNA系统误差模型包含12项误差项（方向性、源匹配、负载匹配、反射跟踪、传输跟踪、串扰），通过SOLT或TRL校准消除。TRL(Thru-Reflect-Line)校准精度最高（±0.05dB），适合高损耗信道(S₂₁<-30dB)；SOLT(Short-Open-Load-Thru)适用通用场景（±0.1dB）。
+> 【工程价值】S参数测量精度高度依赖校准质量。112G PAM4信道需要DC-28GHz宽带S参数，S₂₁噪声本底<-80dB。校准参考面需包含所有去嵌入(de-embedding)步骤——探针校准卡+TRL校准件是最佳组合。
+> 【落地注意】探针台的压力控制直接影响接触一致性：过压损坏焊盘(~2g/μm²极限)，欠压引入额外电感(~0.1nH)。校准件的老化会导致SOLT标准件偏离理想——每年需重新计量。
 
+### 3.2 S参数定义
+
+**为什么用S参数？**Y/Z参数需开/短路条件（高频难以实现），S参数在50Ω终端测量（接近实际条件），基于入射/反射波比例——VNA可直接测量。
+
+归一化功率波：$$ a = \frac{V^+}{\sqrt{Z_0}}, \quad b = \frac{V^-}{\sqrt{Z_0}} $$，功率 = |a|² = |b|²。
+
+二端口S参数矩阵：
+
+$$ \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} = \begin{bmatrix} S_{11} & S_{12} \\ S_{21} & S_{22} \end{bmatrix} \cdot \begin{bmatrix} a_1 \\ a_2 \end{bmatrix} $$
+
+| S参数 | 名称 | 定义 | 工程解读 |
+|-------|------|------|---------|
+| S₁₁ | 输入回波损耗 | b₁/a₁ (端口2匹配) | 输入匹配，<-15dB(现代SerDes<-20dB@28GHz) |
+| S₂₁ | 正向传输/插入损耗 | b₂/a₁ (端口2匹配) | 信道损耗，直接决定均衡补偿量 |
+| S₁₂ | 反向传输/隔离度 | b₁/a₂ (端口1匹配) | 隔离度，>30dB（互易网络S₁₂=S₂₁） |
+| S₂₂ | 输出回波损耗 | b₂/a₂ (端口1匹配) | 输出匹配，<-15dB |
+
+> 🔍 深度说明：
+> 【研究背景】S参数由Hewlett-Packard在1960年代推广，最初用于微波晶体管表征。如今S参数是SerDes信道建模的"通用语言"。优势：50Ω终端（接近真实系统）、可级联（ABCD转换）、四端口支持差分/共模混合模式。IEEE 802.3bj/bs/cd标准对信道S参数有明确的模板限制。
+> 【核心结论】S₂₁(插入损耗)是信道建模最核心的参数。|S₂₁|²=传输功率/入射功率。典型背板S₂₁随频率单调下降：DC→0dB，5GHz→-10dB，10GHz→-18dB，15GHz→-25dB。S₂₁异常（突兀roll-off、谐振null）指示设计缺陷（过孔stub：f_res≈c/(4l_stub√εr)；连接器腔体谐振：f_res∝1/√(LC)）。
+> 【工程价值】S参数是SerDes链路仿真的核心输入。Top-down流程：VNA测量→S参数→IBIS-AMI仿真→眼图→BER估计。S参数质量三要素：宽带(DC-28GHz@112G PAM4)、低噪声(S₂₁本底<-80dB)、因果/被动验证。
+> 【落地注意】S参数必须满足无源性(passivity: Σ|S|²<1)和因果性(causality: h(t)=0 for t<0)。违反约束会在时域仿真产生非物理的"超前响应"或"能量增益"。Ansys SIwave S-parameter Validation和MathWorks RF Toolbox可执行自动化验证。S参数Touchstone文件(.sNp)格式是事实标准。
+
+### 3.3 S参数的级联与ABCD参数
+
+**核心问题**：S参数不能直接级联矩阵乘法——内部端口边界条件不匹配。必须先转换为ABCD参数（传输矩阵）或T参数。
+
+ABCD参数定义：
+
+$$ \begin{bmatrix} v_1 \\ i_1 \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \end{bmatrix} \cdot \begin{bmatrix} v_2 \\ i_2 \end{bmatrix} $$
+
+| 参数 | 定义 | 条件 | 物理含义 |
+|------|------|------|---------|
+| A | v₁/v₂ | i₂=0 | 电压增益（开路） |
+| B | v₁/i₂ | v₂=0 | 转移阻抗（短路） |
+| C | i₁/v₂ | i₂=0 | 转移导纳（开路） |
+| D | i₁/i₂ | v₂=0 | 电流增益（短路） |
+
+级联特性：
+
+$$ \begin{bmatrix} A & B \\ C & D \end{bmatrix}_{\text{total}} = \begin{bmatrix} A_1 & B_1 \\ C_1 & D_1 \end{bmatrix} \cdot \begin{bmatrix} A_2 & B_2 \\ C_2 & D_2 \end{bmatrix} \cdot ... $$
+
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-026.ppm)
+
+> 🔍 深度说明：
+> 【研究背景】S→ABCD→S是信道级联的标准流程——级联处电压电流连续，ABCD参数天然适合级联。S参数到ABCD的转换公式（参考阻抗Z_n通常为50Ω）：
+
+> $$ \begin{bmatrix} S_{11} & S_{12} \\ S_{21} & S_{22} \end{bmatrix} = \frac{1}{B+Z_n(D+A+CZ_n)} \begin{bmatrix} B-Z_n(D-A+CZ_n) & 2Z_n(AD-BC) \\ 2Z_n & B-Z_n(A-D+CZ_n) \end{bmatrix} $$
+
+> 【核心结论】转换中分母项包含AD-BC（ABCD矩阵行列式）。对于高损耗信道（S₂₁→0，AD-BC→0），转换出现数值奇异性——需双精度浮点数保证数值稳定性。IBIS-AMI标准要求信道模型支持T参数级联。
+> 【工程价值】Keysight ADS、Ansys Designer、MATLAB RF Toolbox均内置S↔ABCD转换。但理解公式有助于排查复杂级联（>10段）时的数值异常——每段转换引入~1e-15量级的舍入误差，10段累积达1e-14，频谱高频段（>20GHz）可能出现2-3dB的伪造损耗。
+> 【落地注意】每段转换前验证：ABCD→S→ABCD的往返误差应<1e-6。级联>10段时建议3-5段为单位分组验证，定位误差累积段。
+
+### 3.4 级联实例：Via + 传输线
+
+典型场景：芯片封装过孔 + 1英寸微带线的级联建模。
+
+Via的实测S参数（@10GHz）：
+
+$$ [S]_{\text{via}} = \begin{bmatrix} -0.1235 - j0.1516 & 0.7597 - j0.6190 \\ 0.7597 - j0.6190 & -0.1235 - j0.1516 \end{bmatrix} $$
+
+1英寸50Ω微带线的解析ABCD参数：
+
+$$ [ABCD]_{\text{line}} = \begin{bmatrix} -1 & j0.3228 \\ j0.000129 & -1 \end{bmatrix} $$
+
+级联：$$ [ABCD]_{\text{cascade}} = [ABCD]_{\text{via}} \cdot [ABCD]_{\text{line}} $$
+
+转换回S参数后：
+
+$$ [S]_{\text{cascade}} = \begin{bmatrix} -0.1259 - j0.1553 & -0.7635 + j0.6186 \\ -0.7645 + j0.6182 & -0.1200 - j0.1565 \end{bmatrix} $$
+
+> 🔍 深度说明：
+> 【研究背景】此案例来自Hall《Advanced Signal Integrity》Ch9经典实例。一个GA封装过孔+1英寸微带线——与实际PCB设计中芯片到内层的过渡（微带线→过孔→带状线）高度类似。通过级联前后S参数对比直观展示高频寄生效应的累积。
+> 【核心结论】单看Via：|S₂₁|=0.98→~0.18dB插损；级联后|S₂₁|=0.98→~0.18dB(无明显恶化)，但S₁₁从-0.124-j0.152变为-0.126-j0.155，S₂₂类似微扰——级联的ABCD转换过程本身保持能量守恒。关键是验证级联前后|det(S)|²+|S₁₂|²=1(无源条件)的保持。
+> 【工程价值】实际信道建模包含：芯片BGA→封装RDL→微带线→焊球→过孔→带状线→连接器→背板→连接器→过孔→带状线→焊球→RDL→芯片BGA，共6-10段。传输线的ABCD参数可用解析公式（已知Z₀,β,长度L）：
+
+> $$ [ABCD]_{\text{line}} = \begin{bmatrix} \cos(\beta L) & jZ_0\sin(\beta L) \\ j\frac{1}{Z_0}\sin(\beta L) & \cos(\beta L) \end{bmatrix} $$
+
+> 而Via/连接器/BGA等3D结构的S参数只能通过3D电磁仿真(HFSS)或VNA实测获得。
+> 【落地注意】混合建模（解析+仿真+实测）是最佳方法。解析公式提供快速参数扫描（L从0.5到5英寸步进0.1英寸），3D仿真填补不规则结构，实测验证最终模型。
+
+### 3.5 四端口差分S参数
+
+差分信道需要4×4 S矩阵 → 混合模式转换分离差分/共模信号：
+
+$$ S_{dd11} = \frac{b_{d1}}{a_{d1}} \bigg|_{a_2=a_4=0} = \frac{1}{2}(S_{11} + S_{33} - S_{13} - S_{31}) $$
+
+$$ S_{dd21} = \frac{b_{d2}}{a_{d1}} \bigg|_{a_2=a_4=0} = \frac{1}{2}(S_{21} + S_{43} - S_{23} - S_{41}) $$
+
+混合模式四象限：SDD（差→差，主模）、SCC（共→共）、SCD（差→共，模式转换，衡量不对称度）、SDC（共→差）。SDD21是差分插入损耗——SerDes信道表征的核心参数。SCD11是差分→共模转换——来自走线skew、参考平面不对称等，应<-25dB。
+
+---
+
+## 四、信道脉冲响应生成
+
+### 4.1 S参数 → 脉冲响应
+
+脉冲响应h(t)是频域S参数和时域仿真的桥梁：
+
+$$ y(t) = h(t) \ast x(t) = \int_{-\infty}^{\infty} h(t-\tau)x(\tau)d\tau $$
+
+$$ h(t) = F^{-1}\{S_{21}(\omega)\} $$
+
+生成三步流程：
+1. **负频率构造**：S(-f) = S*(f) — 保证实数时域信号
+2. **零填充**：扩展频率域 → 提高时域采样密度
+3. **IFFT**：得到时域脉冲响应
+
+分辨率问题：$$ \Delta t = \frac{1}{2f_{\max}} $$
+
+f_max=15GHz → Δt≈33.3ps。需1ps分辨率 → 零填充至±500GHz。
+
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-043.ppm)
+
+> 🔍 深度说明：
+> 【研究背景】脉冲响应是连接频域S参数和时域链路仿真的核心桥梁。VNA测量的S₂₁(ω)是离散频点（50MHz-15GHz@10MHz步进），不能直接用于SPICE瞬态仿真。IFFT将离散频域数据转换为离散时域脉冲响应序列，再与PRBS/NRZ/PAM4发送脉冲卷积得到信道输出。
+> 【核心结论】零填充物理本质是频域插值（sinc函数插值）——不增加实际带宽信息，只提高时域采样密度。从±15GHz填充到±500GHz：原1501频点→50001频点，时域Δt从33.3ps→1ps。零填充后脉冲响应的包络和pre/post-cursor由原始15GHz带宽决定，只是采样更细腻。
+> 【工程价值】脉冲响应的前标(pre-cursor)和后标(post-cursor)直接决定均衡器设计。pre-cursor长度→FFE taps数量（前馈均衡寻道窗口）；post-cursor长度→DFE taps数量（判决反馈后标消除）。56G PAM4链路典型：8-16tap FFE + 4-8tap DFE。降采样脉冲响应到UI间隔（56G PAM4: ~35.7ps/UI）后计算各cursor权重系数。
+> 【落地注意】零填充倍数选择：8倍填充（33.3→4.2ps）已满足大多数工程需求；填充到1ps显著增加IFFT计算量（O(NlogN)，N从2400增至1M），仿真效率下降。建议：长度<10英寸填充8倍，10-20英寸填充16倍，>20英寸填充32倍。验证方法：IFFT→FFT对比原始S₂₁，差值<0.1dB@所有频点。
+
+### 4.2 脉冲响应验证
+
+对h(t)做FFT → 恢复S₂₁(ω) → 与原始VNA数据逐频点对比 → 差值应<0.1dB。任何显著偏差指示：截断效应（频率窗有限→Gibbs震荡）、零填充伪影（填充过多高频零→包络扭曲）、负频率构造错误（if S(-f)≠S*(f)→h(t)非实数）。
+
+### 4.3 不同信道脉冲响应对比
+
+| 信道 | 描述 | h(t)特征 |
+|------|------|---------|
+| 7" / 0 Connector | 桌面级短距离 | 主峰高窄(~1UI)、尾迹短(<5UI) |
+| 17" Refined BP / 2 Connectors | 长距离背钻背板 | 主峰展宽(~2UI)、尾迹中等(~10UI) |
+| 17" Legacy BP / 2 Connectors | 长距离未背钻 | 主峰展宽+谐振振铃(周期性尾迹) |
+
+背钻有无的核心差异：无背钻信道的脉冲响应后标出现周期性震荡峰（via stub谐振的时域表现），间隔~2L_stub/v_p。该振铃在均衡后仍残留，限制最高数据速率。
+
+---
+
+## 五、眼图与码间干扰（ISI）
+
+### 5.1 眼图形成与关键指标
+
+眼图通过重叠所有可能的比特序列波形评估链路质量。四个核心指标：
+
+| 指标 | 定义 | 工程阈值 |
+|------|------|---------|
+| 眼高(Eye Height) | 垂直张开度(mV) | <20mV→高BER风险，<10mV→无法可靠接收 |
+| 眼宽(Eye Width) | 水平张开度(ps或%UI) | <0.3UI→时序裕量不足 |
+| 抖动(Jitter) | 过零点偏差(ps) | RJ(rms)<1%UI，DJ(pp)<20%UI |
+| 眼图模板(Mask) | 禁止进入区域 | 协议特定(IEEE 802.3/OIF-CEI) |
+
+### 5.2 眼图 vs 数据速率 vs 信道
+
+数据速率提高 + 信道长度增长 = 双重ISI冲击。10Gb/s → 56Gb/s → 112Gb/s PAM4的Nyquist频率从5GHz增至28GHz——信道损耗增大约15dB（典型17英寸背板），眼高相应下降>80%。
+
+信道质量序列：短距离(7" PCIe) → 眼图开阔；中距(17" 背钻BP) → 眼图闭合但可见余量；长距(17" 未背钻BP) → 严重闭合，ISI占主导。
+
+### 5.3 码间干扰（ISI）
+
+ISI三大来源：
+1. **反射**：阻抗不连续 → 多重反射 → h(t)后标周期性波动
+2. **信道谐振**：via stub(λ/4) → 传输零点 → 时域振铃(t=2L/v_p)
+3. **色散/损耗**：不同频率不同衰减速度 → 脉冲展宽 → 尾迹跨多UI
+
+ISI在脉冲响应视角：每bit能量泄漏到相邻bit。前标(pre-cursor)=来自"未来bit"的提前干扰；后标(post-cursor)=来自"过去bit"的残留能量。
+
+![](/img/serdes/fundamentals/lectures/lecture3_ee720_tdr_spar_深度学习报告/_images/img-067.jpg)
+
+> 🔍 深度说明：
+> 【研究背景】IBM Meghelli在ISSCC 2006上展示的90nm CMOS 10Gb/s SerDes经典案例——16英寸背板+线卡走线+连接器+via stub的完整信道。这是信道损伤的"教科书级"演示：从TX端600mV开阔眼图到RX端几乎完全闭合的眼图。
+> 【核心结论】眼高退化路径：TX输出(600mV)→封装(~550mV)→线卡(~500mV)→连接器(~450mV)→背板(~300mV)→via stub(~200mV)。Stub谐振产生的振铃在眼图中形成"幽灵眼"——不同比特的眼图形态各异导致中心区域模糊重叠。总损伤>400mV(67%)，其中背板和stub贡献最大(>250mV)。
+> 【工程价值】ISI是信道均衡的主要目标：FFE/CTLE消除前标ISI（高频增强），DFE消除后标ISI（尾迹抵消）。每增加一个DFE tap多消除~1dB损耗效应。56G PAM4→4-8tap DFE，112G PAM4→8-16tap DFE。超出DFE能力的ISI需要CTLE预处理+CDR时钟恢复联合补偿。
+> 【落地注意】ISI时域特征决定均衡器架构：长尾迹(>10UI)→多tap DFE；短冲激(<5UI)→FFE/CTLE。DFE tap数受功耗(每个tap~2-5mW@28G)和面积(~0.01mm²/tap)约束。极限长尾迹(>30UI)需结合模拟CTLE前端处理——这就是传统CTLE+DFE混合架构的工程动机。
+
+---
+
+## 六、信道建模全流程
+
+### 6.1 从测量到仿真的六步流程
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│ 1. VNA S参数测量 (50MHz-15GHz @10MHz步进, 1501频点)            │
+│    → 输出: Touchstone .s2p/.s4p 文件 (S₁₁,S₂₁,S₁₂,S₂₂)         │
+├────────────────────────────────────────────────────────────────┤
+│ 2. S参数质量验证                                                │
+│    → 无源性检查(Σ|S|²<1)、因果性检查(h(t<0)=0)、插值去毛刺     │
+├────────────────────────────────────────────────────────────────┤
+│ 3. 负频率构造: S(-f) = S*(f)                                   │
+│    → 双边频谱 (DC→±15GHz)、保证实数脉冲响应                     │
+├────────────────────────────────────────────────────────────────┤
+│ 4. 零填充 (Zero Padding): 15GHz → 500GHz                       │
+│    → 时域分辨率 33.3ps → 1ps、IFFT点数 1501→50001              │
+├────────────────────────────────────────────────────────────────┤
+│ 5. IFFT → 脉冲响应 h(t)                                        │
+│    → 提取 pre-cursor/post-cursor/main-cursor 权重               │
+├────────────────────────────────────────────────────────────────┤
+│ 6. 验证: FFT(h(t)) vs 原始S₂₁(f) → 差值<0.1dB通过             │
+│    → 链路仿真: h(t)⊗发送波形 → 眼图 → BER估计                   │
+└────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 七、技术演进与展望
+
+### 7.1 测量技术演进
+
+| 时代 | TDR上升时间 | VNA频率 | 比特率 | 关键事件 |
+|------|-----------|---------|--------|---------|
+| 2000s | ~100ps | 20GHz | 1-3Gb/s NRZ | SATA/SAS, PCIe 1.0 |
+| 2010s | ~35ps | 50GHz | 10-28Gb/s NRZ | PCIe 3.0/4.0, CEI-28G |
+| 2020s | ~20ps | 70-110GHz | 56-112Gb/s PAM4 | PCIe 5.0/6.0, 400G/800G Eth |
+| 2030s | ~10ps | 110-220GHz | 224Gb/s+ PAM4 | 1.6T Ethernet, CPO互联 |
+
+### 7.2 信道建模趋势
+
+- **112G PAM4**: DC-28GHz宽带S参数，<0.5dB建模误差，级联>8段
+- **224G PAM4**: DC-56GHz极宽带，亚毫米级精度（TDR分辨率<2ps），串扰建模精细化
+- **统计信道模型+ML优化**: 贝叶斯参数提取、GP回归信道响应建模
+- **IBIS-AMI标准演进**: 支持更高阶调制、更复杂均衡拓扑
+
+---
+
+## 八、总结
+
+### 8.1 核心知识点矩阵
+
+| 模块 | 关键公式 | 核心参数 | 工程要点 |
+|------|---------|---------|---------|
+| TDR阻抗 | Z_T=Z₀(1+k)/(1-k) | V_STEP=1V→V_i=0.5V | V>0.5V高阻，V<0.5V低阻 |
+| TDR分辨率 | Δx>t_r·v_p | 28ps→4.2mm | 间距<2.1mm融合 |
+| C/L尖峰 | ΔV/V=(τ/t_r)[1-e^(-t_r/τ)] | τ_C=CZ₀/2, τ_L=L/2Z₀ | 下冲=C，上冲=L |
+| S参数 | b=Sa | S₁₁回波,S₂₁插损 | S₂₁决定链路预算 |
+| ABCD级联 | [A]total=Π[A_i] | Z_n=50Ω | 级联误差<1e-6/段 |
+| 脉冲响应 | h(t)=IFFT{S₂₁(ω)} | 零填至±500GHz | 1ps分辨率，8-32倍填充 |
+| ISI | Σh(t-kT) | pre/post-cursor | FFE(前)+DFE(后) |
+| 眼图 | 眼高/宽/抖动/模板 | BER<1e-15 | 四维sign-off |
+
+### 8.2 学习路径
+
+```
+入门阶段:
+1. 理解TDR反射原理 — V(t)→Z(t)→Z(x)转换公式
+2. 掌握S参数物理意义 — S₁₁/S₂₁/S₁₂/S₂₂由b₁,b₂定义
+3. 学习ABCD级联 — S→ABCD→S，矩阵乘法规则
+
+进阶阶段:
+4. S↔ABCD转换公式推导 — Z_n参考阻抗，行列式AD-BC
+5. 差分混合模式S参数 — SDD/SCC/SCD/SDC四象限
+6. 脉冲响应验证 — FFT(h(t)) vs 原始S参数的闭环验证
+
+实战阶段:
+7. IFFT零填充参数选择 — 8x/16x/32x的时间-精度权衡
+8. 统计链路仿真 — 脉冲响应×PRBS → 眼图 → BER
+9. IBIS-AMI模型构建 — 信道模型+均衡器模型联合仿真
+10. TDR+VNA联合表征 — 定位(TDR)+定量(VNA)闭环
+```
+
+---
+
+*本报告基于ECEN720 Spring 2023 Lecture 3原始幻灯片(Dally Ch3/3.4/3.6-3.7 TDR + Hall Ch9 S-Parameter)，结合TDR时域反射理论、S参数级联方法、脉冲响应生成流程和IBM Meghelli ISSCC 2006 10Gb/s SerDes眼图案例重新深度学习整理，2026/04/27*
