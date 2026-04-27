@@ -1,3 +1,16 @@
+---
+layout: post
+title:      "lecture3 ee720 tdr spar 深度学习报告"
+date:       2026-04-21 09:25:41
+author:     "Bert"
+tags:
+  - Fundamentals
+  - Lecture
+  - SerDes
+  - TDR
+  - 深度学习
+---
+
 # ECEN720 Lecture 3: Time-Domain Reflectometry & S-Parameter Channel Models — 深度学习报告
 
 **课程**: ECEN720: High-Speed Links Circuits and Systems, Spring 2023
